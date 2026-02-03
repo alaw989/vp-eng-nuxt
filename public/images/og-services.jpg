@@ -1,0 +1,36 @@
+<!-- SVG Open Graph image for Services page - 1200x630 -->
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="servicesGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#033379"/>
+      <stop offset="100%" style="stop-color:#BE0000"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#servicesGrad)"/>
+
+  <!-- Gear icon -->
+  <g transform="translate(950, 280)" opacity="0.15">
+    <circle cx="60" cy="60" r="50" fill="none" stroke="white" stroke-width="15"/>
+    <circle cx="60" cy="60" r="20" fill="white"/>
+    <g fill="white">
+      <rect x="52" y="0" width="16" height="30" rx="3"/>
+      <rect x="52" y="90" width="16" height="30" rx="3"/>
+      <rect x="0" y="52" width="30" height="16" rx="3"/>
+      <rect x="90" y="52" width="30" height="16" rx="3"/>
+    </g>
+  </g>
+
+  <g transform="translate(100, 220)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="white">
+      Our Services
+    </text>
+    <rect x="0" y="25" width="150" height="4" fill="white" fill-opacity="0.8"/>
+    <text x="0" y="80" font-family="Arial, sans-serif" font-size="28" fill="white" fill-opacity="0.9">
+      Complete Structural Engineering Solutions
+    </text>
+    <text x="0" y="130" font-family="Arial, sans-serif" font-size="24" fill="white" fill-opacity="0.8">
+      Steel Design • Concrete • Masonry • Foundations • Seawalls
+    </text>
+  </g>
+</svg>

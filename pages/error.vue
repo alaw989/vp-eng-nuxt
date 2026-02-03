@@ -72,6 +72,20 @@
             <Icon name="mdi:email" class="w-4 h-4" />
             Contact
           </NuxtLink>
+          <NuxtLink
+            to="/search"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            <Icon name="mdi:magnify" class="w-4 h-4" />
+            Search
+          </NuxtLink>
+          <NuxtLink
+            to="/sitemap"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            <Icon name="mdi:sitemap" class="w-4 h-4" />
+            Site Map
+          </NuxtLink>
         </div>
       </div>
     </div>

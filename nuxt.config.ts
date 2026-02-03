@@ -34,6 +34,7 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://vp-associates.com' },
         { rel: 'preconnect', href: 'https://api.iconify.design' },
         { rel: 'dns-prefetch', href: 'https://api.iconify.design' },
+        { rel: 'alternate', type: 'application/rss+xml', title: 'VP Associates RSS Feed', href: 'https://vp-associates.com/api/rss.xml' },
       ],
     },
     pageTransition: {

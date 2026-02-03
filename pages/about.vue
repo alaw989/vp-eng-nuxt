@@ -122,6 +122,7 @@
           :name="member.name"
           :title="member.title"
           :bio="member.bio"
+          :photo="member.photo"
           :email="member.email"
           :phone="member.phone"
         />
@@ -245,28 +246,32 @@ const leadership = [
     title: 'President & Principal Engineer',
     bio: 'Founder and principal engineer with 35+ years of structural engineering experience. Licensed in Florida and multiple states. Specializes in complex commercial and marine structures.',
     email: 'vincent@vp-associates.com',
-    phone: '+18135551201'
+    phone: '+18135551201',
+    photo: '/images/team-1.svg'
   },
   {
     name: 'Jennifer Martinez, P.E.',
     title: 'Vice President',
     bio: '20+ years of experience in structural design and project management. Expert in concrete and masonry design. Leads our commercial development projects.',
     email: 'jennifer@vp-associates.com',
-    phone: '+18135551202'
+    phone: '+18135551202',
+    photo: '/images/team-2.svg'
   },
   {
     name: 'David Kim, P.E.',
     title: 'Senior Project Engineer',
     bio: '15+ years specializing in steel connection design and detailing. SDS2 expert and BIM specialist. Manages our industrial and marine projects.',
     email: 'david@vp-associates.com',
-    phone: '+18135551203'
+    phone: '+18135551203',
+    photo: '/images/team-3.svg'
   },
   {
     name: 'Sarah Thompson, P.E.',
     title: 'Project Manager',
     bio: '12+ years in structural engineering with focus on residential and light commercial projects. Expert in foundation design and seawall structures.',
     email: 'sarah@vp-associates.com',
-    phone: '+18135551204'
+    phone: '+18135551204',
+    photo: '/images/team-4.svg'
   }
 ]
 
