@@ -82,6 +82,9 @@ export default defineNuxtConfig({
       '/contact': { prerender: true },
       '/search': { prerender: true },
       '/sitemap': { prerender: true },
+      '/privacy': { prerender: true },
+      '/terms': { prerender: true },
+      '/accessibility': { prerender: true },
     },
   },
 

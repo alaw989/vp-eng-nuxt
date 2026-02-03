@@ -1,24 +1,24 @@
 # VP Associates Nuxt 3 Migration - Shared Task Notes
 
 ## Current Status (2026-02-03)
-**Deployment Ready - Careers Section Added**
+**Deployment Ready - Legal Pages Added**
 
-The Nuxt 3 migration is functionally complete with a new Careers section for recruiting talent. Build passes successfully.
+The Nuxt 3 migration is functionally complete with legal pages (Privacy, Terms, Accessibility) added. Build passes successfully.
 
 **Git Status**: Clean working tree, on `master` branch, no remote configured.
 
 **Latest Changes (This Iteration)**:
-- **NEW: Careers section** - Full recruiting and hiring pages
-  - `/pages/careers.vue` - Main careers page with job listings, company culture, benefits, and application process
-  - `/pages/careers/[slug].vue` - Individual job position detail pages with JobPosting schema
-  - `/server/api/careers/[slug].get.ts` - API endpoint for position data with 4 sample positions
-  - AppHeader updated with Careers link in navigation (desktop and mobile)
-  - Sitemap updated to include Careers page
-  - nuxt.config.ts updated with `/careers` prerender route
-- **Job positions include**: Structural Engineer, Senior Structural Engineer, CAD/BIM Technician, Project Manager
-- **Features**: Detailed job descriptions, responsibilities, qualifications, benefits, social sharing buttons, related positions
+- **NEW: Legal pages** - Professional legal documentation pages
+  - `/pages/privacy.vue` - Privacy Policy with data collection, usage, and user rights information
+  - `/pages/terms.vue` - Terms of Service with legal disclaimers and Florida professional engineering notice
+  - `/pages/accessibility.vue` - Accessibility Statement with WCAG 2.1 AA compliance details
+  - All pages include breadcrumbs, proper SEO meta tags, and noindex directive
+  - nuxt.config.ts updated with prerender routes for /privacy, /terms, /accessibility
+- **Features**: Professional formatting, contact information sections, accessibility resources links
+- **Note**: These pages complete the Resources section linked from the sitemap
 
 **Previous Changes**:
+- Careers section for recruiting and hiring
 - SEO consistency improvements with usePageMeta composable across all pages
 - Team member placeholder images (4 SVG files)
 - RSS Feed endpoint and autodiscovery
@@ -441,15 +441,18 @@ pages/
 ├── about.vue              # About page (with team photos)
 ├── contact.vue            # Contact page (with validation)
 ├── error.vue              # 404 error page (with Search/Sitemap links)
-├── sitemap.vue            # Site map page (with Careers link)
+├── sitemap.vue            # Site map page (with all pages)
 ├── search.vue             # Site search page
+├── privacy.vue            # Privacy Policy page (NEW)
+├── terms.vue              # Terms of Service page (NEW)
+├── accessibility.vue      # Accessibility Statement page (NEW)
 ├── services/
 │   ├── index.vue          # Services listing page
 │   └── [slug].vue         # Service detail pages
 ├── projects/
 │   ├── index.vue          # Projects listing page
 │   └── [slug].vue         # Project detail pages
-└── careers/               # NEW: Careers section
+└── careers/               # Careers section
     ├── index.vue          # Careers page with job listings and company culture
     └── [slug].vue         # Individual job position detail pages
 ```
@@ -540,6 +543,7 @@ plugins/
 
 ### Optional Enhancements
 - ~~Add search functionality~~ - COMPLETED: Site search page with fuzzy matching
+- ~~Add legal pages (Privacy, Terms, Accessibility)~~ - COMPLETED: Professional legal documentation pages (LATEST)
 - Implement dark mode toggle
 - Add blog/news section
 - ~~Add client logos section~~ - COMPLETED: ClientLogos component
@@ -620,13 +624,13 @@ npm run preview # Preview production build
 - [x] Open Graph placeholder images
 - [x] usePageMeta composable for consistent meta tags
 - [x] Enhanced 404 page with Search/Sitemap links
-- [x] Careers section with job listings (LATEST)
-- [x] Job position detail pages with JobPosting schema (LATEST)
-- [x] Careers API endpoint with 4 sample positions (LATEST)
-- [x] Careers navigation link added to header (LATEST)
-- [x] Open Graph placeholder images (LATEST)
-- [x] usePageMeta composable for consistent meta tags (LATEST)
-- [x] Enhanced 404 page with Search/Sitemap links (LATEST)
+- [x] Careers section with job listings
+- [x] Job position detail pages with JobPosting schema
+- [x] Careers API endpoint with 4 sample positions
+- [x] Careers navigation link added to header
+- [x] Privacy Policy page with data handling information (LATEST)
+- [x] Terms of Service page with legal disclaimers (LATEST)
+- [x] Accessibility Statement page with WCAG compliance details (LATEST)
 
 ### ✅ Deployment Items (NEWLY COMPLETED)
 - [x] Git repository initialized
