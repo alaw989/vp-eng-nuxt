@@ -1,5 +1,8 @@
 <template>
-  <header class="bg-white shadow-sm sticky top-0 z-50">
+  <header
+    class="sticky top-0 z-50 transition-shadow duration-300"
+    :class="isScrolled ? 'bg-white shadow-md' : 'bg-white'"
+  >
     <div class="container">
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
@@ -128,6 +131,20 @@
 
 <script setup lang="ts">
 const isOpen = ref(false)
+const isScrolled = ref(false)
+
+// Track scroll position for shadow effect
+onMounted(() => {
+  const handleScroll = () => {
+    isScrolled.value = window.scrollY > 10
+  }
+  window.addEventListener('scroll', handleScroll)
+  handleScroll() // Initial check
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+  })
+})
 
 // Close menu when route changes
 const route = useRoute()

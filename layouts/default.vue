@@ -1,5 +1,8 @@
 <template>
   <div class="min-h-screen flex flex-col">
+    <!-- Page loading progress bar -->
+    <PageLoadingBar />
+
     <!-- Skip to main content link for accessibility -->
     <a
       href="#main-content"
@@ -13,5 +16,6 @@
       <slot />
     </main>
     <AppFooter />
+    <BackToTop />
   </div>
 </template>

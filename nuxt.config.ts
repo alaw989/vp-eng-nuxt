@@ -36,8 +36,14 @@ export default defineNuxtConfig({
         { rel: 'dns-prefetch', href: 'https://api.iconify.design' },
       ],
     },
-    pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' },
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
+    layoutTransition: {
+      name: 'layout',
+      mode: 'out-in',
+    },
   },
 
   // Sitemap configuration - will use environment variable NUXT_PUBLIC_SITE_URL

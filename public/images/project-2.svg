@@ -1,0 +1,22 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#BE0000;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#8a0000;stop-opacity:0.25" />
+    </linearGradient>
+    <pattern id="grid2" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="1" fill="#BE0000" fill-opacity="0.1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#grad2)"/>
+  <rect width="800" height="600" fill="url(#grid2)"/>
+  <g opacity="0.2">
+    <polygon points="400,50 750,550 50,550" fill="#BE0000"/>
+    <rect x="300" y="250" width="200" height="300" fill="#ffffff"/>
+    <rect x="320" y="270" width="70" height="50" fill="#BE0000"/>
+    <rect x="410" y="270" width="70" height="50" fill="#BE0000"/>
+    <rect x="320" y="340" width="70" height="50" fill="#BE0000"/>
+    <rect x="410" y="340" width="70" height="50" fill="#BE0000"/>
+    <rect x="350" y="450" width="100" height="100" fill="#BE0000"/>
+  </g>
+</svg>
