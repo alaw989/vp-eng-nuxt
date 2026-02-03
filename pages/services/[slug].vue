@@ -64,10 +64,18 @@
       <AppSection bg-color="white" animate-on-scroll>
         <div class="grid md:grid-cols-2 gap-12">
           <div>
-            <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6">
-              About This Service
-            </h2>
+            <div class="flex items-start justify-between mb-6">
+              <h2 class="text-3xl font-display font-bold text-neutral-900">
+                About This Service
+              </h2>
+            </div>
             <div class="prose prose-lg max-w-none text-neutral-600" v-html="service.content.rendered"></div>
+            <div class="mt-6 pt-6 border-t border-neutral-200 social-share">
+              <SocialShare
+                :title="service.title.rendered"
+                :description="serviceDescription"
+              />
+            </div>
           </div>
           <div>
             <h3 class="text-2xl font-bold text-neutral-900 mb-6">

@@ -83,7 +83,14 @@
             <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6">
               Project Overview
             </h2>
-            <div class="prose prose-lg max-w-none text-neutral-600 mb-8" v-html="project.content.rendered"></div>
+            <div class="prose prose-lg max-w-none text-neutral-600 mb-6" v-html="project.content.rendered"></div>
+
+            <div class="mb-8 pt-6 border-t border-neutral-200 social-share">
+              <SocialShare
+                :title="project.title.rendered"
+                :description="projectDescription"
+              />
+            </div>
 
             <h3 class="text-2xl font-bold text-neutral-900 mb-4">
               Services Provided

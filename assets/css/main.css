@@ -128,3 +128,73 @@
   opacity: 0;
   transform: translateY(-10px);
 }
+
+/* Print styles for better page printing */
+@media print {
+  /* Hide elements that shouldn't be printed */
+  header,
+  footer,
+  .back-to-top,
+  .page-loading-bar,
+  .social-share,
+  button:not([type="submit"]),
+  [role="navigation"],
+  [aria-label*="menu"],
+  [aria-label*="navigation"] {
+    display: none !important;
+  }
+
+  /* Ensure content is readable */
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  /* Ensure links are readable */
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+
+  /* Add page break before major sections */
+  .section {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure images don't overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+    page-break-inside: avoid;
+  }
+
+  /* Improve heading print quality */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    color: #000;
+  }
+
+  /* Add URL to printed page */
+  @page {
+    margin: 1.5cm;
+  }
+
+  /* Print footer with URL */
+  body::after {
+    content: "Source: VP Associates - https://vp-associates.com";
+    display: block;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 2em;
+    border-top: 1px solid #ccc;
+    padding-top: 0.5em;
+  }
+}
