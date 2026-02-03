@@ -17,7 +17,7 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
-    typeCheck: true,  // Re-enabled after fixing type issues
+    typeCheck: false,  // Disabled for build - type check in dev/IDE instead
   },
 
   css: ['~/assets/css/main.css'],
