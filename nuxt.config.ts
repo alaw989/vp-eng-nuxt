@@ -58,4 +58,28 @@ export default defineNuxtConfig({
       xxl: 1536,
     },
   },
+
+  // Nitro server configuration for deployment
+  nitro: {
+    preset: 'node-server',
+    routeRules: {
+      '/': { prerender: true },
+      '/about': { prerender: true },
+      '/services': { prerender: true },
+      '/projects': { prerender: true },
+      '/contact': { prerender: true },
+    },
+  },
+
+  // Runtime config for environment variables
+  runtimeConfig: {
+    // Private keys (server-side only)
+    wpApiUrl: process.env.WP_API_URL || 'https://whataustinhasmade.com/vp-eng/wp-json/wp/v2',
+
+    // Public keys (exposed to client)
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://vp-associates.com',
+      wpApiUrl: process.env.NUXT_PUBLIC_WP_API_URL || 'https://whataustinhasmade.com/vp-eng/wp-json/wp/v2',
+    },
+  },
 })

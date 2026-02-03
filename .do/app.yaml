@@ -1,0 +1,22 @@
+spec:
+  name: vp-associates-website
+  services:
+    - name: web
+      github:
+        repo: your-username/vp-eng-nuxt
+        branch: main
+      build_command: npm run build
+      run_command: npm run start
+      environment_slug: node-js
+      envs:
+        - key: NODE_ENV
+          value: production
+        - key: NUXT_PUBLIC_SITE_URL
+          value: https://vp-associates.com
+        - key: PORT
+          value: 3000
+      instance_count: 1
+      instance_size_slug: basic-xxs
+      routes:
+        - path: /
+      http_port: 3000
