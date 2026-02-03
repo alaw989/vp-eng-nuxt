@@ -162,17 +162,12 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: 'Projects | VP Associates Structural Engineering Portfolio',
-  meta: [
-    { name: 'description', content: 'Browse VP Associates\' portfolio of structural engineering projects across Tampa Bay including commercial, marine, residential, and industrial projects.' },
-    { name: 'keywords', content: 'structural engineering portfolio, engineering projects, Tampa Bay projects, commercial engineering, marine structures' },
-    { property: 'og:title', content: 'Projects | VP Associates Structural Engineering Portfolio' },
-    { property: 'og:description', content: 'Explore our portfolio of successful structural engineering projects across Tampa Bay.' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://vp-associates.com/projects' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-  ],
+// SEO Meta Tags
+usePageMeta({
+  title: 'Projects',
+  description: 'Browse VP Associates\' portfolio of structural engineering projects across Tampa Bay including commercial, marine, residential, and industrial projects.',
+  keywords: 'structural engineering portfolio, engineering projects, Tampa Bay projects, commercial engineering, marine structures',
+  ogImage: 'https://vp-associates.com/images/og-projects.jpg',
 })
 
 const selectedCategory = ref('all')

@@ -231,20 +231,12 @@
 
 <script setup lang="ts">
 // SEO Meta Tags
-useHead({
+usePageMeta({
   title: 'VP Associates - Structural Engineering Services Tampa Bay',
-  meta: [
-    { name: 'description', content: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.' },
-    { name: 'keywords', content: 'structural engineering, Tampa Bay, steel design, concrete design, foundation design, seawall design, Florida engineer, VP Associates' },
-    { property: 'og:title', content: 'VP Associates - Structural Engineering Services Tampa Bay' },
-    { property: 'og:description', content: 'Trusted structural engineers serving Tampa Bay for over 30 years. Steel, concrete, masonry, foundations, seawalls, and more.' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://vp-associates.com' },
-    { property: 'og:image', content: 'https://vp-associates.com/images/og-home.jpg' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'VP Associates - Structural Engineering Services Tampa Bay' },
-    { name: 'twitter:description', content: 'Trusted structural engineers serving Tampa Bay for over 30 years.' },
-  ],
+  titleSuffix: false,
+  description: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.',
+  keywords: 'structural engineering, Tampa Bay, steel design, concrete design, foundation design, seawall design, Florida engineer, VP Associates',
+  ogImage: 'https://vp-associates.com/images/og-home.jpg',
 })
 
 // LocalBusiness Schema

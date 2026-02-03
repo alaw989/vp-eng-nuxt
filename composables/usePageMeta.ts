@@ -7,6 +7,9 @@ interface PageMetaOptions {
   ogImage?: string
   ogType?: 'website' | 'article'
   noindex?: boolean
+  keywords?: string
+  titleSuffix?: boolean
+  robots?: string
 }
 
 export function usePageMeta(options: PageMetaOptions) {
@@ -18,12 +21,15 @@ export function usePageMeta(options: PageMetaOptions) {
     description,
     ogImage = `${siteUrl}/images/og-default.jpg`,
     ogType = 'website',
-    noindex = false
+    noindex = false,
+    keywords,
+    titleSuffix = true,
+    robots,
   } = options
 
-  const fullTitle = `${title} | VP Associates`
+  const fullTitle = titleSuffix ? `${title} | VP Associates` : title
 
-  const metaTags = [
+  const metaTags: Array<{ name?: string; property?: string; content: string }> = [
     // Basic SEO
     { name: 'description', content: description },
 
@@ -48,12 +54,20 @@ export function usePageMeta(options: PageMetaOptions) {
 
     // Additional SEO
     { name: 'author', content: 'VP Associates' },
-    { name: 'keywords', content: 'structural engineering, Tampa Bay, VP Associates, ' + title.toLowerCase() },
   ]
 
-  // Add noindex if specified
+  // Add custom keywords if provided, otherwise use auto-generated
+  if (keywords) {
+    metaTags.push({ name: 'keywords', content: keywords })
+  } else {
+    metaTags.push({ name: 'keywords', content: 'structural engineering, Tampa Bay, VP Associates, ' + title.toLowerCase() })
+  }
+
+  // Handle robots meta tag
   if (noindex) {
     metaTags.push({ name: 'robots', content: 'noindex, nofollow' })
+  } else if (robots) {
+    metaTags.push({ name: 'robots', content: robots })
   }
 
   useHead({

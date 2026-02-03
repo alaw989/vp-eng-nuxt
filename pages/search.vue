@@ -200,12 +200,11 @@
 
 <script setup lang="ts">
 // SEO Meta Tags
-useHead({
-  title: 'Search - VP Associates',
-  meta: [
-    { name: 'description', content: 'Search VP Associates website for services, projects, and information.' },
-    { name: 'robots', content: 'noindex, follow' },
-  ],
+usePageMeta({
+  title: 'Search',
+  titleSuffix: false,
+  description: 'Search VP Associates website for services, projects, and information.',
+  robots: 'noindex, follow',
 })
 
 // State

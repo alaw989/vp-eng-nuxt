@@ -204,16 +204,9 @@ const aboutBreadcrumbs = [
 ]
 
 // SEO Meta Tags
-useHead({
-  title: 'About VP Associates | Structural Engineers Tampa Bay',
-  meta: [
-    { name: 'description', content: 'Learn about VP Associates, Tampa Bay\'s trusted structural engineering firm for over 30 years. Meet our team and discover our commitment to excellence.' },
-    { property: 'og:title', content: 'About VP Associates | Structural Engineers Tampa Bay' },
-    { property: 'og:description', content: 'VP Associates has been providing exceptional structural engineering services to the Tampa Bay area for over 30 years.' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://vp-associates.com/about' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-  ],
+usePageMeta({
+  title: 'About VP Associates',
+  description: 'Learn about VP Associates, Tampa Bay\'s trusted structural engineering firm for over 30 years. Meet our team and discover our commitment to excellence.',
 })
 
 // Organization Schema

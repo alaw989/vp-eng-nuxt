@@ -468,28 +468,27 @@ const otherServices = ref([
 // SEO Meta Tags
 useHead({
   title: computed(() => `${service.value?.title?.rendered || 'Service'} | VP Associates`),
-  meta: computed(() => [
-    {
-      name: 'description',
-      content: serviceDescription.value
-    },
-    {
-      property: 'og:title',
-      content: `${service.value?.title?.rendered || 'Service'} | VP Associates`
-    },
-    {
-      property: 'og:description',
-      content: serviceDescription.value
-    },
-    {
-      property: 'og:type',
-      content: 'article'
-    },
-    {
-      property: 'og:url',
-      content: `https://vp-associates.com/services/${slug}`
-    }
-  ])
+  meta: computed(() => {
+    const title = service.value?.title?.rendered || 'Service'
+    return [
+      { name: 'description', content: serviceDescription.value },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:site_name', content: 'VP Associates' },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: serviceDescription.value },
+      { property: 'og:url', content: `https://vp-associates.com/services/${slug}` },
+      { property: 'og:image', content: 'https://vp-associates.com/images/og-services.jpg' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:image:alt', content: title },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@vpassociates' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: serviceDescription.value },
+      { name: 'twitter:image', content: 'https://vp-associates.com/images/og-services.jpg' },
+      { name: 'author', content: 'VP Associates' },
+    ]
+  })
 })
 
 // Service Schema

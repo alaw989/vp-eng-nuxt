@@ -357,28 +357,27 @@ const relatedProjects = ref([
 // SEO Meta Tags
 useHead({
   title: computed(() => `${project.value?.title?.rendered || 'Project'} | VP Associates Projects`),
-  meta: computed(() => [
-    {
-      name: 'description',
-      content: projectDescription.value
-    },
-    {
-      property: 'og:title',
-      content: `${project.value?.title?.rendered || 'Project'} | VP Associates Projects`
-    },
-    {
-      property: 'og:description',
-      content: projectDescription.value
-    },
-    {
-      property: 'og:type',
-      content: 'article'
-    },
-    {
-      property: 'og:url',
-      content: `https://vp-associates.com/projects/${slug}`
-    }
-  ])
+  meta: computed(() => {
+    const title = project.value?.title?.rendered || 'Project'
+    return [
+      { name: 'description', content: projectDescription.value },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:site_name', content: 'VP Associates' },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: projectDescription.value },
+      { property: 'og:url', content: `https://vp-associates.com/projects/${slug}` },
+      { property: 'og:image', content: 'https://vp-associates.com/images/og-projects.jpg' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:image:alt', content: title },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@vpassociates' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: projectDescription.value },
+      { name: 'twitter:image', content: 'https://vp-associates.com/images/og-projects.jpg' },
+      { name: 'author', content: 'VP Associates' },
+    ]
+  })
 })
 
 // Project Schema

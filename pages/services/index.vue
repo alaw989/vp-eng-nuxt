@@ -209,17 +209,12 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: 'Services | VP Associates Structural Engineering',
-  meta: [
-    { name: 'description', content: 'VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.' },
-    { name: 'keywords', content: 'structural steel design, concrete design, masonry design, wood design, foundation design, seawall design, steel detailing, Tampa Bay engineering' },
-    { property: 'og:title', content: 'Services | VP Associates Structural Engineering' },
-    { property: 'og:description', content: 'Comprehensive structural engineering solutions for projects of all sizes. Steel, concrete, masonry, foundations, and more.' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://vp-associates.com/services' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-  ],
+// SEO Meta Tags
+usePageMeta({
+  title: 'Services',
+  description: 'VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.',
+  keywords: 'structural steel design, concrete design, masonry design, wood design, foundation design, seawall design, steel detailing, Tampa Bay engineering',
+  ogImage: 'https://vp-associates.com/images/og-services.jpg',
 })
 
 interface Service {

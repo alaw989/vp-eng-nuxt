@@ -93,11 +93,12 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: '404 - Page Not Found | VP Associates',
-  meta: [
-    { name: 'robots', content: 'noindex, nofollow' },
-  ],
+// SEO Meta Tags
+usePageMeta({
+  title: '404 - Page Not Found',
+  titleSuffix: false,
+  description: 'The page you are looking for could not be found.',
+  noindex: true,
 })
 
 const goBack = () => {

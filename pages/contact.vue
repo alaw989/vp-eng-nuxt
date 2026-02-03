@@ -314,17 +314,11 @@ const contactBreadcrumbs = [
   { title: 'Contact' }
 ]
 
-useHead({
-  title: 'Contact Us | VP Associates Structural Engineering',
-  meta: [
-    { name: 'description', content: 'Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 555-1234 or visit our office at 123 Main Street, Suite 100, Tampa, FL.' },
-    { name: 'keywords', content: 'contact structural engineer, Tampa Bay engineering, VP Associates contact, engineering consultation' },
-    { property: 'og:title', content: 'Contact Us | VP Associates Structural Engineering' },
-    { property: 'og:description', content: 'Get in touch with our team of experienced structural engineers. Call us or visit our Tampa office.' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://vp-associates.com/contact' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-  ],
+// SEO Meta Tags
+usePageMeta({
+  title: 'Contact Us',
+  description: 'Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 555-1234 or visit our office at 123 Main Street, Suite 100, Tampa, FL.',
+  keywords: 'contact structural engineer, Tampa Bay engineering, VP Associates contact, engineering consultation',
 })
 
 // Contact Schema

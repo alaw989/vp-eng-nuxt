@@ -163,15 +163,11 @@
 
 <script setup lang="ts">
 // SEO Meta Tags
-useHead({
-  title: 'Site Map - VP Associates',
-  meta: [
-    { name: 'description', content: 'Complete site map of VP Associates website. Find all pages, services, and projects.' },
-    { name: 'keywords', content: 'sitemap, site map, navigation, VP Associates' },
-    { property: 'og:title', content: 'Site Map - VP Associates' },
-    { property: 'og:description', content: 'Complete site map of VP Associates website.' },
-    { property: 'og:type', content: 'website' },
-  ],
+usePageMeta({
+  title: 'Site Map',
+  titleSuffix: false,
+  description: 'Complete site map of VP Associates website. Find all pages, services, and projects.',
+  keywords: 'sitemap, site map, navigation, VP Associates',
 })
 
 // Main pages data
