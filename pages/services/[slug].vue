@@ -291,7 +291,7 @@ const staticServices: Record<string, any> = {
     excerpt: { rendered: '<p>Deep and shallow foundation engineering solutions</p>' },
     content: { rendered: '<p>Our foundation design services address the unique challenges of Florida\'s soil conditions and water table. We provide comprehensive foundation engineering for all structure types.</p><p>We specialize in shallow foundations, deep foundation systems including piles and drilled shafts, mat foundations, and foundation retrofit/repair solutions.</p>' },
     acf: {
-      icon: 'mdi:home-foundation',
+      icon: 'mdi:home-floor-0',
       capabilities: [
         'Shallow foundations',
         'Deep foundation systems',
@@ -460,7 +460,7 @@ const otherServices = ref([
   {
     title: 'Foundation Design',
     description: 'Deep and shallow foundations',
-    icon: 'mdi:home-foundation',
+    icon: 'mdi:home-floor-0',
     slug: 'foundation-design'
   }
 ])

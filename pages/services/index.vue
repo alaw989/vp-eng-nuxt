@@ -296,7 +296,7 @@ const allServices: Service[] = [
     title: 'Foundation Design',
     slug: 'foundation-design',
     description: 'Comprehensive foundation engineering for all structure types. Deep foundations including piles and drilled shafts, shallow foundations, and mat foundations.',
-    icon: 'mdi:home-foundation',
+    icon: 'mdi:home-floor-0',
     capabilities: [
       'Shallow foundations',
       'Deep foundation systems',

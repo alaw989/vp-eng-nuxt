@@ -246,7 +246,7 @@ const services = [
   {
     title: 'Foundation Design',
     description: 'Deep and shallow foundation engineering solutions',
-    icon: 'mdi:home-foundation'
+    icon: 'mdi:home-floor-0'
   },
   {
     title: 'Seawall Design',
