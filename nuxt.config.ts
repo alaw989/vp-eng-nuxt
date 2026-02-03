@@ -17,7 +17,7 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
-    typeCheck: false,  // Disabled for build - type check in dev/IDE instead
+    typeCheck: true,  // Enabled for production builds
   },
 
   css: ['~/assets/css/main.css'],
@@ -43,6 +43,8 @@ export default defineNuxtConfig({
   sitemap: {
     // Exclude dynamic routes that need server-side data
     exclude: ['/api/**'],
+    // Enable zero-runtime to reduce server bundle size
+    zeroRuntime: true,
   },
 
   // Image optimization configuration
