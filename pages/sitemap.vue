@@ -197,6 +197,12 @@ const mainPages = [
     description: 'Project portfolio'
   },
   {
+    label: 'Careers',
+    href: '/careers',
+    icon: 'mdi:briefcase',
+    description: 'Join our team'
+  },
+  {
     label: 'Contact',
     href: '/contact',
     icon: 'mdi:email',

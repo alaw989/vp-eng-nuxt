@@ -78,7 +78,10 @@ export default defineNuxtConfig({
       '/about': { prerender: true },
       '/services': { prerender: true },
       '/projects': { prerender: true },
+      '/careers': { prerender: true },
       '/contact': { prerender: true },
+      '/search': { prerender: true },
+      '/sitemap': { prerender: true },
     },
   },
 

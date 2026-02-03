@@ -1,20 +1,25 @@
 # VP Associates Nuxt 3 Migration - Shared Task Notes
 
 ## Current Status (2026-02-03)
-**Deployment Ready - SEO Consistency Improved**
+**Deployment Ready - Careers Section Added**
 
-The Nuxt 3 migration is functionally complete with improved SEO consistency across all pages. Build passes successfully.
+The Nuxt 3 migration is functionally complete with a new Careers section for recruiting talent. Build passes successfully.
 
 **Git Status**: Clean working tree, on `master` branch, no remote configured.
 
 **Latest Changes (This Iteration)**:
-- **ENHANCED: usePageMeta composable** - Now integrated across all pages for consistent meta tags
-  - Added support for custom keywords, optional title suffix, and custom robots directives
-  - Integrated into: index, about, contact, services, projects, search, sitemap, error pages
-  - Dynamic pages (services/[slug], projects/[slug]) updated with complete Open Graph tags
-- **Improved SEO consistency**: All pages now use uniform meta tag structure with Open Graph and Twitter Cards
+- **NEW: Careers section** - Full recruiting and hiring pages
+  - `/pages/careers.vue` - Main careers page with job listings, company culture, benefits, and application process
+  - `/pages/careers/[slug].vue` - Individual job position detail pages with JobPosting schema
+  - `/server/api/careers/[slug].get.ts` - API endpoint for position data with 4 sample positions
+  - AppHeader updated with Careers link in navigation (desktop and mobile)
+  - Sitemap updated to include Careers page
+  - nuxt.config.ts updated with `/careers` prerender route
+- **Job positions include**: Structural Engineer, Senior Structural Engineer, CAD/BIM Technician, Project Manager
+- **Features**: Detailed job descriptions, responsibilities, qualifications, benefits, social sharing buttons, related positions
 
 **Previous Changes**:
+- SEO consistency improvements with usePageMeta composable across all pages
 - Team member placeholder images (4 SVG files)
 - RSS Feed endpoint and autodiscovery
 - Open Graph placeholder images (4 OG images)
@@ -436,14 +441,17 @@ pages/
 ├── about.vue              # About page (with team photos)
 ├── contact.vue            # Contact page (with validation)
 ├── error.vue              # 404 error page (with Search/Sitemap links)
-├── sitemap.vue            # Site map page
+├── sitemap.vue            # Site map page (with Careers link)
 ├── search.vue             # Site search page
 ├── services/
 │   ├── index.vue          # Services listing page
 │   └── [slug].vue         # Service detail pages
-└── projects/
-    ├── index.vue          # Projects listing page
-    └── [slug].vue         # Project detail pages
+├── projects/
+│   ├── index.vue          # Projects listing page
+│   └── [slug].vue         # Project detail pages
+└── careers/               # NEW: Careers section
+    ├── index.vue          # Careers page with job listings and company culture
+    └── [slug].vue         # Individual job position detail pages
 ```
 
 ## Composables (Complete)
@@ -466,7 +474,9 @@ server/api/
 ├── projects.get.ts        # Proxy: GET all projects
 ├── projects/[slug].get.ts # Proxy: GET single project (WITH STATIC FALLBACK)
 ├── team.get.ts            # Proxy: GET team members
-└── testimonials.get.ts    # Proxy: GET testimonials
+├── testimonials.get.ts    # Proxy: GET testimonials
+└── careers/               # NEW: Careers API endpoints
+    └── [slug].get.ts      # GET single job position with full details
 ```
 
 ## Public Assets (Images)
@@ -604,9 +614,16 @@ npm run preview # Preview production build
 - [x] Page loading progress bar
 - [x] Enhanced page transition animations
 - [x] Project placeholder SVG images
-- [x] Team member placeholder SVG images (LATEST)
-- [x] RSS feed endpoint for future blog (LATEST)
-- [x] RSS autodiscovery in HTML head (LATEST)
+- [x] Team member placeholder SVG images
+- [x] RSS feed endpoint for future blog
+- [x] RSS autodiscovery in HTML head
+- [x] Open Graph placeholder images
+- [x] usePageMeta composable for consistent meta tags
+- [x] Enhanced 404 page with Search/Sitemap links
+- [x] Careers section with job listings (LATEST)
+- [x] Job position detail pages with JobPosting schema (LATEST)
+- [x] Careers API endpoint with 4 sample positions (LATEST)
+- [x] Careers navigation link added to header (LATEST)
 - [x] Open Graph placeholder images (LATEST)
 - [x] usePageMeta composable for consistent meta tags (LATEST)
 - [x] Enhanced 404 page with Search/Sitemap links (LATEST)
