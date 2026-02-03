@@ -1,4 +1,5 @@
 import { H3Event } from 'h3'
+import { Resend } from 'resend'
 
 interface ContactFormData {
   firstName: string
@@ -156,7 +157,12 @@ export default defineEventHandler(async (event: H3Event): Promise<ContactSubmiss
     // Generate submission ID
     const submissionId = `VP-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
 
-    // Log submission to console (in production, send email or save to database)
+    // Get email configuration from environment
+    const resendApiKey = process.env.RESEND_API_KEY
+    const notificationEmail = process.env.CONTACT_FORM_EMAIL || 'info@vp-associates.com'
+    const fromEmail = process.env.FROM_EMAIL || 'noreply@vp-associates.com'
+
+    // Log submission to console (always log for backup)
     const timestamp = new Date().toISOString()
     console.log('\n=== NEW CONTACT FORM SUBMISSION ===')
     console.log(`Submission ID: ${submissionId}`)
@@ -171,30 +177,117 @@ export default defineEventHandler(async (event: H3Event): Promise<ContactSubmiss
     console.log(`Message:\n${sanitized.message}`)
     console.log('====================================\n')
 
-    // TODO: Integrate with email service
-    // Options for production:
-    // 1. SendGrid: https://sendgrid.com/
-    // 2. Resend: https://resend.com/
-    // 3. Formspree: https://formspree.io/ (easiest, no backend code needed)
-    // 4. Nodemailer with SMTP
-    //
-    // Example with SendGrid:
-    // import { SendGridMail } from '@sendgrid/mail'
-    // const msg = {
-    //   to: 'info@vp-associates.com',
-    //   from: 'noreply@vp-associates.com',
-    //   subject: `Contact Form: ${sanitized.firstName} ${sanitized.lastName}`,
-    //   text: `
-    //     Name: ${sanitized.firstName} ${sanitized.lastName}
-    //     Email: ${sanitized.email}
-    //     Phone: ${sanitized.phone || 'Not provided'}
-    //     Service: ${sanitized.service || 'Not specified'}
-    //
-    //     Message:
-    //     ${sanitized.message}
-    //   `
-    // }
-    // await SendGridMail.send(msg)
+    // Send email if Resend is configured
+    if (resendApiKey) {
+      try {
+        const resend = new Resend(resendApiKey)
+
+        // Create HTML email content
+        const htmlContent = `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                .header { background-color: #033379; color: white; padding: 20px; text-align: center; }
+                .header h1 { margin: 0; }
+                .content { background-color: #f9fafb; padding: 20px; border-radius: 8px; margin-top: 20px; }
+                .field { margin-bottom: 15px; }
+                .label { font-weight: bold; color: #033379; }
+                .value { margin-top: 5px; }
+                .message-box { background-color: white; padding: 15px; border-left: 4px solid #BE0000; margin-top: 15px; }
+                .footer { text-align: center; margin-top: 20px; color: #666; font-size: 12px; }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <div class="header">
+                  <h1>New Contact Form Submission</h1>
+                </div>
+                <div class="content">
+                  <div class="field">
+                    <div class="label">Submission ID:</div>
+                    <div class="value">${submissionId}</div>
+                  </div>
+                  <div class="field">
+                    <div class="label">Name:</div>
+                    <div class="value">${sanitized.firstName} ${sanitized.lastName}</div>
+                  </div>
+                  <div class="field">
+                    <div class="label">Email:</div>
+                    <div class="value"><a href="mailto:${sanitized.email}">${sanitized.email}</a></div>
+                  </div>
+                  ${sanitized.phone ? `
+                  <div class="field">
+                    <div class="label">Phone:</div>
+                    <div class="value">${sanitized.phone}</div>
+                  </div>
+                  ` : ''}
+                  ${sanitized.service ? `
+                  <div class="field">
+                    <div class="label">Service Interest:</div>
+                    <div class="value">${sanitized.service}</div>
+                  </div>
+                  ` : ''}
+                  <div class="field">
+                    <div class="label">Submitted:</div>
+                    <div class="value">${timestamp}</div>
+                  </div>
+                  <div class="message-box">
+                    <div class="label">Message:</div>
+                    <div class="value">${sanitized.message.replace(/\n/g, '<br>')}</div>
+                  </div>
+                </div>
+                <div class="footer">
+                  <p>This email was sent from the VP Associates contact form.</p>
+                </div>
+              </div>
+            </body>
+          </html>
+        `
+
+        // Create plain text version
+        const textContent = `
+VP Associates - New Contact Form Submission
+============================================
+
+Submission ID: ${submissionId}
+
+Name: ${sanitized.firstName} ${sanitized.lastName}
+Email: ${sanitized.email}
+${sanitized.phone ? `Phone: ${sanitized.phone}` : ''}
+${sanitized.service ? `Service Interest: ${sanitized.service}` : ''}
+
+Submitted: ${timestamp}
+
+----------------------------------------
+Message:
+
+${sanitized.message}
+============================================
+        `
+
+        // Send email via Resend
+        await resend.emails.send({
+          from: fromEmail,
+          to: notificationEmail,
+          replyTo: sanitized.email,
+          subject: `Contact Form: ${sanitized.firstName} ${sanitized.lastName} - ${submissionId}`,
+          html: htmlContent,
+          text: textContent,
+        })
+
+        console.log('Email sent successfully via Resend')
+      } catch (emailError) {
+        // Log email error but don't fail the request
+        console.error('Failed to send email via Resend:', emailError)
+        // Continue - form submission is still logged to console
+      }
+    } else {
+      console.log('Resend API key not configured - submission logged to console only')
+      console.log('To enable email, set RESEND_API_KEY environment variable')
+    }
 
     return {
       success: true,

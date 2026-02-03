@@ -36,6 +36,13 @@
             Projects
           </NuxtLink>
           <NuxtLink
+            to="/search"
+            class="text-neutral-700 hover:text-primary transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            aria-label="Search"
+          >
+            <Icon name="mdi:magnify" class="w-5 h-5" />
+          </NuxtLink>
+          <NuxtLink
             to="/contact"
             class="px-5 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
@@ -97,6 +104,14 @@
             class="block px-4 py-3 rounded-lg hover:bg-neutral-100 transition-colors text-neutral-700 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Projects
+          </NuxtLink>
+          <NuxtLink
+            to="/search"
+            @click="isOpen = false"
+            class="block px-4 py-3 rounded-lg hover:bg-neutral-100 transition-colors text-neutral-700 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 flex items-center gap-2"
+          >
+            <Icon name="mdi:magnify" class="w-5 h-5" />
+            Search
           </NuxtLink>
           <NuxtLink
             to="/contact"

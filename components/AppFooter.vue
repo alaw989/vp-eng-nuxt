@@ -113,6 +113,9 @@
             &copy; {{ currentYear }} VP Associates. All rights reserved.
           </p>
           <div class="flex items-center gap-4 text-sm">
+            <NuxtLink to="/sitemap" class="text-neutral-400 hover:text-white transition-colors" aria-label="Site Map">
+              Site Map
+            </NuxtLink>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1" aria-label="LinkedIn">
               <Icon name="mdi:linkedin" class="w-5 h-5" />
               <span class="hidden sm:inline">LinkedIn</span>
