@@ -3,6 +3,34 @@
 ## Current Status
 **Phase 6 (Testing & Polish) - SUBSTANTIALLY COMPLETE.** The website is approximately 95% ready for production. All core pages, components, and functionality have been implemented and verified working.
 
+## Deployment Quick Start
+
+To deploy to production, follow these steps:
+
+1. **Create GitHub Repository**:
+   ```bash
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/vp-eng-nuxt.git
+   git push -u origin main
+   ```
+
+2. **Configure GitHub Secrets** (Settings > Secrets > Actions):
+   - `DIGITALOCEAN_ACCESS_TOKEN` - Generate from DO account settings
+   - `NUXT_PUBLIC_SITE_URL` - Set to `https://vp-associates.com`
+
+3. **Create Digital Ocean App**:
+   - Use `.do/app.yaml` specification or manually configure
+   - See `DEPLOYMENT.md` for detailed instructions
+
+4. **Verify Deployment**:
+   - GitHub Actions will automatically deploy on push to main
+   - Monitor deployment in GitHub Actions tab
+   - Test live site after deployment
+
+See `DEPLOYMENT.md` for comprehensive deployment guide.
+
+---
+
 ## Latest Status Update (2026-02-03)
 - Git repository initialized with initial commit
 - GitHub Actions CI/CD workflow configured
