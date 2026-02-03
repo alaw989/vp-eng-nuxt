@@ -315,7 +315,7 @@ const reasons = [
   {
     title: 'Work-Life Balance',
     description: 'We value our team members\' time outside of work with flexible schedules and a supportive workplace culture.',
-    icon: 'mdi:balance'
+    icon: 'mdi:scale-balance'
   },
   {
     title: 'Competitive Compensation',

@@ -398,7 +398,7 @@ function getStaticServices() {
       slug: 'steel-detailing',
       excerpt: { rendered: 'Professional steel detailing using SDS2 and BIM.' },
       content: { rendered: '<p>Steel detailing services including...</p>' },
-      services_meta: { icon: 'mdi:blueprint' },
+      services_meta: { icon: 'mdi:file-document-outline' },
       featured_media: 0,
       _embedded: {},
     },

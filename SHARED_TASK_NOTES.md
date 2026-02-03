@@ -1,14 +1,33 @@
 # VP Associates Nuxt 3 Migration - Shared Task Notes
 
+## Quick Summary for Next Developer
+
+**Development Status**: Codebase is complete and production-ready. Build passes successfully.
+
+**This Iteration (2026-02-03)**:
+- Fixed invalid MDI icon warnings (`mdi:balance` → `mdi:scale-balance`, `mdi:blueprint` → `mdi:file-document-outline`)
+- Verified build completes cleanly
+
+**Remaining Work**: All remaining tasks are operational (deployment setup, gathering real images, manual testing). See "Focus Areas for Next Iteration" below.
+
+---
+
 ## Current Status (2026-02-03)
-**Deployment Ready - Social Sharing & Print Styles Added**
+**Build Verified & Icon Warnings Fixed**
 
-The Nuxt 3 migration is functionally complete with social sharing and print-friendly styling enhancements. Build passes successfully.
+The Nuxt 3 migration is functionally complete. This iteration fixed invalid MDI icon warnings during build.
 
-**Git Status**: Clean working tree, on `master` branch (commit ed0b34a), no remote configured.
+**Git Status**: Clean working tree, on `master` branch, no remote configured.
 
 **Latest Changes (This Iteration)**:
-- **NEW: Social Share Component** - Reusable social sharing widget for content distribution
+- **FIXED: Invalid MDI Icon Warnings** - Replaced non-existent Material Design Icons with valid alternatives
+  - `mdi:balance` → `mdi:scale-balance` in `/pages/careers.vue` (Work-Life Balance icon)
+  - `mdi:blueprint` → `mdi:file-document-outline` in `/composables/useInternalApi.ts` (Steel Detailing service icon)
+  - Build now completes cleanly without icon warnings
+  - All icons properly render on the site
+
+**Previous Changes**:
+- Social Share Component - Reusable social sharing widget for content distribution
   - `/components/SocialShare.vue` - Share buttons for Twitter/X, LinkedIn, Facebook, Email, and Copy Link
   - Integrated into service detail pages (`/pages/services/[slug].vue`)
   - Integrated into project detail pages (`/pages/projects/[slug].vue`)
@@ -583,6 +602,8 @@ plugins/
 - ~~HeroSlider lacks mobile swipe support~~ - FIXED: Added touch handlers for swipe navigation
 - ~~HeroSlider lacks keyboard accessibility~~ - FIXED: Added full keyboard navigation support
 - ~~Footer needs more useful links~~ - FIXED: Services now clickable, added more info
+- ~~mdi:balance icon warning~~ - FIXED: Replaced with mdi:scale-balance in careers page (2026-02-03)
+- ~~mdi:blueprint icon warning~~ - FIXED: Replaced with mdi:file-document-outline in useInternalApi (2026-02-03)
 - WordPress API currently inaccessible - Mitigated with static fallback data
 - Project/Service images: Using placeholder icons/gradients
 - Map: Placeholder, need Google Maps embed
