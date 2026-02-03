@@ -1,7 +1,11 @@
 # VP Associates Nuxt 3 Migration - Shared Task Notes
 
-## Current Status
-**Phase 6 (Testing & Polish) - SUBSTANTIALLY COMPLETE.** The website is approximately 95% ready for production. All core pages, components, and functionality have been implemented and verified working.
+## Current Status (2026-02-03)
+**Deployment Ready - Waiting for GitHub Remote Setup**
+
+The Nuxt 3 migration is functionally complete. Build passes successfully. All core pages, components, and functionality have been implemented.
+
+**Git Status**: Clean working tree, on `master` branch, no remote configured.
 
 ## Deployment Quick Start
 
@@ -31,24 +35,18 @@ See `DEPLOYMENT.md` for comprehensive deployment guide.
 
 ---
 
-## Latest Status Update (2026-02-03)
-- Git repository initialized with initial commit
-- GitHub Actions CI/CD workflow configured
-- Digital Ocean deployment configuration added
-- Nuxt configured for production deployment with Nitro preset
-- Environment variable documentation created
-- Deployment guide completed (DEPLOYMENT.md)
-- Build verified working successfully
+## Latest Status Update (2026-02-03 Iteration)
+- Build verified working successfully (no errors)
+- Sitemap warning is expected behavior with zeroRuntime (resolves with NUXT_PUBLIC_SITE_URL)
+- GitHub Actions CI/CD workflow configured and ready
+- Digital Ocean deployment spec created at `.do/app.yaml`
+- Git repository is clean, on master branch
+- No remote configured yet - awaiting GitHub repository creation
 - All pages render correctly
-- Dev server runs without errors
 - TypeScript strict mode enabled and passing
 - All major components functional
-- Fixed invalid icon (`mdi:home-foundation` → `mdi:home-floor-0`)
-- Installed @types/node and re-enabled build type checking
-- Enabled sitemap zeroRuntime (reduced server bundle by ~18%)
-- **NEW**: Performance optimizations for LCP (Largest Contentful Paint)
-- **NEW**: Added resource hints for icon CDN (preconnect/dns-prefetch)
-- **NEW**: HeroSlider now uses eager loading for first slide image
+
+**Note**: Sitemap warning "Site URL missing!" during build is expected with `zeroRuntime: true` - it will resolve during deployment when `NUXT_PUBLIC_SITE_URL` environment variable is set.
 
 ### Overall Completion Assessment
 The Nuxt 3 migration is **functionally complete** for core requirements. Remaining tasks are primarily content-related (real images) and deployment configuration.
@@ -387,22 +385,29 @@ npm run preview # Preview production build
 
 ## Focus Areas for Next Iteration
 
-**Priority 1: Complete Deployment Setup**
-1. Create GitHub repository and push code
-2. Configure GitHub repository secrets (DO token, site URL)
-3. Create Digital Ocean App Platform app
-4. Test first deployment via GitHub Actions
-5. Configure custom domain (vp-associates.com)
+### Immediate: Deploy to Production
+1. **Create GitHub repository** and push code:
+   ```bash
+   cd /home/deck/Sites/vp-eng-nuxt
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/vp-eng-nuxt.git
+   git push -u origin main
+   ```
 
-**Priority 2: Content Integration**
-1. Add real hero photos (replace SVG placeholders)
-2. Add project images to portfolio
-3. Add team member photos
-4. Integrate Google Maps embed on contact page
-5. Set up contact form backend (Formspree or similar)
+2. **Configure GitHub Secrets** (in GitHub repo settings):
+   - `DIGITALOCEAN_ACCESS_TOKEN` - Generate from Digital Ocean account
+   - `NUXT_PUBLIC_SITE_URL` - Set to `https://vp-associates.com`
 
-**Priority 3: Testing & Quality Assurance**
-1. Run Lighthouse audit (target >90 all categories)
-2. Cross-browser testing (Chrome, Firefox, Safari, Edge)
-3. Mobile responsiveness testing
-4. Full WCAG 2.1 AA accessibility audit
+3. **Create Digital Ocean App**:
+   - Update `.do/app.yaml` line 6: `repo: your-username/vp-eng-nuxt` → your actual repo
+   - Create app via DO dashboard or CLI
+   - Connect GitHub repo to trigger auto-deploy
+
+4. **Verify deployment**: GitHub Actions will auto-deploy on push to main
+
+### Post-Deployment: Content & Testing
+1. Replace SVG placeholders with real project photos (hero slider, projects, team)
+2. Set up contact form backend (Formspree, Formsubmit, or email service)
+3. Run Lighthouse audit (target: Performance >90)
+4. Test on mobile devices and cross-browser
+5. Configure custom domain vp-associates.com in Digital Ocean
