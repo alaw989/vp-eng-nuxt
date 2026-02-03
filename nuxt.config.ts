@@ -1,0 +1,61 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-04-03',
+  devtools: { enabled: true },
+  future: {
+    compatibilityVersion: 4,
+  },
+
+  modules: [
+    '@nuxt/image',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/sitemap',
+    '@pinia/nuxt',
+    '@vueuse/nuxt',
+    '@nuxt/icon',
+  ],
+
+  typescript: {
+    strict: true,
+    typeCheck: true,  // Re-enabled after fixing type issues
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  app: {
+    head: {
+      title: 'VP Associates - Structural Engineering Services',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.' },
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://vp-associates.com' },
+      ],
+    },
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+  },
+
+  // Sitemap configuration - will use environment variable NUXT_PUBLIC_SITE_URL
+  // Defaults to https://vp-associates.com
+  sitemap: {
+    // Exclude dynamic routes that need server-side data
+    exclude: ['/api/**'],
+  },
+
+  // Image optimization configuration
+  image: {
+    quality: 80,
+    format: ['webp', 'avif'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+  },
+})

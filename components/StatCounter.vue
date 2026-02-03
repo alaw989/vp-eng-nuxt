@@ -1,0 +1,102 @@
+<template>
+  <div
+    ref="counterRef"
+    class="stat-item"
+    :class="{ visible: isVisible }"
+  >
+    <div class="text-5xl md:text-6xl font-display font-bold text-primary mb-2">
+      {{ animatedValue }}<span v-if="suffix">{{ suffix }}</span>
+    </div>
+    <div class="text-lg md:text-xl text-neutral-600">
+      {{ label }}
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useScrollReveal } from '~/composables/useScrollReveal'
+
+interface Props {
+  value: number
+  label: string
+  suffix?: string
+  prefix?: string
+  duration?: number
+  decimals?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  suffix: '',
+  prefix: '',
+  duration: 2000,
+  decimals: 0
+})
+
+const counterRef = ref<HTMLElement>()
+const { target, isVisible } = useScrollReveal(0.3)
+const animatedValue = ref(0)
+const hasAnimated = ref(false)
+
+const displayValue = computed(() => {
+  return props.prefix + animatedValue.value.toFixed(props.decimals)
+})
+
+// Format large numbers with commas
+const formattedValue = computed(() => {
+  if (animatedValue.value >= 1000000) {
+    return (animatedValue.value / 1000000).toFixed(1) + 'M'
+  } else if (animatedValue.value >= 1000) {
+    return (animatedValue.value / 1000).toFixed(1) + 'K'
+  }
+  return animatedValue.value.toFixed(props.decimals)
+})
+
+const animate = () => {
+  if (hasAnimated.value) return
+
+  hasAnimated.value = true
+  const startTime = performance.now()
+  const startValue = 0
+  const endValue = props.value
+
+  const updateCounter = (currentTime: number) => {
+    const elapsed = currentTime - startTime
+    const progress = Math.min(elapsed / props.duration, 1)
+
+    // Easing function for smooth animation (ease-out quart)
+    const easeOut = 1 - Math.pow(1 - progress, 4)
+    animatedValue.value = startValue + (endValue - startValue) * easeOut
+
+    if (progress < 1) {
+      requestAnimationFrame(updateCounter)
+    }
+  }
+
+  requestAnimationFrame(updateCounter)
+}
+
+// Sync target with counterRef
+watchEffect(() => {
+  target.value = counterRef.value
+})
+
+// Start animation when visible
+watch(isVisible, (visible) => {
+  if (visible && !hasAnimated.value) {
+    animate()
+  }
+})
+</script>
+
+<style scoped>
+.stat-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.stat-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>

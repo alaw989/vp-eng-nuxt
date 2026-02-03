@@ -1,0 +1,513 @@
+<template>
+  <div>
+    <!-- Loading state -->
+    <div v-if="pending" class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+        <p class="text-neutral-600">Loading service details...</p>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div v-else-if="error || !service" class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+        <Icon name="mdi:alert-circle" class="w-16 h-16 text-secondary mx-auto mb-4" />
+        <h1 class="text-2xl font-bold text-neutral-900 mb-2">Service Not Found</h1>
+        <p class="text-neutral-600 mb-6">The service you're looking for doesn't exist or has been removed.</p>
+        <NuxtLink
+          to="/services"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+        >
+          <Icon name="mdi:arrow-left" class="w-5 h-5" />
+          Back to Services
+        </NuxtLink>
+      </div>
+    </div>
+
+    <!-- Service content -->
+    <template v-else>
+      <!-- Breadcrumbs -->
+      <div class="bg-white border-b border-neutral-200">
+        <div class="container py-4">
+          <AppBreadcrumbs :breadcrumbs="serviceBreadcrumbs" />
+        </div>
+      </div>
+
+      <!-- Page Header -->
+      <AppSection bg-color="primary-dark" padding="lg">
+        <div class="container text-white">
+          <NuxtLink
+            to="/services"
+            class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
+          >
+            <Icon name="mdi:arrow-left" class="w-5 h-5" />
+            Back to Services
+          </NuxtLink>
+          <div class="flex items-center gap-4 mb-6">
+            <div v-if="serviceIcon" class="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center">
+              <Icon :name="serviceIcon" class="w-8 h-8" />
+            </div>
+            <div>
+              <div v-if="serviceStandard" class="text-secondary font-semibold mb-1">{{ serviceStandard }}</div>
+              <h1 class="text-4xl md:text-5xl font-display font-bold">
+                {{ service.title.rendered }}
+              </h1>
+            </div>
+          </div>
+          <p class="text-xl opacity-90 max-w-3xl">
+            {{ serviceDescription }}
+          </p>
+        </div>
+      </AppSection>
+
+      <!-- Service Overview -->
+      <AppSection bg-color="white" animate-on-scroll>
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6">
+              About This Service
+            </h2>
+            <div class="prose prose-lg max-w-none text-neutral-600" v-html="service.content.rendered"></div>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-neutral-900 mb-6">
+              Why Choose VP Associates?
+            </h3>
+            <ul class="space-y-4">
+              <li v-for="benefit in serviceBenefits" :key="benefit" class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-6 h-6 text-secondary flex-shrink-0 mt-0.5" />
+                <span class="text-neutral-700">{{ benefit }}</span>
+              </li>
+            </ul>
+
+            <div class="mt-8 bg-primary/10 rounded-xl p-6">
+              <h4 class="font-bold text-neutral-900 mb-2">Need This Service?</h4>
+              <p class="text-neutral-600 mb-4">Contact us to discuss your project requirements.</p>
+              <NuxtLink
+                to="/contact"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+              >
+                Get a Quote
+                <Icon name="mdi:arrow-right" class="w-5 h-5" />
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </AppSection>
+
+      <!-- Capabilities -->
+      <AppSection v-if="hasCapabilities" bg-color="neutral-50" animate-on-scroll>
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+            Our Capabilities
+          </h2>
+          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+            Comprehensive solutions for all your {{ service.title.rendered.toLowerCase() }} needs
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            v-for="capability in serviceCapabilities"
+            :key="capability"
+            class="bg-white rounded-xl p-6 border border-neutral-200 hover:border-primary hover:shadow-lg transition-all"
+          >
+            <Icon name="mdi:check-decagram" class="w-8 h-8 text-primary mb-3" />
+            <span class="text-neutral-800 font-medium">{{ capability }}</span>
+          </div>
+        </div>
+      </AppSection>
+
+      <!-- Related Projects -->
+      <AppSection v-if="hasRelatedProjects" bg-color="white" animate-on-scroll>
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+            Related Projects
+          </h2>
+          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+            See how we've applied this service on real projects
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <ProjectCard
+            v-for="project in relatedProjects"
+            :key="project.slug"
+            :title="project.title"
+            :slug="project.slug"
+            :description="project.description"
+            :category="project.category"
+            :location="project.location"
+            :year="project.year"
+          />
+        </div>
+      </AppSection>
+
+      <!-- Other Services -->
+      <AppSection bg-color="neutral-100" animate-on-scroll>
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+            Other Services
+          </h2>
+          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+            Explore our full range of structural engineering services
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <ServiceCard
+            v-for="otherService in otherServices"
+            :key="otherService.slug"
+            :title="otherService.title"
+            :description="otherService.description"
+            :icon="otherService.icon"
+          />
+        </div>
+
+        <div class="text-center mt-12">
+          <NuxtLink
+            to="/services"
+            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors"
+          >
+            View All Services
+            <Icon name="mdi:arrow-right" class="w-5 h-5" />
+          </NuxtLink>
+        </div>
+      </AppSection>
+
+      <!-- CTA -->
+      <AppSection bg-color="primary" padding="xl">
+        <div class="container text-center text-white">
+          <h2 class="text-4xl font-display font-bold mb-6">
+            Ready to Discuss Your Project?
+          </h2>
+          <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+            Our team is ready to provide expert {{ service.title.rendered.toLowerCase() }} services
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <NuxtLink
+              to="/contact"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
+            >
+              Contact Us
+              <Icon name="mdi:arrow-right" class="w-5 h-5" />
+            </NuxtLink>
+            <a
+              href="tel:+18135551234"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark transition-colors"
+            >
+              <Icon name="mdi:phone" class="w-5 h-5" />
+              (813) 555-1234
+            </a>
+          </div>
+        </div>
+      </AppSection>
+    </template>
+  </div>
+</template>
+
+<script setup lang="ts">
+const route = useRoute()
+const slug = route.params.slug as string
+
+// Fetch service data - API returns { success: true, data: {...} } with static fallback built-in
+const { data: apiResponse, pending, error } = await useFetch(`/api/services/${slug}`)
+
+// Computed service data from API response
+const apiService = computed(() => (apiResponse.value as any)?.data)
+
+// Static fallback data for when API is not available (redundant but kept as emergency fallback)
+const staticServices: Record<string, any> = {
+  'structural-steel-design': {
+    title: { rendered: 'Structural Steel Design' },
+    excerpt: { rendered: '<p>AISC certified steel design for commercial and industrial projects</p>' },
+    content: { rendered: '<p>Our structural steel design services cover a comprehensive range of steel construction needs. From moment frames to braced frames, we deliver efficient, code-compliant steel solutions that optimize material usage while ensuring structural integrity.</p><p>We specialize in steel connection design, metal building systems, industrial platforms, and seismic load analysis. Our team is AISC certified and stays current with the latest steel construction standards and technologies.</p>' },
+    acf: {
+      icon: 'mdi:beam',
+      standard: 'AISC Certified',
+      capabilities: [
+        'Moment frame design',
+        'Braced frame systems',
+        'Steel connection design',
+        'Metal building systems',
+        'Industrial platforms and mezzanines',
+        'Seismic load analysis'
+      ]
+    }
+  },
+  'concrete-design': {
+    title: { rendered: 'Concrete Design' },
+    excerpt: { rendered: '<p>ACI certified concrete design for foundations and structures</p>' },
+    content: { rendered: '<p>Our concrete design expertise encompasses all aspects of reinforced concrete construction. We provide comprehensive design services for foundations, slabs, beams, columns, and shear walls for projects of all sizes.</p><p>Our team is well-versed in both cast-in-place and precast concrete systems, including post-tensioned concrete applications. We follow ACI standards and deliver efficient, buildable concrete designs.</p>' },
+    acf: {
+      icon: 'mdi:cube-outline',
+      standard: 'ACI Certified',
+      capabilities: [
+        'Foundation systems',
+        'Flat plate and flat slab design',
+        'Beam and column design',
+        'Shear wall systems',
+        'Precast concrete systems',
+        'Post-tensioned concrete'
+      ]
+    }
+  },
+  'masonry-design': {
+    title: { rendered: 'Masonry Design' },
+    excerpt: { rendered: '<p>ACI 530 compliant masonry design and detailing</p>' },
+    content: { rendered: '<p>We provide complete structural masonry design services for load-bearing walls, partitions, and veneers. Our expertise covers both concrete masonry and clay masonry systems.</p><p>Our designs are ACI 530 compliant and include masonry shear walls, reinforced masonry, veneer systems, fire wall design, and masonry restoration work.</p>' },
+    acf: {
+      icon: 'mdi:wall',
+      standard: 'ACI 530 Compliant',
+      capabilities: [
+        'Load-bearing masonry walls',
+        'Masonry shear walls',
+        'Reinforced masonry design',
+        'Masonry veneer systems',
+        'Fire wall design',
+        'Masonry restoration'
+      ]
+    }
+  },
+  'wood-design': {
+    title: { rendered: 'Wood Design' },
+    excerpt: { rendered: '<p>NDS standards for light wood frame construction</p>' },
+    content: { rendered: '<p>Our wood design services focus on light wood frame construction for residential and light commercial projects. We work with both traditional sawn lumber and modern engineered lumber systems.</p><p>Following NDS standards, we design floor and roof trusses, glulam and PSL beams, cross-laminated timber systems, wood shear walls, and deck/balcony structures.</p>' },
+    acf: {
+      icon: 'mdi:tree',
+      standard: 'NDS Standards',
+      capabilities: [
+        'Light frame construction',
+        'Floor and roof truss design',
+        'Glulam and PSL beams',
+        'Cross-laminated timber',
+        'Wood shear walls',
+        'Deck and balcony design'
+      ]
+    }
+  },
+  'foundation-design': {
+    title: { rendered: 'Foundation Design' },
+    excerpt: { rendered: '<p>Deep and shallow foundation engineering solutions</p>' },
+    content: { rendered: '<p>Our foundation design services address the unique challenges of Florida\'s soil conditions and water table. We provide comprehensive foundation engineering for all structure types.</p><p>We specialize in shallow foundations, deep foundation systems including piles and drilled shafts, mat foundations, and foundation retrofit/repair solutions.</p>' },
+    acf: {
+      icon: 'mdi:home-foundation',
+      capabilities: [
+        'Shallow foundations',
+        'Deep foundation systems',
+        'Pile foundation design',
+        'Drilled shafts',
+        'Mat foundations',
+        'Foundation retrofit and repair'
+      ]
+    }
+  },
+  'seawall-design': {
+    title: { rendered: 'Seawall Design' },
+    excerpt: { rendered: '<p>Coastal protection and seawall structural design</p>' },
+    content: { rendered: '<p>Our seawall design services focus on coastal protection structures throughout Florida. We understand the unique requirements of coastal construction and the challenges of marine environments.</p><p>We design concrete seawalls, steel sheet pile walls, vinyl sheet pile bulkheads, revetment systems, and coastal erosion control structures. We also provide seawall repair and retrofit services.</p>' },
+    acf: {
+      icon: 'mdi:waves',
+      capabilities: [
+        'Concrete seawalls',
+        'Steel sheet pile walls',
+        'Vinyl sheet pile bulkheads',
+        'Revetment design',
+        'Coastal erosion control',
+        'Seawall repair and retrofit'
+      ]
+    }
+  },
+  'steel-connection-design': {
+    title: { rendered: 'Steel Connection Design' },
+    excerpt: { rendered: '<p>Detailed steel connection design and shop drawing preparation</p>' },
+    content: { rendered: '<p>We provide detailed steel connection design and shop drawing preparation services for all steel projects. Our team designs standard and custom connections that are both structurally sound and fabricator-friendly.</p><p>Our expertise includes moment connections, shear connections, bracing connections, base plate design, custom fabrications, and complete shop drawing preparation.</p>' },
+    acf: {
+      icon: 'mdi:vector-arrange-above',
+      capabilities: [
+        'Moment connections',
+        'Shear connections',
+        'Bracing connections',
+        'Base plate design',
+        'Custom fabrications',
+        'Shop drawing preparation'
+      ]
+    }
+  },
+  'cad-3d-modeling': {
+    title: { rendered: 'CAD & 3D Modeling' },
+    excerpt: { rendered: '<p>Advanced CAD and BIM modeling services</p>' },
+    content: { rendered: '<p>Our CAD and 3D modeling services provide advanced coordination and fabrication support. We use the latest software including AutoCAD and Revit for building information modeling.</p><p>Services include AutoCAD drafting, Revit BIM modeling, 3D structural models for coordination, clash detection, shop drawing production, and as-built documentation.</p>' },
+    acf: {
+      icon: 'mdi:cube-scan',
+      capabilities: [
+        'AutoCAD drafting',
+        'Revit BIM modeling',
+        '3D structural models',
+        'Clash detection coordination',
+        'Shop drawing production',
+        'As-built documentation'
+      ]
+    }
+  },
+  'inspection-services': {
+    title: { rendered: 'Inspection Services' },
+    excerpt: { rendered: '<p>Professional structural inspection services</p>' },
+    content: { rendered: '<p>Our professional inspection services cover new construction, existing buildings, and forensic investigations. We provide thorough, code-compliant inspections with detailed reports.</p><p>We offer foundation inspections, framing inspections, steel erection observation, concrete inspection, structural assessments, and forensic investigations for structural issues.</p>' },
+    acf: {
+      icon: 'mdi:magnify-scan',
+      capabilities: [
+        'Foundation inspections',
+        'Framing inspections',
+        'Steel erection observation',
+        'Concrete inspection',
+        'Structural assessments',
+        'Forensic investigations'
+      ]
+    }
+  },
+  'steel-detailing': {
+    title: { rendered: 'Steel Detailing' },
+    excerpt: { rendered: '<p>Professional steel detailing using SDS2 and BIM</p>' },
+    content: { rendered: '<p>Our steel detailing team uses SDS2 and BIM software to produce complete fabrication and erection drawings for steel fabricators. We deliver accurate, timely detailing services.</p><p>We provide SDS2 detailing, BIM steel modeling, erection drawings, fabrication drawings, connection calculations, and material takeoffs/bills of material.</p>' },
+    acf: {
+      icon: 'mdi:pencil-ruler',
+      capabilities: [
+        'SDS2 detailing',
+        'BIM steel modeling',
+        'Erection drawings',
+        'Fabrication drawings',
+        'Connection calculations',
+        'Material takeoffs and bills'
+      ]
+    }
+  }
+}
+
+// Computed service data (API or static fallback)
+const service = computed(() => {
+  return apiService.value || staticServices[slug]
+})
+
+// Service metadata
+const serviceIcon = computed(() => service.value?.acf?.icon || 'mdi:cog')
+const serviceStandard = computed(() => service.value?.acf?.standard || '')
+const serviceDescription = computed(() => {
+  const excerpt = service.value?.excerpt?.rendered || ''
+  return excerpt.replace(/<[^>]*>/g, '').trim() ||
+    `${service.value?.title?.rendered || 'Service'} by VP Associates`
+})
+const serviceCapabilities = computed(() => service.value?.acf?.capabilities || [])
+const serviceBenefits = computed(() => [
+  'Licensed Florida engineers',
+  'Code-compliant designs',
+  'Fast turnaround times',
+  'Buildable solutions',
+  'Cost-effective optimization'
+])
+
+const hasCapabilities = computed(() => serviceCapabilities.value.length > 0)
+const hasRelatedProjects = computed(() => relatedProjects.value.length > 0)
+
+// Breadcrumbs for SEO and navigation
+const serviceBreadcrumbs = computed(() => [
+  { title: 'Services', to: '/services' },
+  { title: service.value?.title?.rendered || 'Service' }
+])
+
+// Related projects (static data for now)
+const relatedProjects = ref([
+  {
+    title: 'Tampa Marina Complex',
+    slug: 'tampa-marina-complex',
+    description: 'Complete structural design for a 50-slip marina',
+    category: 'Marine',
+    location: 'Tampa, FL',
+    year: 2024
+  },
+  {
+    title: 'Downtown Office Tower',
+    slug: 'downtown-office-tower',
+    description: 'Structural steel design for 12-story office building',
+    category: 'Commercial',
+    location: 'Tampa, FL',
+    year: 2023
+  },
+  {
+    title: 'Coastal Seawall System',
+    slug: 'coastal-seawall-system',
+    description: 'Engineered seawall protection system',
+    category: 'Marine',
+    location: 'Clearwater, FL',
+    year: 2024
+  }
+])
+
+// Other services to display
+const otherServices = ref([
+  {
+    title: 'Structural Steel Design',
+    description: 'AISC certified steel design',
+    icon: 'mdi:beam',
+    slug: 'structural-steel-design'
+  },
+  {
+    title: 'Concrete Design',
+    description: 'ACI certified concrete design',
+    icon: 'mdi:cube-outline',
+    slug: 'concrete-design'
+  },
+  {
+    title: 'Foundation Design',
+    description: 'Deep and shallow foundations',
+    icon: 'mdi:home-foundation',
+    slug: 'foundation-design'
+  }
+])
+
+// SEO Meta Tags
+useHead({
+  title: computed(() => `${service.value?.title?.rendered || 'Service'} | VP Associates`),
+  meta: computed(() => [
+    {
+      name: 'description',
+      content: serviceDescription.value
+    },
+    {
+      property: 'og:title',
+      content: `${service.value?.title?.rendered || 'Service'} | VP Associates`
+    },
+    {
+      property: 'og:description',
+      content: serviceDescription.value
+    },
+    {
+      property: 'og:type',
+      content: 'article'
+    },
+    {
+      property: 'og:url',
+      content: `https://vp-associates.com/services/${slug}`
+    }
+  ])
+})
+
+// Service Schema
+useJsonld({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: computed(() => service.value?.title?.rendered || 'Service'),
+  description: serviceDescription,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'VP Associates',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Tampa',
+      addressRegion: 'FL',
+      addressCountry: 'US',
+    },
+  },
+  areaServed: 'Tampa Bay Area',
+})
+</script>

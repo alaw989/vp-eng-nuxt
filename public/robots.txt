@@ -1,0 +1,30 @@
+# robots.txt for VP Associates website
+# https://vp-associates.com
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+# Disallow API routes (server-side only)
+Disallow: /api/
+
+# Disallow Nuxt internal paths
+Disallow: /_nuxt/
+
+# Disallow admin/private paths
+Disallow: /admin/
+Disallow: /private/
+
+# Common bot-specific settings
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Sitemap location
+Sitemap: https://vp-associates.com/sitemap.xml
