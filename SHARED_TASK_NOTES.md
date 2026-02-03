@@ -45,6 +45,7 @@ See `DEPLOYMENT.md` for comprehensive deployment guide.
 - All pages render correctly
 - TypeScript strict mode enabled and passing
 - All major components functional
+- **Contact form backend API implemented** with spam protection and rate limiting
 
 **Note**: Sitemap warning "Site URL missing!" during build is expected with `zeroRuntime: true` - it will resolve during deployment when `NUXT_PUBLIC_SITE_URL` environment variable is set.
 
@@ -53,7 +54,30 @@ The Nuxt 3 migration is **functionally complete** for core requirements. Remaini
 
 ## What's Been Done (Current Iteration)
 
-### Performance Optimizations (2026-02-03 Latest)
+### Contact Form Backend API (2026-02-03 Latest)
+- **Backend API Endpoint**: POST /api/contact for form submissions
+  - Input sanitization to prevent XSS attacks
+  - Email format validation
+  - Field length validation (names 2-50 chars, message 10-2000 chars)
+  - Phone number format validation
+  - Rate limiting: 3 submissions per IP per hour
+  - Honeypot field for spam protection (hidden "website" field)
+  - Submissions logged to console (ready for email integration)
+  - Returns submission ID for tracking
+
+- **Contact Page Updates**:
+  - Integrated with real API endpoint using $fetch
+  - Proper error handling for 429 (rate limit), 400 (validation), 500 (server) errors
+  - Hidden honeypot field for spam detection
+  - User-friendly error messages
+  - Form reset on successful submission
+
+- **Next Steps for Email Integration**:
+  - Choose email service: SendGrid, Resend, or Formspree
+  - See `server/api/contact.post.ts` for integration example code
+  - Update environment variables with API credentials
+
+### Performance Optimizations (2026-02-03 Earlier)
 - **HeroSlider LCP Optimization**: Improved Largest Contentful Paint performance
   - First slide image now uses `loading="eager"` instead of `loading="lazy"`
   - Added `fetchpriority="high"` for first slide to prioritize critical resource
@@ -235,6 +259,7 @@ composables/
 ## Server Routes (Complete with Static Fallbacks)
 ```
 server/api/
+├── contact.post.ts        # Contact form submission with rate limiting & spam protection (NEW)
 ├── services.get.ts        # Proxy: GET all services
 ├── services/[slug].get.ts # Proxy: GET single service (WITH STATIC FALLBACK)
 ├── projects.get.ts        # Proxy: GET all projects
@@ -293,7 +318,7 @@ plugins/
 - ~~Sitemap bundle size~~ - FIXED by enabling zeroRuntime option
 - WordPress API currently inaccessible - Mitigated with static fallback data
 - Project/Service images: Using placeholder icons/gradients
-- Contact form: Frontend only, no backend submission
+- ~~Contact form: Frontend only, no backend submission~~ - FIXED: Backend API with rate limiting & spam protection
 - Map: Placeholder, need Google Maps embed
 
 ## Development Commands
@@ -326,9 +351,10 @@ npm run preview # Preview production build
 - [x] Error handling (error pages, error handler plugin)
 - [x] Loading skeleton components
 - [x] Page transitions
-- [x] Contact form with validation (frontend)
+- [x] Contact form with validation (frontend + backend API)
 - [x] TypeScript type checking enabled for production builds
 - [x] Sitemap zeroRuntime optimization enabled
+- [x] Contact form backend API with rate limiting and spam protection
 
 ### ✅ Deployment Items (NEWLY COMPLETED)
 - [x] Git repository initialized
@@ -343,7 +369,8 @@ npm run preview # Preview production build
 - [ ] Set up GitHub repository secrets
 - [ ] Create Digital Ocean App
 - [ ] Real hero images (currently SVG placeholders)
-- [ ] Contact form backend integration
+- [ ] ~~Contact form backend integration~~ - COMPLETED: API endpoint with rate limiting & spam protection
+- [ ] Email service integration for contact form (SendGrid, Resend, or Formspree)
 - [ ] WordPress API content integration
 - [ ] Cross-browser testing (manual)
 - [ ] Mobile device testing (manual)
@@ -379,7 +406,7 @@ npm run preview # Preview production build
 
 4. **Post-Deployment**:
    - Replace hero SVG placeholders with real photos
-   - Set up contact form backend
+   - Integrate email service (SendGrid/Resend/Formspree) for contact form
    - Run Lighthouse audit
    - Test on mobile devices
 
@@ -407,6 +434,11 @@ npm run preview # Preview production build
 
 ### Post-Deployment: Content & Testing
 1. Replace SVG placeholders with real project photos (hero slider, projects, team)
+2. Set up email service for contact form submissions
+   - Option A: Formspree (easiest, no backend changes needed)
+   - Option B: Resend (modern, simple API)
+   - Option C: SendGrid (full-featured)
+3. Run Lighthouse audit (target: Performance >90)
 2. Set up contact form backend (Formspree, Formsubmit, or email service)
 3. Run Lighthouse audit (target: Performance >90)
 4. Test on mobile devices and cross-browser

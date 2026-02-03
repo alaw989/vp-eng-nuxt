@@ -109,6 +109,21 @@
               />
             </div>
 
+            <!-- Honeypot field for spam protection (hidden from users) -->
+            <div class="hidden" aria-hidden="true">
+              <label for="website" class="block text-sm font-semibold text-neutral-700 mb-2">
+                Website (leave blank)
+              </label>
+              <input
+                id="website"
+                v-model="form.website"
+                type="text"
+                tabindex="-1"
+                autocomplete="off"
+                class="w-full px-4 py-3 border border-neutral-300 rounded-lg"
+              />
+            </div>
+
             <div>
               <label for="service" class="block text-sm font-semibold text-neutral-700 mb-2">
                 Service Needed
@@ -340,6 +355,8 @@ interface FormData {
   phone: string
   service: string
   message: string
+  // Honeypot field for spam protection (hidden from users)
+  website: string
 }
 
 interface FormErrors {
@@ -355,7 +372,8 @@ const form = reactive<FormData>({
   email: '',
   phone: '',
   service: '',
-  message: ''
+  message: '',
+  website: '' // Honeypot field
 })
 
 const errors = reactive<FormErrors>({})
@@ -424,25 +442,62 @@ const handleSubmit = async () => {
 
   isSubmitting.value = true
 
-  // Simulate form submission
-  setTimeout(() => {
+  try {
+    const response = await $fetch<{
+      success: boolean
+      message: string
+      submissionId?: string
+    }>('/api/contact', {
+      method: 'POST',
+      body: {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        phone: form.phone || undefined,
+        service: form.service || undefined,
+        message: form.message,
+        website: form.website // Honeypot field
+      }
+    })
+
     isSubmitting.value = false
-    submitSuccess.value = true
-    submitMessage.value = 'Thank you for your message! We\'ll get back to you within 24 hours.'
 
-    // Reset form
-    form.firstName = ''
-    form.lastName = ''
-    form.email = ''
-    form.phone = ''
-    form.service = ''
-    form.message = ''
+    if (response.success) {
+      submitSuccess.value = true
+      submitMessage.value = response.message
 
-    // Clear success message after 5 seconds
-    setTimeout(() => {
-      submitMessage.value = ''
-    }, 5000)
-  }, 1500)
+      // Reset form on success
+      form.firstName = ''
+      form.lastName = ''
+      form.email = ''
+      form.phone = ''
+      form.service = ''
+      form.message = ''
+      form.website = ''
+
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        submitMessage.value = ''
+      }, 5000)
+    } else {
+      submitSuccess.value = false
+      submitMessage.value = response.message || 'An error occurred. Please try again.'
+    }
+  } catch (error: any) {
+    isSubmitting.value = false
+    submitSuccess.value = false
+
+    // Handle different error types
+    if (error?.statusCode === 429) {
+      submitMessage.value = 'Too many submissions. Please try again later.'
+    } else if (error?.statusCode === 400) {
+      submitMessage.value = error.statusMessage || 'Please check your input and try again.'
+    } else {
+      submitMessage.value = 'An error occurred while sending your message. Please try again or call us directly.'
+    }
+
+    console.error('Contact form submission error:', error)
+  }
 }
 
 const serviceAreas = [
