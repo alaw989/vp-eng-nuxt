@@ -1,5 +1,12 @@
 <template>
-  <section class="relative h-[80vh] min-h-[600px] overflow-hidden bg-neutral-900">
+  <section
+    ref="sliderRef"
+    class="relative h-[80vh] min-h-[600px] overflow-hidden bg-neutral-900"
+    @touchstart="handleTouchStart"
+    @touchend="handleTouchEnd"
+    tabindex="0"
+    aria-label="Hero slider"
+  >
     <!-- Slides Container -->
     <div
       ref="sliderRef"
@@ -173,6 +180,37 @@ const progressIntervalId = ref<ReturnType<typeof setInterval> | null>(null)
 const isTransitioning = ref(false)
 const transitionName = ref('slide-left')
 
+// Touch swipe support
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const minSwipeDistance = 50
+
+const handleTouchStart = (e: TouchEvent) => {
+  const touch = e.changedTouches[0]
+  if (touch) {
+    touchStartX.value = touch.screenX
+  }
+}
+
+const handleTouchEnd = (e: TouchEvent) => {
+  const touch = e.changedTouches[0]
+  if (touch) {
+    touchEndX.value = touch.screenX
+    handleSwipe()
+  }
+}
+
+const handleSwipe = () => {
+  const distance = touchStartX.value - touchEndX.value
+  if (Math.abs(distance) > minSwipeDistance) {
+    if (distance > 0) {
+      nextSlide() // Swiped left
+    } else {
+      previousSlide() // Swiped right
+    }
+  }
+}
+
 // Safely get current slide - slides always has at least one item from defaults
 const currentSlideData = computed(() => {
   return props.slides[currentSlide.value] ?? props.slides[0]!
@@ -233,10 +271,36 @@ const resetAutoplay = () => {
 }
 
 // Pause on hover
-const sliderRef = ref<HTMLElement>()
+const sliderRef = ref<HTMLElement | null>(null)
+
+// Keyboard navigation
+const handleKeydown = (e: KeyboardEvent) => {
+  switch (e.key) {
+    case 'ArrowLeft':
+      e.preventDefault()
+      previousSlide()
+      break
+    case 'ArrowRight':
+      e.preventDefault()
+      nextSlide()
+      break
+    case 'Home':
+      e.preventDefault()
+      goToSlide(0)
+      break
+    case 'End':
+      e.preventDefault()
+      goToSlide(props.slides.length - 1)
+      break
+  }
+}
+
 onMounted(() => {
-  sliderRef.value?.addEventListener('mouseenter', stopAutoplay)
-  sliderRef.value?.addEventListener('mouseleave', startAutoplay)
+  if (sliderRef.value) {
+    sliderRef.value.addEventListener('mouseenter', stopAutoplay)
+    sliderRef.value.addEventListener('mouseleave', startAutoplay)
+    sliderRef.value.addEventListener('keydown', handleKeydown)
+  }
   startAutoplay()
 })
 
@@ -244,6 +308,7 @@ onUnmounted(() => {
   stopAutoplay()
   sliderRef.value?.removeEventListener('mouseenter', stopAutoplay)
   sliderRef.value?.removeEventListener('mouseleave', startAutoplay)
+  sliderRef.value?.removeEventListener('keydown', handleKeydown)
 })
 </script>
 

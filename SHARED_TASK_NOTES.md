@@ -46,6 +46,11 @@ See `DEPLOYMENT.md` for comprehensive deployment guide.
 - TypeScript strict mode enabled and passing
 - All major components functional
 - **Contact form backend API implemented** with spam protection and rate limiting
+- **HeroSlider enhancements**: Touch swipe support for mobile, keyboard navigation
+- **Footer improvements**: Enhanced with clickable service links and more info
+- **NEW: ProjectsCarousel component**: Reusable carousel with autoplay, touch, keyboard, accessibility
+- **NEW: ClientLogos component**: Scrolling client logos section with gradient masks
+- **NEW: Home page enhancements**: Projects carousel replaced static grid, added client logos section
 
 **Note**: Sitemap warning "Site URL missing!" during build is expected with `zeroRuntime: true` - it will resolve during deployment when `NUXT_PUBLIC_SITE_URL` environment variable is set.
 
@@ -54,7 +59,60 @@ The Nuxt 3 migration is **functionally complete** for core requirements. Remaini
 
 ## What's Been Done (Current Iteration)
 
-### Contact Form Backend API (2026-02-03 Latest)
+### Home Page Enhancements (2026-02-03 Latest)
+- **ProjectsCarousel Component**: Reusable carousel for showcasing content
+  - Configurable autoplay with custom intervals
+  - Touch swipe support for mobile navigation
+  - Full keyboard accessibility (Arrow keys, Home, End)
+  - Optional navigation arrows and dot indicators
+  - Loop mode support
+  - Pause on hover
+  - Smooth slide transitions
+  - Accessible with proper ARIA labels
+  - Slot-based content for flexibility
+  - `components/ProjectsCarousel.vue` created
+
+- **ClientLogos Component**: Trust indicators with client/partner logos
+  - Auto-scrolling infinite animation
+  - Gradient fade masks on edges
+  - Hover effects on individual logos
+  - Pause on hover
+  - Icon-based logo placeholders (easily replaced with images)
+  - Static grid fallback for mobile
+  - Customizable title, subtitle, and styling
+  - `components/ClientLogos.vue` created
+
+- **Home Page Featured Projects Section**:
+  - Replaced static 3-column grid with interactive carousel
+  - 5 featured project slides with icons
+  - Full-width carousel for better visual impact
+  - Direct links to project detail pages
+  - Category, location, and year metadata
+  - Smooth transitions between slides
+
+### UX & Accessibility Improvements (2026-02-03 Earlier)
+- **HeroSlider Touch Swipe Support**: Mobile-friendly gesture navigation
+  - Swipe left to go to next slide
+  - Swipe right to go to previous slide
+  - Configurable minimum swipe distance (50px)
+  - `components/HeroSlider.vue` updated with touch handlers
+
+- **HeroSlider Keyboard Navigation**: Full keyboard accessibility
+  - Arrow Left/Right: Navigate slides
+  - Home: Go to first slide
+  - End: Go to last slide
+  - Tab-index enabled for focus management
+  - Proper ARIA labels for screen readers
+
+- **Footer Component Enhancement**: More useful navigation and information
+  - Services now link directly to detail pages
+  - Added "View All Services" link
+  - Added Florida license information
+  - Added business hours
+  - Improved social media links with labels
+  - `components/AppFooter.vue` updated
+
+### Contact Form Backend API (2026-02-03 Earlier)
 - **Backend API Endpoint**: POST /api/contact for form submissions
   - Input sanitization to prevent XSS attacks
   - Email format validation
@@ -216,15 +274,17 @@ The Nuxt 3 migration is **functionally complete** for core requirements. Remaini
 ## Component Library (Complete)
 ```
 components/
-├── AppBreadcrumbs.vue        # Breadcrumb navigation with schema.org (NEW)
+├── AppBreadcrumbs.vue        # Breadcrumb navigation with schema.org
 ├── AppError.vue              # Generic error display component
 ├── AppHeader.vue             # Navigation with mobile menu (ARIA enhanced)
-├── AppFooter.vue             # Site footer
+├── AppFooter.vue             # Enhanced footer with service links and contact info
 ├── AppSection.vue            # Section wrapper with scroll animations
-├── HeroSlider.vue            # Auto-rotating hero slider (with SVG placeholders)
+├── ClientLogos.vue           # Scrolling client logos with gradient masks (NEW)
+├── HeroSlider.vue            # Auto-rotating hero slider with touch & keyboard support
 ├── LoadingSkeleton.vue       # Generic skeleton loader
 ├── ProjectCard.vue           # Project card with hover effects
 ├── ProjectCardSkeleton.vue   # Project card loading state
+├── ProjectsCarousel.vue      # Reusable carousel component (NEW)
 ├── ServiceCard.vue           # Service preview card
 ├── ServiceCardSkeleton.vue   # Service card loading state
 ├── StatCounter.vue           # Animated statistics counter
@@ -316,9 +376,11 @@ plugins/
 - ~~Invalid icon warning~~ - FIXED by replacing mdi:home-foundation with mdi:home-floor-0
 - ~~TypeScript type checking disabled~~ - FIXED by installing @types/node and re-enabling typeCheck
 - ~~Sitemap bundle size~~ - FIXED by enabling zeroRuntime option
+- ~~HeroSlider lacks mobile swipe support~~ - FIXED: Added touch handlers for swipe navigation
+- ~~HeroSlider lacks keyboard accessibility~~ - FIXED: Added full keyboard navigation support
+- ~~Footer needs more useful links~~ - FIXED: Services now clickable, added more info
 - WordPress API currently inaccessible - Mitigated with static fallback data
 - Project/Service images: Using placeholder icons/gradients
-- ~~Contact form: Frontend only, no backend submission~~ - FIXED: Backend API with rate limiting & spam protection
 - Map: Placeholder, need Google Maps embed
 
 ## Development Commands
@@ -355,6 +417,13 @@ npm run preview # Preview production build
 - [x] TypeScript type checking enabled for production builds
 - [x] Sitemap zeroRuntime optimization enabled
 - [x] Contact form backend API with rate limiting and spam protection
+- [x] HeroSlider touch swipe support for mobile
+- [x] HeroSlider keyboard navigation
+- [x] Enhanced footer with service links
+- [x] ProjectsCarousel component with autoplay and accessibility (NEW)
+- [x] ClientLogos component with scrolling animation (NEW)
+- [x] Home page featured projects carousel (NEW)
+- [x] Home page client logos section (NEW)
 
 ### ✅ Deployment Items (NEWLY COMPLETED)
 - [x] Git repository initialized

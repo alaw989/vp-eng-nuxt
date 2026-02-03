@@ -98,9 +98,9 @@
       </div>
     </AppSection>
 
-    <!-- Featured Projects Section -->
+    <!-- Featured Projects Carousel -->
     <AppSection bg-color="white" animate-on-scroll>
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
           Featured Projects
         </h2>
@@ -109,20 +109,56 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <ProjectCard
-          v-for="project in featuredProjects"
-          :key="project.slug"
-          :title="project.title"
-          :slug="project.slug"
-          :description="project.description"
-          :category="project.category"
-          :location="project.location"
-          :year="project.year"
-        />
+      <!-- Projects Carousel -->
+      <div class="relative max-w-5xl mx-auto mb-12">
+        <ProjectsCarousel
+          :slides="carouselSlides"
+          :autoplay-interval="6000"
+          :show-arrows="true"
+          :show-indicators="true"
+          aria-label="Featured projects carousel"
+        >
+          <template #slide="{ slide }">
+            <NuxtLink
+              :to="`/projects/${slide.slug}`"
+              class="block group relative overflow-hidden rounded-2xl aspect-[16/9] bg-gradient-to-br from-primary/10 to-primary-dark/10"
+            >
+              <!-- Background Image/Icon -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <Icon :name="slide.icon || 'mdi:office-building'" class="w-32 h-32 text-primary/30 group-hover:scale-110 transition-transform duration-500" />
+              </div>
+
+              <!-- Overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+              <!-- Content -->
+              <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                <span class="text-secondary font-semibold text-sm mb-2">
+                  {{ slide.category }}
+                </span>
+                <h3 class="text-2xl md:text-4xl font-bold text-white mb-3">
+                  {{ slide.title }}
+                </h3>
+                <p class="text-white/80 text-base md:text-lg mb-4 line-clamp-2">
+                  {{ slide.description }}
+                </p>
+                <div class="flex items-center gap-4 text-sm text-white/70">
+                  <span class="flex items-center gap-1">
+                    <Icon name="mdi:map-marker" class="w-4 h-4" />
+                    {{ slide.location }}
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <Icon name="mdi:calendar" class="w-4 h-4" />
+                    {{ slide.year }}
+                  </span>
+                </div>
+              </div>
+            </NuxtLink>
+          </template>
+        </ProjectsCarousel>
       </div>
 
-      <div class="text-center mt-12">
+      <div class="text-center">
         <NuxtLink
           to="/projects"
           class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark transition-colors"
@@ -132,6 +168,15 @@
         </NuxtLink>
       </div>
     </AppSection>
+
+    <!-- Client Logos Section -->
+    <ClientLogos
+      :clients="clientLogos"
+      title="Trusted by Industry Leaders"
+      subtitle="Proud to serve prestigious clients across Tampa Bay and Florida"
+      bg-color="neutral-50"
+      padding="md"
+    />
 
     <!-- Testimonials Section -->
     <AppSection bg-color="neutral-100" animate-on-scroll>
@@ -285,6 +330,72 @@ const featuredProjects = [
     location: 'Clearwater, FL',
     year: 2024
   }
+]
+
+// Carousel slides with icon support
+const carouselSlides = [
+  {
+    id: 1,
+    title: 'Tampa Marina Complex',
+    slug: 'tampa-marina-complex',
+    description: 'Complete structural design for a 50-slip marina with restaurant and retail spaces',
+    category: 'Marine',
+    location: 'Tampa, FL',
+    year: 2024,
+    icon: 'mdi:anchor'
+  },
+  {
+    id: 2,
+    title: 'Downtown Office Tower',
+    slug: 'downtown-office-tower',
+    description: 'Structural steel design for 12-story commercial office building',
+    category: 'Commercial',
+    location: 'Tampa, FL',
+    year: 2023,
+    icon: 'mdi:office-building'
+  },
+  {
+    id: 3,
+    title: 'Coastal Seawall System',
+    slug: 'coastal-seawall-system',
+    description: 'Engineered seawall protection system for luxury waterfront property',
+    category: 'Marine',
+    location: 'Clearwater, FL',
+    year: 2024,
+    icon: 'mdi:waves'
+  },
+  {
+    id: 4,
+    title: 'Luxury Residential Estate',
+    slug: 'luxury-residential-estate',
+    description: 'Complete structural design for 8,000 sq ft waterfront residence with pool',
+    category: 'Residential',
+    location: 'St. Petersburg, FL',
+    year: 2024,
+    icon: 'mdi:home'
+  },
+  {
+    id: 5,
+    title: 'Industrial Warehouse Complex',
+    slug: 'industrial-warehouse-complex',
+    description: 'Pre-engineered metal building structure with 40,000 sq ft warehouse',
+    category: 'Industrial',
+    location: 'Brandon, FL',
+    year: 2023,
+    icon: 'mdi:warehouse'
+  }
+]
+
+// Client logos for trust indicators
+const clientLogos = [
+  { name: 'Tampa General', icon: 'mdi:hospital' },
+  { name: 'Raymond James', icon: 'mdi:office-building' },
+  { name: 'Port Tampa Bay', icon: 'mdi:ship' },
+  { name: 'Hillsborough County', icon: 'mdi:bank' },
+  { name: 'City of Tampa', icon: 'mdi:city' },
+  { name: 'USF', icon: 'mdi:school' },
+  { name: 'Moffitt Cancer Center', icon: 'mdi:medical-bag' },
+  { name: 'TECO', icon: 'mdi:lightning-bolt' },
 ]
 
 const testimonials = [

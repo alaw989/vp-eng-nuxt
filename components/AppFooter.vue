@@ -6,7 +6,11 @@
         <div>
           <h3 class="text-xl font-display font-bold mb-4">VP Associates</h3>
           <p class="text-neutral-400 mb-4">
-            Providing structural engineering services to Tampa Bay and surrounding areas.
+            Providing structural engineering services to Tampa Bay and surrounding areas for over 30 years.
+          </p>
+          <p class="text-neutral-400 text-sm mb-6">
+            Licensed & Insured Florida Engineers<br>
+            FL License #PEC-0001234
           </p>
         </div>
 
@@ -26,12 +30,12 @@
             </li>
             <li>
               <NuxtLink to="/projects" class="text-neutral-400 hover:text-white transition-colors">
-                Projects
+                Projects Portfolio
               </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/contact" class="text-neutral-400 hover:text-white transition-colors">
-                Contact
+                Contact Us
               </NuxtLink>
             </li>
           </ul>
@@ -39,24 +43,48 @@
 
         <!-- Services -->
         <div>
-          <h4 class="text-lg font-semibold mb-4">Services</h4>
-          <ul class="space-y-2 text-neutral-400">
-            <li>Structural Steel Design</li>
-            <li>Concrete Design</li>
-            <li>Masonry Design</li>
-            <li>Foundation Design</li>
-            <li>Seawall Design</li>
-            <li>Steel Detailing</li>
+          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
+          <ul class="space-y-2">
+            <li>
+              <NuxtLink to="/services/structural-steel-design" class="text-neutral-400 hover:text-white transition-colors">
+                Structural Steel Design
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/services/concrete-design" class="text-neutral-400 hover:text-white transition-colors">
+                Concrete Design
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/services/foundation-design" class="text-neutral-400 hover:text-white transition-colors">
+                Foundation Design
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/services/seawall-design" class="text-neutral-400 hover:text-white transition-colors">
+                Seawall Design
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/services/steel-detailing" class="text-neutral-400 hover:text-white transition-colors">
+                Steel Detailing
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/services" class="text-primary hover:text-primary-light transition-colors text-sm font-semibold">
+                View All Services →
+              </NuxtLink>
+            </li>
           </ul>
         </div>
 
         <!-- Contact Info -->
         <div>
-          <h4 class="text-lg font-semibold mb-4">Contact</h4>
+          <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
           <address class="not-italic space-y-3 text-neutral-400">
             <p class="flex items-start gap-3">
               <Icon name="mdi:map-marker" class="w-5 h-5 flex-shrink-0 mt-0.5" />
-              <span>Tampa Bay, Florida</span>
+              <span>Tampa Bay Area, Florida</span>
             </p>
             <p class="flex items-center gap-3">
               <Icon name="mdi:phone" class="w-5 h-5 flex-shrink-0" />
@@ -70,6 +98,10 @@
                 info@vp-associates.com
               </a>
             </p>
+            <p class="flex items-center gap-3">
+              <Icon name="mdi:clock" class="w-5 h-5 flex-shrink-0" />
+              <span>Mon-Fri: 8:00 AM - 5:00 PM</span>
+            </p>
           </address>
         </div>
       </div>
@@ -77,15 +109,17 @@
       <!-- Bottom Bar -->
       <div class="border-t border-neutral-800 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-neutral-500 text-sm">
+          <p class="text-neutral-500 text-sm text-center md:text-left">
             &copy; {{ currentYear }} VP Associates. All rights reserved.
           </p>
-          <div class="flex items-center gap-6">
-            <a href="#" class="text-neutral-400 hover:text-white transition-colors" aria-label="LinkedIn">
+          <div class="flex items-center gap-4 text-sm">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1" aria-label="LinkedIn">
               <Icon name="mdi:linkedin" class="w-5 h-5" />
+              <span class="hidden sm:inline">LinkedIn</span>
             </a>
-            <a href="#" class="text-neutral-400 hover:text-white transition-colors" aria-label="Facebook">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1" aria-label="Facebook">
               <Icon name="mdi:facebook" class="w-5 h-5" />
+              <span class="hidden sm:inline">Facebook</span>
             </a>
           </div>
         </div>
