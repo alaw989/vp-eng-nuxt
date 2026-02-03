@@ -21,7 +21,8 @@
             :alt="slide.alt"
             class="absolute inset-0 w-full h-full object-cover"
             format="webp"
-            loading="lazy"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="index === 0 ? 'high' : 'auto'"
           />
           <!-- Overlay -->
           <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary-dark/90" />

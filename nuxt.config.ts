@@ -32,6 +32,8 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'canonical', href: 'https://vp-associates.com' },
+        { rel: 'preconnect', href: 'https://api.iconify.design' },
+        { rel: 'dns-prefetch', href: 'https://api.iconify.design' },
       ],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
