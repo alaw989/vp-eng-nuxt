@@ -15,17 +15,16 @@
         mode="out-in"
       >
         <div
-          v-for="(slide, index) in slides"
-          v-show="currentSlide === index"
-          :key="slide.id || index"
+          v-if="slides.length > 0"
+          :key="slides[currentSlide]?.id ?? currentSlide"
           class="w-full"
         >
           <slot
             name="slide"
-            :slide="slide"
-            :index="index"
+            :slide="slides[currentSlide]"
+            :index="currentSlide"
           >
-            {{ slide }}
+            {{ slides[currentSlide] }}
           </slot>
         </div>
       </Transition>

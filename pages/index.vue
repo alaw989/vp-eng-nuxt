@@ -118,14 +118,15 @@
           :show-indicators="true"
           aria-label="Featured projects carousel"
         >
-          <template #slide="{ slide }">
+          <template #slide="slotProps">
             <NuxtLink
-              :to="`/projects/${slide.slug}`"
+              v-if="slotProps.slide"
+              :to="`/projects/${slotProps.slide.slug}`"
               class="block group relative overflow-hidden rounded-2xl aspect-[16/9] bg-gradient-to-br from-primary/10 to-primary-dark/10"
             >
               <!-- Background Image/Icon -->
               <div class="absolute inset-0 flex items-center justify-center">
-                <Icon :name="slide.icon || 'mdi:office-building'" class="w-32 h-32 text-primary/30 group-hover:scale-110 transition-transform duration-500" />
+                <Icon :name="slotProps.slide.icon || 'mdi:office-building'" class="w-32 h-32 text-primary/30 group-hover:scale-110 transition-transform duration-500" />
               </div>
 
               <!-- Overlay -->
@@ -134,22 +135,22 @@
               <!-- Content -->
               <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                 <span class="text-secondary font-semibold text-sm mb-2">
-                  {{ slide.category }}
+                  {{ slotProps.slide.category }}
                 </span>
                 <h3 class="text-2xl md:text-4xl font-bold text-white mb-3">
-                  {{ slide.title }}
+                  {{ slotProps.slide.title }}
                 </h3>
                 <p class="text-white/80 text-base md:text-lg mb-4 line-clamp-2">
-                  {{ slide.description }}
+                  {{ slotProps.slide.description }}
                 </p>
                 <div class="flex items-center gap-4 text-sm text-white/70">
                   <span class="flex items-center gap-1">
                     <Icon name="mdi:map-marker" class="w-4 h-4" />
-                    {{ slide.location }}
+                    {{ slotProps.slide.location }}
                   </span>
                   <span class="flex items-center gap-1">
                     <Icon name="mdi:calendar" class="w-4 h-4" />
-                    {{ slide.year }}
+                    {{ slotProps.slide.year }}
                   </span>
                 </div>
               </div>

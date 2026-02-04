@@ -17,19 +17,18 @@
         mode="out-in"
       >
         <div
-          v-for="(slide, index) in slides"
-          v-show="currentSlide === index"
-          :key="slide.id"
+          v-if="slides.length > 0"
+          :key="currentSlideData.id"
           class="absolute inset-0"
         >
           <!-- Background Image -->
           <NuxtImg
-            :src="slide.image"
-            :alt="slide.alt"
+            :src="currentSlideData.image"
+            :alt="currentSlideData.alt"
             class="absolute inset-0 w-full h-full object-cover"
             format="webp"
-            :loading="index === 0 ? 'eager' : 'lazy'"
-            :fetchpriority="index === 0 ? 'high' : 'auto'"
+            loading="eager"
+            fetchpriority="high"
           />
           <!-- Overlay -->
           <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary-dark/90" />
