@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Comparison Infrastructure** - Build visual diff tools and HTML comparison capabilities
 - [x] **Phase 3: Image Migration** - Download and optimize all images from source site
 - [x] **Phase 4: Content & SEO Validation** - Validate links, content integrity, and SEO preservation
-- [ ] **Phase 5: QA & PWA Foundation** - Build testing infrastructure and PWA features
+- [x] **Phase 5: QA & PWA Foundation** - Build testing infrastructure and PWA features
 - [ ] **Phase 6: Homepage Polish** - Fix homepage styling, layout, and migrate homepage images
 - [ ] **Phase 7: Section Polish - Projects** - Fix project listing/detail pages, migrate project images
 - [ ] **Phase 8: Section Polish - Services** - Fix service listing/detail pages, migrate service images
@@ -105,10 +105,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Offline support verification and service worker caching refinement
-- [ ] 05-02-PLAN.md — Install prompt configuration (browser native only per context decision)
-- [ ] 05-03-PLAN.md — Pre-commit hook with Husky for build & preview testing
-- [ ] 05-04-PLAN.md — Lighthouse performance benchmarking and optimization
+- [x] 05-01-PLAN.md — Offline support verification and service worker caching refinement
+- [x] 05-02-PLAN.md — Install prompt configuration (browser native only per context decision)
+- [x] 05-03-PLAN.md — Pre-commit hook with Husky for build & preview testing
+- [x] 05-04-PLAN.md — Lighthouse performance benchmarking and optimization
 
 ### Phase 6: Homepage Polish
 **Goal**: Fix homepage styling, layout, and functionality to match or exceed live site
@@ -211,7 +211,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 2. Comparison Infrastructure | 4/4 | Complete | 2026-02-05 |
 | 3. Image Migration | 3/3 | Complete | 2026-02-05 |
 | 4. Content & SEO Validation | 5/5 | Complete | 2026-02-05 |
-| 5. QA & PWA Foundation | 0/4 | Ready for execution | - |
+| 5. QA & PWA Foundation | 4/4 | Complete | 2026-02-05 |
 | 6. Homepage Polish | 0/4 | Not started | - |
 | 7. Section Polish - Projects | 0/4 | Not started | - |
 | 8. Section Polish - Services | 0/4 | Not started | - |
