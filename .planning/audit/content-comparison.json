@@ -1,0 +1,879 @@
+{
+  "generated": "2026-02-05T13:17:00.001Z",
+  "source": "https://www.vp-associates.com",
+  "target": "http://localhost:3000",
+  "threshold": 90,
+  "pagesCompared": 11,
+  "summary": {
+    "passed": 1,
+    "flagged": 10,
+    "avgSimilarity": 18.32958448507531
+  },
+  "comparisons": [
+    {
+      "page": "hello-world",
+      "slug": "hello-world",
+      "sourceUrl": "https://www.vp-associates.com/hello-world/",
+      "targetUrl": "http://localhost:3000/hello-world",
+      "sourceContent": {
+        "headings": [],
+        "paragraphs": [],
+        "lists": [],
+        "rawText": ""
+      },
+      "targetContent": {
+        "headings": [],
+        "paragraphs": [],
+        "lists": [],
+        "rawText": ""
+      },
+      "comparison": {
+        "headingMatch": 100,
+        "paragraphCountDiff": 0,
+        "listCountDiff": 0,
+        "overallSimilarity": 100,
+        "flagged": false
+      },
+      "differences": {
+        "missingHeadings": [],
+        "extraHeadings": [],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Same content length"
+      }
+    },
+    {
+      "page": "Home",
+      "slug": "home",
+      "sourceUrl": "https://www.vp-associates.com/",
+      "targetUrl": "http://localhost:3000/",
+      "sourceContent": {
+        "headings": [
+          "ABOUT US",
+          "QUALITY SERVICES"
+        ],
+        "paragraphs": [
+          "VP & Associates, Inc. provides a full range of structural engineering, steel detailing services and inspection services. With over 30 years of experience, our engineers and steel detailers have knowledge and demonstrated mastery in all facets of structural engineering and steel detailing including, but not limited to, developing plans and specifications for construction of new and existing buildings/tanks, as well as providing inspection services.",
+          "We provide services to corporate industrial contractors, commercial architects, and steel fabricators utilizing the most current 3-D computer analysis systems available, ACAD drafting, SDS2 steel detailing, and coordinating available research materials. Our engineers and detailers have initiated, engineered, and completed countless multi-faceted design and construction projects which have met goals to reduce construction cost and time.",
+          "We Have a Wide Range of Capabilities & Areas of Specialization",
+          "Deep Foundation and Shallow Foundation Design",
+          "Seawall Design",
+          "Low-Rise and Multi-Story Building",
+          "CAD Drawing",
+          "Steel Connection Design",
+          "Create Lifting Plans",
+          "Inspection services",
+          "Steel Detailing"
+        ],
+        "lists": [
+          "PORTFOLIO",
+          "SERVICES",
+          "CAREERS",
+          "CONTACT",
+          "WHITEBOARD",
+          "Structural Engineering & Steel Detailing",
+          "Employing The Latest CAD Software",
+          "Building InformationModel",
+          "Quick Response"
+        ],
+        "rawText": "813.247.3835 Tampa, FL PORTFOLIO SERVICES CAREERS CONTACT WHITEBOARD Structural Engineering & Steel Detailing Employing The Latest CAD Software Building InformationModel Quick Response ABOUT US VP & Associates, Inc. provides a full range of structural engineering, steel detailing services and inspection services. With over 30 years of experience, our engineers and steel detailers have knowledge and demonstrated mastery in all facets of structural engineering and steel detailing including, but not limited to, developing plans and specifications for construction of new and existing buildings/tanks, as well as providing inspection services. We provide services to corporate industrial contractors, commercial architects, and steel fabricators utilizing the most current 3-D computer analysis systems available, ACAD drafting, SDS2 steel detailing, and coordinating available research materials. Our engineers and detailers have initiated, engineered, and completed countless multi-faceted design and construction projects which have met goals to reduce construction cost and time. QUALITY SERVICES We Have a Wide Range of Capabilities & Areas of Specialization Deep Foundation and Shallow Foundation Design Seawall Design Low-Rise and Multi-Story Building CAD Drawing Steel Connection Design Create Lifting Plans Inspection services Steel Detailing"
+      },
+      "targetContent": {
+        "headings": [
+          "Structural Engineering\nExcellence",
+          "Trusted Structural Engineers in Tampa Bay",
+          "Our Services",
+          "Structural Steel Design",
+          "Concrete Design",
+          "Masonry Design",
+          "Foundation Design",
+          "Seawall Design",
+          "Steel Detailing",
+          "Featured Projects",
+          "Tampa Marina Complex",
+          "Trusted by Industry Leaders",
+          "What Our Clients Say",
+          "Ready to Start Your Project?"
+        ],
+        "paragraphs": [
+          "Serving Tampa Bay with comprehensive structural design, inspection, and detailing services",
+          "VP Associates has been providing exceptional structural engineering services to the Tampa Bay area for over 30 years. Our team of licensed engineers brings expertise, innovation, and dedication to every project.",
+          "From commercial developments to residential projects, we deliver comprehensive structural solutions that meet the highest standards of safety, efficiency, and code compliance.",
+          "Fully licensed Florida engineers with comprehensive coverage",
+          "Comprehensive structural engineering solutions for projects of all sizes",
+          "AISC certified steel design for commercial and industrial projects",
+          "ACI certified concrete design for foundations and structures",
+          "ACI 530 compliant masonry design and detailing",
+          "Deep and shallow foundation engineering solutions",
+          "Coastal protection and seawall structural design",
+          "SDS2 and BIM steel connection design and detailing",
+          "Explore our portfolio of successful engineering projects across Tampa Bay",
+          "Complete structural design for a 50-slip marina with restaurant and retail spaces",
+          "Proud to serve prestigious clients across Tampa Bay and Florida",
+          "Trusted by architects, contractors, and developers throughout Florida",
+          "Contact us today to discuss your structural engineering needs"
+        ],
+        "lists": [],
+        "rawText": "Skip to main content Structural Engineering ExcellenceServing Tampa Bay with comprehensive structural design, inspection, and detailing servicesOur ServicesGet In Touch Trusted Structural Engineers in Tampa Bay VP Associates has been providing exceptional structural engineering services to the Tampa Bay area for over 30 years. Our team of licensed engineers brings expertise, innovation, and dedication to every project. From commercial developments to residential projects, we deliver comprehensive structural solutions that meet the highest standards of safety, efficiency, and code compliance. Learn More About Us Licensed & InsuredFully licensed Florida engineers with comprehensive coverage0+Projects Completed0+Years Experience0%Client Satisfaction0+Team Members Our Services Comprehensive structural engineering solutions for projects of all sizes Structural Steel DesignAISC certified steel design for commercial and industrial projectsConcrete DesignACI certified concrete design for foundations and structuresMasonry DesignACI 530 compliant masonry design and detailingFoundation DesignDeep and shallow foundation engineering solutionsSeawall DesignCoastal protection and seawall structural designSteel DetailingSDS2 and BIM steel connection design and detailing View All Services Featured Projects Explore our portfolio of successful engineering projects across Tampa Bay MarineTampa Marina ComplexComplete structural design for a 50-slip marina with restaurant and retail spaces Tampa, FL 2024 View All Projects Trusted by Industry LeadersProud to serve prestigious clients across Tampa Bay and FloridaTampa GeneralRaymond JamesPort Tampa BayHillsborough CountyCity of TampaUSFMoffitt Cancer CenterTECOTampa GeneralRaymond JamesPort Tampa BayHillsborough CountyCity of TampaUSFMoffitt Cancer CenterTECOTampa GeneralRaymond JamesPort Tampa BayHillsborough CountyCity of TampaUSF What Our Clients Say Trusted by architects, contractors, and developers throughout Florida \"VP Associates delivered exceptional structural engineering services for our commercial development. Their attention to detail and code expertise made all the difference.\" Michael ChenChen Development Group \"Working with VP Associates was seamless from start to finish. They met every deadline and provided innovative solutions for our complex project.\" Sarah RodriguezRodriguez Architecture \"The team at VP Associates brings decades of expertise to every project. Their seawall designs have stood up to Florida weather for years.\" James MorrisonGulf Coast Contractors Ready to Start Your Project? Contact us today to discuss your structural engineering needs Contact Us (813) 555-1234"
+      },
+      "comparison": {
+        "headingMatch": 0,
+        "paragraphCountDiff": -5,
+        "listCountDiff": 9,
+        "overallSimilarity": 24.36281859070465,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [
+          "ABOUT US",
+          "QUALITY SERVICES"
+        ],
+        "extraHeadings": [
+          "Structural Engineering\nExcellence",
+          "Trusted Structural Engineers in Tampa Bay",
+          "Our Services",
+          "Structural Steel Design",
+          "Concrete Design",
+          "Masonry Design",
+          "Foundation Design",
+          "Seawall Design",
+          "Steel Detailing",
+          "Featured Projects",
+          "Tampa Marina Complex",
+          "Trusted by Industry Leaders",
+          "What Our Clients Say",
+          "Ready to Start Your Project?"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 1315 more characters"
+      }
+    },
+    {
+      "page": "SERVICES",
+      "slug": "services",
+      "sourceUrl": "https://www.vp-associates.com/services/",
+      "targetUrl": "http://localhost:3000/services",
+      "sourceContent": {
+        "headings": [
+          "SERVICES",
+          "Our Process"
+        ],
+        "paragraphs": [
+          "VP & Associates, Inc. have been structural and miscellaneous steel detailing since 2007.  We have detailed projects as large as 1,500 tons using SDS2.  We detail per AISC standard ad provide all CNC data including ABM, DXF, and KISS files require for fabrication.",
+          "We sign and seal shop drawings including miscellaneous metals. Just within the last two and a half years we've designed connections for more than 7000 tons of steel. Some structures reach over 300 ft. in height. The connection designs themselves involve all levels of complexity, anything from braced frame to simple shear and moment connections.",
+          "Because VP & Associates, Inc. also designs building envelopes, we understand the design intent of the structure. Therefore we are able to communicate with the Engineer of Record to resolve any loading conditions that may adversely affect the main structure, its members, and/or connections.",
+          "Our communication to the Engineer of Record and to the detailer is very concise and expedient. Once we've completed the connection design, we will send the detailer sketches depicting all relevant information for detailing. We use 3-D and in-house software to create the calculations which we will sign, seal and submit to the Engineer of Record. If the detailing is done in SDS2 by other detailers, we can accept any SDS2 model.",
+          "Once we've received the SDS2 model from the detailer by e-mail, we will complete the connection design in SDs2 and e-mail the detailer back the model with the completed connection design and model. The detailer does not have to model the connection. The calculation is then extracted from SDS2 and printed out by VP & Associates, Inc. We will then send to the fabricator the signed and sealed calculations.",
+          "We are licensed in the states of Florida, Kentucky, Maryland, Michigan, Pennsylvania, Tennessee, and Virginia. In addition, we are capable of obtaining licenses in other states.",
+          "VP & Associates, Inc also has the capability of generating 3-D model structural analysis which would design and size the individual members for the over-all building envelope. The same model could easily be imported directly into SDS2 for detailing. This would cut down the detailer modeling time and, therefore, speed-up the detailing process."
+        ],
+        "lists": [
+          "PORTFOLIO",
+          "SERVICES",
+          "CAREERS",
+          "CONTACT",
+          "WHITEBOARD"
+        ],
+        "rawText": "813.247.3835 Tampa, FL PORTFOLIO SERVICES CAREERS CONTACT WHITEBOARD SERVICES Our Process VP & Associates, Inc. have been structural and miscellaneous steel detailing since 2007. We have detailed projects as large as 1,500 tons using SDS2. We detail per AISC standard ad provide all CNC data including ABM, DXF, and KISS files require for fabrication. We sign and seal shop drawings including miscellaneous metals. Just within the last two and a half years we've designed connections for more than 7000 tons of steel. Some structures reach over 300 ft. in height. The connection designs themselves involve all levels of complexity, anything from braced frame to simple shear and moment connections. Because VP & Associates, Inc. also designs building envelopes, we understand the design intent of the structure. Therefore we are able to communicate with the Engineer of Record to resolve any loading conditions that may adversely affect the main structure, its members, and/or connections. Our communication to the Engineer of Record and to the detailer is very concise and expedient. Once we've completed the connection design, we will send the detailer sketches depicting all relevant information for detailing. We use 3-D and in-house software to create the calculations which we will sign, seal and submit to the Engineer of Record. If the detailing is done in SDS2 by other detailers, we can accept any SDS2 model. Once we've received the SDS2 model from the detailer by e-mail, we will complete the connection design in SDs2 and e-mail the detailer back the model with the completed connection design and model. The detailer does not have to model the connection. The calculation is then extracted from SDS2 and printed out by VP & Associates, Inc. We will then send to the fabricator the signed and sealed calculations. We are licensed in the states of Florida, Kentucky, Maryland, Michigan, Pennsylvania, Tennessee, and Virginia. In addition, we are capable of obtaining licenses in other states. VP & Associates, Inc also has the capability of generating 3-D model structural analysis which would design and size the individual members for the over-all building envelope. The same model could easily be imported directly into SDS2 for detailing. This would cut down the detailer modeling time and, therefore, speed-up the detailing process."
+      },
+      "targetContent": {
+        "headings": [
+          "Our Services",
+          "Complete Structural Engineering Services",
+          "Structural Steel Design",
+          "Concrete Design",
+          "Masonry Design",
+          "Wood Design",
+          "Foundation Design",
+          "Seawall Design",
+          "Steel Connection Design",
+          "CAD & 3D Modeling",
+          "Inspection Services",
+          "Steel Detailing",
+          "Why Choose VP Associates?",
+          "Fast Turnaround",
+          "Code Compliance",
+          "Experienced Team",
+          "Buildable Designs",
+          "Cost Effective",
+          "Responsive Service",
+          "Our Process",
+          "Consultation",
+          "Design",
+          "Review",
+          "Support",
+          "Ready to Start Your Project?"
+        ],
+        "paragraphs": [
+          "Comprehensive structural engineering solutions for projects of all sizes",
+          "From initial design to construction support, we provide end-to-end structural engineering expertise. Our services encompass all major construction materials and project types.",
+          "Complete structural steel design for commercial, industrial, and marine projects. From moment frames to braced frames, we deliver efficient steel solutions.",
+          "Reinforced concrete design for foundations, slabs, beams, columns, and shear walls. Expertise in both cast-in-place and precast concrete systems.",
+          "Structural masonry design for load-bearing walls, partitions, and veneers. Both concrete masonry and clay masonry systems.",
+          "Light wood frame design for residential and light commercial projects. Engineered lumber systems and traditional sawn lumber.",
+          "Comprehensive foundation engineering for all structure types. Deep foundations including piles and drilled shafts, shallow foundations, and mat foundations.",
+          "Coastal protection structures including seawalls, bulkheads, and retaining walls. Expertise in Florida coastal construction requirements.",
+          "Detailed steel connection design and shop drawing preparation. Standard and custom connections for all steel projects.",
+          "Advanced CAD and BIM modeling services for coordination and fabrication. Building information modeling for clash detection and integration.",
+          "Professional structural inspection services for new construction, existing buildings, and forensic investigations.",
+          "Professional steel detailing using SDS2 and BIM software. Complete fabrication and erection drawings for steel fabricators.",
+          "The VP Associates advantage for your structural engineering needs",
+          "We understand project timelines. Our team delivers quality engineering designs on schedule, every time.",
+          "Every design meets or exceeds Florida Building Code requirements. No red flags, no delays.",
+          "Licensed engineers with decades of combined experience across all project types and materials.",
+          "Practical, constructible solutions that work in the field. We design with contractors in mind.",
+          "Optimized designs that minimize material while maintaining safety. Value engineering built in.",
+          "Real people answer the phone. We're available when you need us, from RFIs to site visits.",
+          "How we work with you from concept to completion",
+          "Initial project review and scope discussion",
+          "Structural analysis and calculation preparation",
+          "Plan preparation and permitting support",
+          "Construction administration and field services",
+          "Contact us to discuss your structural engineering needs"
+        ],
+        "lists": [
+          "Moment frame design",
+          "Braced frame systems",
+          "Steel connection design",
+          "Metal building systems",
+          "Industrial platforms and mezzanines",
+          "Seismic load analysis",
+          "Foundation systems",
+          "Flat plate and flat slab design",
+          "Beam and column design",
+          "Shear wall systems",
+          "Precast concrete systems",
+          "Post-tensioned concrete",
+          "Load-bearing masonry walls",
+          "Masonry shear walls",
+          "Reinforced masonry design",
+          "Masonry veneer systems",
+          "Fire wall design",
+          "Masonry restoration",
+          "Light frame construction",
+          "Floor and roof truss design",
+          "Glulam and PSL beams",
+          "Cross-laminated timber",
+          "Wood shear walls",
+          "Deck and balcony design",
+          "Shallow foundations",
+          "Deep foundation systems",
+          "Pile foundation design",
+          "Drilled shafts",
+          "Mat foundations",
+          "Foundation retrofit and repair",
+          "Concrete seawalls",
+          "Steel sheet pile walls",
+          "Vinyl sheet pile bulkheads",
+          "Revetment design",
+          "Coastal erosion control",
+          "Seawall repair and retrofit",
+          "Moment connections",
+          "Shear connections",
+          "Bracing connections",
+          "Base plate design",
+          "Custom fabrications",
+          "Shop drawing preparation",
+          "AutoCAD drafting",
+          "Revit BIM modeling",
+          "3D structural models",
+          "Clash detection coordination",
+          "Shop drawing production",
+          "As-built documentation",
+          "Foundation inspections",
+          "Framing inspections",
+          "Steel erection observation",
+          "Concrete inspection",
+          "Structural assessments",
+          "Forensic investigations",
+          "SDS2 detailing",
+          "BIM steel modeling",
+          "Erection drawings",
+          "Fabrication drawings",
+          "Connection calculations",
+          "Material takeoffs and bills"
+        ],
+        "rawText": "Skip to main content Our Services Comprehensive structural engineering solutions for projects of all sizes Complete Structural Engineering Services From initial design to construction support, we provide end-to-end structural engineering expertise. Our services encompass all major construction materials and project types. Structural Steel DesignAISC CertifiedComplete structural steel design for commercial, industrial, and marine projects. From moment frames to braced frames, we deliver efficient steel solutions.Moment frame designBraced frame systemsSteel connection designMetal building systemsIndustrial platforms and mezzaninesSeismic load analysis Learn More Concrete DesignACI CertifiedReinforced concrete design for foundations, slabs, beams, columns, and shear walls. Expertise in both cast-in-place and precast concrete systems.Foundation systemsFlat plate and flat slab designBeam and column designShear wall systemsPrecast concrete systemsPost-tensioned concrete Learn More Masonry DesignACI 530 CompliantStructural masonry design for load-bearing walls, partitions, and veneers. Both concrete masonry and clay masonry systems.Load-bearing masonry wallsMasonry shear wallsReinforced masonry designMasonry veneer systemsFire wall designMasonry restoration Learn More Wood DesignNDS StandardsLight wood frame design for residential and light commercial projects. Engineered lumber systems and traditional sawn lumber.Light frame constructionFloor and roof truss designGlulam and PSL beamsCross-laminated timberWood shear wallsDeck and balcony design Learn More Foundation DesignComprehensive foundation engineering for all structure types. Deep foundations including piles and drilled shafts, shallow foundations, and mat foundations.Shallow foundationsDeep foundation systemsPile foundation designDrilled shaftsMat foundationsFoundation retrofit and repair Learn More Seawall DesignCoastal protection structures including seawalls, bulkheads, and retaining walls. Expertise in Florida coastal construction requirements.Concrete seawallsSteel sheet pile wallsVinyl sheet pile bulkheadsRevetment designCoastal erosion controlSeawall repair and retrofit Learn More Steel Connection DesignDetailed steel connection design and shop drawing preparation. Standard and custom connections for all steel projects.Moment connectionsShear connectionsBracing connectionsBase plate designCustom fabricationsShop drawing preparation Learn More CAD & 3D ModelingAdvanced CAD and BIM modeling services for coordination and fabrication. Building information modeling for clash detection and integration.AutoCAD draftingRevit BIM modeling3D structural modelsClash detection coordinationShop drawing productionAs-built documentation Learn More Inspection ServicesProfessional structural inspection services for new construction, existing buildings, and forensic investigations.Foundation inspectionsFraming inspectionsSteel erection observationConcrete inspectionStructural assessmentsForensic investigations Learn More Steel DetailingProfessional steel detailing using SDS2 and BIM software. Complete fabrication and erection drawings for steel fabricators.SDS2 detailingBIM steel modelingErection drawingsFabrication drawingsConnection calculationsMaterial takeoffs and bills Learn More Why Choose VP Associates? The VP Associates advantage for your structural engineering needs Fast Turnaround We understand project timelines. Our team delivers quality engineering designs on schedule, every time. Code Compliance Every design meets or exceeds Florida Building Code requirements. No red flags, no delays. Experienced Team Licensed engineers with decades of combined experience across all project types and materials. Buildable Designs Practical, constructible solutions that work in the field. We design with contractors in mind. Cost Effective Optimized designs that minimize material while maintaining safety. Value engineering built in. Responsive Service Real people answer the phone. We're available when you need us, from RFIs to site visits. Our Process How we work with you from concept to completion 1ConsultationInitial project review and scope discussion2DesignStructural analysis and calculation preparation3ReviewPlan preparation and permitting support4SupportConstruction administration and field services Ready to Start Your Project? Contact us to discuss your structural engineering needs Get a Quote (813) 555-1234"
+      },
+      "comparison": {
+        "headingMatch": 50,
+        "paragraphCountDiff": -18,
+        "listCountDiff": -55,
+        "overallSimilarity": 25.965229171370513,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [
+          "SERVICES"
+        ],
+        "extraHeadings": [
+          "Our Services",
+          "Complete Structural Engineering Services",
+          "Structural Steel Design",
+          "Concrete Design",
+          "Masonry Design",
+          "Wood Design",
+          "Foundation Design",
+          "Seawall Design",
+          "Steel Connection Design",
+          "CAD & 3D Modeling",
+          "Inspection Services",
+          "Steel Detailing",
+          "Why Choose VP Associates?",
+          "Fast Turnaround",
+          "Code Compliance",
+          "Experienced Team",
+          "Buildable Designs",
+          "Cost Effective",
+          "Responsive Service",
+          "Consultation",
+          "Design",
+          "Review",
+          "Support",
+          "Ready to Start Your Project?"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 2080 more characters"
+      }
+    },
+    {
+      "page": "PORTFOLIO",
+      "slug": "portfolio",
+      "sourceUrl": "https://www.vp-associates.com/portfolio/",
+      "targetUrl": "http://localhost:3000/projects",
+      "sourceContent": {
+        "headings": [
+          "OUR WORK",
+          "View Our Portfolio"
+        ],
+        "paragraphs": [],
+        "lists": [
+          "PORTFOLIO",
+          "SERVICES",
+          "CAREERS",
+          "CONTACT",
+          "WHITEBOARD",
+          "Misc",
+          "Commercial",
+          "Bridges",
+          "Industrial"
+        ],
+        "rawText": "813.247.3835 Tampa, FL PORTFOLIO SERVICES CAREERS CONTACT WHITEBOARD OUR WORK View Our Portfolio Misc Commercial Bridges Industrial 5GC-1a5GD-15GD-4I 95 E25GD-4a038 - Stringer066 - hanrailD104-BE2-02E3-01ISO - CopyMetso ISO 1891991111111811191122AB1B64B65B66B68C6C8Dave and Busters E1 Camber layout WC1 012811Grade layout 012811 WS2I 95 D1I 95 E1I 95 E2I 95 E3I 105 E1_Rev0I 105 E3_Rev0Parker Bridge E1 Bechtel Stacks E1 iso0130801309014010210902305E306E401Morten Salt Col D2_Rev-0Morten Salt elev E5_Rev-0Morten Salt ISO_Rev-0RMS D7RMS D74RMS E2RMS E12RMS ISO"
+      },
+      "targetContent": {
+        "headings": [
+          "Our Projects",
+          "Tampa Marina Complex",
+          "Coastal Seawall System",
+          "Luxury Residential Estate",
+          "Waterfront Restaurant",
+          "Manufacturing Plant Addition",
+          "Retail Shopping Center",
+          "Downtown Office Tower",
+          "Industrial Warehouse Complex",
+          "School Classroom Wing",
+          "Boat Storage Facility",
+          "Multi-Family Housing",
+          "Community Center",
+          "Featured Projects",
+          "Tampa Marina Complex",
+          "Coastal Seawall System",
+          "Start Your Project Today"
+        ],
+        "paragraphs": [
+          "A portfolio of successful structural engineering projects across Tampa Bay",
+          "Complete structural design for a 50-slip marina with restaurant and retail spaces",
+          "Engineered seawall protection system for luxury waterfront property",
+          "Complete structural design for 8,000 sq ft waterfront residence with pool",
+          "Structural design for elevated restaurant with deck over water",
+          "Steel frame expansion for heavy manufacturing facility",
+          "Structural design for strip mall with 6 retail spaces",
+          "Structural steel design for 12-story commercial office building",
+          "Pre-engineered metal building structure with 40,000 sq ft warehouse",
+          "Masonry and steel design for new 2-story classroom addition",
+          "Pre-engineered metal building for dry stack boat storage",
+          "Structural design for 4-story wood frame apartment complex",
+          "Masonry and steel design for 15,000 sq ft community facility",
+          "Some of our most notable and challenging engineering achievements",
+          "Complete structural design for a 50-slip marina with restaurant and retail spaces",
+          "Engineered seawall protection system for luxury waterfront property",
+          "Let's add your project to our portfolio of successful engineering solutions"
+        ],
+        "lists": [],
+        "rawText": "Skip to main content Our Projects A portfolio of successful structural engineering projects across Tampa Bay All ProjectsCommercialMarineResidentialIndustrialInstitutionalAll LocationsBradenton, FLBrandon, FLClearwater, FLLakeland, FLSarasota, FLSt. Petersburg, FLTampa, FLAll Years20242023Newest FirstOldest FirstName (A-Z)Name (Z-A)12 projectsMarineTampa Marina ComplexComplete structural design for a 50-slip marina with restaurant and retail spaces Tampa, FL 2024MarineCoastal Seawall SystemEngineered seawall protection system for luxury waterfront property Clearwater, FL 2024ResidentialLuxury Residential EstateComplete structural design for 8,000 sq ft waterfront residence with pool St. Petersburg, FL 2024CommercialWaterfront RestaurantStructural design for elevated restaurant with deck over water Tampa, FL 2024IndustrialManufacturing Plant AdditionSteel frame expansion for heavy manufacturing facility Sarasota, FL 2024CommercialRetail Shopping CenterStructural design for strip mall with 6 retail spaces Brandon, FL 2024CommercialDowntown Office TowerStructural steel design for 12-story commercial office building Tampa, FL 2023IndustrialIndustrial Warehouse ComplexPre-engineered metal building structure with 40,000 sq ft warehouse Brandon, FL 2023InstitutionalSchool Classroom WingMasonry and steel design for new 2-story classroom addition Lakeland, FL 2023MarineBoat Storage FacilityPre-engineered metal building for dry stack boat storage Clearwater, FL 2023ResidentialMulti-Family HousingStructural design for 4-story wood frame apartment complex Tampa, FL 2023InstitutionalCommunity CenterMasonry and steel design for 15,000 sq ft community facility Bradenton, FL 2023500+Projects Completed30+Years Experience100%Code Compliant10Florida Counties Featured Projects Some of our most notable and challenging engineering achievements CommercialTampa Marina ComplexComplete structural design for a 50-slip marina with restaurant and retail spaces Tampa, FL 2024 MarineCoastal Seawall SystemEngineered seawall protection system for luxury waterfront property Clearwater, FL 2024 Start Your Project Today Let's add your project to our portfolio of successful engineering solutions Contact Us"
+      },
+      "comparison": {
+        "headingMatch": 0,
+        "paragraphCountDiff": -17,
+        "listCountDiff": 9,
+        "overallSimilarity": 10.68840579710145,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [
+          "OUR WORK",
+          "View Our Portfolio"
+        ],
+        "extraHeadings": [
+          "Our Projects",
+          "Tampa Marina Complex",
+          "Coastal Seawall System",
+          "Luxury Residential Estate",
+          "Waterfront Restaurant",
+          "Manufacturing Plant Addition",
+          "Retail Shopping Center",
+          "Downtown Office Tower",
+          "Industrial Warehouse Complex",
+          "School Classroom Wing",
+          "Boat Storage Facility",
+          "Multi-Family Housing",
+          "Community Center",
+          "Featured Projects",
+          "Tampa Marina Complex",
+          "Coastal Seawall System",
+          "Start Your Project Today"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 1648 more characters"
+      }
+    },
+    {
+      "page": "CAREERS",
+      "slug": "careers",
+      "sourceUrl": "https://www.vp-associates.com/careers/",
+      "targetUrl": "http://localhost:3000/careers",
+      "sourceContent": {
+        "headings": [
+          "CAREERS",
+          "Join Our Team"
+        ],
+        "paragraphs": [
+          "VP & Associates, Inc. is an innovative company serving clients all over the U.S. and others parts of the world. It is a challenging and satisfying working environment here - one that encourages personal growth, creative thinking and innovative solutions. We are located in Tampa, Florida.",
+          "The company seeks individuals who desire to grow and develop along with it. Prospective employees must have experience in Structural Steel Detailing on a variety of project types.",
+          "Experience with SDS/2 or Tekla Structures is preferred. Compensation is commensurate with experience.",
+          "Submit your resume here."
+        ],
+        "lists": [
+          "PORTFOLIO",
+          "SERVICES",
+          "CAREERS",
+          "CONTACT",
+          "WHITEBOARD"
+        ],
+        "rawText": "813.247.3835 Tampa, FL PORTFOLIO SERVICES CAREERS CONTACT WHITEBOARD CAREERS Join Our Team VP & Associates, Inc. is an innovative company serving clients all over the U.S. and others parts of the world. It is a challenging and satisfying working environment here - one that encourages personal growth, creative thinking and innovative solutions. We are located in Tampa, Florida. The company seeks individuals who desire to grow and develop along with it. Prospective employees must have experience in Structural Steel Detailing on a variety of project types. Experience with SDS/2 or Tekla Structures is preferred. Compensation is commensurate with experience. Submit your resume here."
+      },
+      "targetContent": {
+        "headings": [
+          "Join Our Team",
+          "Why VP Associates?",
+          "Diverse Project Portfolio",
+          "Professional Growth",
+          "Collaborative Environment",
+          "Work-Life Balance",
+          "Competitive Compensation",
+          "Tampa Bay Location",
+          "Competitive Benefits Package",
+          "Open Positions",
+          "Structural Engineer",
+          "Senior Structural Engineer",
+          "CAD/BIM Technician",
+          "Project Manager",
+          "Our Culture",
+          "Excellence",
+          "Integrity",
+          "Collaboration",
+          "Innovation",
+          "Commitment to Excellence",
+          "Application Process",
+          "Submit Application",
+          "Initial Review",
+          "Interview Process",
+          "Technical Assessment",
+          "Reference Check",
+          "Welcome to the Team!",
+          "Ready to Take the Next Step?"
+        ],
+        "paragraphs": [
+          "Build your career with a leading structural engineering firm in Tampa Bay",
+          "Join a team of talented engineers who are shaping the Tampa Bay skyline",
+          "Work on challenging projects across commercial, marine, residential, and industrial sectors throughout Florida.",
+          "Continuous learning opportunities, mentorship programs, and support for professional licensure and certifications.",
+          "Join a supportive team of experienced engineers who share knowledge and work together to solve complex problems.",
+          "We value our team members' time outside of work with flexible schedules and a supportive workplace culture.",
+          "Industry-leading salaries, performance bonuses, and comprehensive benefits package for you and your family.",
+          "Enjoy the beautiful Florida Gulf Coast with great weather, beaches, and outdoor activities year-round.",
+          "We invest in our team members with comprehensive benefits and opportunities for professional growth.",
+          "Explore opportunities to join our team",
+          "We foster a collaborative environment where engineers thrive",
+          "Delivering quality engineering solutions",
+          "Honest and ethical business practices",
+          "Working together to achieve success",
+          "Embracing new technologies and methods",
+          "At VP Associates, we're committed to delivering exceptional structural engineering solutions while maintaining a supportive work environment that encourages innovation and professional growth.",
+          "Our team members work on diverse projects across commercial, marine, residential, and industrial sectors, gaining valuable experience and expertise.",
+          "Our streamlined hiring process gets you onboarded quickly",
+          "Apply online with your resume and cover letter highlighting your experience and qualifications.",
+          "Our team reviews your application and contacts qualified candidates within 1-2 weeks.",
+          "Meet with our team to discuss your background, experience, and career goals.",
+          "For engineering positions, complete a technical review to demonstrate your expertise.",
+          "We contact your professional references to verify your experience and work ethic.",
+          "Receive an offer and join our team of talented structural engineers.",
+          "Apply for an open position or send us your resume for future opportunities"
+        ],
+        "lists": [
+          "Competitive salary based on experience",
+          "Health, dental, and vision insurance",
+          "401(k) retirement plan with company match",
+          "Professional development and continuing education",
+          "Support for PE license acquisition",
+          "Flexible work schedule",
+          "Paid time off and holidays",
+          "Life and disability insurance",
+          "Employee referral program",
+          "Regular team events and activities"
+        ],
+        "rawText": "Skip to main content Join Our Team Build your career with a leading structural engineering firm in Tampa Bay Why VP Associates? Join a team of talented engineers who are shaping the Tampa Bay skyline Diverse Project PortfolioWork on challenging projects across commercial, marine, residential, and industrial sectors throughout Florida.Professional GrowthContinuous learning opportunities, mentorship programs, and support for professional licensure and certifications.Collaborative EnvironmentJoin a supportive team of experienced engineers who share knowledge and work together to solve complex problems.Work-Life BalanceWe value our team members' time outside of work with flexible schedules and a supportive workplace culture.Competitive CompensationIndustry-leading salaries, performance bonuses, and comprehensive benefits package for you and your family.Tampa Bay LocationEnjoy the beautiful Florida Gulf Coast with great weather, beaches, and outdoor activities year-round. Competitive Benefits Package We invest in our team members with comprehensive benefits and opportunities for professional growth. Competitive salary based on experienceHealth, dental, and vision insurance401(k) retirement plan with company matchProfessional development and continuing educationSupport for PE license acquisitionFlexible work schedulePaid time off and holidaysLife and disability insuranceEmployee referral programRegular team events and activities30+Years of Excellence Open Positions Explore opportunities to join our team Structural Engineer Tampa, FL Full-time 3+ yearsEngineering View Details Senior Structural Engineer Tampa, FL Full-time 8+ yearsEngineering View Details CAD/BIM Technician Tampa, FL Full-time 2+ yearsDesign View Details Project Manager Tampa, FL Full-time 5+ yearsManagement View Details Our Culture We foster a collaborative environment where engineers thrive ExcellenceDelivering quality engineering solutionsIntegrityHonest and ethical business practicesCollaborationWorking together to achieve successInnovationEmbracing new technologies and methods Commitment to Excellence At VP Associates, we're committed to delivering exceptional structural engineering solutions while maintaining a supportive work environment that encourages innovation and professional growth. Our team members work on diverse projects across commercial, marine, residential, and industrial sectors, gaining valuable experience and expertise. 500+Projects Completed30+Years in Business10+Team Members100%Employee Owned Application Process Our streamlined hiring process gets you onboarded quickly 1Submit ApplicationApply online with your resume and cover letter highlighting your experience and qualifications.2Initial ReviewOur team reviews your application and contacts qualified candidates within 1-2 weeks.3Interview ProcessMeet with our team to discuss your background, experience, and career goals.4Technical AssessmentFor engineering positions, complete a technical review to demonstrate your expertise.5Reference CheckWe contact your professional references to verify your experience and work ethic.6Welcome to the Team!Receive an offer and join our team of talented structural engineers. Ready to Take the Next Step? Apply for an open position or send us your resume for future opportunities Submit Resume (813) 555-1234"
+      },
+      "comparison": {
+        "headingMatch": 50,
+        "paragraphCountDiff": -21,
+        "listCountDiff": -5,
+        "overallSimilarity": 14.650255178625038,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [
+          "CAREERS"
+        ],
+        "extraHeadings": [
+          "Why VP Associates?",
+          "Diverse Project Portfolio",
+          "Professional Growth",
+          "Collaborative Environment",
+          "Work-Life Balance",
+          "Competitive Compensation",
+          "Tampa Bay Location",
+          "Competitive Benefits Package",
+          "Open Positions",
+          "Structural Engineer",
+          "Senior Structural Engineer",
+          "CAD/BIM Technician",
+          "Project Manager",
+          "Our Culture",
+          "Excellence",
+          "Integrity",
+          "Collaboration",
+          "Innovation",
+          "Commitment to Excellence",
+          "Application Process",
+          "Submit Application",
+          "Initial Review",
+          "Interview Process",
+          "Technical Assessment",
+          "Reference Check",
+          "Welcome to the Team!",
+          "Ready to Take the Next Step?"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 2645 more characters"
+      }
+    },
+    {
+      "page": "CONTACT",
+      "slug": "contact",
+      "sourceUrl": "https://www.vp-associates.com/contact/",
+      "targetUrl": "http://localhost:3000/contact",
+      "sourceContent": {
+        "headings": [
+          "GET IN TOUCH",
+          "Send Us a Message",
+          "Contact Information"
+        ],
+        "paragraphs": [
+          "Please fill out the form below and we will contact you shortly.",
+          "202 S. 22nd Street Suite 209   Tampa, FL 33605",
+          "Phone:\n                                813.247.3835 \n                                Fax:\n                                (813) 247-4305"
+        ],
+        "lists": [
+          "PORTFOLIO",
+          "SERVICES",
+          "CAREERS",
+          "CONTACT",
+          "WHITEBOARD"
+        ],
+        "rawText": "813.247.3835 Tampa, FL PORTFOLIO SERVICES CAREERS CONTACT WHITEBOARD GET IN TOUCH Send Us a Message Contact Information Please fill out the form below and we will contact you shortly. I am interested in Steel Detailing Structural Engineering Connection Design Other Services Submit 202 S. 22nd Street Suite 209 Tampa, FL 33605 Phone: 813.247.3835 Fax: (813) 247-4305 vphan@vp-associates.com"
+      },
+      "targetContent": {
+        "headings": [
+          "Contact Us",
+          "Send Us a Message",
+          "Contact Information",
+          "Service Areas"
+        ],
+        "paragraphs": [
+          "Get in touch with our team of experienced structural engineers",
+          "Fill out the form below and we'll get back to you within 24 hours.",
+          "For urgent structural issues or inspection needs, call us directly.",
+          "Proudly serving the entire Tampa Bay region"
+        ],
+        "lists": [],
+        "rawText": "Skip to main content Contact Us Get in touch with our team of experienced structural engineers Send Us a Message Fill out the form below and we'll get back to you within 24 hours. First Name * Last Name * Email * Phone Website (leave blank) Service Needed Select a service...Structural Steel DesignConcrete DesignMasonry DesignWood DesignFoundation DesignSeawall DesignSteel Connection DesignCAD & 3D ModelingInspection ServicesSteel DetailingOther Message *Send Message Contact Information Office Address 123 Main Street, Suite 100 Tampa, FL 33602 Phone (813) 555-1234 Email info@vp-associates.com Business Hours Monday - Friday: 8:00 AM - 5:00 PM Saturday - Sunday: Closed Open in larger map Emergency? For urgent structural issues or inspection needs, call us directly. (813) 555-1234 Service Areas Proudly serving the entire Tampa Bay region TampaSt. PetersburgClearwaterBrandonLakelandSarasotaBradentonPasco County"
+      },
+      "comparison": {
+        "headingMatch": 66.66666666666666,
+        "paragraphCountDiff": -1,
+        "listCountDiff": 5,
+        "overallSimilarity": 21.653971708378673,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [
+          "GET IN TOUCH"
+        ],
+        "extraHeadings": [
+          "Contact Us",
+          "Service Areas"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 529 more characters"
+      }
+    },
+    {
+      "page": "WHITEBOARD",
+      "slug": "about-3",
+      "sourceUrl": "https://www.vp-associates.com/about-3/",
+      "targetUrl": "http://localhost:3000/about",
+      "sourceContent": {
+        "headings": [
+          "WHITEBOARD"
+        ],
+        "paragraphs": [
+          "<span data-mce-type=\"bookmark\" style=\"display: inline-block; width: 0px; overflow: hidden; line-height: 0;\" class=\"mce_SELRES_start\">﻿</span>"
+        ],
+        "lists": [
+          "PORTFOLIO",
+          "SERVICES",
+          "CAREERS",
+          "CONTACT",
+          "WHITEBOARD"
+        ],
+        "rawText": "813.247.3835 Tampa, FL PORTFOLIO SERVICES CAREERS CONTACT WHITEBOARD WHITEBOARD <span data-mce-type=\"bookmark\" style=\"display: inline-block; width: 0px; overflow: hidden; line-height: 0;\" class=\"mce_SELRES_start\"> </span>"
+      },
+      "targetContent": {
+        "headings": [
+          "About VP Associates",
+          "Our History",
+          "Our Mission & Values",
+          "Safety First",
+          "Innovation",
+          "Client Service",
+          "Our Leadership Team",
+          "Vincent P. Rodriguez, P.E.",
+          "Jennifer Martinez, P.E.",
+          "David Kim, P.E.",
+          "Sarah Thompson, P.E.",
+          "Certifications & Affiliations",
+          "Serving Tampa Bay",
+          "Ready to Work Together?"
+        ],
+        "paragraphs": [
+          "Tampa Bay's trusted structural engineering firm for over 30 years",
+          "Founded in 1991, VP Associates has grown from a small consulting firm to one of Tampa Bay's most respected structural engineering practices. Our founder, a licensed Florida engineer with decades of experience, established the company on the principles of integrity, technical excellence, and client service.",
+          "Throughout our 30+ year history, we've contributed to shaping the Tampa Bay skyline through innovative structural solutions for commercial developments, residential communities, marine facilities, and critical infrastructure projects.",
+          "We combine deep technical expertise with practical construction knowledge to deliver designs that are not only code-compliant and safe, but also buildable and cost-effective.",
+          "The principles that guide every project we undertake",
+          "Every design we create prioritizes structural integrity and public safety. We never compromise on engineering standards or code requirements.",
+          "We embrace new technologies and methods, from BIM modeling to advanced analysis software, to deliver efficient and economical solutions.",
+          "We build lasting relationships through responsive communication, technical expertise, and a commitment to our clients' success.",
+          "Experienced engineers dedicated to your project's success",
+          "Founder and principal engineer with 35+ years of structural engineering experience. Licensed in Florida and multiple states. Specializes in complex commercial and marine structures.",
+          "20+ years of experience in structural design and project management. Expert in concrete and masonry design. Leads our commercial development projects.",
+          "15+ years specializing in steel connection design and detailing. SDS2 expert and BIM specialist. Manages our industrial and marine projects.",
+          "12+ years in structural engineering with focus on residential and light commercial projects. Expert in foundation design and seawall structures.",
+          "Professional credentials and industry memberships",
+          "VP Associates is proud to serve the entire Tampa Bay area and surrounding communities. Our local expertise includes understanding Florida's unique building challenges, from hurricane wind loads to coastal soil conditions.",
+          "Let's discuss how VP Associates can bring expertise to your next project"
+        ],
+        "lists": [],
+        "rawText": "Skip to main content About VP Associates Tampa Bay's trusted structural engineering firm for over 30 years Our History Founded in 1991, VP Associates has grown from a small consulting firm to one of Tampa Bay's most respected structural engineering practices. Our founder, a licensed Florida engineer with decades of experience, established the company on the principles of integrity, technical excellence, and client service. Throughout our 30+ year history, we've contributed to shaping the Tampa Bay skyline through innovative structural solutions for commercial developments, residential communities, marine facilities, and critical infrastructure projects. We combine deep technical expertise with practical construction knowledge to deliver designs that are not only code-compliant and safe, but also buildable and cost-effective. 30+Years in Business500+Projects Completed100%Code Compliance Our Mission & Values The principles that guide every project we undertake Safety First Every design we create prioritizes structural integrity and public safety. We never compromise on engineering standards or code requirements. Innovation We embrace new technologies and methods, from BIM modeling to advanced analysis software, to deliver efficient and economical solutions. Client Service We build lasting relationships through responsive communication, technical expertise, and a commitment to our clients' success. Our Leadership Team Experienced engineers dedicated to your project's success Vincent P. Rodriguez, P.E.President & Principal EngineerFounder and principal engineer with 35+ years of structural engineering experience. Licensed in Florida and multiple states. Specializes in complex commercial and marine structures.Jennifer Martinez, P.E.Vice President20+ years of experience in structural design and project management. Expert in concrete and masonry design. Leads our commercial development projects.David Kim, P.E.Senior Project Engineer15+ years specializing in steel connection design and detailing. SDS2 expert and BIM specialist. Manages our industrial and marine projects.Sarah Thompson, P.E.Project Manager12+ years in structural engineering with focus on residential and light commercial projects. Expert in foundation design and seawall structures. Certifications & Affiliations Professional credentials and industry memberships AISC CertificationACI MembershipFL PE LicensedNCSEA MemberASCE MemberFES MemberOSHA CertifiedISO 9001:2015 Serving Tampa Bay VP Associates is proud to serve the entire Tampa Bay area and surrounding communities. Our local expertise includes understanding Florida's unique building challenges, from hurricane wind loads to coastal soil conditions. TampaSt. PetersburgClearwaterBrandonLakelandSarasotaBradentonPasco CountyHillsborough CountyPinellas County Ready to Work Together? Let's discuss how VP Associates can bring expertise to your next project Contact Us Today"
+      },
+      "comparison": {
+        "headingMatch": 0,
+        "paragraphCountDiff": -15,
+        "listCountDiff": 5,
+        "overallSimilarity": 4.304748889648104,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [
+          "WHITEBOARD"
+        ],
+        "extraHeadings": [
+          "About VP Associates",
+          "Our History",
+          "Our Mission & Values",
+          "Safety First",
+          "Innovation",
+          "Client Service",
+          "Our Leadership Team",
+          "Vincent P. Rodriguez, P.E.",
+          "Jennifer Martinez, P.E.",
+          "David Kim, P.E.",
+          "Sarah Thompson, P.E.",
+          "Certifications & Affiliations",
+          "Serving Tampa Bay",
+          "Ready to Work Together?"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 2706 more characters"
+      }
+    },
+    {
+      "page": "132",
+      "slug": "132",
+      "sourceUrl": "https://www.vp-associates.com/gallery/132/",
+      "targetUrl": "http://localhost:3000/projects/132",
+      "sourceContent": {
+        "headings": [],
+        "paragraphs": [],
+        "lists": [],
+        "rawText": ""
+      },
+      "targetContent": {
+        "headings": [
+          "Project Not Found"
+        ],
+        "paragraphs": [
+          "The project you're looking for doesn't exist or has been removed."
+        ],
+        "lists": [],
+        "rawText": "Skip to main content Project Not FoundThe project you're looking for doesn't exist or has been removed. Back to Projects"
+      },
+      "comparison": {
+        "headingMatch": 0,
+        "paragraphCountDiff": -1,
+        "listCountDiff": 0,
+        "overallSimilarity": 0,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [],
+        "extraHeadings": [
+          "Project Not Found"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 120 more characters"
+      }
+    },
+    {
+      "page": "bridges",
+      "slug": "bridges",
+      "sourceUrl": "https://www.vp-associates.com/gallery/bridges/",
+      "targetUrl": "http://localhost:3000/projects/bridges",
+      "sourceContent": {
+        "headings": [],
+        "paragraphs": [],
+        "lists": [],
+        "rawText": ""
+      },
+      "targetContent": {
+        "headings": [
+          "Project Not Found"
+        ],
+        "paragraphs": [
+          "The project you're looking for doesn't exist or has been removed."
+        ],
+        "lists": [],
+        "rawText": "Skip to main content Project Not FoundThe project you're looking for doesn't exist or has been removed. Back to Projects"
+      },
+      "comparison": {
+        "headingMatch": 0,
+        "paragraphCountDiff": -1,
+        "listCountDiff": 0,
+        "overallSimilarity": 0,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [],
+        "extraHeadings": [
+          "Project Not Found"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 120 more characters"
+      }
+    },
+    {
+      "page": "commercial",
+      "slug": "commercial",
+      "sourceUrl": "https://www.vp-associates.com/gallery/commercial/",
+      "targetUrl": "http://localhost:3000/projects/commercial",
+      "sourceContent": {
+        "headings": [],
+        "paragraphs": [],
+        "lists": [],
+        "rawText": ""
+      },
+      "targetContent": {
+        "headings": [
+          "Project Not Found"
+        ],
+        "paragraphs": [
+          "The project you're looking for doesn't exist or has been removed."
+        ],
+        "lists": [],
+        "rawText": "Skip to main content Project Not FoundThe project you're looking for doesn't exist or has been removed. Back to Projects"
+      },
+      "comparison": {
+        "headingMatch": 0,
+        "paragraphCountDiff": -1,
+        "listCountDiff": 0,
+        "overallSimilarity": 0,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [],
+        "extraHeadings": [
+          "Project Not Found"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 120 more characters"
+      }
+    },
+    {
+      "page": "misc",
+      "slug": "misc",
+      "sourceUrl": "https://www.vp-associates.com/gallery/misc/",
+      "targetUrl": "http://localhost:3000/projects/misc",
+      "sourceContent": {
+        "headings": [],
+        "paragraphs": [],
+        "lists": [],
+        "rawText": ""
+      },
+      "targetContent": {
+        "headings": [
+          "Project Not Found"
+        ],
+        "paragraphs": [
+          "The project you're looking for doesn't exist or has been removed."
+        ],
+        "lists": [],
+        "rawText": "Skip to main content Project Not FoundThe project you're looking for doesn't exist or has been removed. Back to Projects"
+      },
+      "comparison": {
+        "headingMatch": 0,
+        "paragraphCountDiff": -1,
+        "listCountDiff": 0,
+        "overallSimilarity": 0,
+        "flagged": true
+      },
+      "differences": {
+        "missingHeadings": [],
+        "extraHeadings": [
+          "Project Not Found"
+        ],
+        "missingParagraphs": 0,
+        "contentHashDiff": "Target has 120 more characters"
+      }
+    }
+  ]
+}

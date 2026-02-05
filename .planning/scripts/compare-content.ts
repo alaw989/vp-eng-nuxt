@@ -281,7 +281,10 @@ async function comparePages(
 
     // Fetch target content
     const targetPath = mapSourceToTarget(page.url, page.slug)
-    const targetUrl = targetBaseUrl + targetPath.replace(/^\//, '')
+    // Ensure proper URL construction with slash separator
+    const normalizedBaseUrl = targetBaseUrl.endsWith('/') ? targetBaseUrl : targetBaseUrl + '/'
+    const normalizedPath = targetPath.startsWith('/') ? targetPath.slice(1) : targetPath
+    const targetUrl = normalizedBaseUrl + normalizedPath
     console.log(`  Fetching target: ${targetUrl}`)
     const targetHtml = await fetchPageContent(targetUrl)
 
