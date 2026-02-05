@@ -156,13 +156,13 @@ Plans:
   3. Service-related images migrated and displaying correctly
   4. Category/filtering functionality works as expected
   5. Visual comparison shows no regressions from live site baseline
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 08-01: Services listing page styling fixes
-- [ ] 08-02: Service detail page layout and content display
-- [ ] 08-03: Service image migration and optimization
-- [ ] 08-04: Visual comparison and QA verification
+- [ ] 08-01-PLAN.md — Services listing page with horizontal scrollable category pills and URL state
+- [ ] 08-02-PLAN.md — Service detail page with hero image, process section, and dynamic related services
+- [ ] 08-03-PLAN.md — Service hero image verification from Phase 3 migration
+- [ ] 08-04-PLAN.md — Visual comparison and QA verification with screenshot capture
 
 ### Phase 9: Section Polish - About & Team
 **Goal**: Fix about and team pages with team photo migration
