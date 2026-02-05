@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 
 ## Current Position
 
-Phase: 4 of 10 (Content & SEO Validation)
-Plan: 4 of 5 in current phase
-Status: In progress
-Last activity: 2026-02-05 — Completed 04-04 URL structure and redirects
+Phase: 5 of 10 (QA & PWA Foundation)
+Plan: 0 of 5 in current phase
+Status: Ready to start
+Last activity: 2026-02-05 — Completed 04-05 XML Sitemap Verification
 
-Progress: [████████████] 80%
+Progress: [████████████░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 18
 - Average duration: ~4 min
-- Total execution time: 1.1 hours
+- Total execution time: 1.3 hours
 
 **By Phase:**
 
@@ -30,7 +30,8 @@ Progress: [████████████] 80%
 | 01    | 3     | 3        | ~4 min   |
 | 02    | 4     | 4        | ~6 min   |
 | 03    | 3     | 3        | ~4 min   |
-| 04    | 5     | 3        | ~1 min   |
+| 04    | 5     | 5        | ~2 min   |
+| 05    | 5     | 0        | -        |
 
 **Recent Trend:**
 - Last 5 plans: 02-04 (~4 min), 03-01 (~6 min), 03-02 (~2 min), 03-03 (~3 min), 04-01 (~2 min), 04-02 (~1 min), 04-03 (~2 min)
@@ -76,6 +77,13 @@ Recent decisions affecting current work:
 - Trailing slash redirects handle WordPress vs Nuxt URL differences
 - 410 Gone for WordPress system pages (hello-world, category, author)
 
+**From 04-05 (XML Sitemap Verification):**
+- XML sitemap accessible at /sitemap.xml with 18 URLs (7 static + 6 services + 5 projects)
+- Disabled @nuxtjs/sitemap module to use custom server route for full control
+- Static fallback data mirrors server/api/*.get.ts when WordPress API returns 404
+- /search page included in sitemap (was incorrectly excluded)
+- Google Search Console submission steps documented for post-deployment
+
 **From 03-01 (Image Discovery and Download):**
 - Content-addressable storage using SHA-256 hashes prevents duplicate storage
 - Dual discovery: WordPress Media API + HTML crawling for comprehensive coverage
@@ -109,8 +117,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 04-04 URL structure and redirects
+Stopped at: Completed 04-05 XML Sitemap Verification - Phase 4 complete
 Resume file: None
+Next: Phase 5 - QA & PWA Foundation
 
 ## Phase 1 Summary (Complete)
 
@@ -147,15 +156,16 @@ All 3 plans executed successfully:
 - Responsive sizes: 640w, 1280w, 1920w
 - Categories: hero (6), projects (14), team (1), general (4)
 
-## Phase 4 Summary (In Progress)
+## Phase 4 Summary (Complete)
 
-**Phase 4: Content & SEO Validation - 4 of 5 COMPLETE**
+**Phase 4: Content & SEO Validation - COMPLETE**
 
-Plans executed:
+All 5 plans executed:
 - 04-01: Link validation (13 pages checked, 58 links, 2 critical broken PDFs found)
 - 04-02: Content comparison (11 pages compared, similarity analysis, content enrichment confirmed)
 - 04-03: Meta tag verification (12 pages compared, OG/Twitter Cards added, 12/12 critical pass)
 - 04-04: URL structure and redirects (15 301 redirects configured, SEO value preserved)
+- 04-05: XML sitemap verification (18 URLs accessible at /sitemap.xml)
 
 **Deliverables:**
 - `.planning/scripts/validate-links.ts` - Link extraction and validation script (427 lines)
@@ -168,11 +178,22 @@ Plans executed:
 - `.planning/audit/url-inventory.csv` - Human-readable URL mapping report
 - `.planning/audit/url-inventory.json` - Structured URL inventory
 - `.planning/audit/redirect-rules.json` - Nuxt routeRules input
+- `.planning/scripts/verify-sitemap.ts` - Sitemap verification script (365 lines)
+- `.planning/audit/sitemap-verification.json` - Sitemap verification report
 - `nuxt.config.ts` - Updated with 15 301 redirect rules
+- `server/routes/sitemap.xml.ts` - Dynamic sitemap generation
 
 **Statistics:**
 - Link validation: 13 pages from vp-associates.com, 58 links (54 success, 2 critical, 2 external)
 - Content comparison: 11 pages compared, avg similarity 18.3% (positive - indicates enrichment)
 - Meta tag comparison: 12 pages compared, 100% critical tags pass, WordPress has 0 OG/Twitter tags (Nuxt adds full implementation)
 - URL inventory: 13 total URLs, 1 unchanged, 9 changed (301), 3 removed (410)
+- Sitemap: 18 URLs (7 static + 6 services + 5 projects)
+
+**Requirements Met:**
+- REQ-LNK-001: Link validation complete
+- REQ-LNK-002: Content integrity verified
+- REQ-SEO-001: Meta tags compared
+- REQ-SEO-002: URL structure and redirects configured
+- REQ-SEO-003: Sitemap verified
 
