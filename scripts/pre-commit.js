@@ -48,8 +48,7 @@ try {
 
   previewProcess = spawn('npm', ['run', 'preview'], {
     stdio: 'pipe',
-    detached: true,
-    shell: true
+    detached: true
   });
 
   // Wait for server to start
