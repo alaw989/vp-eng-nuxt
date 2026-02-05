@@ -398,11 +398,13 @@ All 4 plans executed:
 - All 5 Phase 7 success criteria verified PASS
 
 **From 08-01 (Services Listing Page Enhancements):**
-- Grid-only layout maintained (no grid/list toggle needed per Phase 8 Context)
-- Category tag filtering with horizontal scrollable pills
+- Category filtering with horizontal scrollable pills (completed 2026-02-05)
+- 5 categories: All Services, Structural Design, Design & Detailing, Inspection, Marine & Coastal
 - URL state persistence via ?category= query parameter
 - Active state highlighted (bg-primary, scale-105)
-- Filter resets pagination to page 1
+- Empty state when no services match filter
+- Results count with aria-live for accessibility
+- Scrollbar-hide CSS for clean mobile UX
 
 **From 08-02 (Service Detail Page with Hero Image):**
 - Full-width hero image background with dark overlay (60/50/70% gradient)
