@@ -50,12 +50,13 @@ Plans:
   2. Visual diff highlights pixel differences between baseline and current implementations
   3. HTML source comparison reports semantic element differences (headings, nav, main, footer)
   4. Comparison results export to structured format for review
-**Plans**: 3 plans
+**Plans**: 4 plans
 
 Plans:
 - [ ] 02-01-PLAN.md — Pixel diff infrastructure with odiff-bin for current screenshots and diff generation
-- [ ] 02-02-PLAN.md — Web-based visual diff viewer with Express server and side-by-side layout
+- [ ] 02-02-PLAN.md — Viewer UI files (HTML, CSS, JavaScript) for side-by-side comparison
 - [ ] 02-03-PLAN.md — HTML content verification using Cheerio for semantic elements and text presence
+- [ ] 02-04-PLAN.md — Express server wiring viewer UI to comparison data with auto-open
 
 ### Phase 3: Image Migration
 **Goal**: Download and optimize all images from source site for use in new application
@@ -207,7 +208,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Audit & Baseline Capture | 3/3 | Complete | 2026-02-04 |
-| 2. Comparison Infrastructure | 0/3 | Not started | - |
+| 2. Comparison Infrastructure | 0/4 | Not started | - |
 | 3. Image Migration | 0/3 | Not started | - |
 | 4. Content & SEO Validation | 0/5 | Not started | - |
 | 5. QA & PWA Foundation | 0/4 | Not started | - |
