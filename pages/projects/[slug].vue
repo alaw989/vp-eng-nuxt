@@ -71,80 +71,89 @@
       </AppSection>
 
       <!-- Project Details -->
-      <AppSection bg-color="white" animate-on-scroll>
+      <AppSection bg-color="white" padding="lg" animate-on-scroll>
         <div class="grid lg:grid-cols-3 gap-12">
           <!-- Main content -->
-          <div class="lg:col-span-2">
-            <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6">
-              Project Overview
-            </h2>
-            <div class="prose prose-lg max-w-none text-neutral-600 mb-6" v-html="project.content.rendered"></div>
+          <div class="lg:col-span-2 space-y-12">
+            <!-- Project Overview Section -->
+            <section>
+              <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6 flex items-center gap-3">
+                <span class="w-1 h-8 bg-primary rounded-full"></span>
+                Project Overview
+              </h2>
+              <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="project.content.rendered"></div>
+            </section>
 
-            <div class="mb-8 pt-6 border-t border-neutral-200 social-share">
+            <!-- Social Share Section -->
+            <div class="pt-6 border-t border-neutral-200">
               <LazySocialShare
                 :title="project.title.rendered"
                 :description="projectDescription"
               />
             </div>
 
-            <h3 class="text-2xl font-bold text-neutral-900 mb-4">
-              Services Provided
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                v-for="service in servicesProvided"
-                :key="service"
-                class="px-4 py-2 bg-primary/10 text-primary rounded-lg font-medium"
-              >
-                {{ service }}
-              </span>
-            </div>
+            <!-- Services Provided Section -->
+            <section v-if="servicesProvided.length > 0">
+              <h3 class="text-2xl font-display font-bold text-neutral-900 mb-6 flex items-center gap-3">
+                <span class="w-1 h-6 bg-secondary rounded-full"></span>
+                Services Provided
+              </h3>
+              <div class="flex flex-wrap gap-3">
+                <span
+                  v-for="service in servicesProvided"
+                  :key="service"
+                  class="px-5 py-2.5 bg-primary/10 text-primary rounded-lg font-medium hover:bg-primary/20 transition-colors"
+                >
+                  {{ service }}
+                </span>
+              </div>
+            </section>
           </div>
 
           <!-- Sidebar -->
-          <div class="space-y-6">
+          <div class="space-y-8">
             <!-- Quick Stats -->
-            <div class="bg-neutral-50 rounded-xl p-6">
-              <h3 class="font-bold text-neutral-900 mb-4 flex items-center gap-2">
+            <aside class="bg-neutral-50 rounded-xl p-6 shadow-sm">
+              <h3 class="font-bold text-neutral-900 mb-6 flex items-center gap-2 text-lg">
                 <Icon name="mdi:information" class="w-5 h-5 text-primary" />
-                Project Stats
+                Project Details
               </h3>
-              <div class="space-y-3">
-                <div v-if="projectStats.year" class="flex justify-between">
-                  <span class="text-neutral-600">Year Completed</span>
+              <div class="space-y-4">
+                <div v-if="projectStats.year" class="flex justify-between items-center pb-3 border-b border-neutral-200">
+                  <span class="text-neutral-600 text-sm">Year Completed</span>
                   <span class="font-semibold text-neutral-900">{{ projectStats.year }}</span>
                 </div>
-                <div v-if="projectStats.squareFootage" class="flex justify-between">
-                  <span class="text-neutral-600">Square Footage</span>
+                <div v-if="projectStats.squareFootage" class="flex justify-between items-center pb-3 border-b border-neutral-200">
+                  <span class="text-neutral-600 text-sm">Square Footage</span>
                   <span class="font-semibold text-neutral-900">{{ projectStats.squareFootage }}</span>
                 </div>
-                <div v-if="projectStats.capacity" class="flex justify-between">
-                  <span class="text-neutral-600">Capacity</span>
+                <div v-if="projectStats.capacity" class="flex justify-between items-center pb-3 border-b border-neutral-200">
+                  <span class="text-neutral-600 text-sm">Capacity</span>
                   <span class="font-semibold text-neutral-900">{{ projectStats.capacity }}</span>
                 </div>
-                <div class="flex justify-between">
-                  <span class="text-neutral-600">Location</span>
+                <div class="flex justify-between items-center pb-3 border-b border-neutral-200">
+                  <span class="text-neutral-600 text-sm">Location</span>
                   <span class="font-semibold text-neutral-900">{{ projectLocation }}</span>
                 </div>
-                <div class="flex justify-between">
-                  <span class="text-neutral-600">Category</span>
+                <div class="flex justify-between items-center">
+                  <span class="text-neutral-600 text-sm">Category</span>
                   <span class="font-semibold text-neutral-900">{{ projectCategory }}</span>
                 </div>
               </div>
-            </div>
+            </aside>
 
             <!-- CTA -->
-            <div class="bg-primary/10 rounded-xl p-6">
-              <h4 class="font-bold text-neutral-900 mb-2">Start Your Project</h4>
-              <p class="text-neutral-600 mb-4">Need similar structural engineering services?</p>
+            <aside class="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-6 border border-primary/20">
+              <h4 class="font-bold text-neutral-900 mb-2 text-lg">Start Your Project</h4>
+              <p class="text-neutral-600 mb-5 text-sm">Need similar structural engineering services? Let's discuss your requirements.</p>
               <NuxtLink
                 to="/contact"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors shadow-md hover:shadow-lg"
               >
                 Contact Us
                 <Icon name="mdi:arrow-right" class="w-5 h-5" />
               </NuxtLink>
-            </div>
+            </aside>
           </div>
         </div>
       </AppSection>
@@ -239,7 +248,7 @@ const staticProjects: Record<string, any> = {
       squareFootage: '45,000 sq ft',
       services_provided: ['Structural Steel Design', 'Foundation Design', 'Seawall Design', 'Inspection Services']
     },
-    images: ['/images/project-1.jpg', '/images/hero-1.jpg']
+    images: ['/images/projects/steel-connect-1920w.webp', '/images/projects/shallowdeepfoundationdesign10-1920w.webp']
   },
   'downtown-office-tower': {
     title: { rendered: 'Downtown Office Tower' },
@@ -252,7 +261,7 @@ const staticProjects: Record<string, any> = {
       squareFootage: '180,000 sq ft',
       services_provided: ['Structural Steel Design', 'Steel Connection Design', 'Foundation Design', 'CAD & 3D Modeling']
     },
-    images: ['/images/project-2.jpg', '/images/hero-2.jpg']
+    images: ['/images/projects/lowrise-1920w.webp', '/images/projects/steel-connect-1920w.webp']
   },
   'coastal-seawall-system': {
     title: { rendered: 'Coastal Seawall System' },
@@ -264,7 +273,7 @@ const staticProjects: Record<string, any> = {
       year: '2024',
       services_provided: ['Seawall Design', 'Foundation Design', 'Inspection Services']
     },
-    images: ['/images/project-3.jpg', '/images/hero-3.jpg']
+    images: ['/images/projects/shallowdeepfoundationdesign10-1920w.webp', '/images/projects/inspection-services-1920w.webp']
   },
   'luxury-residential-estate': {
     title: { rendered: 'Luxury Residential Estate' },
@@ -277,7 +286,7 @@ const staticProjects: Record<string, any> = {
       squareFootage: '8,000 sq ft',
       services_provided: ['Wood Design', 'Concrete Design', 'Foundation Design']
     },
-    images: ['/images/project-4.jpg']
+    images: ['/images/projects/lowrise-1920w.webp', '/images/projects/cad-drawing-1920w.webp']
   },
   'industrial-warehouse-complex': {
     title: { rendered: 'Industrial Warehouse Complex' },
@@ -290,7 +299,7 @@ const staticProjects: Record<string, any> = {
       squareFootage: '40,000 sq ft',
       services_provided: ['Structural Steel Design', 'Foundation Design', 'Steel Connection Design']
     },
-    images: ['/images/project-5.jpg']
+    images: ['/images/projects/steel-connect-1920w.webp', '/images/projects/crane-lift-1920w.webp', '/images/projects/shopdrawing-1920w.webp']
   },
   'school-classroom-wing': {
     title: { rendered: 'School Classroom Wing' },
@@ -303,7 +312,7 @@ const staticProjects: Record<string, any> = {
       squareFootage: '15,000 sq ft',
       services_provided: ['Masonry Design', 'Structural Steel Design', 'Foundation Design']
     },
-    images: ['/images/hero-1.jpg', '/images/hero-2.jpg']
+    images: ['/images/projects/cad-drawing-1920w.webp', '/images/projects/lowrise-1920w.webp']
   }
 }
 
@@ -327,21 +336,57 @@ const servicesProvided = computed(() => project.value?.acf?.services_provided ||
   'Design Services',
   'Code Compliance'
 ])
+// Project image mapping from Phase 3 migration
+// Maps project slugs to their available images in /images/projects/
+const projectImageMap: Record<string, string[]> = {
+  'tampa-marina-complex': [
+    '/images/projects/steel-connect-1920w.webp',
+    '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
+  ],
+  'downtown-office-tower': [
+    '/images/projects/lowrise-1920w.webp',
+    '/images/projects/steel-connect-1920w.webp',
+  ],
+  'coastal-seawall-system': [
+    '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
+    '/images/projects/inspection-services-1920w.webp',
+  ],
+  'luxury-residential-estate': [
+    '/images/projects/lowrise-1920w.webp',
+    '/images/projects/cad-drawing-1920w.webp',
+  ],
+  'industrial-warehouse-complex': [
+    '/images/projects/steel-connect-1920w.webp',
+    '/images/projects/crane-lift-1920w.webp',
+    '/images/projects/shopdrawing-1920w.webp',
+  ],
+  'school-classroom-wing': [
+    '/images/projects/cad-drawing-1920w.webp',
+    '/images/projects/lowrise-1920w.webp',
+  ],
+}
+
 const projectImages = computed(() => {
-  const images = project.value?.images || []
-  // If no images, return empty array (gallery will show placeholder)
-  return Array.isArray(images) ? images : []
+  // First check if API provides images
+  const apiImages = project.value?.images
+  if (apiImages && Array.isArray(apiImages) && apiImages.length > 0) {
+    return apiImages
+  }
+
+  // Fallback to mapped images from Phase 3 migration
+  const mappedImages = projectImageMap[slug]
+  if (mappedImages && mappedImages.length > 0) {
+    return mappedImages
+  }
+
+  // Log warning for missing mapping and return empty array (gallery will show placeholder)
+  if (process.dev) {
+    console.warn(`No project images found for slug: ${slug}`)
+  }
+  return []
 })
-const hasRelatedProjects = computed(() => relatedProjects.value.length > 0)
-
-// Breadcrumbs for SEO and navigation
-const projectBreadcrumbs = computed(() => [
-  { title: 'Projects', to: '/projects' },
-  { title: project.value?.title?.rendered || 'Project' }
-])
-
-// Related projects (filtered by category, excluding current)
-const relatedProjects = ref([
+// All available projects for related projects (from static data - would come from API in production)
+const allProjectsData = [
   {
     title: 'Tampa Marina Complex',
     slug: 'tampa-marina-complex',
@@ -349,7 +394,7 @@ const relatedProjects = ref([
     category: 'Marine',
     location: 'Tampa, FL',
     year: 2024,
-    image: '/images/project-1.jpg'
+    image: '/images/projects/steel-connect-1920w.webp'
   },
   {
     title: 'Downtown Office Tower',
@@ -358,7 +403,7 @@ const relatedProjects = ref([
     category: 'Commercial',
     location: 'Tampa, FL',
     year: 2023,
-    image: '/images/project-2.jpg'
+    image: '/images/projects/lowrise-1920w.webp'
   },
   {
     title: 'Coastal Seawall System',
@@ -367,8 +412,56 @@ const relatedProjects = ref([
     category: 'Marine',
     location: 'Clearwater, FL',
     year: 2024,
-    image: '/images/project-3.jpg'
+    image: '/images/projects/shallowdeepfoundationdesign10-1920w.webp'
+  },
+  {
+    title: 'Luxury Residential Estate',
+    slug: 'luxury-residential-estate',
+    description: 'Complete structural design for 8,000 sq ft waterfront residence',
+    category: 'Residential',
+    location: 'St. Petersburg, FL',
+    year: 2024,
+    image: '/images/projects/lowrise-1920w.webp'
+  },
+  {
+    title: 'Industrial Warehouse Complex',
+    slug: 'industrial-warehouse-complex',
+    description: 'Pre-engineered metal building structure with 40,000 sq ft warehouse',
+    category: 'Industrial',
+    location: 'Brandon, FL',
+    year: 2023,
+    image: '/images/projects/steel-connect-1920w.webp'
+  },
+  {
+    title: 'School Classroom Wing',
+    slug: 'school-classroom-wing',
+    description: 'Masonry and steel design for new 2-story classroom addition',
+    category: 'Institutional',
+    location: 'Lakeland, FL',
+    year: 2023,
+    image: '/images/projects/cad-drawing-1920w.webp'
   }
+]
+
+// Related projects: filtered by same category, excluding current, limited to 3
+const relatedProjects = computed(() => {
+  if (!project.value) return []
+
+  const currentCategory = project.value?.acf?.category
+  if (!currentCategory) return []
+
+  // Filter by same category, exclude current project, limit to 3
+  return allProjectsData
+    .filter(p => p.category === currentCategory && p.slug !== slug)
+    .slice(0, 3)
+})
+
+const hasRelatedProjects = computed(() => relatedProjects.value.length > 0)
+
+// Breadcrumbs for SEO and navigation
+const projectBreadcrumbs = computed(() => [
+  { title: 'Projects', to: '/projects' },
+  { title: project.value?.title?.rendered || 'Project' }
 ])
 
 // SEO Meta Tags
