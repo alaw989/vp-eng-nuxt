@@ -135,6 +135,47 @@
         </div>
       </AppSection>
 
+      <!-- How This Service Works -->
+      <AppSection bg-color="neutral-50" animate-on-scroll>
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+            How This Service Works
+          </h2>
+          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+            Our proven process from consultation to support
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8">
+          <div class="relative text-center">
+            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">1</div>
+            <h3 class="text-xl font-bold text-neutral-900 mb-2">Consultation</h3>
+            <p class="text-neutral-600 text-sm">Initial project review and scope discussion</p>
+            <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
+          </div>
+
+          <div class="relative text-center">
+            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">2</div>
+            <h3 class="text-xl font-bold text-neutral-900 mb-2">Design</h3>
+            <p class="text-neutral-600 text-sm">Structural analysis and calculation preparation</p>
+            <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
+          </div>
+
+          <div class="relative text-center">
+            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">3</div>
+            <h3 class="text-xl font-bold text-neutral-900 mb-2">Review</h3>
+            <p class="text-neutral-600 text-sm">Plan preparation and permitting support</p>
+            <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
+          </div>
+
+          <div class="text-center">
+            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">4</div>
+            <h3 class="text-xl font-bold text-neutral-900 mb-2">Support</h3>
+            <p class="text-neutral-600 text-sm">Construction administration and field services</p>
+          </div>
+        </div>
+      </AppSection>
+
       <!-- Related Projects -->
       <AppSection v-if="hasRelatedProjects" bg-color="white" animate-on-scroll>
         <div class="text-center mb-12">
