@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VP Associates - Visual Comparison Viewer</title>
+    <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+    <header class="viewer-header">
+        <h1>Visual Comparison Viewer</h1>
+        <p class="subtitle">Compare baseline and current implementations side-by-side</p>
+    </header>
+
+    <main class="viewer-main">
+        <section class="controls" aria-label="Comparison controls">
+            <div class="control-group">
+                <label for="page-select">Page:</label>
+                <select id="page-select" class="control-select">
+                    <option value="" disabled selected>Loading pages...</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Viewport:</label>
+                <div class="viewport-tabs" role="tablist" aria-label="Viewport selection">
+                    <button
+                        class="viewport-tab active"
+                        data-viewport="mobile"
+                        role="tab"
+                        aria-selected="true">
+                        Mobile
+                    </button>
+                    <button
+                        class="viewport-tab"
+                        data-viewport="tablet"
+                        role="tab"
+                        aria-selected="false">
+                        Tablet
+                    </button>
+                    <button
+                        class="viewport-tab"
+                        data-viewport="desktop"
+                        role="tab"
+                        aria-selected="false">
+                        Desktop
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="comparison-select">Comparison:</label>
+                <select id="comparison-select" class="control-select">
+                    <option value="" disabled selected>Loading comparisons...</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="image-display" aria-label="Image comparison display">
+            <div class="image-column">
+                <div class="column-header">
+                    <h2>Baseline</h2>
+                    <span class="column-label" id="baseline-label">Original Site</span>
+                </div>
+                <div class="image-container" data-column="baseline">
+                    <img
+                        id="baseline-image"
+                        src=""
+                        alt="Baseline screenshot"
+                        class="comparison-image"
+                        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3ENo image%3C/text%3E%3C/svg%3E'">
+                </div>
+            </div>
+
+            <div class="image-column">
+                <div class="column-header">
+                    <h2>Current</h2>
+                    <span class="column-label" id="current-label">New Implementation</span>
+                </div>
+                <div class="image-container" data-column="current">
+                    <img
+                        id="current-image"
+                        src=""
+                        alt="Current screenshot"
+                        class="comparison-image"
+                        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3ENo image%3C/text%3E%3C/svg%3E'">
+                </div>
+            </div>
+
+            <div class="image-column">
+                <div class="column-header">
+                    <h2>Diff</h2>
+                    <span class="column-label" id="diff-label">Pixel Differences</span>
+                </div>
+                <div class="image-container" data-column="diff">
+                    <img
+                        id="diff-image"
+                        src=""
+                        alt="Diff screenshot highlighting differences"
+                        class="comparison-image"
+                        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3ENo image%3C/text%3E%3C/svg%3E'">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="viewer-footer">
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Diff Percentage:</span>
+                <span class="stat-value" id="diff-percentage">--</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Different Pixels:</span>
+                <span class="stat-value" id="diff-pixels">--</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Pixels:</span>
+                <span class="stat-value" id="total-pixels">--</span>
+            </div>
+        </div>
+        <div class="footer-info">
+            <span id="comparison-timestamp">Select a comparison to view</span>
+        </div>
+    </footer>
+
+    <script src="viewer.js"></script>
+</body>
+</html>
