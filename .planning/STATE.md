@@ -5,34 +5,34 @@
 See: .planning/PROJECT.md (updated 2026-02-04)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 2: Comparison Infrastructure
+**Current focus:** Phase 2: Comparison Infrastructure (COMPLETE)
 
 ## Current Position
 
 Phase: 2 of 10 (Comparison Infrastructure)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-05 — Completed 02-02 visual comparison viewer UI
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-05 — Completed 02-04 wire viewer UI to comparison data
 
-Progress: [█████░░░░░] 30%
+Progress: [██████░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: ~4 min
-- Total execution time: 0.4 hours
+- Total plans completed: 6
+- Average duration: ~5 min
+- Total execution time: 0.5 hours
 
 **By Phase:**
 
 | Phase | Plans | Complete | Avg/Plan |
 |-------|-------|----------|----------|
 | 01    | 3     | 3        | ~4 min   |
-| 02    | 2     | 2        | ~8 min   |
+| 02    | 3     | 3        | ~7 min   |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (~2 min), 01-02 (~6 min), 01-03 (~2 min), 02-01 (~14 min), 02-02 (~2 min)
-- Trend: Phase 2 progressing, viewer UI complete
+- Last 5 plans: 01-02 (~6 min), 01-03 (~2 min), 02-01 (~14 min), 02-02 (~2 min), 02-04 (~4 min)
+- Trend: Phase 2 complete, ready for Phase 3
 
 *Updated after each plan completion*
 
@@ -80,6 +80,14 @@ Recent decisions affecting current work:
 - Image path pattern: /comparisons/{timestamp}/{page}/{viewport}.png
 - API endpoints: /api/comparisons, /api/comparisons/{timestamp}
 
+**From 02-04 (Wire Viewer UI to Comparison Data):**
+- Port 4321 for viewer server - avoids conflict with Nuxt dev server on port 3000
+- Auto-browser launch after 500ms delay - ensures server is ready before opening
+- Data transformation in viewer.js - converts flat results array to nested pages structure
+- Express static middleware serves both comparisons and viewer from single origin
+- Graceful shutdown on SIGINT/SIGTERM with cleanup logging
+- EADDRINUSE error handling with clear user messaging
+
 ### Pending Todos
 
 None yet.
@@ -93,7 +101,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 02-02 visual comparison viewer UI
+Stopped at: Completed 02-04 wire viewer UI to comparison data
 Resume file: None
 
 ## Phase 1 Summary (Complete)
@@ -111,19 +119,20 @@ All 3 plans executed successfully:
 - `.planning/audit/baselines/metadata.json` - Capture session metadata
 - `.planning/audit/README.md` - Directory documentation
 
-## Phase 2 Progress (In Progress)
+## Phase 2 Summary (Complete)
 
-**Plans completed: 2 of 3**
+**Phase 2: Comparison Infrastructure - COMPLETE**
 
+All 3 plans executed successfully:
 - 02-01: Pixel comparison infrastructure (COMPLETE)
 - 02-02: Visual comparison viewer UI (COMPLETE)
+- 02-04: Wire viewer UI to comparison data (COMPLETE)
 
-**Deliverables so far:**
+**Deliverables:**
 - `.planning/scripts/generate-comparison.ts` - Screenshot capture and pixel diff generation
+- `.planning/scripts/start-viewer.ts` - Express web server with auto-browser launch
 - `.planning/comparisons/2026-02-05_21-34-09/` - Initial comparison results with 41.26% average diff
-- `.planning/comparison-viewer/index.html` - Main viewer UI with side-by-side layout
-- `.planning/comparison-viewer/viewer.css` - Responsive styling with viewport tabs
-- `.planning/comparison-viewer/viewer.js` - Client-side logic for comparison loading
+- `.planning/comparison-viewer/` - Complete viewer UI (index.html, viewer.css, viewer.js)
 
-**Remaining:**
-- 02-03: (as defined in phase plan)
+**Viewer URL:** http://localhost:4321
+**Start command:** `npx tsx .planning/scripts/start-viewer.ts`
