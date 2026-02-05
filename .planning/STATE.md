@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-04)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 3: Image Migration (COMPLETE)
+**Current focus:** Phase 4: Content & SEO Validation
 
 ## Current Position
 
-Phase: 3 of 10 (Image Migration)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-02-05 — Completed 03-03 image mapping file generation
+Phase: 4 of 10 (Content & SEO Validation)
+Plan: 1 of 5 in current phase
+Status: In progress
+Last activity: 2026-02-05 — Completed 04-01 link validation
 
-Progress: [████████░░] 30%
+Progress: [████████░░] 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
+- Total plans completed: 11
 - Average duration: ~5 min
-- Total execution time: 0.8 hours
+- Total execution time: 0.9 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [████████░░] 30%
 | 01    | 3     | 3        | ~4 min   |
 | 02    | 4     | 4        | ~6 min   |
 | 03    | 3     | 3        | ~4 min   |
+| 04    | 5     | 1        | ~2 min   |
 
 **Recent Trend:**
-- Last 5 plans: 02-04 (~4 min), 03-01 (~6 min), 03-02 (~2 min), 03-03 (~3 min)
-- Trend: Phase 3 complete, ready for Phase 4
+- Last 5 plans: 02-04 (~4 min), 03-01 (~6 min), 03-02 (~2 min), 03-03 (~3 min), 04-01 (~2 min)
+- Trend: Phase 4 started, link validation complete
 
 *Updated after each plan completion*
 
@@ -43,6 +44,13 @@ Progress: [████████░░] 30%
 
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
+
+**From 04-01 (Link Validation):**
+- Cheerio used for jQuery-like HTML parsing and link extraction
+- HEAD requests for efficient link status checking (vs full GET)
+- Link deduplication by normalized URL to avoid redundant requests
+- Severity categories: success (200), warning (3xx), critical (4xx/5xx), info (external)
+- 2 broken PDF links identified on portfolio page (404 and timeout)
 
 **From 03-01 (Image Discovery and Download):**
 - Content-addressable storage using SHA-256 hashes prevents duplicate storage
@@ -69,12 +77,16 @@ None yet.
 
 ### Blockers/Concerns
 
+**Broken links to address:**
+- 2 PDF links on portfolio page return errors (404 + timeout)
+- Remediation needed: remove links, host locally, or implement redirects (04-04)
+
 **Minor concern:** 9 oversized images (36% exceed targets). Consider quality 70-75 or max-width 1600px for hero variants before production.
 
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 03-03 image mapping file generation
+Stopped at: Completed 04-01 link validation
 Resume file: None
 
 ## Phase 1 Summary (Complete)
@@ -111,4 +123,20 @@ All 3 plans executed successfully:
 - Formats: WebP primary, JPG fallback
 - Responsive sizes: 640w, 1280w, 1920w
 - Categories: hero (6), projects (14), team (1), general (4)
+
+## Phase 4 Summary (In Progress)
+
+**Phase 4: Content & SEO Validation - 1 of 5 COMPLETE**
+
+Plans executed:
+- 04-01: Link validation (13 pages checked, 58 links, 2 critical broken PDFs found)
+
+**Deliverables:**
+- `.planning/scripts/validate-links.ts` - Link extraction and validation script (427 lines)
+- `.planning/audit/broken-links.json` - Structured broken link report
+
+**Statistics:**
+- 13 pages validated from vp-associates.com
+- 58 links checked (54 success, 2 critical, 2 external)
+- Broken links: 2 PDFs on portfolio page (404 + timeout)
 
