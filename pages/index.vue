@@ -163,6 +163,7 @@
           :quote="testimonial.quote"
           :author="testimonial.author"
           :company="testimonial.company"
+          :role="testimonial.role"
         />
       </div>
     </AppSection>
@@ -356,10 +357,11 @@ const testimonialsData = computed(() => (testimonialsResponse.value as any)?.dat
 // Transform testimonials data for display
 const testimonials = computed(() => {
   if (!testimonialsData.value || !Array.isArray(testimonialsData.value)) return []
-  return testimonialsData.value.slice(0, 3).map((t: any) => ({
+  return testimonialsData.value.slice(0, 6).map((t: any) => ({
     quote: t.acf?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '') || 'Great service!',
     author: t.title?.rendered || 'Client',
     company: t.acf?.company || '',
+    role: t.acf?.role || '',
   }))
 })
 </script>
