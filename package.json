@@ -30,6 +30,8 @@
     "@vite-pwa/nuxt": "^1.1.0",
     "@vueuse/nuxt": "^12.0.1",
     "cheerio": "^1.2.0",
+    "odiff-bin": "^4.3.2",
+    "open": "^11.0.0",
     "playwright": "^1.58.1",
     "tsx": "^4.21.0",
     "typescript": "^5.7.3",
