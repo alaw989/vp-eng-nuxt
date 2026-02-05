@@ -111,7 +111,7 @@ The system must download all images from the source website and organize them fo
 - Download images with retry logic (3 attempts with exponential backoff)
 - Organize images by type: hero, project, team, general
 - Save to `public/images/` with descriptive filenames
-- Generate mapping file: `.planning/audit/image-mapping.json` (source URL → local path)
+- Generate mapping file: `.planning/audit/image-mapping.json` (source URL -> local path)
 - Report any missing or failed images
 
 **Rationale:** Manual download of hundreds of images is not viable. Systematic migration ensures nothing is lost.
@@ -205,7 +205,7 @@ The system must maintain the same URL structure or implement proper redirects.
 
 **Acceptance Criteria:**
 - Document all source URLs in `.planning/audit/url-inventory.csv`
-- Map any changed URLs to source (old → new)
+- Map any changed URLs to source (old -> new)
 - Implement 301 redirects for all changed URLs
 - Verify no 404 errors for previously valid URLs
 - Test with Google Search Console URL Inspection tool
@@ -352,25 +352,40 @@ The following items are explicitly out of scope for this modernization project:
 
 ---
 
-## Requirements Mapping to Research Phases
+## Requirements Mapping to Roadmap Phases
 
-| Requirement | Phase | Critical Pitfall Addressed |
-|-------------|-------|---------------------------|
-| REQ-AUD-001 | Phase 1: Audit & Baseline | SEO Traffic Loss |
-| REQ-AUD-002 | Phase 1: Audit & Baseline | Visual False Positives |
-| REQ-CMP-001 | Phase 2: Comparison | Styling Inconsistencies |
-| REQ-CMP-002 | Phase 2: Comparison | SEO Traffic Loss |
-| REQ-IMG-001 | Phase 4: Image Migration | Image Optimization Failure |
-| REQ-IMG-002 | Phase 4: Image Migration | Image Optimization Failure |
-| REQ-LNK-001 | Phase 5: Content Validation | SEO Traffic Loss |
-| REQ-LNK-002 | Phase 5: Content Validation | SEO Traffic Loss |
-| REQ-SEO-001 | Phase 5: Content Validation | SEO Traffic Loss |
-| REQ-SEO-002 | Phase 5: Content Validation | SEO Traffic Loss |
-| REQ-SEO-003 | Phase 5: Content Validation | SEO Traffic Loss |
-| REQ-PWA-001 | Phase 3: QA Integration | N/A |
-| REQ-PWA-002 | Phase 3: QA Integration | N/A |
-| REQ-QA-001 | Phase 3: QA Integration | Hydration Errors |
-| REQ-QA-002 | Phase 3: QA Integration | Performance Degradation |
+| Requirement | Phase | Status | Critical Pitfall Addressed |
+|-------------|-------|--------|---------------------------|
+| REQ-AUD-001 | Phase 1: Audit & Baseline Capture | Pending | SEO Traffic Loss |
+| REQ-AUD-002 | Phase 1: Audit & Baseline Capture | Pending | Visual False Positives |
+| REQ-CMP-001 | Phase 2: Comparison Infrastructure | Pending | Styling Inconsistencies |
+| REQ-CMP-002 | Phase 2: Comparison Infrastructure | Pending | SEO Traffic Loss |
+| REQ-IMG-001 | Phase 3: Image Migration | Pending | Image Optimization Failure |
+| REQ-IMG-002 | Phase 3: Image Migration | Pending | Image Optimization Failure |
+| REQ-LNK-001 | Phase 4: Content & SEO Validation | Pending | SEO Traffic Loss |
+| REQ-LNK-002 | Phase 4: Content & SEO Validation | Pending | SEO Traffic Loss |
+| REQ-SEO-001 | Phase 4: Content & SEO Validation | Pending | SEO Traffic Loss |
+| REQ-SEO-002 | Phase 4: Content & SEO Validation | Pending | SEO Traffic Loss |
+| REQ-SEO-003 | Phase 4: Content & SEO Validation | Pending | SEO Traffic Loss |
+| REQ-PWA-001 | Phase 5: QA & PWA Foundation | Pending | N/A |
+| REQ-PWA-002 | Phase 5: QA & PWA Foundation | Pending | N/A |
+| REQ-QA-001 | Phase 5: QA & PWA Foundation | Pending | Hydration Errors |
+| REQ-QA-002 | Phase 5: QA & PWA Foundation | Pending | Performance Degradation |
+
+### Traceability Summary
+
+**Coverage:** 15/15 v1 requirements mapped to roadmap phases
+
+| Phase | Requirements | Count |
+|-------|-------------|-------|
+| Phase 1: Audit & Baseline Capture | AUD-001, AUD-002 | 2 |
+| Phase 2: Comparison Infrastructure | CMP-001, CMP-002 | 2 |
+| Phase 3: Image Migration | IMG-001, IMG-002 | 2 |
+| Phase 4: Content & SEO Validation | LNK-001, LNK-002, SEO-001, SEO-002, SEO-003 | 5 |
+| Phase 5: QA & PWA Foundation | PWA-001, PWA-002, QA-001, QA-002 | 4 |
+| Phase 6-10: Section Polish | (Implementation work using validated requirements) | - |
+
+**Note:** Phases 6-10 (Homepage, Projects, Services, About & Team, Contact & Careers) execute section-by-section polish using the infrastructure and capabilities delivered in Phases 1-5. These phases focus on styling, layout, and image placement rather than new functional requirements.
 
 ---
 
