@@ -80,8 +80,9 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <ServiceCard
           v-for="service in services"
-          :key="service.title"
+          :key="service.slug"
           :title="service.title"
+          :slug="service.slug"
           :description="service.description"
           :icon="service.icon"
         />
@@ -98,7 +99,7 @@
       </div>
     </AppSection>
 
-    <!-- Featured Projects Carousel -->
+    <!-- Featured Projects Grid -->
     <AppSection bg-color="white" animate-on-scroll>
       <div class="text-center mb-12">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
@@ -109,54 +110,19 @@
         </p>
       </div>
 
-      <!-- Projects Carousel -->
-      <div class="relative max-w-5xl mx-auto mb-12">
-        <ProjectsCarousel
-          :slides="carouselSlides"
-          :autoplay-interval="6000"
-          :show-arrows="true"
-          :show-indicators="true"
-          aria-label="Featured projects carousel"
-        >
-          <template #slide="slotProps">
-            <NuxtLink
-              v-if="slotProps.slide"
-              :to="`/projects/${slotProps.slide.slug}`"
-              class="block group relative overflow-hidden rounded-2xl aspect-[16/9] bg-gradient-to-br from-primary/10 to-primary-dark/10"
-            >
-              <!-- Background Image/Icon -->
-              <div class="absolute inset-0 flex items-center justify-center">
-                <Icon :name="slotProps.slide.icon || 'mdi:office-building'" class="w-32 h-32 text-primary/30 group-hover:scale-110 transition-transform duration-500" />
-              </div>
-
-              <!-- Overlay -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-              <!-- Content -->
-              <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <span class="text-secondary font-semibold text-sm mb-2">
-                  {{ slotProps.slide.category }}
-                </span>
-                <h3 class="text-2xl md:text-4xl font-bold text-white mb-3">
-                  {{ slotProps.slide.title }}
-                </h3>
-                <p class="text-white/80 text-base md:text-lg mb-4 line-clamp-2">
-                  {{ slotProps.slide.description }}
-                </p>
-                <div class="flex items-center gap-4 text-sm text-white/70">
-                  <span class="flex items-center gap-1">
-                    <Icon name="mdi:map-marker" class="w-4 h-4" />
-                    {{ slotProps.slide.location }}
-                  </span>
-                  <span class="flex items-center gap-1">
-                    <Icon name="mdi:calendar" class="w-4 h-4" />
-                    {{ slotProps.slide.year }}
-                  </span>
-                </div>
-              </div>
-            </NuxtLink>
-          </template>
-        </ProjectsCarousel>
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <ProjectCard
+          v-for="project in featuredProjects"
+          :key="project.slug"
+          :title="project.title"
+          :slug="project.slug"
+          :description="project.description"
+          :category="project.category"
+          :location="project.location"
+          :year="project.year"
+          :image="project.image"
+        />
       </div>
 
       <div class="text-center">
@@ -272,8 +238,9 @@ const servicesData = computed(() => (servicesResponse.value as any)?.data || [])
 // Transform services data for display
 const services = computed(() => {
   if (!servicesData.value || !Array.isArray(servicesData.value)) return []
-  return servicesData.value.slice(0, 6).map((s: any) => ({
+  return servicesData.value.slice(0, 3).map((s: any) => ({
     title: s.title?.rendered || 'Service',
+    slug: s.slug || 'service',
     description: s.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Professional structural engineering services',
     icon: s.acf?.icon || 'mdi:cog',
   }))
@@ -307,7 +274,57 @@ const carouselSlides = computed(() => {
   }))
 })
 
-// Featured projects (first 3 for any sections that use it)
+// Project image mapping from image-mapping.json
+const projectImageMap: Record<string, string> = {
+  'steel-connect': '/images/projects/steel-connect-1280w.webp',
+  'crane-lift': '/images/projects/crane-lift-1280w.webp',
+  'cad-drawing': '/images/projects/cad-drawing-1280w.webp',
+  'shallowdeepfoundationdesign10': '/images/projects/shallowdeepfoundationdesign10-1280w.webp',
+  'lowrise': '/images/projects/lowrise-1280w.webp',
+  'inspection-services': '/images/projects/inspection-services-1280w.webp',
+  'shopdrawing': '/images/projects/shopdrawing-1280w.webp',
+}
+
+// Helper function to find matching image by title/category
+const findProjectImage = (title: string, category: string): string | undefined => {
+  const titleLower = title.toLowerCase()
+  const categoryLower = category.toLowerCase()
+
+  // Try exact filename match first
+  for (const [key, path] of Object.entries(projectImageMap)) {
+    if (titleLower.includes(key) || titleLower === key) {
+      return path
+    }
+  }
+
+  // Try category-based matching
+  if (categoryLower.includes('marine') || titleLower.includes('marine')) {
+    return projectImageMap['crane-lift']
+  }
+  if (categoryLower.includes('commercial') || titleLower.includes('commercial')) {
+    return projectImageMap['steel-connect']
+  }
+  if (categoryLower.includes('residential') || titleLower.includes('residential')) {
+    return projectImageMap['lowrise']
+  }
+  if (categoryLower.includes('structural') || titleLower.includes('steel') || titleLower.includes('steel connection')) {
+    return projectImageMap['steel-connect']
+  }
+  if (categoryLower.includes('foundation') || titleLower.includes('foundation')) {
+    return projectImageMap['shallowdeepfoundationdesign10']
+  }
+  if (categoryLower.includes('inspection') || titleLower.includes('inspection')) {
+    return projectImageMap['inspection-services']
+  }
+  if (categoryLower.includes('detailing') || titleLower.includes('shop') || titleLower.includes('drawing')) {
+    return projectImageMap['cad-drawing']
+  }
+
+  // Fallback to first available image
+  return projectImageMap['steel-connect']
+}
+
+// Featured projects (first 3 for grid display)
 const featuredProjects = computed(() => {
   return carouselSlides.value.slice(0, 3).map((slide: any) => ({
     title: slide.title,
@@ -316,6 +333,7 @@ const featuredProjects = computed(() => {
     category: slide.category,
     location: slide.location,
     year: slide.year,
+    image: findProjectImage(slide.title, slide.category),
   }))
 })
 

@@ -162,6 +162,7 @@
             v-for="otherService in otherServices"
             :key="otherService.slug"
             :title="otherService.title"
+            :slug="otherService.slug"
             :description="otherService.description"
             :icon="otherService.icon"
           />
