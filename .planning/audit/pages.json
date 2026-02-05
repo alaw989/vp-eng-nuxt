@@ -1,0 +1,97 @@
+[
+  {
+    "url": "https://www.vp-associates.com/hello-world/",
+    "slug": "hello-world",
+    "type": "page",
+    "lastmod": "2017-12-03T20:52:42+00:00",
+    "source": "sitemap"
+  },
+  {
+    "url": "https://www.vp-associates.com/",
+    "slug": "home",
+    "type": "home",
+    "lastmod": "2019-10-12T16:19:48+00:00",
+    "source": "api",
+    "title": "Home"
+  },
+  {
+    "url": "https://www.vp-associates.com/services/",
+    "slug": "services",
+    "type": "page",
+    "lastmod": "2019-10-12T16:20:54+00:00",
+    "source": "api",
+    "title": "SERVICES"
+  },
+  {
+    "url": "https://www.vp-associates.com/portfolio/",
+    "slug": "portfolio",
+    "type": "page",
+    "lastmod": "2018-02-12T13:29:46+00:00",
+    "source": "api",
+    "title": "PORTFOLIO"
+  },
+  {
+    "url": "https://www.vp-associates.com/careers/",
+    "slug": "careers",
+    "type": "page",
+    "lastmod": "2018-05-06T13:37:30+00:00",
+    "source": "api",
+    "title": "CAREERS"
+  },
+  {
+    "url": "https://www.vp-associates.com/contact/",
+    "slug": "contact",
+    "type": "page",
+    "lastmod": "2018-01-08T15:25:40+00:00",
+    "source": "api",
+    "title": "CONTACT"
+  },
+  {
+    "url": "https://www.vp-associates.com/about-3/",
+    "slug": "about-3",
+    "type": "page",
+    "lastmod": "2018-06-16T01:32:36+00:00",
+    "source": "api",
+    "title": "WHITEBOARD"
+  },
+  {
+    "url": "https://www.vp-associates.com/gallery/132/",
+    "slug": "132",
+    "type": "page",
+    "lastmod": "2018-02-13T18:36:13+00:00",
+    "source": "sitemap"
+  },
+  {
+    "url": "https://www.vp-associates.com/gallery/bridges/",
+    "slug": "bridges",
+    "type": "page",
+    "lastmod": "2018-02-13T19:36:43+00:00",
+    "source": "sitemap"
+  },
+  {
+    "url": "https://www.vp-associates.com/gallery/commercial/",
+    "slug": "commercial",
+    "type": "page",
+    "lastmod": "2018-02-13T19:37:23+00:00",
+    "source": "sitemap"
+  },
+  {
+    "url": "https://www.vp-associates.com/gallery/misc/",
+    "slug": "misc",
+    "type": "page",
+    "lastmod": "2018-02-13T19:37:48+00:00",
+    "source": "sitemap"
+  },
+  {
+    "url": "https://www.vp-associates.com/category/uncategorized/",
+    "slug": "uncategorized",
+    "type": "page",
+    "source": "sitemap"
+  },
+  {
+    "url": "https://www.vp-associates.com/author/root/",
+    "slug": "root",
+    "type": "page",
+    "source": "sitemap"
+  }
+]
