@@ -138,13 +138,13 @@ Plans:
   3. All project images migrated and displaying correctly
   4. Category filtering works with URL-based state
   5. Visual comparison shows no regressions from live site baseline
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 07-01: Projects listing page styling and filtering fixes
-- [ ] 07-02: Project detail page layout and content display
-- [ ] 07-03: Project image gallery migration and optimization
-- [ ] 07-04: Visual comparison and QA verification
+- [ ] 07-01-PLAN.md — Grid/list view toggle and category pill filters with URL state
+- [ ] 07-02-PLAN.md — Project detail page layout with content sections and related projects
+- [ ] 07-03-PLAN.md — Project image gallery migration from Phase 3 and responsive optimization
+- [ ] 07-04-PLAN.md — Visual comparison and QA verification with Lighthouse audits
 
 ### Phase 8: Section Polish - Services
 **Goal**: Fix services listing and detail pages with image migration
