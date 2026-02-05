@@ -71,7 +71,7 @@
               <NuxtLink
                 v-if="currentSlideData.primaryLink"
                 :to="currentSlideData.primaryLink"
-                class="px-8 py-4 bg-white text-primary-dark rounded-lg font-semibold hover:bg-neutral-100 transition-colors shadow-lg hover:shadow-xl"
+                class="px-8 py-4 bg-white text-primary-dark rounded-lg font-semibold hover:bg-neutral-100 transition-colors shadow-lg hover:shadow-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
               >
                 {{ currentSlideData.primaryText || 'Learn More' }}
               </NuxtLink>
@@ -113,12 +113,24 @@
       />
     </div>
 
-    <!-- Progress Bar -->
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-20">
+    <!-- Progress Bar (decorative, hidden from screen readers) -->
+    <div
+      class="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-20"
+      aria-hidden="true"
+    >
       <div
         class="h-full bg-white transition-all duration-100 ease-linear"
         :style="{ width: `${progress}%` }"
       />
+    </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+    >
+      Slide {{ currentSlide + 1 }} of {{ slides.length }}
     </div>
   </section>
 </template>
@@ -410,5 +422,24 @@ onUnmounted(() => {
   .parallax-container {
     will-change: auto;
   }
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible styles for keyboard navigation */
+button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 </style>
