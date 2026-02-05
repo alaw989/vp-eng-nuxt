@@ -20,22 +20,34 @@
           v-if="slides.length > 0"
           :key="currentSlideData.id"
           class="absolute inset-0"
+          :class="{ 'parallax-container': !prefersReducedMotion }"
         >
-          <!-- Background Image -->
-          <NuxtImg
-            :src="currentSlideData.image"
-            :alt="currentSlideData.alt"
-            class="absolute inset-0 w-full h-full object-cover"
-            format="webp"
-            loading="eager"
-            fetchpriority="high"
-            sizes="100vw"
-            width="1920"
-            height="1080"
-            placeholder
-          />
+          <!-- Background Image with parallax wrapper -->
+          <div
+            class="absolute inset-0 w-full h-full overflow-hidden"
+            :style="!prefersReducedMotion ? {
+              transform: `translateY(${parallaxOffset}px)`
+            } : {}"
+          >
+            <NuxtImg
+              :src="currentSlideData.image"
+              :alt="currentSlideData.alt"
+              class="absolute inset-0 w-full h-full object-cover"
+              :style="!prefersReducedMotion ? {
+                transform: `scale(${zoomScale})`,
+                willChange: 'transform'
+              } : {}"
+              format="webp"
+              loading="eager"
+              fetchpriority="high"
+              sizes="100vw"
+              width="1920"
+              height="1080"
+              placeholder
+            />
+          </div>
           <!-- Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary-dark/90" />
+          <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
         </div>
       </Transition>
 
@@ -59,16 +71,9 @@
               <NuxtLink
                 v-if="currentSlideData.primaryLink"
                 :to="currentSlideData.primaryLink"
-                class="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
+                class="px-8 py-4 bg-white text-primary-dark rounded-lg font-semibold hover:bg-neutral-100 transition-colors shadow-lg hover:shadow-xl"
               >
                 {{ currentSlideData.primaryText || 'Learn More' }}
-              </NuxtLink>
-              <NuxtLink
-                v-if="currentSlideData.secondaryLink"
-                :to="currentSlideData.secondaryLink"
-                class="px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark transition-colors"
-              >
-                {{ currentSlideData.secondaryText || 'Contact Us' }}
               </NuxtLink>
             </div>
           </div>
@@ -119,6 +124,8 @@
 </template>
 
 <script setup lang="ts">
+import { useWindowScroll } from '@vueuse/core'
+
 interface HeroSlide {
   id: string | number
   title: string
@@ -127,9 +134,33 @@ interface HeroSlide {
   alt: string
   primaryLink?: string
   primaryText?: string
-  secondaryLink?: string
-  secondaryText?: string
 }
+
+// Parallax motion using VueUse
+const { y: scrollY } = useWindowScroll()
+
+// Parallax offset - background moves slower than foreground
+const parallaxOffset = computed(() => {
+  // Only apply parallax when near top of page (first 100vh)
+  const maxOffset = 100 // Maximum pixels to translate
+  const offset = Math.min(scrollY.value * 0.3, maxOffset)
+  return offset
+})
+
+// Subtle zoom effect based on scroll position
+const zoomScale = computed(() => {
+  // Zoom from 1 to 1.15 based on scroll (first 800px)
+  const maxScroll = 800
+  const scale = 1 + Math.min(scrollY.value / maxScroll, 1) * 0.15
+  return scale
+})
+
+// Check for reduced motion preference
+const prefersReducedMotion = ref(false)
+
+onMounted(() => {
+  prefersReducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+})
 
 const props = withDefaults(
   defineProps<{
@@ -142,34 +173,28 @@ const props = withDefaults(
         id: 1,
         title: 'Structural Engineering\nExcellence',
         description: 'Serving Tampa Bay with comprehensive structural design, inspection, and detailing services',
-        image: '/images/hero-1.jpg',
-        alt: 'Structural engineering project - Home header image showing construction site',
+        image: '/images/hero/home-header-1920w.webp',
+        alt: 'VP Associates home header - Professional structural engineering office building',
         primaryLink: '/services',
-        primaryText: 'Our Services',
-        secondaryLink: '/contact',
-        secondaryText: 'Get In Touch'
+        primaryText: 'Our Services'
       },
       {
         id: 2,
         title: 'Innovative Design\nSolutions',
         description: 'From concept to completion, we deliver engineering excellence for projects of all sizes',
-        image: '/images/hero-2.jpg',
-        alt: 'Crane lift at construction site - Engineering design in action',
+        image: '/images/hero/skyskr-1-1920w.webp',
+        alt: 'High-rise skyscraper construction project - Structural engineering expertise in action',
         primaryLink: '/projects',
-        primaryText: 'View Projects',
-        secondaryLink: '/contact',
-        secondaryText: 'Start Your Project'
+        primaryText: 'View Projects'
       },
       {
         id: 3,
         title: 'Trusted by Tampa\nBay Since 1990',
         description: 'Over 30 years of experience delivering quality structural engineering services',
-        image: '/images/hero-3.jpg',
-        alt: 'High-rise building project - Skyscraper construction',
+        image: '/images/hero/uploads-2018-06-1920w.webp',
+        alt: 'Commercial construction project - VP Associates engineering portfolio showcase',
         primaryLink: '/about',
-        primaryText: 'Learn More',
-        secondaryLink: '/contact',
-        secondaryText: 'Contact Us'
+        primaryText: 'Learn More'
       }
     ],
     autoplayInterval: 9000
@@ -373,5 +398,17 @@ onUnmounted(() => {
 
 .slide-content-enter-active .slide-content-item:nth-child(3) {
   transition-delay: 200ms;
+}
+
+/* Parallax container GPU acceleration */
+.parallax-container {
+  will-change: transform;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-container {
+    will-change: auto;
+  }
 }
 </style>
