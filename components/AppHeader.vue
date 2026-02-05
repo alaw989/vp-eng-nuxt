@@ -57,6 +57,7 @@
           >
             <Icon name="mdi:magnify" class="w-5 h-5" />
           </NuxtLink>
+          <LazyPwaInstallPrompt />
           <NuxtLink
             to="/contact"
             :aria-current="route.path === '/contact' ? 'page' : undefined"

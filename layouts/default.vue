@@ -22,6 +22,5 @@
 
     <!-- PWA Components -->
     <LazyPwaReloadPrompt />
-    <LazyPwaInstallPrompt />
   </div>
 </template>
