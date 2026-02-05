@@ -1,17 +1,17 @@
 <template>
-  <div class="bg-white rounded-xl p-8 border border-neutral-200 shadow-lg">
-    <!-- Quote Icon -->
-    <div class="text-primary/20 mb-4">
-      <Icon name="mdi:format-quote-open" class="w-12 h-12" />
+  <div class="relative bg-white rounded-xl p-8 border border-neutral-200 shadow-lg border-t-4 border-t-primary">
+    <!-- Decorative Quote Mark -->
+    <div class="absolute top-4 left-4 text-primary/10 pointer-events-none">
+      <Icon name="mdi:format-quote-open" class="w-16 h-16" />
     </div>
 
     <!-- Testimonial Text -->
-    <blockquote class="text-lg text-neutral-700 mb-6 italic">
+    <blockquote class="text-lg text-neutral-700 mb-6 italic relative z-10">
       "{{ quote }}"
     </blockquote>
 
     <!-- Author Info -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 relative z-10">
       <div v-if="avatar" class="w-12 h-12 rounded-full overflow-hidden bg-neutral-100 flex-shrink-0">
         <NuxtImg
           :src="avatar"
@@ -32,6 +32,9 @@
         <div class="font-semibold text-neutral-900">
           {{ author }}
         </div>
+        <div v-if="role" class="text-xs text-neutral-500">
+          {{ role }}
+        </div>
         <div v-if="company" class="text-sm text-neutral-600">
           {{ company }}
         </div>
@@ -45,6 +48,7 @@ interface Props {
   quote: string
   author: string
   company?: string
+  role?: string
   avatar?: string
 }
 
