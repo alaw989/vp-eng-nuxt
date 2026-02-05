@@ -67,12 +67,12 @@ Plans:
   2. Images converted to modern formats (WebP primary, JPG fallback) with responsive variants
   3. Image sizes meet targets (hero <200KB, project <100KB, team <50KB)
   4. Image mapping file documents source URL to local path relationships
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: Bulk image download from crawled pages with retry logic
-- [ ] 03-02: Image optimization pipeline for format conversion and responsive variants
-- [ ] 03-03: Image mapping file generation and validation
+- [ ] 03-01-PLAN.md — Install Sharp and create image download script with WordPress Media API + HTML crawling
+- [ ] 03-02-PLAN.md — Generate WebP+JPG responsive variants (640w, 1280w, 1920w) with size cap enforcement
+- [ ] 03-03-PLAN.md — Generate image mapping file with source URL to local path documentation
 
 ### Phase 4: Content & SEO Validation
 **Goal**: Verify content integrity and SEO preservation during migration
