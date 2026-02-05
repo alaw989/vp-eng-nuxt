@@ -1,0 +1,317 @@
+{
+  "timestamp": "2026-02-05_21-34-09",
+  "captureDate": "2026-02-05T03:36:02.641Z",
+  "totalPages": 13,
+  "pagesCompared": 12,
+  "viewports": {
+    "mobile": {
+      "width": 375,
+      "height": 812
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024
+    },
+    "desktop": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  "results": [
+    {
+      "page": "hello-world",
+      "slug": "hello-world",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 26888,
+      "diffPercentage": 8.83
+    },
+    {
+      "page": "hello-world",
+      "slug": "hello-world",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 129930,
+      "diffPercentage": 16.52
+    },
+    {
+      "page": "hello-world",
+      "slug": "hello-world",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 457546,
+      "diffPercentage": 22.07
+    },
+    {
+      "page": "Home",
+      "slug": "home",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 1353555,
+      "diffPercentage": 98.59
+    },
+    {
+      "page": "Home",
+      "slug": "home",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 2748455,
+      "diffPercentage": 97.99
+    },
+    {
+      "page": "Home",
+      "slug": "home",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 4026447,
+      "diffPercentage": 96.02
+    },
+    {
+      "page": "SERVICES",
+      "slug": "services",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 929074,
+      "diffPercentage": 88.71
+    },
+    {
+      "page": "SERVICES",
+      "slug": "services",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 1369712,
+      "diffPercentage": 79.05
+    },
+    {
+      "page": "SERVICES",
+      "slug": "services",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 1912321,
+      "diffPercentage": 64.72
+    },
+    {
+      "page": "PORTFOLIO",
+      "slug": "portfolio",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 860621,
+      "diffPercentage": 85.51
+    },
+    {
+      "page": "PORTFOLIO",
+      "slug": "portfolio",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 823595,
+      "diffPercentage": 65.99
+    },
+    {
+      "page": "PORTFOLIO",
+      "slug": "portfolio",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 1992513,
+      "diffPercentage": 63.86
+    },
+    {
+      "page": "CAREERS",
+      "slug": "careers",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 526907,
+      "diffPercentage": 78.41
+    },
+    {
+      "page": "CAREERS",
+      "slug": "careers",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 941208,
+      "diffPercentage": 73.92
+    },
+    {
+      "page": "CAREERS",
+      "slug": "careers",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 1384595,
+      "diffPercentage": 58.97
+    },
+    {
+      "page": "CONTACT",
+      "slug": "contact",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 455018,
+      "diffPercentage": 75.84
+    },
+    {
+      "page": "CONTACT",
+      "slug": "contact",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 822727,
+      "diffPercentage": 68.23
+    },
+    {
+      "page": "CONTACT",
+      "slug": "contact",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 1265720,
+      "diffPercentage": 58.03
+    },
+    {
+      "page": "132",
+      "slug": "132",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 26659,
+      "diffPercentage": 8.76
+    },
+    {
+      "page": "132",
+      "slug": "132",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 129498,
+      "diffPercentage": 16.47
+    },
+    {
+      "page": "132",
+      "slug": "132",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 457124,
+      "diffPercentage": 22.04
+    },
+    {
+      "page": "bridges",
+      "slug": "bridges",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 26782,
+      "diffPercentage": 8.8
+    },
+    {
+      "page": "bridges",
+      "slug": "bridges",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 129756,
+      "diffPercentage": 16.5
+    },
+    {
+      "page": "bridges",
+      "slug": "bridges",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 457419,
+      "diffPercentage": 22.06
+    },
+    {
+      "page": "commercial",
+      "slug": "commercial",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 26850,
+      "diffPercentage": 8.82
+    },
+    {
+      "page": "commercial",
+      "slug": "commercial",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 129821,
+      "diffPercentage": 16.51
+    },
+    {
+      "page": "commercial",
+      "slug": "commercial",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 457535,
+      "diffPercentage": 22.06
+    },
+    {
+      "page": "misc",
+      "slug": "misc",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 26747,
+      "diffPercentage": 8.78
+    },
+    {
+      "page": "misc",
+      "slug": "misc",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 129550,
+      "diffPercentage": 16.47
+    },
+    {
+      "page": "misc",
+      "slug": "misc",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 457195,
+      "diffPercentage": 22.05
+    },
+    {
+      "page": "uncategorized",
+      "slug": "uncategorized",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 26893,
+      "diffPercentage": 8.83
+    },
+    {
+      "page": "uncategorized",
+      "slug": "uncategorized",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 130068,
+      "diffPercentage": 16.54
+    },
+    {
+      "page": "uncategorized",
+      "slug": "uncategorized",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 457710,
+      "diffPercentage": 22.07
+    },
+    {
+      "page": "root",
+      "slug": "root",
+      "viewport": "mobile",
+      "match": false,
+      "diffCount": 26736,
+      "diffPercentage": 8.78
+    },
+    {
+      "page": "root",
+      "slug": "root",
+      "viewport": "tablet",
+      "match": false,
+      "diffCount": 129542,
+      "diffPercentage": 16.47
+    },
+    {
+      "page": "root",
+      "slug": "root",
+      "viewport": "desktop",
+      "match": false,
+      "diffCount": 457168,
+      "diffPercentage": 22.05
+    }
+  ],
+  "summary": {
+    "totalComparisons": 36,
+    "matches": 0,
+    "mismatches": 36,
+    "errors": 0,
+    "averageDiffPercentage": 41.258888888888876
+  }
+}

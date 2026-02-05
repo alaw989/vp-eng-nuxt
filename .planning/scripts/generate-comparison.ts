@@ -9,7 +9,6 @@
  */
 
 import { chromium, Browser, BrowserContext, Page } from 'playwright'
-import { spawn } from 'child_process'
 import { existsSync, mkdirSync, copyFileSync, readFileSync, writeFileSync, rmSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -216,6 +215,11 @@ async function captureScreenshot(
 
 /**
  * Generate pixel diff using odiff-bin
+ *
+ * Exit codes:
+ * 0  - Images match
+ * 21 - Layout difference (when --fail-on-layout is used)
+ * 22 - Pixel differences found
  */
 async function generateDiff(
   baselinePath: string,
@@ -223,42 +227,39 @@ async function generateDiff(
   diffPath: string
 ): Promise<{ match: boolean; diffCount?: number; diffPercentage?: number }> {
   try {
-    const { spawn } = await import('child_process')
+    const { spawnSync } = await import('child_process')
 
-    return new Promise((resolve, reject) => {
-      const odiff = spawn('npx', ['odiff-bin', baselinePath, currentPath, diffPath, '--antialiasing', '--diffColor', '#cd2cc9'], {
-        stdio: 'pipe'
-      })
+    const result = spawnSync(
+      'npx',
+      ['odiff-bin', baselinePath, currentPath, diffPath, '--antialiasing', '--diff-color', '#cd2cc9'],
+      { encoding: 'utf-8' }
+    )
 
-      let output = ''
-      let errorOutput = ''
+    const output = result.stdout || ''
+    const errorOutput = result.stderr || ''
+    const code = result.status
 
-      odiff.stdout.on('data', (data: Buffer) => {
-        output += data.toString()
-      })
+    // Parse diff percentage from output (format: "Found 12345 different pixels (12.34%)")
+    const allOutput = output + errorOutput
+    const percentageMatch = allOutput.match(/(\d+\.?\d*)%/)
+    const countMatch = allOutput.match(/Found (\d+) different pixels/)
 
-      odiff.stderr.on('data', (data: Buffer) => {
-        errorOutput += data.toString()
-      })
+    const diffPercentage = percentageMatch ? parseFloat(percentageMatch[1]) : undefined
+    const diffCount = countMatch ? parseInt(countMatch[1], 10) : undefined
 
-      odiff.on('close', (code: number) => {
-        if (code === 0) {
-          // Match - images are identical or within threshold
-          resolve({ match: true })
-        } else if (code === 1) {
-          // Mismatch - diff image generated
-          // Parse output for diff percentage if available
-          const match = output.match(/(\d+\.?\d*)%?/)
-          const diffPercentage = match ? parseFloat(match[1]) : undefined
-          resolve({ match: false, diffPercentage })
-        } else {
-          // Error
-          reject(new Error(`odiff failed with code ${code}: ${errorOutput || output}`))
-        }
-      })
-
-      odiff.on('error', reject)
-    })
+    if (code === 0) {
+      // Match - images are identical or within threshold
+      return { match: true }
+    } else if (code === 22) {
+      // Pixel differences found - diff image was generated
+      return { match: false, diffCount, diffPercentage }
+    } else if (code === 21) {
+      // Layout difference
+      return { match: false, diffCount, diffPercentage, error: 'Layout difference' }
+    } else {
+      // Error
+      return { match: false, error: `odiff failed with code ${code}: ${errorOutput || output}` }
+    }
   } catch (error) {
     console.error('  odiff error:', (error as Error).message)
     return { match: false, error: (error as Error).message }
@@ -363,17 +364,27 @@ async function main() {
           continue
         }
 
-        // Rename to current-{viewport}.png
+        // Rename captured screenshot to current-{viewport}.png
         const currentPath = join(pageDir, `current-${vp}.png`)
         if (existsSync(currentPath)) {
           rmSync(currentPath)
         }
+        // Rename the captured screenshot (named {viewport}.png) to current-{viewport}.png
+        const capturedPath = join(pageDir, `${vp}.png`)
+        if (existsSync(capturedPath)) {
+          // Copy instead of rename to avoid potential issues
+          copyFileSync(capturedPath, currentPath)
+          rmSync(capturedPath)
+        } else {
+          // Already captured with correct name
+          copyFileSync(screenshotPath, currentPath)
+        }
 
-        // Generate diff
+        // Generate diff using the current screenshot
         const diffPath = join(pageDir, `diff-${vp}.png`)
         console.log(`  ${vp}: Generating diff...`)
 
-        const diffResult = await generateDiff(baselineCopyPath, screenshotPath, diffPath)
+        const diffResult = await generateDiff(baselineCopyPath, currentPath, diffPath)
 
         if (diffResult.match) {
           console.log(`  ${vp}: MATCH`)
