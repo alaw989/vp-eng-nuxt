@@ -1,0 +1,799 @@
+{
+  "generated": "2026-02-05T05:00:39.682Z",
+  "version": "1.0.0",
+  "images": [
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/steel-connect.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "steel-connect",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/steel-connect-640w.webp",
+          "medium": "/images/projects/steel-connect-1280w.webp",
+          "large": "/images/projects/steel-connect-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/steel-connect-640w.jpg",
+          "medium": "/images/projects/steel-connect-1280w.jpg",
+          "large": "/images/projects/steel-connect-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/steel-connect-640w.webp 640w, /images/projects/steel-connect-1280w.webp 1280w, /images/projects/steel-connect-1920w.webp 1920w",
+        "jpg": "/images/projects/steel-connect-640w.jpg 640w, /images/projects/steel-connect-1280w.jpg 1280w, /images/projects/steel-connect-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 52446,
+        "compressionRatio": 70.86
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/skyskr-1.jpg",
+      "category": "hero",
+      "basePath": "/images/hero",
+      "filename": "skyskr-1",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/hero/skyskr-1-640w.webp",
+          "medium": "/images/hero/skyskr-1-1280w.webp",
+          "large": "/images/hero/skyskr-1-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/hero/skyskr-1-640w.jpg",
+          "medium": "/images/hero/skyskr-1-1280w.jpg",
+          "large": "/images/hero/skyskr-1-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/hero/skyskr-1-640w.webp 640w, /images/hero/skyskr-1-1280w.webp 1280w, /images/hero/skyskr-1-1920w.webp 1920w",
+        "jpg": "/images/hero/skyskr-1-640w.jpg 640w, /images/hero/skyskr-1-1280w.jpg 1280w, /images/hero/skyskr-1-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 5356800,
+        "originalWidth": 1920,
+        "originalHeight": 930,
+        "optimizedSize": 1029990,
+        "compressionRatio": 80.77
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/shallowdeepfoundationdesign10-400x300.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "shallowdeepfoundationdesign10",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/shallowdeepfoundationdesign10-640w.webp",
+          "medium": "/images/projects/shallowdeepfoundationdesign10-1280w.webp",
+          "large": "/images/projects/shallowdeepfoundationdesign10-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/shallowdeepfoundationdesign10-640w.jpg",
+          "medium": "/images/projects/shallowdeepfoundationdesign10-1280w.jpg",
+          "large": "/images/projects/shallowdeepfoundationdesign10-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/shallowdeepfoundationdesign10-640w.webp 640w, /images/projects/shallowdeepfoundationdesign10-1280w.webp 1280w, /images/projects/shallowdeepfoundationdesign10-1920w.webp 1920w",
+        "jpg": "/images/projects/shallowdeepfoundationdesign10-640w.jpg 640w, /images/projects/shallowdeepfoundationdesign10-1280w.jpg 1280w, /images/projects/shallowdeepfoundationdesign10-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 360000,
+        "originalWidth": 400,
+        "originalHeight": 300,
+        "optimizedSize": 235731,
+        "compressionRatio": 34.52
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/lowrise.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "lowrise",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/lowrise-640w.webp",
+          "medium": "/images/projects/lowrise-1280w.webp",
+          "large": "/images/projects/lowrise-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/lowrise-640w.jpg",
+          "medium": "/images/projects/lowrise-1280w.jpg",
+          "large": "/images/projects/lowrise-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/lowrise-640w.webp 640w, /images/projects/lowrise-1280w.webp 1280w, /images/projects/lowrise-1920w.webp 1920w",
+        "jpg": "/images/projects/lowrise-640w.jpg 640w, /images/projects/lowrise-1280w.jpg 1280w, /images/projects/lowrise-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 98910,
+        "compressionRatio": 45.05
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/inspection-services.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "inspection-services",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/inspection-services-640w.webp",
+          "medium": "/images/projects/inspection-services-1280w.webp",
+          "large": "/images/projects/inspection-services-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/inspection-services-640w.jpg",
+          "medium": "/images/projects/inspection-services-1280w.jpg",
+          "large": "/images/projects/inspection-services-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/inspection-services-640w.webp 640w, /images/projects/inspection-services-1280w.webp 1280w, /images/projects/inspection-services-1920w.webp 1920w",
+        "jpg": "/images/projects/inspection-services-640w.jpg 640w, /images/projects/inspection-services-1280w.jpg 1280w, /images/projects/inspection-services-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 101949,
+        "compressionRatio": 43.36
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/image1.jpg",
+      "category": "hero",
+      "basePath": "/images/hero",
+      "filename": "uploads-2018-06",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/hero/uploads-2018-06-640w.webp",
+          "medium": "/images/hero/uploads-2018-06-1280w.webp",
+          "large": "/images/hero/uploads-2018-06-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/hero/uploads-2018-06-640w.jpg",
+          "medium": "/images/hero/uploads-2018-06-1280w.jpg",
+          "large": "/images/hero/uploads-2018-06-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/hero/uploads-2018-06-640w.webp 640w, /images/hero/uploads-2018-06-1280w.webp 1280w, /images/hero/uploads-2018-06-1920w.webp 1920w",
+        "jpg": "/images/hero/uploads-2018-06-640w.jpg 640w, /images/hero/uploads-2018-06-1280w.jpg 1280w, /images/hero/uploads-2018-06-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 23040000,
+        "originalWidth": 3200,
+        "originalHeight": 2400,
+        "optimizedSize": 1607841,
+        "compressionRatio": 93.02
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/home_header.jpg",
+      "category": "hero",
+      "basePath": "/images/hero",
+      "filename": "home-header",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/hero/home-header-640w.webp",
+          "medium": "/images/hero/home-header-1280w.webp",
+          "large": "/images/hero/home-header-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/hero/home-header-640w.jpg",
+          "medium": "/images/hero/home-header-1280w.jpg",
+          "large": "/images/hero/home-header-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/hero/home-header-640w.webp 640w, /images/hero/home-header-1280w.webp 1280w, /images/hero/home-header-1920w.webp 1920w",
+        "jpg": "/images/hero/home-header-640w.jpg 640w, /images/hero/home-header-1280w.jpg 1280w, /images/hero/home-header-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 5354010,
+        "originalWidth": 1919,
+        "originalHeight": 930,
+        "optimizedSize": 891266,
+        "compressionRatio": 83.35
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/crane-lift.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "crane-lift",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/crane-lift-640w.webp",
+          "medium": "/images/projects/crane-lift-1280w.webp",
+          "large": "/images/projects/crane-lift-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/crane-lift-640w.jpg",
+          "medium": "/images/projects/crane-lift-1280w.jpg",
+          "large": "/images/projects/crane-lift-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/crane-lift-640w.webp 640w, /images/projects/crane-lift-1280w.webp 1280w, /images/projects/crane-lift-1920w.webp 1920w",
+        "jpg": "/images/projects/crane-lift-640w.jpg 640w, /images/projects/crane-lift-1280w.jpg 1280w, /images/projects/crane-lift-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 56982,
+        "compressionRatio": 68.34
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/CAD-Drawing.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "cad-drawing",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/cad-drawing-640w.webp",
+          "medium": "/images/projects/cad-drawing-1280w.webp",
+          "large": "/images/projects/cad-drawing-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/cad-drawing-640w.jpg",
+          "medium": "/images/projects/cad-drawing-1280w.jpg",
+          "large": "/images/projects/cad-drawing-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/cad-drawing-640w.webp 640w, /images/projects/cad-drawing-1280w.webp 1280w, /images/projects/cad-drawing-1920w.webp 1920w",
+        "jpg": "/images/projects/cad-drawing-640w.jpg 640w, /images/projects/cad-drawing-1280w.jpg 1280w, /images/projects/cad-drawing-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 117744,
+        "compressionRatio": 34.59
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/vplogowhite.png",
+      "category": "general",
+      "basePath": "/images/general",
+      "filename": "vplogowhite",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/general/vplogowhite-640w.webp",
+          "medium": "/images/general/vplogowhite-1280w.webp",
+          "large": "/images/general/vplogowhite-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/general/vplogowhite-640w.jpg",
+          "medium": "/images/general/vplogowhite-1280w.jpg",
+          "large": "/images/general/vplogowhite-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/general/vplogowhite-640w.webp 640w, /images/general/vplogowhite-1280w.webp 1280w, /images/general/vplogowhite-1920w.webp 1920w",
+        "jpg": "/images/general/vplogowhite-640w.jpg 640w, /images/general/vplogowhite-1280w.jpg 1280w, /images/general/vplogowhite-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "png",
+        "originalSize": 228690,
+        "originalWidth": 605,
+        "originalHeight": 126,
+        "optimizedSize": 40152,
+        "compressionRatio": 82.44
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/shopdrawing.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "shopdrawing",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/shopdrawing-640w.webp",
+          "medium": "/images/projects/shopdrawing-1280w.webp",
+          "large": "/images/projects/shopdrawing-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/shopdrawing-640w.jpg",
+          "medium": "/images/projects/shopdrawing-1280w.jpg",
+          "large": "/images/projects/shopdrawing-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/shopdrawing-640w.webp 640w, /images/projects/shopdrawing-1280w.webp 1280w, /images/projects/shopdrawing-1920w.webp 1920w",
+        "jpg": "/images/projects/shopdrawing-640w.jpg 640w, /images/projects/shopdrawing-1280w.jpg 1280w, /images/projects/shopdrawing-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 203520,
+        "originalWidth": 320,
+        "originalHeight": 212,
+        "optimizedSize": 84741,
+        "compressionRatio": 58.36
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/image1.jpg",
+      "category": "hero",
+      "basePath": "/images/hero",
+      "filename": "uploads-2018-05",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/hero/uploads-2018-05-640w.webp",
+          "medium": "/images/hero/uploads-2018-05-1280w.webp",
+          "large": "/images/hero/uploads-2018-05-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/hero/uploads-2018-05-640w.jpg",
+          "medium": "/images/hero/uploads-2018-05-1280w.jpg",
+          "large": "/images/hero/uploads-2018-05-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/hero/uploads-2018-05-640w.webp 640w, /images/hero/uploads-2018-05-1280w.webp 1280w, /images/hero/uploads-2018-05-1920w.webp 1920w",
+        "jpg": "/images/hero/uploads-2018-05-640w.jpg 640w, /images/hero/uploads-2018-05-1280w.jpg 1280w, /images/hero/uploads-2018-05-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 23040000,
+        "originalWidth": 3200,
+        "originalHeight": 2400,
+        "optimizedSize": 1619192,
+        "compressionRatio": 92.97
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/image2.jpg",
+      "category": "hero",
+      "basePath": "/images/hero",
+      "filename": "uploads-2018-05",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/hero/uploads-2018-05-640w.webp",
+          "medium": "/images/hero/uploads-2018-05-1280w.webp",
+          "large": "/images/hero/uploads-2018-05-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/hero/uploads-2018-05-640w.jpg",
+          "medium": "/images/hero/uploads-2018-05-1280w.jpg",
+          "large": "/images/hero/uploads-2018-05-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/hero/uploads-2018-05-640w.webp 640w, /images/hero/uploads-2018-05-1280w.webp 1280w, /images/hero/uploads-2018-05-1920w.webp 1920w",
+        "jpg": "/images/hero/uploads-2018-05-640w.jpg 640w, /images/hero/uploads-2018-05-1280w.jpg 1280w, /images/hero/uploads-2018-05-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 60929736,
+        "originalWidth": 5516,
+        "originalHeight": 3682,
+        "optimizedSize": 808476,
+        "compressionRatio": 98.67
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/careers-handshake.jpg",
+      "category": "team",
+      "basePath": "/images/team",
+      "filename": "careers-handshake",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/team/careers-handshake-640w.webp",
+          "medium": "/images/team/careers-handshake-1280w.webp",
+          "large": "/images/team/careers-handshake-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/team/careers-handshake-640w.jpg",
+          "medium": "/images/team/careers-handshake-1280w.jpg",
+          "large": "/images/team/careers-handshake-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/team/careers-handshake-640w.webp 640w, /images/team/careers-handshake-1280w.webp 1280w, /images/team/careers-handshake-1920w.webp 1920w",
+        "jpg": "/images/team/careers-handshake-640w.jpg 640w, /images/team/careers-handshake-1280w.jpg 1280w, /images/team/careers-handshake-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 750000,
+        "originalWidth": 500,
+        "originalHeight": 500,
+        "optimizedSize": 164520,
+        "compressionRatio": 78.06
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/home_header.jpg",
+      "category": "hero",
+      "basePath": "/images/hero",
+      "filename": "home-header",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/hero/home-header-640w.webp",
+          "medium": "/images/hero/home-header-1280w.webp",
+          "large": "/images/hero/home-header-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/hero/home-header-640w.jpg",
+          "medium": "/images/hero/home-header-1280w.jpg",
+          "large": "/images/hero/home-header-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/hero/home-header-640w.webp 640w, /images/hero/home-header-1280w.webp 1280w, /images/hero/home-header-1920w.webp 1920w",
+        "jpg": "/images/hero/home-header-640w.jpg 640w, /images/hero/home-header-1280w.jpg 1280w, /images/hero/home-header-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 5354010,
+        "originalWidth": 1919,
+        "originalHeight": 930,
+        "optimizedSize": 905856,
+        "compressionRatio": 83.08
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/inspection-services.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "inspection-services",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/inspection-services-640w.webp",
+          "medium": "/images/projects/inspection-services-1280w.webp",
+          "large": "/images/projects/inspection-services-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/inspection-services-640w.jpg",
+          "medium": "/images/projects/inspection-services-1280w.jpg",
+          "large": "/images/projects/inspection-services-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/inspection-services-640w.webp 640w, /images/projects/inspection-services-1280w.webp 1280w, /images/projects/inspection-services-1920w.webp 1920w",
+        "jpg": "/images/projects/inspection-services-640w.jpg 640w, /images/projects/inspection-services-1280w.jpg 1280w, /images/projects/inspection-services-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 99357,
+        "compressionRatio": 44.8
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/crane-lift.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "crane-lift",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/crane-lift-640w.webp",
+          "medium": "/images/projects/crane-lift-1280w.webp",
+          "large": "/images/projects/crane-lift-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/crane-lift-640w.jpg",
+          "medium": "/images/projects/crane-lift-1280w.jpg",
+          "large": "/images/projects/crane-lift-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/crane-lift-640w.webp 640w, /images/projects/crane-lift-1280w.webp 1280w, /images/projects/crane-lift-1920w.webp 1920w",
+        "jpg": "/images/projects/crane-lift-640w.jpg 640w, /images/projects/crane-lift-1280w.jpg 1280w, /images/projects/crane-lift-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 55941,
+        "compressionRatio": 68.92
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/steel-connect.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "steel-connect",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/steel-connect-640w.webp",
+          "medium": "/images/projects/steel-connect-1280w.webp",
+          "large": "/images/projects/steel-connect-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/steel-connect-640w.jpg",
+          "medium": "/images/projects/steel-connect-1280w.jpg",
+          "large": "/images/projects/steel-connect-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/steel-connect-640w.webp 640w, /images/projects/steel-connect-1280w.webp 1280w, /images/projects/steel-connect-1920w.webp 1920w",
+        "jpg": "/images/projects/steel-connect-640w.jpg 640w, /images/projects/steel-connect-1280w.jpg 1280w, /images/projects/steel-connect-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 49965,
+        "compressionRatio": 72.24
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/CAD-Drawing.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "cad-drawing",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/cad-drawing-640w.webp",
+          "medium": "/images/projects/cad-drawing-1280w.webp",
+          "large": "/images/projects/cad-drawing-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/cad-drawing-640w.jpg",
+          "medium": "/images/projects/cad-drawing-1280w.jpg",
+          "large": "/images/projects/cad-drawing-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/cad-drawing-640w.webp 640w, /images/projects/cad-drawing-1280w.webp 1280w, /images/projects/cad-drawing-1920w.webp 1920w",
+        "jpg": "/images/projects/cad-drawing-640w.jpg 640w, /images/projects/cad-drawing-1280w.jpg 1280w, /images/projects/cad-drawing-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 115290,
+        "compressionRatio": 35.95
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/lowrise.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "lowrise",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/lowrise-640w.webp",
+          "medium": "/images/projects/lowrise-1280w.webp",
+          "large": "/images/projects/lowrise-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/lowrise-640w.jpg",
+          "medium": "/images/projects/lowrise-1280w.jpg",
+          "large": "/images/projects/lowrise-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/lowrise-640w.webp 640w, /images/projects/lowrise-1280w.webp 1280w, /images/projects/lowrise-1920w.webp 1920w",
+        "jpg": "/images/projects/lowrise-640w.jpg 640w, /images/projects/lowrise-1280w.jpg 1280w, /images/projects/lowrise-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 96114,
+        "compressionRatio": 46.6
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/image376.jpg",
+      "category": "general",
+      "basePath": "/images/general",
+      "filename": "uploads-2018-05",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/general/uploads-2018-05-640w.webp",
+          "medium": "/images/general/uploads-2018-05-1280w.webp",
+          "large": "/images/general/uploads-2018-05-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/general/uploads-2018-05-640w.jpg",
+          "medium": "/images/general/uploads-2018-05-1280w.jpg",
+          "large": "/images/general/uploads-2018-05-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/general/uploads-2018-05-640w.webp 640w, /images/general/uploads-2018-05-1280w.webp 1280w, /images/general/uploads-2018-05-1920w.webp 1920w",
+        "jpg": "/images/general/uploads-2018-05-640w.jpg 640w, /images/general/uploads-2018-05-1280w.jpg 1280w, /images/general/uploads-2018-05-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 868158,
+        "originalWidth": 621,
+        "originalHeight": 466,
+        "optimizedSize": 359388,
+        "compressionRatio": 58.6
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/shallowdeepfoundationdesign10-400x300.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "shallowdeepfoundationdesign10",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/shallowdeepfoundationdesign10-640w.webp",
+          "medium": "/images/projects/shallowdeepfoundationdesign10-1280w.webp",
+          "large": "/images/projects/shallowdeepfoundationdesign10-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/shallowdeepfoundationdesign10-640w.jpg",
+          "medium": "/images/projects/shallowdeepfoundationdesign10-1280w.jpg",
+          "large": "/images/projects/shallowdeepfoundationdesign10-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/shallowdeepfoundationdesign10-640w.webp 640w, /images/projects/shallowdeepfoundationdesign10-1280w.webp 1280w, /images/projects/shallowdeepfoundationdesign10-1920w.webp 1920w",
+        "jpg": "/images/projects/shallowdeepfoundationdesign10-640w.jpg 640w, /images/projects/shallowdeepfoundationdesign10-1280w.jpg 1280w, /images/projects/shallowdeepfoundationdesign10-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 360000,
+        "originalWidth": 400,
+        "originalHeight": 300,
+        "optimizedSize": 213951,
+        "compressionRatio": 40.57
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/about.png",
+      "category": "general",
+      "basePath": "/images/general",
+      "filename": "about",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/general/about-640w.webp",
+          "medium": "/images/general/about-1280w.webp",
+          "large": "/images/general/about-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/general/about-640w.jpg",
+          "medium": "/images/general/about-1280w.jpg",
+          "large": "/images/general/about-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/general/about-640w.webp 640w, /images/general/about-1280w.webp 1280w, /images/general/about-1920w.webp 1920w",
+        "jpg": "/images/general/about-640w.jpg 640w, /images/general/about-1280w.jpg 1280w, /images/general/about-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "png",
+        "originalSize": 4611300,
+        "originalWidth": 1900,
+        "originalHeight": 809,
+        "optimizedSize": 823948,
+        "compressionRatio": 82.13
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/vplogowhite.png",
+      "category": "general",
+      "basePath": "/images/general",
+      "filename": "vplogowhite",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/general/vplogowhite-640w.webp",
+          "medium": "/images/general/vplogowhite-1280w.webp",
+          "large": "/images/general/vplogowhite-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/general/vplogowhite-640w.jpg",
+          "medium": "/images/general/vplogowhite-1280w.jpg",
+          "large": "/images/general/vplogowhite-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/general/vplogowhite-640w.webp 640w, /images/general/vplogowhite-1280w.webp 1280w, /images/general/vplogowhite-1920w.webp 1920w",
+        "jpg": "/images/general/vplogowhite-640w.jpg 640w, /images/general/vplogowhite-1280w.jpg 1280w, /images/general/vplogowhite-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "png",
+        "originalSize": 65016,
+        "originalWidth": 172,
+        "originalHeight": 126,
+        "optimizedSize": 12243,
+        "compressionRatio": 81.17
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/inspection-services-300x200.jpg",
+      "category": "projects",
+      "basePath": "/images/projects",
+      "filename": "inspection-services",
+      "isDuplicate": false,
+      "variants": {
+        "webp": {
+          "small": "/images/projects/inspection-services-640w.webp",
+          "medium": "/images/projects/inspection-services-1280w.webp",
+          "large": "/images/projects/inspection-services-1920w.webp"
+        },
+        "jpg": {
+          "small": "/images/projects/inspection-services-640w.jpg",
+          "medium": "/images/projects/inspection-services-1280w.jpg",
+          "large": "/images/projects/inspection-services-1920w.jpg"
+        }
+      },
+      "srcset": {
+        "webp": "/images/projects/inspection-services-640w.webp 640w, /images/projects/inspection-services-1280w.webp 1280w, /images/projects/inspection-services-1920w.webp 1920w",
+        "jpg": "/images/projects/inspection-services-640w.jpg 640w, /images/projects/inspection-services-1280w.jpg 1280w, /images/projects/inspection-services-1920w.jpg 1920w"
+      },
+      "metadata": {
+        "originalFormat": "jpeg",
+        "originalSize": 180000,
+        "originalWidth": 300,
+        "originalHeight": 200,
+        "optimizedSize": 104367,
+        "compressionRatio": 42.02
+      }
+    }
+  ],
+  "summary": {
+    "totalImages": 25,
+    "totalVariants": 150,
+    "byCategory": {
+      "projects": 14,
+      "hero": 6,
+      "general": 4,
+      "team": 1
+    },
+    "duplicateCount": 0,
+    "duplicates": []
+  },
+  "usageGuide": {
+    "description": "Use the srcset strings directly in img srcset attributes, or copy local paths into NuxtImage components. All paths are relative to the public/ directory.",
+    "srcsetExample": "<img srcset=\"/images/hero/home-header-640w.webp 640w, /images/hero/home-header-1280w.webp 1280w, /images/hero/home-header-1920w.webp 1920w\" src=\"/images/hero/home-header-640w.webp\" alt=\"Hero image\">",
+    "nuxtImageExample": "<NuxtImg src=\"/images/hero/home-header.webp\" width=\"1920\" height=\"930\" format=\"webp\" loading=\"lazy\" />",
+    "pictureElementExample": "<picture>\n  <source srcset=\"/images/hero/home-header-640w.webp 640w, /images/hero/home-header-1280w.webp 1280w, /images/hero/home-header-1920w.webp 1920w\" type=\"image/webp\">\n  <img srcset=\"/images/hero/home-header-640w.jpg 640w, /images/hero/home-header-1280w.jpg 1280w, /images/hero/home-header-1920w.jpg 1920w\" src=\"/images/hero/home-header-640w.jpg\" alt=\"Description\">\n</picture>"
+  }
+}
