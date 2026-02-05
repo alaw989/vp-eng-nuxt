@@ -15,23 +15,110 @@
     <!-- Filter Section -->
     <AppSection bg-color="neutral-50" padding="md">
       <div class="container">
-        <div class="flex flex-wrap items-center justify-center gap-3">
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
           <button
             v-for="category in categories"
             :key="category.id"
-            @click="selectedCategory = category.id"
+            @click="setCategory(category.id)"
             :class="[
               'px-6 py-2.5 rounded-full font-semibold transition-all duration-300',
-              selectedCategory === category.id
+              filters.category === category.id
                 ? 'bg-primary text-white shadow-lg scale-105'
                 : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
             ]"
+            :aria-pressed="filters.category === category.id"
           >
             {{ category.name }}
           </button>
         </div>
-        <div class="text-center mt-4 text-neutral-600">
-          <span>{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
+
+        <!-- Additional Filters and Sort -->
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+          <!-- Location Filter -->
+          <div class="relative w-full md:w-auto">
+            <select
+              v-model="filters.location"
+              @change="updateFilters"
+              class="w-full md:w-48 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+              aria-label="Filter by location"
+            >
+              <option value="">All Locations</option>
+              <option v-for="location in uniqueLocations" :key="location" :value="location">
+                {{ location }}
+              </option>
+            </select>
+            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
+          </div>
+
+          <!-- Year Filter -->
+          <div class="relative w-full md:w-auto">
+            <select
+              v-model="filters.year"
+              @change="updateFilters"
+              class="w-full md:w-40 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+              aria-label="Filter by year"
+            >
+              <option value="">All Years</option>
+              <option v-for="year in uniqueYears" :key="year" :value="year">
+                {{ year }}
+              </option>
+            </select>
+            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
+          </div>
+
+          <!-- Sort -->
+          <div class="relative w-full md:w-auto">
+            <select
+              v-model="filters.sort"
+              @change="updateFilters"
+              class="w-full md:w-48 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+              aria-label="Sort projects"
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="az">Name (A-Z)</option>
+              <option value="za">Name (Z-A)</option>
+            </select>
+            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
+          </div>
+
+          <!-- Clear Filters -->
+          <button
+            v-if="hasActiveFilters"
+            @click="clearFilters"
+            class="w-full md:w-auto px-4 py-2.5 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors font-semibold flex items-center justify-center gap-2"
+          >
+            <Icon name="mdi:close-circle" class="w-5 h-5" />
+            Clear Filters
+          </button>
+        </div>
+
+        <!-- Active Filters Display -->
+        <div v-if="hasActiveFilters" class="flex flex-wrap items-center justify-center gap-2 mb-4">
+          <span v-if="filters.category !== 'all'" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
+            Category: {{ getCategoryName(filters.category) }}
+            <button @click="setCategory('all')" class="hover:text-primary-dark" aria-label="Remove category filter">
+              <Icon name="mdi:close" class="w-4 h-4" />
+            </button>
+          </span>
+          <span v-if="filters.location" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
+            Location: {{ filters.location }}
+            <button @click="filters.location = ''; updateFilters()" class="hover:text-primary-dark" aria-label="Remove location filter">
+              <Icon name="mdi:close" class="w-4 h-4" />
+            </button>
+          </span>
+          <span v-if="filters.year" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
+            Year: {{ filters.year }}
+            <button @click="filters.year = ''; updateFilters()" class="hover:text-primary-dark" aria-label="Remove year filter">
+              <Icon name="mdi:close" class="w-4 h-4" />
+            </button>
+          </span>
+        </div>
+
+        <!-- Results Count -->
+        <div class="text-center text-neutral-600">
+          <span aria-live="polite">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
         </div>
       </div>
     </AppSection>
@@ -45,6 +132,7 @@
           :title="project.title"
           :slug="project.slug"
           :description="project.description"
+          :image="project.image"
           :category="project.category"
           :location="project.location"
           :year="project.year"
@@ -170,7 +258,7 @@ usePageMeta({
   ogImage: 'https://vp-associates.com/images/og-projects.jpg',
 })
 
-const selectedCategory = ref('all')
+const route = useRoute()
 
 interface Category {
   id: string
@@ -184,6 +272,14 @@ interface Project {
   category: string
   location: string
   year: number
+  image?: string
+}
+
+interface Filters {
+  category: string
+  location: string
+  year: string
+  sort: 'newest' | 'oldest' | 'az' | 'za'
 }
 
 const categories: Category[] = [
@@ -202,7 +298,8 @@ const projects: Project[] = [
     description: 'Complete structural design for a 50-slip marina with restaurant and retail spaces',
     category: 'Marine',
     location: 'Tampa, FL',
-    year: 2024
+    year: 2024,
+    image: '/images/project-1.jpg'
   },
   {
     title: 'Downtown Office Tower',
@@ -210,7 +307,8 @@ const projects: Project[] = [
     description: 'Structural steel design for 12-story commercial office building',
     category: 'Commercial',
     location: 'Tampa, FL',
-    year: 2023
+    year: 2023,
+    image: '/images/project-2.jpg'
   },
   {
     title: 'Coastal Seawall System',
@@ -218,7 +316,8 @@ const projects: Project[] = [
     description: 'Engineered seawall protection system for luxury waterfront property',
     category: 'Marine',
     location: 'Clearwater, FL',
-    year: 2024
+    year: 2024,
+    image: '/images/project-3.jpg'
   },
   {
     title: 'Luxury Residential Estate',
@@ -226,7 +325,8 @@ const projects: Project[] = [
     description: 'Complete structural design for 8,000 sq ft waterfront residence with pool',
     category: 'Residential',
     location: 'St. Petersburg, FL',
-    year: 2024
+    year: 2024,
+    image: '/images/project-4.jpg'
   },
   {
     title: 'Industrial Warehouse Complex',
@@ -234,7 +334,8 @@ const projects: Project[] = [
     description: 'Pre-engineered metal building structure with 40,000 sq ft warehouse',
     category: 'Industrial',
     location: 'Brandon, FL',
-    year: 2023
+    year: 2023,
+    image: '/images/project-5.jpg'
   },
   {
     title: 'School Classroom Wing',
@@ -294,10 +395,118 @@ const projects: Project[] = [
   }
 ]
 
-const filteredProjects = computed(() => {
-  if (selectedCategory.value === 'all') {
-    return projects
+// Initialize filters from URL query params
+const filters = reactive<Filters>({
+  category: (route.query.category as string) || 'all',
+  location: (route.query.location as string) || '',
+  year: (route.query.year as string) || '',
+  sort: (route.query.sort as Filters['sort']) || 'newest',
+})
+
+// Get unique locations for filter dropdown
+const uniqueLocations = computed(() => {
+  const locations = new Set(projects.map(p => p.location))
+  return Array.from(locations).sort()
+})
+
+// Get unique years for filter dropdown (descending)
+const uniqueYears = computed(() => {
+  const years = new Set(projects.map(p => p.year.toString()))
+  return Array.from(years).sort((a, b) => parseInt(b) - parseInt(a))
+})
+
+// Check if any filters are active
+const hasActiveFilters = computed(() => {
+  return filters.category !== 'all' || filters.location !== '' || filters.year !== ''
+})
+
+// Get category name by ID
+function getCategoryName(id: string): string {
+  const category = categories.find(c => c.id === id)
+  return category?.name || id
+}
+
+// Set category and update URL
+function setCategory(categoryId: string) {
+  filters.category = categoryId
+  updateFilters()
+}
+
+// Update URL with current filter state
+function updateFilters() {
+  const query: Record<string, string> = {}
+
+  if (filters.category !== 'all') query.category = filters.category
+  if (filters.location) query.location = filters.location
+  if (filters.year) query.year = filters.year
+  if (filters.sort !== 'newest') query.sort = filters.sort
+
+  // Navigate to new URL with query params (replaces history)
+  navigateTo({ query }, { replace: true })
+}
+
+// Clear all filters
+function clearFilters() {
+  filters.category = 'all'
+  filters.location = ''
+  filters.year = ''
+  filters.sort = 'newest'
+  updateFilters()
+}
+
+// Sort function
+function sortProjects(projectsList: Project[]): Project[] {
+  const sorted = [...projectsList]
+
+  switch (filters.sort) {
+    case 'newest':
+      return sorted.sort((a, b) => b.year - a.year)
+    case 'oldest':
+      return sorted.sort((a, b) => a.year - b.year)
+    case 'az':
+      return sorted.sort((a, b) => a.title.localeCompare(b.title))
+    case 'za':
+      return sorted.sort((a, b) => b.title.localeCompare(a.title))
+    default:
+      return sorted
   }
-  return projects.filter(p => p.category === selectedCategory.value)
+}
+
+// Filter and sort projects
+const filteredProjects = computed(() => {
+  let results = projects
+
+  // Filter by category
+  if (filters.category !== 'all') {
+    results = results.filter(p => p.category === filters.category)
+  }
+
+  // Filter by location
+  if (filters.location) {
+    results = results.filter(p => p.location === filters.location)
+  }
+
+  // Filter by year
+  if (filters.year) {
+    results = results.filter(p => p.year.toString() === filters.year)
+  }
+
+  // Sort the results
+  return sortProjects(results)
+})
+
+// ItemList Schema for projects listing (must be after projects is defined)
+useJsonld({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'VP Associates Structural Engineering Projects',
+  description: 'Portfolio of successful engineering projects',
+  itemListElement: filteredProjects.value.map((project, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: project.title,
+    description: project.description,
+    url: `https://vp-associates.com/projects/${project.slug}`,
+  })),
 })
 </script>

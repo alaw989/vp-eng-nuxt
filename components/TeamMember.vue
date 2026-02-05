@@ -5,10 +5,14 @@
       <NuxtImg
         v-if="photo"
         :src="photo"
-        :alt="name"
+        :alt="`${name}, ${title}${bio ? ' - VP Associates team member' : ''}`"
         class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
         format="webp"
         loading="lazy"
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+        width="400"
+        height="500"
+        placeholder
       />
       <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20">
         <Icon name="mdi:account-tie" class="w-20 h-20 text-primary/40" />
@@ -32,7 +36,7 @@
         <a
           v-if="email"
           :href="`mailto:${email}`"
-          class="text-neutral-500 hover:text-primary transition-colors"
+          class="text-neutral-500 hover:text-primary transition-colors rounded-lg p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="`Email ${name}`"
         >
           <Icon name="mdi:email" class="w-5 h-5" />
@@ -40,7 +44,7 @@
         <a
           v-if="phone"
           :href="`tel:${phone}`"
-          class="text-neutral-500 hover:text-primary transition-colors"
+          class="text-neutral-500 hover:text-primary transition-colors rounded-lg p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="`Call ${name}`"
         >
           <Icon name="mdi:phone" class="w-5 h-5" />
@@ -50,7 +54,7 @@
           :href="linkedin"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-neutral-500 hover:text-primary transition-colors"
+          class="text-neutral-500 hover:text-primary transition-colors rounded-lg p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="`${name}'s LinkedIn`"
         >
           <Icon name="mdi:linkedin" class="w-5 h-5" />

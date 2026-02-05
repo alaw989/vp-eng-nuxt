@@ -15,10 +15,13 @@
       <div v-if="avatar" class="w-12 h-12 rounded-full overflow-hidden bg-neutral-100 flex-shrink-0">
         <NuxtImg
           :src="avatar"
-          :alt="author"
+          :alt="`${author}${company ? ` from ${company}` : ''} - client testimonial author photo`"
           class="w-full h-full object-cover"
           format="webp"
           loading="lazy"
+          width="48"
+          height="48"
+          placeholder
         />
       </div>
       <div v-else class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">

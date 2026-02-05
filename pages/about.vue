@@ -116,16 +116,36 @@
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <TeamMember
-          v-for="member in leadership"
-          :key="member.name"
-          :name="member.name"
-          :title="member.title"
-          :bio="member.bio"
-          :photo="member.photo"
-          :email="member.email"
-          :phone="member.phone"
-        />
+        <!-- Loading skeleton -->
+        <template v-if="teamPending">
+          <TeamMemberSkeleton v-for="i in 4" :key="`skeleton-${i}`" />
+        </template>
+
+        <!-- Error state -->
+        <div v-else-if="teamError" class="col-span-full text-center py-8">
+          <Icon name="mdi:alert-circle-outline" class="w-12 h-12 text-secondary mx-auto mb-4" />
+          <p class="text-neutral-600 mb-4">Unable to load team information. Please try again later.</p>
+          <button
+            @click="refreshTeam"
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+
+        <!-- Team members -->
+        <template v-else>
+          <TeamMember
+            v-for="member in leadership"
+            :key="member.name"
+            :name="member.name"
+            :title="member.title"
+            :bio="member.bio"
+            :photo="member.photo"
+            :email="member.email"
+            :phone="member.phone"
+          />
+        </template>
       </div>
     </AppSection>
 
@@ -233,40 +253,22 @@ useJsonld({
   ],
 })
 
-const leadership = [
-  {
-    name: 'Vincent P. Rodriguez, P.E.',
-    title: 'President & Principal Engineer',
-    bio: 'Founder and principal engineer with 35+ years of structural engineering experience. Licensed in Florida and multiple states. Specializes in complex commercial and marine structures.',
-    email: 'vincent@vp-associates.com',
-    phone: '+18135551201',
-    photo: '/images/team-1.svg'
-  },
-  {
-    name: 'Jennifer Martinez, P.E.',
-    title: 'Vice President',
-    bio: '20+ years of experience in structural design and project management. Expert in concrete and masonry design. Leads our commercial development projects.',
-    email: 'jennifer@vp-associates.com',
-    phone: '+18135551202',
-    photo: '/images/team-2.svg'
-  },
-  {
-    name: 'David Kim, P.E.',
-    title: 'Senior Project Engineer',
-    bio: '15+ years specializing in steel connection design and detailing. SDS2 expert and BIM specialist. Manages our industrial and marine projects.',
-    email: 'david@vp-associates.com',
-    phone: '+18135551203',
-    photo: '/images/team-3.svg'
-  },
-  {
-    name: 'Sarah Thompson, P.E.',
-    title: 'Project Manager',
-    bio: '12+ years in structural engineering with focus on residential and light commercial projects. Expert in foundation design and seawall structures.',
-    email: 'sarah@vp-associates.com',
-    phone: '+18135551204',
-    photo: '/images/team-4.svg'
-  }
-]
+// Fetch team members from API
+const { data: teamResponse, pending: teamPending, error: teamError } = await useFetch('/api/team')
+const teamData = computed(() => (teamResponse.value as any)?.data || [])
+
+// Transform team data for display
+const leadership = computed(() => {
+  if (!teamData.value || !Array.isArray(teamData.value)) return []
+  return teamData.value.slice(0, 4).map((member: any) => ({
+    name: member.title?.rendered || 'Team Member',
+    title: member.acf?.title || 'Team',
+    bio: member.acf?.bio || 'Professional structural engineer',
+    email: member.acf?.email || 'info@vp-associates.com',
+    phone: member.acf?.phone || '+18135551234',
+    photo: member.acf?.photo || '/images/team-1.jpg',
+  }))
+})
 
 const certifications = [
   'AISC Certification',
@@ -291,4 +293,9 @@ const serviceAreas = [
   'Hillsborough County',
   'Pinellas County'
 ]
+
+// Refresh team data
+async function refreshTeam() {
+  await navigateTo({ path: '/about', query: { refresh: Date.now().toString() } })
+}
 </script>

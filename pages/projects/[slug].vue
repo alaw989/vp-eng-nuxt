@@ -1,12 +1,7 @@
 <template>
   <div>
     <!-- Loading state -->
-    <div v-if="pending" class="min-h-screen flex items-center justify-center">
-      <div class="text-center">
-        <div class="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p class="text-neutral-600">Loading project details...</p>
-      </div>
-    </div>
+    <ProjectDetailSkeleton v-if="pending" />
 
     <!-- Error state -->
     <div v-else-if="error || !project" class="min-h-screen flex items-center justify-center">
@@ -68,10 +63,10 @@
       <!-- Project Image Gallery -->
       <AppSection bg-color="neutral-100" padding="md">
         <div class="container">
-          <div class="aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center">
-            <Icon name="mdi:image-multiple" class="w-24 h-24 text-primary/30" />
-            <p class="absolute bottom-4 text-white/60 text-sm">Project Gallery - Images to be added</p>
-          </div>
+          <LazyProjectGallery
+            :images="projectImages"
+            :project-name="project.title.rendered || 'Project'"
+          />
         </div>
       </AppSection>
 
@@ -86,7 +81,7 @@
             <div class="prose prose-lg max-w-none text-neutral-600 mb-6" v-html="project.content.rendered"></div>
 
             <div class="mb-8 pt-6 border-t border-neutral-200 social-share">
-              <SocialShare
+              <LazySocialShare
                 :title="project.title.rendered"
                 :description="projectDescription"
               />
@@ -175,6 +170,7 @@
             :category="relatedProject.category"
             :location="relatedProject.location"
             :year="relatedProject.year"
+            :image="relatedProject.image"
           />
         </div>
 
@@ -222,7 +218,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const slug = route.params.slug as string
+const slug = String((route.params as any).slug || '')
 
 // Fetch project data - API returns { success: true, data: {...} } with static fallback built-in
 const { data: apiResponse, pending, error } = await useFetch(`/api/projects/${slug}`)
@@ -242,7 +238,8 @@ const staticProjects: Record<string, any> = {
       year: '2024',
       squareFootage: '45,000 sq ft',
       services_provided: ['Structural Steel Design', 'Foundation Design', 'Seawall Design', 'Inspection Services']
-    }
+    },
+    images: ['/images/project-1.jpg', '/images/hero-1.jpg']
   },
   'downtown-office-tower': {
     title: { rendered: 'Downtown Office Tower' },
@@ -254,7 +251,8 @@ const staticProjects: Record<string, any> = {
       year: '2023',
       squareFootage: '180,000 sq ft',
       services_provided: ['Structural Steel Design', 'Steel Connection Design', 'Foundation Design', 'CAD & 3D Modeling']
-    }
+    },
+    images: ['/images/project-2.jpg', '/images/hero-2.jpg']
   },
   'coastal-seawall-system': {
     title: { rendered: 'Coastal Seawall System' },
@@ -265,7 +263,8 @@ const staticProjects: Record<string, any> = {
       location: 'Clearwater, FL',
       year: '2024',
       services_provided: ['Seawall Design', 'Foundation Design', 'Inspection Services']
-    }
+    },
+    images: ['/images/project-3.jpg', '/images/hero-3.jpg']
   },
   'luxury-residential-estate': {
     title: { rendered: 'Luxury Residential Estate' },
@@ -277,7 +276,8 @@ const staticProjects: Record<string, any> = {
       year: '2024',
       squareFootage: '8,000 sq ft',
       services_provided: ['Wood Design', 'Concrete Design', 'Foundation Design']
-    }
+    },
+    images: ['/images/project-4.jpg']
   },
   'industrial-warehouse-complex': {
     title: { rendered: 'Industrial Warehouse Complex' },
@@ -289,7 +289,8 @@ const staticProjects: Record<string, any> = {
       year: '2023',
       squareFootage: '40,000 sq ft',
       services_provided: ['Structural Steel Design', 'Foundation Design', 'Steel Connection Design']
-    }
+    },
+    images: ['/images/project-5.jpg']
   },
   'school-classroom-wing': {
     title: { rendered: 'School Classroom Wing' },
@@ -301,7 +302,8 @@ const staticProjects: Record<string, any> = {
       year: '2023',
       squareFootage: '15,000 sq ft',
       services_provided: ['Masonry Design', 'Structural Steel Design', 'Foundation Design']
-    }
+    },
+    images: ['/images/hero-1.jpg', '/images/hero-2.jpg']
   }
 }
 
@@ -325,6 +327,11 @@ const servicesProvided = computed(() => project.value?.acf?.services_provided ||
   'Design Services',
   'Code Compliance'
 ])
+const projectImages = computed(() => {
+  const images = project.value?.images || []
+  // If no images, return empty array (gallery will show placeholder)
+  return Array.isArray(images) ? images : []
+})
 const hasRelatedProjects = computed(() => relatedProjects.value.length > 0)
 
 // Breadcrumbs for SEO and navigation
@@ -341,7 +348,8 @@ const relatedProjects = ref([
     description: 'Complete structural design for a 50-slip marina',
     category: 'Marine',
     location: 'Tampa, FL',
-    year: 2024
+    year: 2024,
+    image: '/images/project-1.jpg'
   },
   {
     title: 'Downtown Office Tower',
@@ -349,7 +357,8 @@ const relatedProjects = ref([
     description: 'Structural steel design for 12-story office building',
     category: 'Commercial',
     location: 'Tampa, FL',
-    year: 2023
+    year: 2023,
+    image: '/images/project-2.jpg'
   },
   {
     title: 'Coastal Seawall System',
@@ -357,34 +366,26 @@ const relatedProjects = ref([
     description: 'Engineered seawall protection system',
     category: 'Marine',
     location: 'Clearwater, FL',
-    year: 2024
+    year: 2024,
+    image: '/images/project-3.jpg'
   }
 ])
 
 // SEO Meta Tags
-useHead({
-  title: computed(() => `${project.value?.title?.rendered || 'Project'} | VP Associates Projects`),
-  meta: computed(() => {
-    const title = project.value?.title?.rendered || 'Project'
-    return [
-      { name: 'description', content: projectDescription.value },
-      { property: 'og:type', content: 'article' },
-      { property: 'og:site_name', content: 'VP Associates' },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: projectDescription.value },
-      { property: 'og:url', content: `https://vp-associates.com/projects/${slug}` },
-      { property: 'og:image', content: 'https://vp-associates.com/images/og-projects.jpg' },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '630' },
-      { property: 'og:image:alt', content: title },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:site', content: '@vpassociates' },
-      { name: 'twitter:title', content: title },
-      { name: 'twitter:description', content: projectDescription.value },
-      { name: 'twitter:image', content: 'https://vp-associates.com/images/og-projects.jpg' },
-      { name: 'author', content: 'VP Associates' },
-    ]
-  })
+watchEffect(() => {
+  if (project.value?.title?.rendered) {
+    const title = project.value.title.rendered
+    const description = projectDescription.value
+    const canonicalUrl = `https://vp-associates.com/projects/${slug}`
+
+    usePageMeta({
+      title,
+      description,
+      ogImage: 'https://vp-associates.com/images/og-projects.jpg',
+      ogType: 'article',
+      canonicalUrl,
+    })
+  }
 })
 
 // Project Schema

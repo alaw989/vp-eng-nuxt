@@ -286,7 +286,7 @@ interface RelatedPosition {
 
 // Get the route slug
 const route = useRoute()
-const slug = route.params.slug as string
+const slug = String((route.params as any).slug || '')
 
 // Build full URL for sharing
 const fullUrl = computed(() => {

@@ -10,10 +10,12 @@ interface PageMetaOptions {
   keywords?: string
   titleSuffix?: boolean
   robots?: string
+  canonicalUrl?: string
 }
 
 export function usePageMeta(options: PageMetaOptions) {
   const config = useRuntimeConfig()
+  const route = useRoute()
   const siteUrl = config.public.siteUrl || 'https://vp-associates.com'
 
   const {
@@ -25,9 +27,11 @@ export function usePageMeta(options: PageMetaOptions) {
     keywords,
     titleSuffix = true,
     robots,
+    canonicalUrl,
   } = options
 
   const fullTitle = titleSuffix ? `${title} | VP Associates` : title
+  const currentPath = canonicalUrl || siteUrl + route.path
 
   const metaTags: Array<{ name?: string; property?: string; content: string }> = [
     // Basic SEO
@@ -38,7 +42,7 @@ export function usePageMeta(options: PageMetaOptions) {
     { property: 'og:site_name', content: 'VP Associates' },
     { property: 'og:title', content: title },
     { property: 'og:description', content: description },
-    { property: 'og:url', content: siteUrl + useRoute().path },
+    { property: 'og:url', content: currentPath },
     { property: 'og:image', content: ogImage },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '630' },
@@ -70,13 +74,25 @@ export function usePageMeta(options: PageMetaOptions) {
     metaTags.push({ name: 'robots', content: robots })
   }
 
+  const linkTags: Array<{ rel: string; href: string }> = []
+
+  // Add canonical URL
+  if (!noindex) {
+    linkTags.push({
+      rel: 'canonical',
+      href: currentPath,
+    })
+  }
+
   useHead({
     title: fullTitle,
     meta: metaTags,
+    link: linkTags.length > 0 ? linkTags : undefined,
   })
 
   return {
     fullTitle,
     siteUrl,
+    canonicalUrl: currentPath,
   }
 }

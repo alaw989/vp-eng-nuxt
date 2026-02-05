@@ -258,14 +258,26 @@
             </div>
           </div>
 
-          <!-- Map Placeholder -->
+          <!-- Interactive Map -->
           <div class="rounded-xl overflow-hidden border border-neutral-200">
-            <div class="aspect-[4/3] bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center">
-              <div class="text-center">
-                <Icon name="mdi:map-marker-radius" class="w-16 h-16 text-primary/40 mx-auto mb-2" />
-                <p class="text-neutral-600 font-medium">Interactive Map</p>
-                <p class="text-neutral-500 text-sm">Tampa, FL</p>
-              </div>
+            <iframe
+              title="VP Associates Office Location"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-82.4620,27.9450,-82.4480,27.9600&amp;layer=mapnik&amp;marker=27.9525,-82.4550"
+              class="w-full aspect-[4/3] border-0"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <div class="bg-white p-3 border-t border-neutral-200">
+              <a
+                href="https://www.openstreetmap.org/?mlat=27.9525&amp;mlon=-82.4550#map=16/27.9525/-82.4550"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-dark transition-colors font-medium"
+              >
+                <Icon name="mdi:open-in-new" class="w-4 h-4" />
+                Open in larger map
+              </a>
             </div>
           </div>
 

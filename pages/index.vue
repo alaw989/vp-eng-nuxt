@@ -265,119 +265,59 @@ useJsonld({
   openingHours: 'Mo-Fr 08:00-17:00',
 })
 
-const services = [
-  {
-    title: 'Structural Steel Design',
-    description: 'AISC certified steel design for commercial and industrial projects',
-    icon: 'mdi:beam'
-  },
-  {
-    title: 'Concrete Design',
-    description: 'ACI certified concrete design for foundations and structures',
-    icon: 'mdi:cube-outline'
-  },
-  {
-    title: 'Masonry Design',
-    description: 'ACI 530 compliant masonry design and detailing',
-    icon: 'mdi:wall'
-  },
-  {
-    title: 'Foundation Design',
-    description: 'Deep and shallow foundation engineering solutions',
-    icon: 'mdi:home-floor-0'
-  },
-  {
-    title: 'Seawall Design',
-    description: 'Coastal protection and seawall structural design',
-    icon: 'mdi:waves'
-  },
-  {
-    title: 'Steel Detailing',
-    description: 'SDS2 and BIM steel connection design and detailing',
-    icon: 'mdi:pencil-ruler'
-  }
-]
+// Fetch services from API
+const { data: servicesResponse } = await useFetch('/api/services')
+const servicesData = computed(() => (servicesResponse.value as any)?.data || [])
 
-const featuredProjects = [
-  {
-    title: 'Tampa Marina Complex',
-    slug: 'tampa-marina-complex',
-    description: 'Complete structural design for a 50-slip marina with restaurant and retail spaces',
-    category: 'Marine',
-    location: 'Tampa, FL',
-    year: 2024
-  },
-  {
-    title: 'Downtown Office Tower',
-    slug: 'downtown-office-tower',
-    description: 'Structural steel design for 12-story commercial office building',
-    category: 'Commercial',
-    location: 'Tampa, FL',
-    year: 2023
-  },
-  {
-    title: 'Coastal Seawall System',
-    slug: 'coastal-seawall-system',
-    description: 'Engineered seawall protection system for luxury waterfront property',
-    category: 'Marine',
-    location: 'Clearwater, FL',
-    year: 2024
-  }
-]
+// Transform services data for display
+const services = computed(() => {
+  if (!servicesData.value || !Array.isArray(servicesData.value)) return []
+  return servicesData.value.slice(0, 6).map((s: any) => ({
+    title: s.title?.rendered || 'Service',
+    description: s.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Professional structural engineering services',
+    icon: s.acf?.icon || 'mdi:cog',
+  }))
+})
 
-// Carousel slides with icon support
-const carouselSlides = [
-  {
-    id: 1,
-    title: 'Tampa Marina Complex',
-    slug: 'tampa-marina-complex',
-    description: 'Complete structural design for a 50-slip marina with restaurant and retail spaces',
-    category: 'Marine',
-    location: 'Tampa, FL',
-    year: 2024,
-    icon: 'mdi:anchor'
-  },
-  {
-    id: 2,
-    title: 'Downtown Office Tower',
-    slug: 'downtown-office-tower',
-    description: 'Structural steel design for 12-story commercial office building',
-    category: 'Commercial',
-    location: 'Tampa, FL',
-    year: 2023,
-    icon: 'mdi:office-building'
-  },
-  {
-    id: 3,
-    title: 'Coastal Seawall System',
-    slug: 'coastal-seawall-system',
-    description: 'Engineered seawall protection system for luxury waterfront property',
-    category: 'Marine',
-    location: 'Clearwater, FL',
-    year: 2024,
-    icon: 'mdi:waves'
-  },
-  {
-    id: 4,
-    title: 'Luxury Residential Estate',
-    slug: 'luxury-residential-estate',
-    description: 'Complete structural design for 8,000 sq ft waterfront residence with pool',
-    category: 'Residential',
-    location: 'St. Petersburg, FL',
-    year: 2024,
-    icon: 'mdi:home'
-  },
-  {
-    id: 5,
-    title: 'Industrial Warehouse Complex',
-    slug: 'industrial-warehouse-complex',
-    description: 'Pre-engineered metal building structure with 40,000 sq ft warehouse',
-    category: 'Industrial',
-    location: 'Brandon, FL',
-    year: 2023,
-    icon: 'mdi:warehouse'
-  }
-]
+// Fetch projects from API
+const { data: projectsResponse } = await useFetch('/api/projects')
+const projectsData = computed(() => (projectsResponse.value as any)?.data || [])
+
+// Icon mapping for project categories
+const projectIcons: Record<string, string> = {
+  'Marine': 'mdi:anchor',
+  'Commercial': 'mdi:office-building',
+  'Residential': 'mdi:home',
+  'Industrial': 'mdi:warehouse',
+  'Institutional': 'mdi:school',
+}
+
+// Transform projects data for carousel display
+const carouselSlides = computed(() => {
+  if (!projectsData.value || !Array.isArray(projectsData.value)) return []
+  return projectsData.value.slice(0, 5).map((p: any, index: number) => ({
+    id: index + 1,
+    title: p.title?.rendered || 'Project',
+    slug: p.slug || 'project',
+    description: p.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Structural engineering project',
+    category: p.acf?.category || 'Project',
+    location: p.acf?.location || 'Tampa Bay',
+    year: p.acf?.year || new Date().getFullYear().toString(),
+    icon: projectIcons[p.acf?.category as string] || 'mdi:office-building',
+  }))
+})
+
+// Featured projects (first 3 for any sections that use it)
+const featuredProjects = computed(() => {
+  return carouselSlides.value.slice(0, 3).map((slide: any) => ({
+    title: slide.title,
+    slug: slide.slug,
+    description: slide.description,
+    category: slide.category,
+    location: slide.location,
+    year: slide.year,
+  }))
+})
 
 // Client logos for trust indicators
 const clientLogos = [
@@ -391,21 +331,17 @@ const clientLogos = [
   { name: 'TECO', icon: 'mdi:lightning-bolt' },
 ]
 
-const testimonials = [
-  {
-    quote: 'VP Associates delivered exceptional structural engineering services for our commercial development. Their attention to detail and code expertise made all the difference.',
-    author: 'Michael Chen',
-    company: 'Chen Development Group'
-  },
-  {
-    quote: 'Working with VP Associates was seamless from start to finish. They met every deadline and provided innovative solutions for our complex project.',
-    author: 'Sarah Rodriguez',
-    company: 'Rodriguez Architecture'
-  },
-  {
-    quote: 'The team at VP Associates brings decades of expertise to every project. Their seawall designs have stood up to Florida weather for years.',
-    author: 'James Morrison',
-    company: 'Gulf Coast Contractors'
-  }
-]
+// Fetch testimonials from API
+const { data: testimonialsResponse } = await useFetch('/api/testimonials')
+const testimonialsData = computed(() => (testimonialsResponse.value as any)?.data || [])
+
+// Transform testimonials data for display
+const testimonials = computed(() => {
+  if (!testimonialsData.value || !Array.isArray(testimonialsData.value)) return []
+  return testimonialsData.value.slice(0, 3).map((t: any) => ({
+    quote: t.acf?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '') || 'Great service!',
+    author: t.title?.rendered || 'Client',
+    company: t.acf?.company || '',
+  }))
+})
 </script>

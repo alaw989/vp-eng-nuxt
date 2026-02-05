@@ -1,5 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col">
+    <!-- PWA Manifest -->
+    <NuxtPwaAssets />
     <!-- Page loading progress bar -->
     <PageLoadingBar />
 
@@ -11,11 +13,15 @@
       Skip to main content
     </a>
 
-    <AppHeader />
-    <main id="main-content" class="flex-1" tabindex="-1">
+    <AppHeader role="banner" />
+    <main id="main-content" class="flex-1" tabindex="-1" role="main">
       <slot />
     </main>
-    <AppFooter />
-    <BackToTop />
+    <AppFooter role="contentinfo" />
+    <LazyBackToTop />
+
+    <!-- PWA Components -->
+    <LazyPwaReloadPrompt />
+    <LazyPwaInstallPrompt />
   </div>
 </template>

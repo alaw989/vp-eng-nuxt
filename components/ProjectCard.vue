@@ -1,17 +1,21 @@
 <template>
   <NuxtLink
     :to="`/projects/${slug}`"
-    class="group block overflow-hidden rounded-xl bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl transition-all duration-300"
+    class="group block overflow-hidden rounded-xl bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
   >
     <!-- Project Image -->
     <div class="aspect-[4/3] overflow-hidden bg-neutral-100">
       <NuxtImg
         v-if="image"
         :src="image"
-        :alt="title"
+        :alt="`${title}${category ? ` - ${category} project` : ' project'}${location ? ` in ${location}` : ''}`"
         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         format="webp"
         loading="lazy"
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+        width="800"
+        height="600"
+        placeholder
       />
       <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20">
         <Icon name="mdi:building" class="w-16 h-16 text-primary/40" />

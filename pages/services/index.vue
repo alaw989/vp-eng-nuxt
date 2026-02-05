@@ -372,4 +372,19 @@ const allServices: Service[] = [
     ]
   }
 ]
+
+// ItemList Schema for services listing (must be after allServices is defined)
+useJsonld({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'VP Associates Structural Engineering Services',
+  description: 'Comprehensive structural engineering services',
+  itemListElement: allServices.map((service, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: service.title,
+    description: service.description,
+    url: `https://vp-associates.com/services/${service.slug}`,
+  })),
+})
 </script>

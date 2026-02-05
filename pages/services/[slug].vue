@@ -1,12 +1,7 @@
 <template>
   <div>
     <!-- Loading state -->
-    <div v-if="pending" class="min-h-screen flex items-center justify-center">
-      <div class="text-center">
-        <div class="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p class="text-neutral-600">Loading service details...</p>
-      </div>
-    </div>
+    <ServiceDetailSkeleton v-if="pending" />
 
     <!-- Error state -->
     <div v-else-if="error || !service" class="min-h-screen flex items-center justify-center">
@@ -71,7 +66,7 @@
             </div>
             <div class="prose prose-lg max-w-none text-neutral-600" v-html="service.content.rendered"></div>
             <div class="mt-6 pt-6 border-t border-neutral-200 social-share">
-              <SocialShare
+              <LazySocialShare
                 :title="service.title.rendered"
                 :description="serviceDescription"
               />
@@ -216,7 +211,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const slug = route.params.slug as string
+const slug = String((route.params as any).slug || '')
 
 // Fetch service data - API returns { success: true, data: {...} } with static fallback built-in
 const { data: apiResponse, pending, error } = await useFetch(`/api/services/${slug}`)
@@ -474,29 +469,20 @@ const otherServices = ref([
 ])
 
 // SEO Meta Tags
-useHead({
-  title: computed(() => `${service.value?.title?.rendered || 'Service'} | VP Associates`),
-  meta: computed(() => {
-    const title = service.value?.title?.rendered || 'Service'
-    return [
-      { name: 'description', content: serviceDescription.value },
-      { property: 'og:type', content: 'article' },
-      { property: 'og:site_name', content: 'VP Associates' },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: serviceDescription.value },
-      { property: 'og:url', content: `https://vp-associates.com/services/${slug}` },
-      { property: 'og:image', content: 'https://vp-associates.com/images/og-services.jpg' },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '630' },
-      { property: 'og:image:alt', content: title },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:site', content: '@vpassociates' },
-      { name: 'twitter:title', content: title },
-      { name: 'twitter:description', content: serviceDescription.value },
-      { name: 'twitter:image', content: 'https://vp-associates.com/images/og-services.jpg' },
-      { name: 'author', content: 'VP Associates' },
-    ]
-  })
+watchEffect(() => {
+  if (service.value?.title?.rendered) {
+    const title = service.value.title.rendered
+    const description = serviceDescription.value
+    const canonicalUrl = `https://vp-associates.com/services/${slug}`
+
+    usePageMeta({
+      title,
+      description,
+      ogImage: 'https://vp-associates.com/images/og-services.jpg',
+      ogType: 'article',
+      canonicalUrl,
+    })
+  }
 })
 
 // Service Schema

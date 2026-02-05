@@ -29,6 +29,10 @@
             format="webp"
             loading="eager"
             fetchpriority="high"
+            sizes="100vw"
+            width="1920"
+            height="1080"
+            placeholder
           />
           <!-- Overlay -->
           <div class="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary-dark/90" />
@@ -95,10 +99,10 @@
         :key="index"
         :aria-label="`Go to slide ${index + 1}`"
         :class="[
-          'w-3 h-3 rounded-full transition-all duration-300',
+          'h-3 rounded-full transition-all duration-300',
           currentSlide === index
-            ? 'bg-white w-8'
-            : 'bg-white/50 hover:bg-white/70'
+            ? 'bg-white w-12'
+            : 'bg-white/50 hover:bg-white/70 w-11'
         ]"
         @click="goToSlide(index)"
       />
@@ -138,8 +142,8 @@ const props = withDefaults(
         id: 1,
         title: 'Structural Engineering\nExcellence',
         description: 'Serving Tampa Bay with comprehensive structural design, inspection, and detailing services',
-        image: '/images/hero-1.svg',
-        alt: 'Structural engineering project',
+        image: '/images/hero-1.jpg',
+        alt: 'Structural engineering project - Home header image showing construction site',
         primaryLink: '/services',
         primaryText: 'Our Services',
         secondaryLink: '/contact',
@@ -149,8 +153,8 @@ const props = withDefaults(
         id: 2,
         title: 'Innovative Design\nSolutions',
         description: 'From concept to completion, we deliver engineering excellence for projects of all sizes',
-        image: '/images/hero-2.svg',
-        alt: 'Engineering design blueprints',
+        image: '/images/hero-2.jpg',
+        alt: 'Crane lift at construction site - Engineering design in action',
         primaryLink: '/projects',
         primaryText: 'View Projects',
         secondaryLink: '/contact',
@@ -160,8 +164,8 @@ const props = withDefaults(
         id: 3,
         title: 'Trusted by Tampa\nBay Since 1990',
         description: 'Over 30 years of experience delivering quality structural engineering services',
-        image: '/images/hero-3.svg',
-        alt: 'Construction site',
+        image: '/images/hero-3.jpg',
+        alt: 'High-rise building project - Skyscraper construction',
         primaryLink: '/about',
         primaryText: 'Learn More',
         secondaryLink: '/contact',
