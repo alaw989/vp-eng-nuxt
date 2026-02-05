@@ -116,16 +116,46 @@
           </span>
         </div>
 
-        <!-- Results Count -->
-        <div class="text-center text-neutral-600">
-          <span aria-live="polite">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
+        <!-- Results Count and View Toggle -->
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <div class="text-neutral-600">
+            <span aria-live="polite">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
+          </div>
+          <!-- View Toggle -->
+          <div class="flex items-center gap-1 border border-neutral-200 rounded-lg p-1 bg-white">
+            <button
+              @click="setViewMode('grid')"
+              :class="[
+                'p-2 rounded-md transition-all duration-200',
+                viewMode === 'grid' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
+              ]"
+              aria-label="Grid view"
+              :aria-pressed="viewMode === 'grid'"
+            >
+              <Icon name="mdi:view-grid" class="w-5 h-5" />
+            </button>
+            <button
+              @click="setViewMode('list')"
+              :class="[
+                'p-2 rounded-md transition-all duration-200',
+                viewMode === 'list' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
+              ]"
+              aria-label="List view"
+              :aria-pressed="viewMode === 'list'"
+            >
+              <Icon name="mdi:view-list" class="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </AppSection>
 
     <!-- Projects Grid -->
     <AppSection bg-color="white" animate-on-scroll>
-      <div v-if="filteredProjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div v-if="filteredProjects.length > 0" :class="[
+        'grid gap-6 transition-all duration-300',
+        viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
+      ]">
         <ProjectCard
           v-for="project in filteredProjects"
           :key="project.slug"
@@ -136,6 +166,7 @@
           :category="project.category"
           :location="project.location"
           :year="project.year"
+          :view-mode="viewMode"
         />
       </div>
       <div v-else class="text-center py-16">
@@ -403,6 +434,10 @@ const filters = reactive<Filters>({
   sort: (route.query.sort as Filters['sort']) || 'newest',
 })
 
+// View mode state (grid or list)
+type ViewMode = 'grid' | 'list'
+const viewMode = ref<ViewMode>((route.query.view as ViewMode) === 'list' ? 'list' : 'grid')
+
 // Get unique locations for filter dropdown
 const uniqueLocations = computed(() => {
   const locations = new Set(projects.map(p => p.location))
@@ -430,6 +465,18 @@ function getCategoryName(id: string): string {
 function setCategory(categoryId: string) {
   filters.category = categoryId
   updateFilters()
+}
+
+// Set view mode and update URL
+function setViewMode(mode: ViewMode) {
+  viewMode.value = mode
+  const query: Record<string, string> = {}
+  if (filters.category !== 'all') query.category = filters.category
+  if (filters.location) query.location = filters.location
+  if (filters.year) query.year = filters.year
+  if (filters.sort !== 'newest') query.sort = filters.sort
+  if (mode === 'list') query.view = 'list'
+  navigateTo({ query }, { replace: true })
 }
 
 // Update URL with current filter state
