@@ -39,7 +39,7 @@
           <div class="relative w-full md:w-auto">
             <select
               v-model="filters.location"
-              @change="updateFilters"
+              @change="setLocation"
               class="w-full md:w-48 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
               aria-label="Filter by location"
             >
@@ -55,7 +55,7 @@
           <div class="relative w-full md:w-auto">
             <select
               v-model="filters.year"
-              @change="updateFilters"
+              @change="setYear"
               class="w-full md:w-40 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
               aria-label="Filter by year"
             >
@@ -71,7 +71,7 @@
           <div class="relative w-full md:w-auto">
             <select
               v-model="filters.sort"
-              @change="updateFilters"
+              @change="setSort"
               class="w-full md:w-48 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
               aria-label="Sort projects"
             >
@@ -104,13 +104,13 @@
           </span>
           <span v-if="filters.location" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
             Location: {{ filters.location }}
-            <button @click="filters.location = ''; updateFilters()" class="hover:text-primary-dark" aria-label="Remove location filter">
+            <button @click="clearLocation" class="hover:text-primary-dark" aria-label="Remove location filter">
               <Icon name="mdi:close" class="w-4 h-4" />
             </button>
           </span>
           <span v-if="filters.year" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
             Year: {{ filters.year }}
-            <button @click="filters.year = ''; updateFilters()" class="hover:text-primary-dark" aria-label="Remove year filter">
+            <button @click="clearYear" class="hover:text-primary-dark" aria-label="Remove year filter">
               <Icon name="mdi:close" class="w-4 h-4" />
             </button>
           </span>
@@ -120,6 +120,9 @@
         <div class="flex items-center justify-center gap-4 mb-4">
           <div class="text-neutral-600">
             <span aria-live="polite">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
+            <span v-if="totalPages > 1" class="text-neutral-500 ml-2">
+              (Page {{ currentPage }} of {{ totalPages }})
+            </span>
           </div>
           <!-- View Toggle -->
           <div class="flex items-center gap-1 border border-neutral-200 rounded-lg p-1 bg-white">
@@ -147,17 +150,73 @@
             </button>
           </div>
         </div>
+
+        <!-- Pagination Controls -->
+        <div v-if="totalPages > 1" class="flex items-center justify-center gap-2 mb-6">
+          <!-- Previous Button -->
+          <button
+            @click="goToPage(currentPage - 1)"
+            :disabled="currentPage === 1"
+            :class="[
+              'px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center gap-1',
+              currentPage === 1
+                ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
+            ]"
+            aria-label="Previous page"
+          >
+            <Icon name="mdi:chevron-left" class="w-5 h-5" />
+            Previous
+          </button>
+
+          <!-- Page Numbers -->
+          <div class="flex items-center gap-1">
+            <template v-for="page in visiblePages" :key="page">
+              <span v-if="page === '...'" class="px-2 text-neutral-400">...</span>
+              <button
+                v-else
+                @click="goToPage(page as number)"
+                :class="[
+                  'w-10 h-10 rounded-lg font-semibold transition-all duration-200',
+                  currentPage === page
+                    ? 'bg-primary text-white'
+                    : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
+                ]"
+                :aria-label="`Page ${page}`"
+                :aria-current="currentPage === page ? 'page' : undefined"
+              >
+                {{ page }}
+              </button>
+            </template>
+          </div>
+
+          <!-- Next Button -->
+          <button
+            @click="goToPage(currentPage + 1)"
+            :disabled="currentPage === totalPages"
+            :class="[
+              'px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center gap-1',
+              currentPage === totalPages
+                ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
+            ]"
+            aria-label="Next page"
+          >
+            Next
+            <Icon name="mdi:chevron-right" class="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </AppSection>
 
     <!-- Projects Grid -->
     <AppSection bg-color="white" animate-on-scroll>
-      <div v-if="filteredProjects.length > 0" :class="[
+      <div v-if="paginatedProjects.length > 0" :id="'projects-grid'" :class="[
         'grid gap-6 transition-all duration-300',
         viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]">
         <ProjectCard
-          v-for="project in filteredProjects"
+          v-for="project in paginatedProjects"
           :key="project.slug"
           :title="project.title"
           :slug="project.slug"
@@ -438,6 +497,10 @@ const filters = reactive<Filters>({
 type ViewMode = 'grid' | 'list'
 const viewMode = ref<ViewMode>((route.query.view as ViewMode) === 'list' ? 'list' : 'grid')
 
+// Pagination state
+const itemsPerPage = 9
+const currentPage = ref(Number(route.query.page) || 1)
+
 // Get unique locations for filter dropdown
 const uniqueLocations = computed(() => {
   const locations = new Set(projects.map(p => p.location))
@@ -464,6 +527,39 @@ function getCategoryName(id: string): string {
 // Set category and update URL
 function setCategory(categoryId: string) {
   filters.category = categoryId
+  currentPage.value = 1 // Reset to page 1 when category changes
+  updateFilters()
+}
+
+// Set location and update URL (resets page)
+function setLocation() {
+  currentPage.value = 1
+  updateFilters()
+}
+
+// Clear location filter
+function clearLocation() {
+  filters.location = ''
+  currentPage.value = 1
+  updateFilters()
+}
+
+// Set year and update URL (resets page)
+function setYear() {
+  currentPage.value = 1
+  updateFilters()
+}
+
+// Clear year filter
+function clearYear() {
+  filters.year = ''
+  currentPage.value = 1
+  updateFilters()
+}
+
+// Set sort and update URL (resets page)
+function setSort() {
+  currentPage.value = 1
   updateFilters()
 }
 
@@ -476,6 +572,7 @@ function setViewMode(mode: ViewMode) {
   if (filters.year) query.year = filters.year
   if (filters.sort !== 'newest') query.sort = filters.sort
   if (mode === 'list') query.view = 'list'
+  if (currentPage.value > 1) query.page = currentPage.value.toString()
   navigateTo({ query }, { replace: true })
 }
 
@@ -487,6 +584,7 @@ function updateFilters() {
   if (filters.location) query.location = filters.location
   if (filters.year) query.year = filters.year
   if (filters.sort !== 'newest') query.sort = filters.sort
+  if (currentPage.value > 1) query.page = currentPage.value.toString()
 
   // Navigate to new URL with query params (replaces history)
   navigateTo({ query }, { replace: true })
@@ -498,6 +596,7 @@ function clearFilters() {
   filters.location = ''
   filters.year = ''
   filters.sort = 'newest'
+  currentPage.value = 1 // Reset to page 1 when clearing filters
   updateFilters()
 }
 
@@ -540,6 +639,86 @@ const filteredProjects = computed(() => {
 
   // Sort the results
   return sortProjects(results)
+})
+
+// Paginated projects
+const paginatedProjects = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
+  return filteredProjects.value.slice(start, end)
+})
+
+// Total pages
+const totalPages = computed(() => Math.ceil(filteredProjects.value.length / itemsPerPage))
+
+// Visible page numbers (with ellipsis for large page counts)
+const visiblePages = computed(() => {
+  const pages: (number | string)[] = []
+  const maxVisible = 5
+
+  if (totalPages.value <= maxVisible) {
+    // Show all pages if 5 or fewer
+    for (let i = 1; i <= totalPages.value; i++) {
+      pages.push(i)
+    }
+  } else {
+    // Always show first page
+    pages.push(1)
+
+    if (currentPage.value <= 3) {
+      // Near start: 1, 2, 3, 4, ..., last
+      for (let i = 2; i <= 4; i++) pages.push(i)
+      pages.push('...')
+      pages.push(totalPages.value)
+    } else if (currentPage.value >= totalPages.value - 2) {
+      // Near end: 1, ..., last-3, last-2, last-1, last
+      pages.push('...')
+      for (let i = totalPages.value - 3; i <= totalPages.value; i++) pages.push(i)
+    } else {
+      // Middle: 1, ..., current-1, current, current+1, ..., last
+      pages.push('...')
+      pages.push(currentPage.value - 1)
+      pages.push(currentPage.value)
+      pages.push(currentPage.value + 1)
+      pages.push('...')
+      pages.push(totalPages.value)
+    }
+  }
+
+  return pages
+})
+
+// Navigate to specific page
+function goToPage(page: number) {
+  if (page < 1 || page > totalPages.value || page === currentPage.value) return
+  currentPage.value = page
+
+  // Update URL with new page
+  const query: Record<string, string> = {}
+  if (filters.category !== 'all') query.category = filters.category
+  if (filters.location) query.location = filters.location
+  if (filters.year) query.year = filters.year
+  if (filters.sort !== 'newest') query.sort = filters.sort
+  if (viewMode.value === 'list') query.view = 'list'
+  if (page > 1) query.page = page.toString()
+
+  navigateTo({ query }, { replace: true })
+
+  // Scroll to top of projects grid
+  nextTick(() => {
+    const element = document.getElementById('projects-grid')
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  })
+}
+
+// Watch for route query changes to sync currentPage
+watch(() => route.query.page, (newPage) => {
+  const page = Number(newPage) || 1
+  if (page !== currentPage.value) {
+    currentPage.value = page
+  }
 })
 
 // ItemList Schema for projects listing (must be after projects is defined)
