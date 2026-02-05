@@ -1,0 +1,327 @@
+{
+  "generated": "2026-02-05T04:50:21.877Z",
+  "sourceUrl": "https://www.vp-associates.com",
+  "images": [
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/steel-connect.jpg",
+      "hash": "cd9afc98620b58765bbc08babf5d5924d79b1a8edfb242cef3c87a5c873de457",
+      "localPath": ".planning/audit/images/raw/cd9afc98620b58765bbc08babf5d5924d79b1a8edfb242cef3c87a5c873de457.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 11464
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/skyskr-1.jpg",
+      "hash": "d42d32a862685be7833381d0e72a95bd211777859d68550e7e6b4b3550bb3c2c",
+      "localPath": ".planning/audit/images/raw/d42d32a862685be7833381d0e72a95bd211777859d68550e7e6b4b3550bb3c2c.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 1920,
+        "height": 930,
+        "format": "jpeg",
+        "sizeBytes": 325129
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/shallowdeepfoundationdesign10-400x300.jpg",
+      "hash": "f837a89c14b47f3b7bebf3efbd0c3cc17b27cae8db33b18e86ab69337fe0212b",
+      "localPath": ".planning/audit/images/raw/f837a89c14b47f3b7bebf3efbd0c3cc17b27cae8db33b18e86ab69337fe0212b.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 400,
+        "height": 300,
+        "format": "jpeg",
+        "sizeBytes": 42182
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/lowrise.jpg",
+      "hash": "11de3a3382bd2049c1626c0d8de9719d02dce4cc909c555d035c38d7c5bbf056",
+      "localPath": ".planning/audit/images/raw/11de3a3382bd2049c1626c0d8de9719d02dce4cc909c555d035c38d7c5bbf056.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 18623
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/inspection-services.jpg",
+      "hash": "05d86e91242287fe48a087b00a778405fb13051c8d1013db5233dc5875b95444",
+      "localPath": ".planning/audit/images/raw/05d86e91242287fe48a087b00a778405fb13051c8d1013db5233dc5875b95444.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 18810
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/image1.jpg",
+      "hash": "6676d6eaaf53923be2f04117e7d52cca6e10fd0bedc8b1cbf39d314d1ac48dc7",
+      "localPath": ".planning/audit/images/raw/6676d6eaaf53923be2f04117e7d52cca6e10fd0bedc8b1cbf39d314d1ac48dc7.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 3200,
+        "height": 2400,
+        "format": "jpeg",
+        "sizeBytes": 812822
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/home_header.jpg",
+      "hash": "f48db3de1807ce14c65e6f7f3803edfa2f0088b71dffa418ad33c52b79573244",
+      "localPath": ".planning/audit/images/raw/f48db3de1807ce14c65e6f7f3803edfa2f0088b71dffa418ad33c52b79573244.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 1919,
+        "height": 930,
+        "format": "jpeg",
+        "sizeBytes": 256441
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/crane-lift.jpg",
+      "hash": "68a4126a215aa4c4ddffec35ba85fadc03ac1c17a98eab72d5fc9f14c059f3a3",
+      "localPath": ".planning/audit/images/raw/68a4126a215aa4c4ddffec35ba85fadc03ac1c17a98eab72d5fc9f14c059f3a3.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 11575
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/CAD-Drawing.jpg",
+      "hash": "3515203624538c20a42500c2533985e7f71281696ca53a98d44a7e098a2d2b28",
+      "localPath": ".planning/audit/images/raw/3515203624538c20a42500c2533985e7f71281696ca53a98d44a7e098a2d2b28.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 21525
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/vplogowhite.png",
+      "hash": "b1c93857aed5aa0a41bd68c70996dfb2765c955cb00e288640629eed6aab162f",
+      "localPath": ".planning/audit/images/raw/b1c93857aed5aa0a41bd68c70996dfb2765c955cb00e288640629eed6aab162f.png",
+      "method": "media-api",
+      "metadata": {
+        "width": 605,
+        "height": 126,
+        "format": "png",
+        "sizeBytes": 5746
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/shopdrawing.jpg",
+      "hash": "47fffe6eef32d07b0797fc4c7d93d652980dbeeefca462d0253d7621d86ac6b0",
+      "localPath": ".planning/audit/images/raw/47fffe6eef32d07b0797fc4c7d93d652980dbeeefca462d0253d7621d86ac6b0.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 320,
+        "height": 212,
+        "format": "jpeg",
+        "sizeBytes": 50964
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/image1.jpg",
+      "hash": "f3bc8ff904da3a27205650bde3f85bf24a0044ff75b8b3eedf072d94153e897a",
+      "localPath": ".planning/audit/images/raw/f3bc8ff904da3a27205650bde3f85bf24a0044ff75b8b3eedf072d94153e897a.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 3200,
+        "height": 2400,
+        "format": "jpeg",
+        "sizeBytes": 979871
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/image2.jpg",
+      "hash": "0d79585f125729bd21c18de8bb5870284b5d3607fc310190ac6eacbb23dae28c",
+      "localPath": ".planning/audit/images/raw/0d79585f125729bd21c18de8bb5870284b5d3607fc310190ac6eacbb23dae28c.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 5516,
+        "height": 3682,
+        "format": "jpeg",
+        "sizeBytes": 1399261
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/careers-handshake.jpg",
+      "hash": "8c65d58c570dacc0696e4ac1ff21b5d6211302bdd95920734ebc0fdedafbe877",
+      "localPath": ".planning/audit/images/raw/8c65d58c570dacc0696e4ac1ff21b5d6211302bdd95920734ebc0fdedafbe877.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 500,
+        "height": 500,
+        "format": "jpeg",
+        "sizeBytes": 36318
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/home_header.jpg",
+      "hash": "54a6e2ec05b1242581f0791ad18fe7ca0fc3c0535383f8bd7b799702070c3138",
+      "localPath": ".planning/audit/images/raw/54a6e2ec05b1242581f0791ad18fe7ca0fc3c0535383f8bd7b799702070c3138.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 1919,
+        "height": 930,
+        "format": "jpeg",
+        "sizeBytes": 299795
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/inspection-services.jpg",
+      "hash": "6a064f675ec6fc1b44eba856cc4691059cbe6f16f6e0507402666741e0590afb",
+      "localPath": ".planning/audit/images/raw/6a064f675ec6fc1b44eba856cc4691059cbe6f16f6e0507402666741e0590afb.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 24122
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/crane-lift.jpg",
+      "hash": "a08d352aec07d4f43d21396ce1d54ec4dc73f1fca8819d1e5ff982dfa1dd39a4",
+      "localPath": ".planning/audit/images/raw/a08d352aec07d4f43d21396ce1d54ec4dc73f1fca8819d1e5ff982dfa1dd39a4.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 15005
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/steel-connect.jpg",
+      "hash": "575d81fed7585bfbdd9a429d7317a3f28e6370d0ba997e129b6433151df7ec86",
+      "localPath": ".planning/audit/images/raw/575d81fed7585bfbdd9a429d7317a3f28e6370d0ba997e129b6433151df7ec86.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 12814
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/CAD-Drawing.jpg",
+      "hash": "da5098adcd3e32b0288af3808d8a9cff56c58fbfd4af34b7f67edeae43b330f2",
+      "localPath": ".planning/audit/images/raw/da5098adcd3e32b0288af3808d8a9cff56c58fbfd4af34b7f67edeae43b330f2.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 28667
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/lowrise.jpg",
+      "hash": "88f812f78a84e2fc06a83e3293f5b4afdfcad90da91078c780c570ddd3208fda",
+      "localPath": ".planning/audit/images/raw/88f812f78a84e2fc06a83e3293f5b4afdfcad90da91078c780c570ddd3208fda.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 22202
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/image376.jpg",
+      "hash": "18f9951361da74afcfe35c8409145b203572c09cf9e036af9dee176fc6d55333",
+      "localPath": ".planning/audit/images/raw/18f9951361da74afcfe35c8409145b203572c09cf9e036af9dee176fc6d55333.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 621,
+        "height": 466,
+        "format": "jpeg",
+        "sizeBytes": 60898
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/shallowdeepfoundationdesign10-400x300.jpg",
+      "hash": "4d159ec6f0d5a9e80a83e2dd99cb042c3dd0d091b00853c54b74391664933ca8",
+      "localPath": ".planning/audit/images/raw/4d159ec6f0d5a9e80a83e2dd99cb042c3dd0d091b00853c54b74391664933ca8.jpg",
+      "method": "media-api",
+      "metadata": {
+        "width": 400,
+        "height": 300,
+        "format": "jpeg",
+        "sizeBytes": 53330
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/about.png",
+      "hash": "25eab20cfbe408cb141c1954059a4117d0e622567513e5a1ff54a8efc9584564",
+      "localPath": ".planning/audit/images/raw/25eab20cfbe408cb141c1954059a4117d0e622567513e5a1ff54a8efc9584564.png",
+      "method": "media-api",
+      "metadata": {
+        "width": 1900,
+        "height": 809,
+        "format": "png",
+        "sizeBytes": 2063638
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/05/vplogowhite.png",
+      "hash": "73b2de3e889419fbc49130c7a342dc68a3de573e0bf1be342c3937f0016c22be",
+      "localPath": ".planning/audit/images/raw/73b2de3e889419fbc49130c7a342dc68a3de573e0bf1be342c3937f0016c22be.png",
+      "method": "media-api",
+      "metadata": {
+        "width": 172,
+        "height": 126,
+        "format": "png",
+        "sizeBytes": 15747
+      }
+    },
+    {
+      "sourceUrl": "https://www.vp-associates.com/wp-content/uploads/2018/06/inspection-services-300x200.jpg",
+      "hash": "ad0b624a9f81203fe5f93c1ab68b8fb25968a5ae66af4c5c7182e40247e42d9a",
+      "localPath": ".planning/audit/images/raw/ad0b624a9f81203fe5f93c1ab68b8fb25968a5ae66af4c5c7182e40247e42d9a.jpg",
+      "method": "html-crawl",
+      "metadata": {
+        "width": 300,
+        "height": 200,
+        "format": "jpeg",
+        "sizeBytes": 18953
+      }
+    },
+    {
+      "sourceUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22150%22%20height%3D%22150%22%20viewBox%3D%220%200%20150%20150%22%3E%3C%2Fsvg%3E",
+      "hash": "f0837916a4409e7649d533d6edb1d97454caac0d8112f1b4110fcda23b30800e",
+      "localPath": ".planning/audit/images/raw/f0837916a4409e7649d533d6edb1d97454caac0d8112f1b4110fcda23b30800e.jpg",
+      "method": "html-crawl",
+      "metadata": {
+        "width": 150,
+        "height": 150,
+        "format": "svg",
+        "sizeBytes": 93
+      }
+    }
+  ],
+  "summary": {
+    "totalImages": 26,
+    "duplicatesFound": 1,
+    "totalBytes": 6605995,
+    "byMethod": {
+      "mediaApi": 24,
+      "htmlCrawl": 2
+    }
+  }
+}
