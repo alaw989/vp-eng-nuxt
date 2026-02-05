@@ -1,0 +1,67 @@
+{
+  "generated": "2026-02-05T13:52:20.684Z",
+  "sitemapUrl": "http://localhost:3000/sitemap.xml",
+  "status": 200,
+  "statusText": "OK",
+  "urlCount": 18,
+  "staticUrls": [
+    "/",
+    "/about",
+    "/careers",
+    "/contact",
+    "/projects",
+    "/search",
+    "/services"
+  ],
+  "dynamicUrls": {
+    "projects": [
+      "https://vp-associates.com/projects/tampa-marina-complex",
+      "https://vp-associates.com/projects/downtown-office-tower",
+      "https://vp-associates.com/projects/coastal-seawall-system",
+      "https://vp-associates.com/projects/luxury-residential-estate",
+      "https://vp-associates.com/projects/industrial-warehouse-complex"
+    ],
+    "services": [
+      "https://vp-associates.com/services/structural-steel-design",
+      "https://vp-associates.com/services/concrete-design",
+      "https://vp-associates.com/services/masonry-design",
+      "https://vp-associates.com/services/foundation-design",
+      "https://vp-associates.com/services/seawall-design",
+      "https://vp-associates.com/services/steel-detailing"
+    ],
+    "careers": []
+  },
+  "expectedUrls": [
+    "http://localhost:3000",
+    "http://localhost:3000/about",
+    "http://localhost:3000/careers",
+    "http://localhost:3000/contact",
+    "http://localhost:3000/projects",
+    "http://localhost:3000/projects/132",
+    "http://localhost:3000/projects/bridges",
+    "http://localhost:3000/projects/commercial",
+    "http://localhost:3000/projects/misc",
+    "http://localhost:3000/search",
+    "http://localhost:3000/services"
+  ],
+  "missingUrls": [
+    "http://localhost:3000",
+    "http://localhost:3000/about",
+    "http://localhost:3000/careers",
+    "http://localhost:3000/contact",
+    "http://localhost:3000/projects",
+    "http://localhost:3000/projects/132",
+    "http://localhost:3000/projects/bridges",
+    "http://localhost:3000/projects/commercial",
+    "http://localhost:3000/projects/misc",
+    "http://localhost:3000/search",
+    "http://localhost:3000/services"
+  ],
+  "lastmodPresent": 0,
+  "lastmodMissing": 18,
+  "summary": {
+    "totalExpected": 11,
+    "totalFound": 18,
+    "coverage": 163.63636363636365
+  }
+}
