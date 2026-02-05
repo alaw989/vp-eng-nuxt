@@ -12,7 +12,7 @@ This roadmap delivers a modern Nuxt 3 headless website that systematically impro
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Audit & Baseline Capture** - Establish content inventory, SEO baseline, and visual screenshots
+- [x] **Phase 1: Audit & Baseline Capture** - Establish content inventory, SEO baseline, and visual screenshots
 - [ ] **Phase 2: Comparison Infrastructure** - Build visual diff tools and HTML comparison capabilities
 - [ ] **Phase 3: Image Migration** - Download and optimize all images from source site
 - [ ] **Phase 4: Content & SEO Validation** - Validate links, content integrity, and SEO preservation
@@ -37,9 +37,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Page enumeration script with sitemap + REST API hybrid approach
-- [ ] 01-02-PLAN.md — Playwright screenshot capture across mobile, tablet, desktop viewports
-- [ ] 01-03-PLAN.md — Metadata generation and audit directory documentation
+- [x] 01-01-PLAN.md — Page enumeration script with sitemap + REST API hybrid approach
+- [x] 01-02-PLAN.md — Playwright screenshot capture across mobile, tablet, desktop viewports
+- [x] 01-03-PLAN.md — Metadata generation and audit directory documentation
 
 ### Phase 2: Comparison Infrastructure
 **Goal**: Enable safe iteration through visual and HTML comparison tools
@@ -206,7 +206,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Audit & Baseline Capture | 0/3 | Not started | - |
+| 1. Audit & Baseline Capture | 3/3 | ✓ Complete | 2026-02-04 |
 | 2. Comparison Infrastructure | 0/3 | Not started | - |
 | 3. Image Migration | 0/3 | Not started | - |
 | 4. Content & SEO Validation | 0/5 | Not started | - |
