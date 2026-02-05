@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-04)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 2: Comparison Infrastructure (COMPLETE)
+**Current focus:** Phase 3: Image Migration (In Progress)
 
 ## Current Position
 
-Phase: 2 of 10 (Comparison Infrastructure)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-02-05 — Completed 02-04 wire viewer UI to comparison data
+Phase: 3 of 10 (Image Migration)
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-02-04 — Completed 03-01 image discovery and download
 
-Progress: [██████░░░░] 20%
+Progress: [███████░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: ~5 min
-- Total execution time: 0.6 hours
+- Total execution time: 0.7 hours
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: [██████░░░░] 20%
 |-------|-------|----------|----------|
 | 01    | 3     | 3        | ~4 min   |
 | 02    | 4     | 4        | ~6 min   |
+| 03    | 1     | 4        | ~7 min   |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (~14 min), 02-02 (~2 min), 02-03 (~5 min), 02-04 (~4 min)
-- Trend: Phase 2 complete, ready for Phase 3
+- Last 5 plans: 02-02 (~2 min), 02-03 (~5 min), 02-04 (~4 min), 03-01 (~7 min)
+- Trend: Phase 3 started, image discovery complete
 
 *Updated after each plan completion*
 
@@ -88,20 +89,29 @@ Recent decisions affecting current work:
 - Graceful shutdown on SIGINT/SIGTERM with cleanup logging
 - EADDRINUSE error handling with clear user messaging
 
+**From 03-01 (Image Discovery and Download):**
+- Content-addressable storage: Images named by SHA-256 hash for deduplication
+- Dual discovery method: WordPress Media API + HTML crawling for comprehensive coverage
+- Exponential backoff retry: 1s, 2s, 4s delays for network resilience
+- 21 WordPress Media Library entries return 404 (expected - deleted files still referenced in API)
+- 26 valid images downloaded (6.3 MB), 84.6% JPEG, 11.5% PNG, 3.8% SVG
+
 ### Pending Todos
 
 None yet.
 
 ### Blockers/Concerns
 
-**Minor concern:** about-3 page has timeout issues during screenshot capture. May also affect Lighthouse audit in 01-03.
+**Minor concern:** about-3 page has timeout issues during screenshot capture. May also affect Lighthouse audit.
 
 **Note:** Initial comparison shows 41.26% average diff from baseline. This is expected for new implementation.
 
+**Note:** 21 WordPress media library entries return 404. These are legacy deleted files still referenced in the Media API - expected behavior for WordPress sites with content management history.
+
 ## Session Continuity
 
-Last session: 2026-02-05
-Stopped at: Completed 02-04 wire viewer UI to comparison data
+Last session: 2026-02-04
+Stopped at: Completed 03-01 image discovery and download
 Resume file: None
 
 ## Phase 1 Summary (Complete)
@@ -139,3 +149,20 @@ All 4 plans executed successfully:
 
 **Viewer URL:** http://localhost:4321
 **Start command:** `npx tsx .planning/scripts/start-viewer.ts`
+
+## Phase 3 Summary (In Progress)
+
+**Phase 3: Image Migration - IN PROGRESS**
+
+Plans executed:
+- 03-01: Image discovery and download (COMPLETE) - 26 images (6.3 MB) downloaded with SHA-256 deduplication
+
+**Deliverables:**
+- `.planning/scripts/download-images.ts` - Image download script with retry logic (370 lines)
+- `.planning/audit/raw-images.json` - Image catalog with metadata
+- `.planning/audit/images/raw/` - 26 original images (content-addressable by SHA-256 hash)
+
+**Remaining plans:**
+- 03-02: Image optimization (WebP conversion, responsive sizes)
+- 03-03: Nuxt Image module configuration
+- 03-04: Image migration and deployment
