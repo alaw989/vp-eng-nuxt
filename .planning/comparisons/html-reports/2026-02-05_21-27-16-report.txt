@@ -1,0 +1,363 @@
+======================================================================
+HTML CONTENT VERIFICATION REPORT
+======================================================================
+
+Generated: 2026-02-05T03:27:16.076Z
+Duration: 44348ms
+
+----------------------------------------------------------------------
+SUMMARY
+----------------------------------------------------------------------
+Pages Checked:     13
+Pages Passed:      9
+Pages with Issues: 4
+Total Findings:    4
+Critical Issues:   4
+
+----------------------------------------------------------------------
+PAGE: hello-world
+URL:  /
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 6 h2 elements found
+  [✓ OK] h3 - 8 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - No expected title defined
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: Y
+  [✓ OK] Meta Description     - Meta description present (182 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: home
+URL:  /
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 6 h2 elements found
+  [✓ OK] h3 - 8 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✗ MISSING] Title Match          - Expected title "Home" but h1 is "structural engineering
+excellence"
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: Y
+  [✓ OK] Meta Description     - Meta description present (182 chars)
+
+Issues Found:
+  MISSING: Title Match - Expected title "Home" but h1 is "structural engineering
+excellence"
+
+----------------------------------------------------------------------
+PAGE: services
+URL:  /services
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 4 h2 elements found
+  [✓ OK] h3 - 21 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - Title "SERVICES" matches h1 content
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: N
+  [✓ OK] Meta Description     - Meta description present (167 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: portfolio
+URL:  /projects
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 2 h2 elements found
+  [✓ OK] h3 - 15 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✗ MISSING] Title Match          - Expected title "PORTFOLIO" but h1 is " our projects "
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: Y
+  [✓ OK] Meta Description     - Meta description present (151 chars)
+
+Issues Found:
+  MISSING: Title Match - Expected title "PORTFOLIO" but h1 is " our projects "
+
+----------------------------------------------------------------------
+PAGE: careers
+URL:  /careers
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 6 h2 elements found
+  [✓ OK] h3 - 22 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✗ MISSING] Title Match          - Expected title "CAREERS" but h1 is " join our team "
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: Y
+  [✓ OK] Meta Description     - Meta description present (164 chars)
+
+Issues Found:
+  MISSING: Title Match - Expected title "CAREERS" but h1 is " join our team "
+
+----------------------------------------------------------------------
+PAGE: contact
+URL:  /contact
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 3 h2 elements found
+  [✓ OK] h3 - 1 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 3 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - Title "CONTACT" matches h1 content
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: Y
+  [✓ OK] Meta Description     - Meta description present (153 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: about-3
+URL:  /about
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 6 h2 elements found
+  [✓ OK] h3 - 8 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 3 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✗ MISSING] Title Match          - Expected title "WHITEBOARD" but h1 is " about vp associates "
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: N
+  [✓ OK] Meta Description     - Meta description present (150 chars)
+
+Issues Found:
+  MISSING: Title Match - Expected title "WHITEBOARD" but h1 is " about vp associates "
+
+----------------------------------------------------------------------
+PAGE: 132
+URL:  /projects/bridges
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 0 h2 elements found
+  [✓ OK] h3 - 1 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - No expected title defined
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: N
+  [✓ OK] Meta Description     - Meta description present (153 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: bridges
+URL:  /projects/bridges
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 0 h2 elements found
+  [✓ OK] h3 - 1 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - No expected title defined
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: N
+  [✓ OK] Meta Description     - Meta description present (153 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: commercial
+URL:  /projects/commercial
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 0 h2 elements found
+  [✓ OK] h3 - 1 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - No expected title defined
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: N
+  [✓ OK] Meta Description     - Meta description present (153 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: misc
+URL:  /projects/misc
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 0 h2 elements found
+  [✓ OK] h3 - 1 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - No expected title defined
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: N
+  [✓ OK] Meta Description     - Meta description present (153 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: uncategorized
+URL:  /
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 6 h2 elements found
+  [✓ OK] h3 - 8 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - No expected title defined
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: Y
+  [✓ OK] Meta Description     - Meta description present (182 chars)
+
+No issues found.
+
+----------------------------------------------------------------------
+PAGE: root
+URL:  /
+----------------------------------------------------------------------
+
+Semantic Elements:
+  [✓ OK] h1 - Exactly one h1 found
+  [✓ OK] h2 - 6 h2 elements found
+  [✓ OK] h3 - 8 h3 elements found
+  [✓ OK] h4 - 3 h4 elements found
+  [✓ OK] h5 - 0 h5 elements found
+  [✓ OK] h6 - 0 h6 elements found
+  [✓ OK] nav - 2 nav element(s) found
+  [✓ OK] main - 1 main element(s) found
+  [✓ OK] footer - 1 footer element(s) found
+  [✓ OK] article - No article elements (optional)
+  [✓ OK] header - 1 header element(s) found
+
+Content Verification:
+  [✓ OK] Company Name         - Company name found in body
+  [✓ OK] Title Match          - No expected title defined
+  [✓ OK] Contact Info         - Phone: Y, Email: Y, Address: Y
+  [✓ OK] Meta Description     - Meta description present (182 chars)
+
+No issues found.
+
+======================================================================
+END OF REPORT
+======================================================================

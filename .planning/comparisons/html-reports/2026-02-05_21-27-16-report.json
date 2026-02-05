@@ -1,0 +1,1256 @@
+{
+  "timestamp": "2026-02-05T03:27:16.076Z",
+  "duration": "44348ms",
+  "summary": {
+    "pagesChecked": 13,
+    "pagesPassed": 9,
+    "pagesWithIssues": 4,
+    "totalFindings": 4,
+    "criticalIssues": 4
+  },
+  "pages": [
+    {
+      "slug": "hello-world",
+      "url": "/",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 6,
+          "status": "OK",
+          "details": "6 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 8,
+          "status": "OK",
+          "details": "8 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "No expected title defined"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: Y"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (182 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "home",
+      "url": "/",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 6,
+          "status": "OK",
+          "details": "6 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 8,
+          "status": "OK",
+          "details": "8 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "MISSING",
+          "details": "Expected title \"Home\" but h1 is \"structural engineering\nexcellence\""
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: Y"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (182 chars)"
+        }
+      ],
+      "issues": [
+        "MISSING: Title Match - Expected title \"Home\" but h1 is \"structural engineering\nexcellence\""
+      ]
+    },
+    {
+      "slug": "services",
+      "url": "/services",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 4,
+          "status": "OK",
+          "details": "4 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 21,
+          "status": "OK",
+          "details": "21 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "Title \"SERVICES\" matches h1 content"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: N"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (167 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "portfolio",
+      "url": "/projects",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 2,
+          "status": "OK",
+          "details": "2 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 15,
+          "status": "OK",
+          "details": "15 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "MISSING",
+          "details": "Expected title \"PORTFOLIO\" but h1 is \" our projects \""
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: Y"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (151 chars)"
+        }
+      ],
+      "issues": [
+        "MISSING: Title Match - Expected title \"PORTFOLIO\" but h1 is \" our projects \""
+      ]
+    },
+    {
+      "slug": "careers",
+      "url": "/careers",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 6,
+          "status": "OK",
+          "details": "6 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 22,
+          "status": "OK",
+          "details": "22 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "MISSING",
+          "details": "Expected title \"CAREERS\" but h1 is \" join our team \""
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: Y"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (164 chars)"
+        }
+      ],
+      "issues": [
+        "MISSING: Title Match - Expected title \"CAREERS\" but h1 is \" join our team \""
+      ]
+    },
+    {
+      "slug": "contact",
+      "url": "/contact",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 1,
+          "status": "OK",
+          "details": "1 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 3,
+          "status": "OK",
+          "details": "3 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "Title \"CONTACT\" matches h1 content"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: Y"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (153 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "about-3",
+      "url": "/about",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 6,
+          "status": "OK",
+          "details": "6 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 8,
+          "status": "OK",
+          "details": "8 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 3,
+          "status": "OK",
+          "details": "3 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "MISSING",
+          "details": "Expected title \"WHITEBOARD\" but h1 is \" about vp associates \""
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: N"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (150 chars)"
+        }
+      ],
+      "issues": [
+        "MISSING: Title Match - Expected title \"WHITEBOARD\" but h1 is \" about vp associates \""
+      ]
+    },
+    {
+      "slug": "132",
+      "url": "/projects/bridges",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 1,
+          "status": "OK",
+          "details": "1 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "No expected title defined"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: N"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (153 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "bridges",
+      "url": "/projects/bridges",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 1,
+          "status": "OK",
+          "details": "1 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "No expected title defined"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: N"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (153 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "commercial",
+      "url": "/projects/commercial",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 1,
+          "status": "OK",
+          "details": "1 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "No expected title defined"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: N"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (153 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "misc",
+      "url": "/projects/misc",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 1,
+          "status": "OK",
+          "details": "1 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "No expected title defined"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: N"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (153 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "uncategorized",
+      "url": "/",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 6,
+          "status": "OK",
+          "details": "6 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 8,
+          "status": "OK",
+          "details": "8 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "No expected title defined"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: Y"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (182 chars)"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "slug": "root",
+      "url": "/",
+      "elements": [
+        {
+          "element": "h1",
+          "count": 1,
+          "status": "OK",
+          "details": "Exactly one h1 found"
+        },
+        {
+          "element": "h2",
+          "count": 6,
+          "status": "OK",
+          "details": "6 h2 elements found"
+        },
+        {
+          "element": "h3",
+          "count": 8,
+          "status": "OK",
+          "details": "8 h3 elements found"
+        },
+        {
+          "element": "h4",
+          "count": 3,
+          "status": "OK",
+          "details": "3 h4 elements found"
+        },
+        {
+          "element": "h5",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h5 elements found"
+        },
+        {
+          "element": "h6",
+          "count": 0,
+          "status": "OK",
+          "details": "0 h6 elements found"
+        },
+        {
+          "element": "nav",
+          "count": 2,
+          "status": "OK",
+          "details": "2 nav element(s) found"
+        },
+        {
+          "element": "main",
+          "count": 1,
+          "status": "OK",
+          "details": "1 main element(s) found"
+        },
+        {
+          "element": "footer",
+          "count": 1,
+          "status": "OK",
+          "details": "1 footer element(s) found"
+        },
+        {
+          "element": "article",
+          "count": 0,
+          "status": "OK",
+          "details": "No article elements (optional)"
+        },
+        {
+          "element": "header",
+          "count": 1,
+          "status": "OK",
+          "details": "1 header element(s) found"
+        }
+      ],
+      "content": [
+        {
+          "check": "Company Name",
+          "status": "OK",
+          "details": "Company name found in body"
+        },
+        {
+          "check": "Title Match",
+          "status": "OK",
+          "details": "No expected title defined"
+        },
+        {
+          "check": "Contact Info",
+          "status": "OK",
+          "details": "Phone: Y, Email: Y, Address: Y"
+        },
+        {
+          "check": "Meta Description",
+          "status": "OK",
+          "details": "Meta description present (182 chars)"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}
