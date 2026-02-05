@@ -29,8 +29,22 @@
       </div>
 
       <!-- Page Header -->
-      <AppSection bg-color="primary-dark" padding="lg">
-        <div class="container text-white">
+      <AppSection bg-color="primary-dark" padding="lg" class="relative overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+          <NuxtImg
+            :src="serviceHeroImage"
+            :alt="`${service?.title?.rendered || 'Service'} hero image`"
+            class="w-full h-full object-cover"
+            format="webp"
+            loading="eager"
+            width="1920"
+            height="600"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
+        </div>
+
+        <div class="container text-white relative z-10">
           <NuxtLink
             to="/services"
             class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
@@ -39,7 +53,7 @@
             Back to Services
           </NuxtLink>
           <div class="flex items-center gap-4 mb-6">
-            <div v-if="serviceIcon" class="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center">
+            <div v-if="serviceIcon" class="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
               <Icon :name="serviceIcon" class="w-8 h-8" />
             </div>
             <div>
@@ -387,6 +401,26 @@ const staticServices: Record<string, any> = {
     }
   }
 }
+
+// Hero image mapping for service detail pages
+const serviceHeroImages: Record<string, string> = {
+  'structural-steel-design': '/images/projects/steel-connect-1920w.webp',
+  'concrete-design': '/images/projects/lowrise-1920w.webp',
+  'masonry-design': '/images/projects/lowrise-1920w.webp',
+  'wood-design': '/images/projects/lowrise-1920w.webp',
+  'foundation-design': '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
+  'seawall-design': '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
+  'steel-connection-design': '/images/projects/steel-connect-1920w.webp',
+  'cad-3d-modeling': '/images/projects/cad-drawing-1920w.webp',
+  'inspection-services': '/images/projects/inspection-services-1920w.webp',
+  'steel-detailing': '/images/projects/shopdrawing-1920w.webp'
+}
+
+const heroFallback = '/images/hero/home-header-1920w.webp'
+
+const serviceHeroImage = computed(() => {
+  return serviceHeroImages[slug] || heroFallback
+})
 
 // Computed service data (API or static fallback)
 const service = computed(() => {

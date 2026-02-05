@@ -25,7 +25,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
-          v-for="service in allServices"
+          v-for="service in filteredServices"
           :key="service.slug"
           class="bg-white rounded-xl p-8 border-2 border-neutral-200 hover:border-primary hover:shadow-xl transition-all duration-300"
         >
@@ -217,6 +217,13 @@ usePageMeta({
   ogImage: 'https://vp-associates.com/images/og-services.jpg',
 })
 
+const route = useRoute()
+
+interface ServiceCategory {
+  id: string
+  name: string
+}
+
 interface Service {
   title: string
   slug: string
@@ -224,6 +231,32 @@ interface Service {
   description: string
   icon: string
   capabilities?: string[]
+}
+
+// Service categories for filtering
+const serviceCategories: ServiceCategory[] = [
+  { id: 'all', name: 'All Services' },
+  { id: 'structural', name: 'Structural Design' },
+  { id: 'design', name: 'Design & Detailing' },
+  { id: 'inspection', name: 'Inspection' },
+  { id: 'marine', name: 'Marine & Coastal' }
+]
+
+// Service-to-category mapping helper
+function getServiceCategory(slug: string): string | null {
+  const categoryMap: Record<string, string> = {
+    'structural-steel-design': 'structural',
+    'concrete-design': 'structural',
+    'masonry-design': 'structural',
+    'wood-design': 'structural',
+    'foundation-design': 'structural',
+    'steel-connection-design': 'design',
+    'cad-3d-modeling': 'design',
+    'steel-detailing': 'design',
+    'inspection-services': 'inspection',
+    'seawall-design': 'marine'
+  }
+  return categoryMap[slug] || null
 }
 
 const allServices: Service[] = [
@@ -373,13 +406,32 @@ const allServices: Service[] = [
   }
 ]
 
+// Filter state with URL initialization
+const activeCategory = ref((route.query.category as string) || 'all')
+
+// Set category and update URL
+function setCategory(categoryId: string) {
+  activeCategory.value = categoryId
+  const query: Record<string, string> = {}
+  if (categoryId !== 'all') query.category = categoryId
+  navigateTo({ query }, { replace: true })
+}
+
+// Filtered services computed property
+const filteredServices = computed(() => {
+  if (activeCategory.value === 'all') return allServices
+  return allServices.filter(service =>
+    getServiceCategory(service.slug) === activeCategory.value
+  )
+})
+
 // ItemList Schema for services listing (must be after allServices is defined)
 useJsonld({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'VP Associates Structural Engineering Services',
   description: 'Comprehensive structural engineering services',
-  itemListElement: allServices.map((service, index) => ({
+  itemListElement: filteredServices.value.map((service, index) => ({
     '@type': 'ListItem',
     position: index + 1,
     name: service.title,
