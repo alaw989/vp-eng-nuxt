@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 5 of 10 (QA & PWA Foundation)
-Plan: 1 of 5 in current phase
+Plan: 3 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-05 — Completed 05-01 PWA Offline Support
+Last activity: 2026-02-05 — Completed 05-03 Pre-commit Build & Preview Testing
 
-Progress: [███████████░] 55%
+Progress: [████████████░] 65%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 19
+- Total plans completed: 21
 - Average duration: ~4 min
-- Total execution time: 1.3 hours
+- Total execution time: 1.5 hours
 
 **By Phase:**
 
@@ -31,11 +31,11 @@ Progress: [███████████░] 55%
 | 02    | 4     | 4        | ~6 min   |
 | 03    | 3     | 3        | ~4 min   |
 | 04    | 5     | 5        | ~2 min   |
-| 05    | 5     | 1        | ~3 min   |
+| 05    | 5     | 3        | ~5 min   |
 
 **Recent Trend:**
-- Last 5 plans: 04-01 (~2 min), 04-02 (~1 min), 04-03 (~2 min), 04-04 (~1 min), 04-05 (~2 min), 05-01 (~3 min)
-- Trend: Phase 5 started, PWA offline support configured
+- Last 5 plans: 04-05 (~2 min), 05-01 (~3 min), 05-02 (~5 min), 05-03 (~10 min)
+- Trend: Phase 5 progressing, pre-commit build validation configured
 
 *Updated after each plan completion*
 
@@ -92,6 +92,21 @@ Recent decisions affecting current work:
 - globPatterns added for precaching: ['**/*.{js,css,html,svg,png,jpg,jpeg,woff2}']
 - Changed JS/CSS from StaleWhileRevalidate to CacheFirst for instant app shell loads
 
+**From 05-02 (PWA Install Prompt):**
+- Install prompt uses browser native dialog only (per Phase 5 Context decision)
+- Custom modal UI removed - replaced with subtle "Install App" button in header navigation
+- PwaInstallPrompt component simplified from 108 to 30 lines
+- App icon uses site logo (icon.svg) instead of generic PWA icon
+- PWA components use ClientOnly wrapper to prevent hydration issues
+
+**From 05-03 (Pre-commit Build & Preview Testing):**
+- Husky installed and configured for git hooks management
+- Pre-commit hook runs build + preview before allowing commits
+- Hydration errors fail the commit (zero tolerance per Phase 5 Context decision)
+- Preview server started and cleaned up during validation
+- Bypass mechanisms: --no-verify for one-off, PRE_COMMIT_CHECKS_ENABLED=false for temporary
+- Process cleanup uses pkill on Linux, taskkill on Windows
+
 **From 03-01 (Image Discovery and Download):**
 - Content-addressable storage using SHA-256 hashes prevents duplicate storage
 - Dual discovery: WordPress Media API + HTML crawling for comprehensive coverage
@@ -125,9 +140,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 05-01 PWA Offline Support
+Stopped at: Completed 05-03 Pre-commit Build & Preview Testing
 Resume file: None
-Next: 05-02 PWA Install Prompt
+Next: 05-04 Lighthouse CI Integration
 
 ## Phase 1 Summary (Complete)
 
@@ -211,13 +226,20 @@ All 5 plans executed:
 
 Plans executed:
 - 05-01: PWA Offline Support (complete)
+- 05-02: PWA Install Prompt (complete)
+- 05-03: Pre-commit Build & Preview Testing (complete)
 
 **Deliverables:**
 - `nuxt.config.ts` - Updated PWA workbox configuration with globPatterns and CacheFirst for JS/CSS
 - Service worker with 157 precache entries and runtime caching strategies
+- `components/PwaInstallPrompt.vue` - Simplified browser native install trigger (30 lines)
+- `components/AppHeader.vue` - Install prompt button in desktop navigation
+- `.husky/pre-commit` - Git hook for pre-commit validation
+- `scripts/pre-commit.js` - Build + preview validation script with hydration checking
 
 **Statistics:**
 - Service worker: 157 precached resources
 - Runtime caching: CacheFirst for images, fonts, JS/CSS; NetworkFirst for WordPress API
 - Offline fallback: /offline page with helpful content
+- Install prompt: Browser native dialog, no custom modal
 
