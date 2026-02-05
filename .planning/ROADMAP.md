@@ -34,12 +34,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Visual screenshots captured for all pages across mobile, tablet, and desktop viewports
   3. Baseline images organized in `.planning/audit/baselines/` with consistent naming
   4. Audit results include page metadata (URL, title, last modified) for comparison
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Page list enumeration from sitemap or site traversal
-- [ ] 01-02: Screenshot baseline capture across multiple viewports
-- [ ] 01-03: Audit results organization and documentation
+- [ ] 01-01-PLAN.md — Page enumeration script with sitemap + REST API hybrid approach
+- [ ] 01-02-PLAN.md — Playwright screenshot capture across mobile, tablet, desktop viewports
+- [ ] 01-03-PLAN.md — Metadata generation and audit directory documentation
 
 ### Phase 2: Comparison Infrastructure
 **Goal**: Enable safe iteration through visual and HTML comparison tools
