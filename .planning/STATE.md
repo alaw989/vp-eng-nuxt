@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-02-04)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 7: Content Pages Polish
+**Current focus:** Phase 8: Section Polish - Services
 
 ## Current Position
 
-Phase: 7 of 10 (Section Polish - Projects)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-02-05 — Completed 07-04: Visual Comparison and QA Verification
+Phase: 8 of 10 (Section Polish - Services)
+Plan: 3 of 4 in current phase
+Status: In progress
+Last activity: 2026-02-05 — Completed 08-03: Service Hero Image Verification
 
-Progress: [██████████████░] 73%
+Progress: [███████████████] 76%
 
-**PHASE 7: Section Polish - Projects - COMPLETE**
+**PHASE 8: Section Polish - Services - IN PROGRESS**
 
 Plans executed:
-- 07-01: Projects Listing Page Enhancements (~41 min) - COMPLETE
-- 07-02: Project Detail Page Layout (~7 min) - COMPLETE
-- 07-03: Project Image Gallery Migration (~12 min) - COMPLETE
-- 07-04: Visual Comparison and QA Verification (~15 min) - COMPLETE
+- 08-01: Services Listing Page Enhancements (~20 min) - COMPLETE
+- 08-02: Service Detail Page with Hero Image (~5 min) - COMPLETE
+- 08-03: Service Hero Image Verification (~4 min) - COMPLETE
+- 08-04: Visual Comparison and QA Verification - PENDING
 
-**Next:** Phase 8 - Section Polish: Services
+**Next:** 08-04 - Visual Comparison and QA Verification
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 36
+- Total plans completed: 39
 - Average duration: ~6 min
-- Total execution time: ~3.5 hours
+- Total execution time: ~3.7 hours
 
 **By Phase:**
 
@@ -44,10 +44,11 @@ Plans executed:
 | 05    | 4     | 4        | ~7 min   |
 | 06    | 4     | 4        | ~9 min   |
 | 07    | 4     | 4        | ~19 min  |
+| 08    | 3     | 3        | ~10 min  |
 
 **Recent Trend:**
-- Last plan: 07-04 (~15 min) - Visual comparison and QA verification
-- Trend: Phase 7 complete, all success criteria verified (5/5 PASS)
+- Last plan: 08-03 (~4 min) - Service hero image verification
+- Trend: Phase 8 in progress, hero images verified from Phase 3 migration
 
 *Updated after each plan completion*
 
@@ -207,9 +208,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 07-04: Visual Comparison and QA Verification (Phase 7 COMPLETE)
+Stopped at: Completed 08-03: Service Hero Image Verification (Phase 8 in progress)
 Resume file: None
-Next: 08-01 - Services Listing Page Enhancements
+Next: 08-04 - Visual Comparison and QA Verification
 
 ## Phase 1 Summary (Complete)
 
@@ -395,4 +396,24 @@ All 4 plans executed:
 - User checkpoint verification approved with no regressions
 - Lighthouse audits skipped gracefully (Chrome unavailable, same as Phase 6)
 - All 5 Phase 7 success criteria verified PASS
+
+**From 08-01 (Services Listing Page Enhancements):**
+- Grid-only layout maintained (no grid/list toggle needed per Phase 8 Context)
+- Category tag filtering with horizontal scrollable pills
+- URL state persistence via ?category= query parameter
+- Active state highlighted (bg-primary, scale-105)
+- Filter resets pagination to page 1
+
+**From 08-02 (Service Detail Page with Hero Image):**
+- Full-width hero image background with dark overlay (60/50/70% gradient)
+- Service icon box with backdrop-blur-sm overlay on hero background
+- Hero images from Phase 3 project image migration
+- Service-to-image mapping: structural-steel-design -> steel-connect, concrete/masonry/wood -> lowrise, etc.
+- Fallback image: home-header-1920w.webp for unmapped services
+
+**From 08-03 (Service Hero Image Verification):**
+- All 6 unique project hero images verified existing from Phase 3 migration
+- NuxtImg component with WebP format, eager loading, responsive sizing confirmed
+- All 10 service detail pages tested with no 404 errors
+- Dark overlay gradient present and text readable over all hero backgrounds
 
