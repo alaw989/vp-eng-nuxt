@@ -13,7 +13,7 @@ This roadmap delivers a modern Nuxt 3 headless website that systematically impro
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Audit & Baseline Capture** - Establish content inventory, SEO baseline, and visual screenshots
-- [ ] **Phase 2: Comparison Infrastructure** - Build visual diff tools and HTML comparison capabilities
+- [x] **Phase 2: Comparison Infrastructure** - Build visual diff tools and HTML comparison capabilities
 - [ ] **Phase 3: Image Migration** - Download and optimize all images from source site
 - [ ] **Phase 4: Content & SEO Validation** - Validate links, content integrity, and SEO preservation
 - [ ] **Phase 5: QA & PWA Foundation** - Build testing infrastructure and PWA features
@@ -53,10 +53,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Pixel diff infrastructure with odiff-bin for current screenshots and diff generation
-- [ ] 02-02-PLAN.md — Viewer UI files (HTML, CSS, JavaScript) for side-by-side comparison
-- [ ] 02-03-PLAN.md — HTML content verification using Cheerio for semantic elements and text presence
-- [ ] 02-04-PLAN.md — Express server wiring viewer UI to comparison data with auto-open
+- [x] 02-01-PLAN.md — Pixel diff infrastructure with odiff-bin for current screenshots and diff generation
+- [x] 02-02-PLAN.md — Viewer UI files (HTML, CSS, JavaScript) for side-by-side comparison
+- [x] 02-03-PLAN.md — HTML content verification using Cheerio for semantic elements and text presence
+- [x] 02-04-PLAN.md — Express server wiring viewer UI to comparison data with auto-open
 
 ### Phase 3: Image Migration
 **Goal**: Download and optimize all images from source site for use in new application
@@ -208,7 +208,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Audit & Baseline Capture | 3/3 | Complete | 2026-02-04 |
-| 2. Comparison Infrastructure | 0/4 | Not started | - |
+| 2. Comparison Infrastructure | 4/4 | Complete | 2026-02-05 |
 | 3. Image Migration | 0/3 | Not started | - |
 | 4. Content & SEO Validation | 0/5 | Not started | - |
 | 5. QA & PWA Foundation | 0/4 | Not started | - |

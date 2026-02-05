@@ -65,16 +65,16 @@ The system must capture visual screenshots of all pages from the source website 
 
 #### REQ-CMP-001: Side-by-Side Visual Diff
 **Priority:** P1 (Must have)
-**Status:** Pending
+**Status:** Complete
 
 The system must provide a side-by-side comparison interface for viewing baseline screenshots against current implementations.
 
 **Acceptance Criteria:**
 - Display old (baseline) and new (current) screenshots simultaneously
 - Support viewport selection (mobile/tablet/desktop)
-- Synced scrolling between both views
-- Highlight pixel differences using overlay (pixelmatch integration)
-- 0.5% default diff threshold (configurable)
+- Independent scrolling between both views (per CONTEXT.md decision)
+- Highlight pixel differences using overlay (odiff-bin integration)
+- Configurable diff threshold (0.1 default)
 
 **Rationale:** Core QA capability for migration. Manual review is essential before automated validation.
 
@@ -84,7 +84,7 @@ The system must provide a side-by-side comparison interface for viewing baseline
 
 #### REQ-CMP-002: HTML Source Comparison
 **Priority:** P1 (Must have)
-**Status:** Pending
+**Status:** Complete
 
 The system must compare the semantic HTML structure between source and target pages.
 
@@ -92,7 +92,7 @@ The system must compare the semantic HTML structure between source and target pa
 - Extract and compare semantic elements: h1-h6, nav, main, footer, article
 - Report missing or extra elements
 - Compare heading hierarchy structure
-- Output structured diff report in JSON format
+- Output structured diff report in both TXT and JSON formats
 
 **Rationale:** Ensures semantic HTML is preserved during migration. Critical for accessibility and SEO.
 
