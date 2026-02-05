@@ -46,7 +46,7 @@ const cleanupPreview = async () => {
 
 try {
   // Step 1: Build
-  console.log('Step 1/4: Building...');
+  console.log('Step 1/5: Building...');
   const buildOutput = execSync('npm run build', {
     stdio: 'pipe',
     encoding: 'utf-8'
@@ -64,7 +64,7 @@ try {
   console.log('Build successful.');
 
   // Step 2: Start preview server in background
-  console.log('\nStep 2/4: Starting preview server...');
+  console.log('\nStep 2/5: Starting preview server...');
 
   previewProcess = spawn('npm', ['run', 'preview'], {
     stdio: 'pipe',
@@ -84,7 +84,7 @@ try {
   console.log('Preview server started.');
 
   // Step 3: Check for hydration errors by making a request
-  console.log('\nStep 3/4: Checking for hydration issues...');
+  console.log('\nStep 3/5: Checking for hydration issues...');
 
   try {
     const response = await fetch(`${PREVIEW_URL}/`);
@@ -100,8 +100,31 @@ try {
 
   console.log('No critical hydration issues detected.');
 
-  // Step 4: Cleanup (kill preview server)
-  console.log('\nStep 4/4: Cleaning up...');
+  // Step 4: Run Lighthouse audit
+  console.log('\nStep 4/5: Running Lighthouse audit...');
+
+  const { runLighthouse, checkBudgets, formatScores } = await import('./lighthouse-audit.js');
+
+  const lhr = await runLighthouse(PREVIEW_URL);
+
+  console.log('Lighthouse scores:');
+  console.log(formatScores(lhr));
+
+  const failures = checkBudgets(lhr);
+
+  if (failures.length > 0) {
+    console.error('\nLighthouse budget failures:');
+    failures.forEach(f => {
+      console.error(`  ${f.category}: ${f.score} (below ${f.budget} by ${f.diff})`);
+    });
+
+    throw new Error('Lighthouse scores below budget (85+). Improve performance or adjust budgets.');
+  }
+
+  console.log('Lighthouse scores passed!');
+
+  // Step 5: Cleanup (kill preview server)
+  console.log('\nStep 5/5: Cleaning up...');
 
   await cleanupPreview();
 
