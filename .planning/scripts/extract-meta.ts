@@ -4,7 +4,7 @@
 
 import { ofetch } from 'ofetch'
 import * as cheerio from 'cheerio'
-import { readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs'
 import { join } from 'path'
 
 // ============================================================================
@@ -435,7 +435,7 @@ async function main() {
 
   // Ensure audit directory exists
   const auditDir = join(process.cwd(), '.planning', 'audit')
-  if (!require('fs').existsSync(auditDir)) {
+  if (!existsSync(auditDir)) {
     mkdirSync(auditDir, { recursive: true })
   }
 

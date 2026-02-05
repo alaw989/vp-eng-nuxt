@@ -1,0 +1,741 @@
+{
+  "generated": "2026-02-05T13:21:49.414Z",
+  "source": "https://www.vp-associates.com",
+  "target": "http://localhost:3000",
+  "pagesCompared": 12,
+  "summary": {
+    "perfectMatches": 6,
+    "withMissing": 6,
+    "withDifferences": 6,
+    "withExtra": 8,
+    "avgMatchRate": 50,
+    "criticalPagesPassing": 12,
+    "criticalPagesFailing": 0
+  },
+  "comparisons": [
+    {
+      "page": "Home",
+      "slug": "home",
+      "sourceUrl": "https://www.vp-associates.com/",
+      "targetUrl": "http://localhost:3000/",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1, shrink-to-fit=no"
+        },
+        "title": "VP & Associates        Tampa",
+        "description": "Tampa",
+        "robots": "max-image-preview:large",
+        "canonical": "https://www.vp-associates.com/"
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "VP Associates - Structural Engineering Services Tampa Bay",
+          "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+          "url": "https://vp-associates.com/",
+          "image": "https://vp-associates.com/images/og-home.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "VP Associates - Structural Engineering Services Tampa Bay"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "VP Associates - Structural Engineering Services Tampa Bay",
+          "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+          "image": "https://vp-associates.com/images/og-home.jpg",
+          "image:alt": "VP Associates - Structural Engineering Services Tampa Bay"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "VP Associates - Structural Engineering Services Tampa Bay",
+        "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+        "keywords": "structural engineering, Tampa Bay, steel design, concrete design, foundation design, seawall design, Florida engineer, VP Associates",
+        "canonical": "https://vp-associates.com/"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [
+          "robots"
+        ],
+        "different": [
+          "title",
+          "description",
+          "canonical"
+        ],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 0,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "SERVICES",
+      "slug": "services",
+      "sourceUrl": "https://www.vp-associates.com/services/",
+      "targetUrl": "http://localhost:3000/services",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1, shrink-to-fit=no"
+        },
+        "title": "VP & Associates         » SERVICES         » SERVICES",
+        "description": "Tampa",
+        "robots": "max-image-preview:large",
+        "canonical": "https://www.vp-associates.com/services/"
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "Services",
+          "description": "VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.",
+          "url": "https://vp-associates.com/services",
+          "image": "https://vp-associates.com/images/og-services.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "Services"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "Services",
+          "description": "VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.",
+          "image": "https://vp-associates.com/images/og-services.jpg",
+          "image:alt": "Services"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "Services | VP Associates",
+        "description": "VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.",
+        "keywords": "structural steel design, concrete design, masonry design, wood design, foundation design, seawall design, steel detailing, Tampa Bay engineering",
+        "canonical": "https://vp-associates.com/services"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [
+          "robots"
+        ],
+        "different": [
+          "title",
+          "description",
+          "canonical"
+        ],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 0,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "PORTFOLIO",
+      "slug": "portfolio",
+      "sourceUrl": "https://www.vp-associates.com/portfolio/",
+      "targetUrl": "http://localhost:3000/projects",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1, shrink-to-fit=no"
+        },
+        "title": "VP & Associates         » PORTFOLIO         » PORTFOLIO",
+        "description": "Tampa",
+        "robots": "max-image-preview:large",
+        "canonical": "https://www.vp-associates.com/portfolio/"
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "Projects",
+          "description": "Browse VP Associates' portfolio of structural engineering projects across Tampa Bay including commercial, marine, residential, and industrial projects.",
+          "url": "https://vp-associates.com/projects",
+          "image": "https://vp-associates.com/images/og-projects.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "Projects"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "Projects",
+          "description": "Browse VP Associates' portfolio of structural engineering projects across Tampa Bay including commercial, marine, residential, and industrial projects.",
+          "image": "https://vp-associates.com/images/og-projects.jpg",
+          "image:alt": "Projects"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "Projects | VP Associates",
+        "description": "Browse VP Associates' portfolio of structural engineering projects across Tampa Bay including commercial, marine, residential, and industrial projects.",
+        "keywords": "structural engineering portfolio, engineering projects, Tampa Bay projects, commercial engineering, marine structures",
+        "canonical": "https://vp-associates.com/projects"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [
+          "robots"
+        ],
+        "different": [
+          "title",
+          "description",
+          "canonical"
+        ],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 0,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "CAREERS",
+      "slug": "careers",
+      "sourceUrl": "https://www.vp-associates.com/careers/",
+      "targetUrl": "http://localhost:3000/careers",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1, shrink-to-fit=no"
+        },
+        "title": "VP & Associates         » CAREERS         » CAREERS",
+        "description": "Tampa",
+        "robots": "max-image-preview:large",
+        "canonical": "https://www.vp-associates.com/careers/"
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "Careers - Join Our Team",
+          "description": "Explore career opportunities at VP Associates, a leading structural engineering firm in Tampa Bay. Competitive benefits, professional growth, and exciting projects.",
+          "url": "https://vp-associates.com/careers",
+          "image": "https://vp-associates.com/images/og-default.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "Careers - Join Our Team"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "Careers - Join Our Team",
+          "description": "Explore career opportunities at VP Associates, a leading structural engineering firm in Tampa Bay. Competitive benefits, professional growth, and exciting projects.",
+          "image": "https://vp-associates.com/images/og-default.jpg",
+          "image:alt": "Careers - Join Our Team"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "Careers - Join Our Team | VP Associates",
+        "description": "Explore career opportunities at VP Associates, a leading structural engineering firm in Tampa Bay. Competitive benefits, professional growth, and exciting projects.",
+        "keywords": "structural engineering careers, engineering jobs Tampa Bay, structural engineer positions, Florida engineering jobs",
+        "canonical": "https://vp-associates.com/careers"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [
+          "robots"
+        ],
+        "different": [
+          "title",
+          "description",
+          "canonical"
+        ],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 0,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "CONTACT",
+      "slug": "contact",
+      "sourceUrl": "https://www.vp-associates.com/contact/",
+      "targetUrl": "http://localhost:3000/contact",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1, shrink-to-fit=no"
+        },
+        "title": "VP & Associates         » CONTACT         » CONTACT",
+        "description": "Tampa",
+        "robots": "max-image-preview:large",
+        "canonical": "https://www.vp-associates.com/contact/"
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "Contact Us",
+          "description": "Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 555-1234 or visit our office at 123 Main Street, Suite 100, Tampa, FL.",
+          "url": "https://vp-associates.com/contact",
+          "image": "https://vp-associates.com/images/og-default.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "Contact Us"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "Contact Us",
+          "description": "Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 555-1234 or visit our office at 123 Main Street, Suite 100, Tampa, FL.",
+          "image": "https://vp-associates.com/images/og-default.jpg",
+          "image:alt": "Contact Us"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "Contact Us | VP Associates",
+        "description": "Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 555-1234 or visit our office at 123 Main Street, Suite 100, Tampa, FL.",
+        "keywords": "contact structural engineer, Tampa Bay engineering, VP Associates contact, engineering consultation",
+        "canonical": "https://vp-associates.com/contact"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [
+          "robots"
+        ],
+        "different": [
+          "title",
+          "description",
+          "canonical"
+        ],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 0,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "WHITEBOARD",
+      "slug": "about-3",
+      "sourceUrl": "https://www.vp-associates.com/about-3/",
+      "targetUrl": "http://localhost:3000/about",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1, shrink-to-fit=no"
+        },
+        "title": "VP & Associates         » WHITEBOARD         » WHITEBOARD",
+        "description": "Tampa",
+        "robots": "max-image-preview:large",
+        "canonical": "https://www.vp-associates.com/about-3/"
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "About VP Associates",
+          "description": "Learn about VP Associates, Tampa Bay's trusted structural engineering firm for over 30 years. Meet our team and discover our commitment to excellence.",
+          "url": "https://vp-associates.com/about",
+          "image": "https://vp-associates.com/images/og-default.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "About VP Associates"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "About VP Associates",
+          "description": "Learn about VP Associates, Tampa Bay's trusted structural engineering firm for over 30 years. Meet our team and discover our commitment to excellence.",
+          "image": "https://vp-associates.com/images/og-default.jpg",
+          "image:alt": "About VP Associates"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "About VP Associates | VP Associates",
+        "description": "Learn about VP Associates, Tampa Bay's trusted structural engineering firm for over 30 years. Meet our team and discover our commitment to excellence.",
+        "keywords": "structural engineering, Tampa Bay, VP Associates, about vp associates",
+        "canonical": "https://vp-associates.com/about"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [
+          "robots"
+        ],
+        "different": [
+          "title",
+          "description",
+          "canonical"
+        ],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 0,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "132",
+      "slug": "132",
+      "sourceUrl": "https://www.vp-associates.com/gallery/132/",
+      "targetUrl": "http://localhost:3000/projects/132",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {}
+      },
+      "targetMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1"
+        },
+        "title": "VP Associates - Structural Engineering Services",
+        "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.",
+        "canonical": "https://vp-associates.com"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [],
+        "different": [],
+        "extra": []
+      },
+      "score": {
+        "matchRate": 100,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "bridges",
+      "slug": "bridges",
+      "sourceUrl": "https://www.vp-associates.com/gallery/bridges/",
+      "targetUrl": "http://localhost:3000/projects/bridges",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {}
+      },
+      "targetMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1"
+        },
+        "title": "VP Associates - Structural Engineering Services",
+        "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.",
+        "canonical": "https://vp-associates.com"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [],
+        "different": [],
+        "extra": []
+      },
+      "score": {
+        "matchRate": 100,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "commercial",
+      "slug": "commercial",
+      "sourceUrl": "https://www.vp-associates.com/gallery/commercial/",
+      "targetUrl": "http://localhost:3000/projects/commercial",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {}
+      },
+      "targetMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1"
+        },
+        "title": "VP Associates - Structural Engineering Services",
+        "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.",
+        "canonical": "https://vp-associates.com"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [],
+        "different": [],
+        "extra": []
+      },
+      "score": {
+        "matchRate": 100,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "misc",
+      "slug": "misc",
+      "sourceUrl": "https://www.vp-associates.com/gallery/misc/",
+      "targetUrl": "http://localhost:3000/projects/misc",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {}
+      },
+      "targetMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {
+          "viewport": "width=device-width, initial-scale=1"
+        },
+        "title": "VP Associates - Structural Engineering Services",
+        "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.",
+        "canonical": "https://vp-associates.com"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [],
+        "different": [],
+        "extra": []
+      },
+      "score": {
+        "matchRate": 100,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "uncategorized",
+      "slug": "uncategorized",
+      "sourceUrl": "https://www.vp-associates.com/category/uncategorized/",
+      "targetUrl": "http://localhost:3000/",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {}
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "VP Associates - Structural Engineering Services Tampa Bay",
+          "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+          "url": "https://vp-associates.com/",
+          "image": "https://vp-associates.com/images/og-home.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "VP Associates - Structural Engineering Services Tampa Bay"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "VP Associates - Structural Engineering Services Tampa Bay",
+          "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+          "image": "https://vp-associates.com/images/og-home.jpg",
+          "image:alt": "VP Associates - Structural Engineering Services Tampa Bay"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "VP Associates - Structural Engineering Services Tampa Bay",
+        "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+        "keywords": "structural engineering, Tampa Bay, steel design, concrete design, foundation design, seawall design, Florida engineer, VP Associates",
+        "canonical": "https://vp-associates.com/"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [],
+        "different": [],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 100,
+        "criticalMatch": true
+      }
+    },
+    {
+      "page": "root",
+      "slug": "root",
+      "sourceUrl": "https://www.vp-associates.com/author/root/",
+      "targetUrl": "http://localhost:3000/",
+      "sourceMeta": {
+        "og": {},
+        "twitter": {},
+        "other": {}
+      },
+      "targetMeta": {
+        "og": {
+          "type": "website",
+          "site_name": "VP Associates",
+          "title": "VP Associates - Structural Engineering Services Tampa Bay",
+          "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+          "url": "https://vp-associates.com/",
+          "image": "https://vp-associates.com/images/og-home.jpg",
+          "image:width": "1200",
+          "image:height": "630",
+          "image:alt": "VP Associates - Structural Engineering Services Tampa Bay"
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "site": "@vpassociates",
+          "title": "VP Associates - Structural Engineering Services Tampa Bay",
+          "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+          "image": "https://vp-associates.com/images/og-home.jpg",
+          "image:alt": "VP Associates - Structural Engineering Services Tampa Bay"
+        },
+        "other": {
+          "viewport": "width=device-width, initial-scale=1",
+          "author": "VP Associates"
+        },
+        "title": "VP Associates - Structural Engineering Services Tampa Bay",
+        "description": "VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.",
+        "keywords": "structural engineering, Tampa Bay, steel design, concrete design, foundation design, seawall design, Florida engineer, VP Associates",
+        "canonical": "https://vp-associates.com/"
+      },
+      "comparison": {
+        "matches": [],
+        "missing": [],
+        "different": [],
+        "extra": [
+          "og:type",
+          "og:site_name",
+          "og:title",
+          "og:description",
+          "og:url",
+          "og:image",
+          "og:image:width",
+          "og:image:height",
+          "og:image:alt",
+          "twitter:card",
+          "twitter:site",
+          "twitter:title",
+          "twitter:description",
+          "twitter:image",
+          "twitter:image:alt"
+        ]
+      },
+      "score": {
+        "matchRate": 100,
+        "criticalMatch": true
+      }
+    }
+  ]
+}
