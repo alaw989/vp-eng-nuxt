@@ -1,0 +1,211 @@
+{
+  "captureDate": "2026-02-05T00:35:21Z",
+  "captureTool": "playwright@1.58.1",
+  "source": "https://www.vp-associates.com",
+  "viewports": {
+    "mobile": { "width": 375, "height": 812, "description": "iPhone X" },
+    "tablet": { "width": 768, "height": 1024, "description": "iPad" },
+    "desktop": { "width": 1920, "height": 1080, "description": "Full HD" }
+  },
+  "pagesFile": ".planning/audit/pages.json",
+  "pages": [
+    {
+      "slug": "hello-world",
+      "url": "https://www.vp-associates.com/hello-world/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/hello-world/mobile.png",
+        "tablet": "baselines/hello-world/tablet.png",
+        "desktop": "baselines/hello-world/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 2537,
+        "tablet": 4464,
+        "desktop": 8511
+      }
+    },
+    {
+      "slug": "home",
+      "url": "https://www.vp-associates.com/",
+      "type": "home",
+      "screenshots": {
+        "mobile": "baselines/home/mobile.png",
+        "tablet": "baselines/home/tablet.png",
+        "desktop": "baselines/home/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 1356214,
+        "tablet": 2223682,
+        "desktop": 3441639
+      }
+    },
+    {
+      "slug": "services",
+      "url": "https://www.vp-associates.com/services/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/services/mobile.png",
+        "tablet": "baselines/services/tablet.png",
+        "desktop": "baselines/services/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 426281,
+        "tablet": 571992,
+        "desktop": 864347
+      }
+    },
+    {
+      "slug": "portfolio",
+      "url": "https://www.vp-associates.com/portfolio/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/portfolio/mobile.png",
+        "tablet": "baselines/portfolio/tablet.png",
+        "desktop": "baselines/portfolio/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 123082,
+        "tablet": 253887,
+        "desktop": 567331
+      }
+    },
+    {
+      "slug": "careers",
+      "url": "https://www.vp-associates.com/careers/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/careers/mobile.png",
+        "tablet": "baselines/careers/tablet.png",
+        "desktop": "baselines/careers/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 372833,
+        "tablet": 628994,
+        "desktop": 966483
+      }
+    },
+    {
+      "slug": "contact",
+      "url": "https://www.vp-associates.com/contact/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/contact/mobile.png",
+        "tablet": "baselines/contact/tablet.png",
+        "desktop": "baselines/contact/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 84034,
+        "tablet": 130675,
+        "desktop": 351514
+      }
+    },
+    {
+      "slug": "132",
+      "url": "https://www.vp-associates.com/gallery/132/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/132/mobile.png",
+        "tablet": "baselines/132/tablet.png",
+        "desktop": "baselines/132/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 2537,
+        "tablet": 4464,
+        "desktop": 8511
+      }
+    },
+    {
+      "slug": "bridges",
+      "url": "https://www.vp-associates.com/gallery/bridges/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/bridges/mobile.png",
+        "tablet": "baselines/bridges/tablet.png",
+        "desktop": "baselines/bridges/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 2537,
+        "tablet": 4464,
+        "desktop": 8511
+      }
+    },
+    {
+      "slug": "commercial",
+      "url": "https://www.vp-associates.com/gallery/commercial/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/commercial/mobile.png",
+        "tablet": "baselines/commercial/tablet.png",
+        "desktop": "baselines/commercial/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 2537,
+        "tablet": 4464,
+        "desktop": 8511
+      }
+    },
+    {
+      "slug": "misc",
+      "url": "https://www.vp-associates.com/gallery/misc/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/misc/mobile.png",
+        "tablet": "baselines/misc/tablet.png",
+        "desktop": "baselines/misc/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 2537,
+        "tablet": 4464,
+        "desktop": 8511
+      }
+    },
+    {
+      "slug": "uncategorized",
+      "url": "https://www.vp-associates.com/category/uncategorized/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/uncategorized/mobile.png",
+        "tablet": "baselines/uncategorized/tablet.png",
+        "desktop": "baselines/uncategorized/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 2537,
+        "tablet": 4464,
+        "desktop": 8511
+      }
+    },
+    {
+      "slug": "root",
+      "url": "https://www.vp-associates.com/author/root/",
+      "type": "page",
+      "screenshots": {
+        "mobile": "baselines/root/mobile.png",
+        "tablet": "baselines/root/tablet.png",
+        "desktop": "baselines/root/desktop.png"
+      },
+      "capturedAt": "2026-02-04T18:28:00Z",
+      "fileSizes": {
+        "mobile": 2537,
+        "tablet": 4464,
+        "desktop": 8511
+      }
+    }
+  ],
+  "summary": {
+    "totalPages": 12,
+    "totalScreenshots": 36,
+    "totalSize": 12488592,
+    "missingScreenshots": []
+  }
+}
