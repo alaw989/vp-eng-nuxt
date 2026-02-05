@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 6 of 10 (Homepage Polish)
-Plan: 0 of 4 in current phase
-Status: Ready to start
-Last activity: 2026-02-05 — Completed Phase 5: QA & PWA Foundation
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-02-05 — Completed 06-01: Hero Section with Parallax Motion
 
-Progress: [████████████░] 60%
+Progress: [█████████████] 64%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 22
+- Total plans completed: 23
 - Average duration: ~5 min
-- Total execution time: 1.8 hours
+- Total execution time: 1.9 hours
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: [████████████░] 60%
 | 03    | 3     | 3        | ~4 min   |
 | 04    | 5     | 5        | ~2 min   |
 | 05    | 4     | 4        | ~7 min   |
-| 06    | 4     | 0        | -        |
+| 06    | 4     | 1        | ~6 min   |
 
 **Recent Trend:**
-- Last 4 plans: 05-01 (~3 min), 05-02 (~5 min), 05-03 (~10 min), 05-04 (~11 min)
-- Trend: Phase 5 complete, pre-commit hooks and Lighthouse CI established
+- Last 4 plans: 05-02 (~5 min), 05-03 (~10 min), 05-04 (~11 min), 06-01 (~6 min)
+- Trend: Phase 6 started, hero section with parallax motion complete
 
 *Updated after each plan completion*
 
@@ -135,6 +135,14 @@ Recent decisions affecting current work:
 - Pre-generated srcset strings for easy copy-paste into components
 - Usage guide with NuxtImage and picture element examples
 
+**From 06-01 (Hero Section with Parallax Motion):**
+- Parallax motion using VueUse useWindowScroll composable (0.3 multiplier, max 100px offset)
+- prefers-reduced-motion detection and respect for accessibility
+- Single prominent CTA button per slide (per Phase 6 Context decision)
+- Neutral black overlay (60/50/70%) instead of primary colors for better text contrast
+- Decorative elements marked with aria-hidden to reduce screen reader noise
+- Live regions (role=status, aria-live=polite) for dynamic content announcements
+
 ### Pending Todos
 
 None yet.
@@ -149,9 +157,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed Phase 5: QA & PWA Foundation
+Stopped at: Completed 06-01: Hero Section with Parallax Motion
 Resume file: None
-Next: Phase 6 - Homepage Polish
+Next: 06-02 - Featured Content Sections
 
 ## Phase 1 Summary (Complete)
 
