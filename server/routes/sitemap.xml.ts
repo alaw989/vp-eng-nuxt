@@ -1,8 +1,9 @@
 // Dynamic sitemap generation for services and projects from WordPress API
 // Includes all static pages and dynamic routes with proper lastmod timestamps
+// Falls back to static data when WordPress API is unavailable
 export default defineEventHandler(async (event) => {
   const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://vp-associates.com'
-  const wpApiUrl = process.env.NUXT_PUBLIC_WP_API_URL || 'https://vp-associates.com/wp-json/wp/v2'
+  const wpApiUrl = process.env.NUXT_PUBLIC_WP_API_URL || 'https://www.vp-associates.com/wp-json/wp/v2'
 
   const urls: Array<{
     loc: string
@@ -20,72 +21,92 @@ export default defineEventHandler(async (event) => {
     { loc: '/search', changefreq: 'weekly', priority: 0.6 },
   ]
 
+  // Static fallback services (mirrors server/api/services.get.ts)
+  const staticServices = [
+    { slug: 'structural-steel-design' },
+    { slug: 'concrete-design' },
+    { slug: 'masonry-design' },
+    { slug: 'foundation-design' },
+    { slug: 'seawall-design' },
+    { slug: 'steel-detailing' },
+  ]
+
+  // Static fallback projects (mirrors server/api/projects.get.ts)
+  const staticProjects = [
+    { slug: 'tampa-marina-complex' },
+    { slug: 'downtown-office-tower' },
+    { slug: 'coastal-seawall-system' },
+    { slug: 'luxury-residential-estate' },
+    { slug: 'industrial-warehouse-complex' },
+  ]
+
   // Fetch services from WordPress API with error handling
+  let servicesFetched = false
   try {
     const servicesResponse = await fetch(`${wpApiUrl}/services?per_page=100&_fields=slug,date`, {
       signal: AbortSignal.timeout(10000), // 10 second timeout
     })
     if (servicesResponse.ok) {
       const services = await servicesResponse.json()
-      for (const service of services) {
-        urls.push({
-          loc: `/services/${service.slug}`,
-          lastmod: service.date ? new Date(service.date).toISOString() : undefined,
-          changefreq: 'monthly',
-          priority: 0.8,
-        })
+      if (Array.isArray(services) && services.length > 0) {
+        for (const service of services) {
+          urls.push({
+            loc: `/services/${service.slug}`,
+            lastmod: service.date ? new Date(service.date).toISOString() : undefined,
+            changefreq: 'monthly',
+            priority: 0.8,
+          })
+        }
+        servicesFetched = true
       }
-    } else {
-      console.warn(`Services endpoint returned status: ${servicesResponse.status}`)
     }
   } catch (error) {
-    console.warn('Failed to fetch services for sitemap:', error instanceof Error ? error.message : error)
+    // Silently fall back to static services
+  }
+
+  // Use static fallback if no services were fetched
+  if (!servicesFetched) {
+    for (const service of staticServices) {
+      urls.push({
+        loc: `/services/${service.slug}`,
+        changefreq: 'monthly',
+        priority: 0.8,
+      })
+    }
   }
 
   // Fetch projects from WordPress API with error handling
+  let projectsFetched = false
   try {
     const projectsResponse = await fetch(`${wpApiUrl}/projects?per_page=100&_fields=slug,date`, {
       signal: AbortSignal.timeout(10000), // 10 second timeout
     })
     if (projectsResponse.ok) {
       const projects = await projectsResponse.json()
-      for (const project of projects) {
-        urls.push({
-          loc: `/projects/${project.slug}`,
-          lastmod: project.date ? new Date(project.date).toISOString() : undefined,
-          changefreq: 'monthly',
-          priority: 0.7,
-        })
+      if (Array.isArray(projects) && projects.length > 0) {
+        for (const project of projects) {
+          urls.push({
+            loc: `/projects/${project.slug}`,
+            lastmod: project.date ? new Date(project.date).toISOString() : undefined,
+            changefreq: 'monthly',
+            priority: 0.7,
+          })
+        }
+        projectsFetched = true
       }
-    } else {
-      console.warn(`Projects endpoint returned status: ${projectsResponse.status}`)
     }
   } catch (error) {
-    console.warn('Failed to fetch projects for sitemap:', error instanceof Error ? error.message : error)
+    // Silently fall back to static projects
   }
 
-  // Fetch careers from WordPress API with error handling
-  // Note: This endpoint may not exist (returns 404) - handle gracefully
-  try {
-    const careersResponse = await fetch(`${wpApiUrl}/careers?per_page=100&_fields=slug,date`, {
-      signal: AbortSignal.timeout(10000), // 10 second timeout
-    })
-    if (careersResponse.ok) {
-      const careers = await careersResponse.json()
-      for (const career of careers) {
-        urls.push({
-          loc: `/careers/${career.slug}`,
-          lastmod: career.date ? new Date(career.date).toISOString() : undefined,
-          changefreq: 'monthly',
-          priority: 0.6,
-        })
-      }
-    }
-    // 404 is expected if careers endpoint doesn't exist - no warning needed
-  } catch (error) {
-    // Silently skip careers if endpoint doesn't exist
-    if ((error instanceof Error) && !error.message.includes('404') && !error.message.includes('no route')) {
-      console.warn('Failed to fetch careers for sitemap:', error.message)
+  // Use static fallback if no projects were fetched
+  if (!projectsFetched) {
+    for (const project of staticProjects) {
+      urls.push({
+        loc: `/projects/${project.slug}`,
+        changefreq: 'monthly',
+        priority: 0.7,
+      })
     }
   }
 
