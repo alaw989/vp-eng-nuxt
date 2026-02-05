@@ -1,0 +1,100 @@
+{
+  "generated": "2026-02-05T13:26:01.102Z",
+  "totalUrls": 13,
+  "unchanged": 1,
+  "changed": 9,
+  "removed": 3,
+  "mappings": [
+    {
+      "sourceUrl": "/hello-world/",
+      "targetUrl": "",
+      "status": "removed",
+      "redirectType": "410",
+      "notes": "Permanently removed - WordPress system page not migrated"
+    },
+    {
+      "sourceUrl": "/",
+      "targetUrl": "/",
+      "status": "unchanged",
+      "redirectType": "none",
+      "notes": "URL preserved in Nuxt migration"
+    },
+    {
+      "sourceUrl": "/services/",
+      "targetUrl": "/services",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "Trailing slash normalization"
+    },
+    {
+      "sourceUrl": "/portfolio/",
+      "targetUrl": "/projects",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "URL structure changed in Nuxt migration"
+    },
+    {
+      "sourceUrl": "/careers/",
+      "targetUrl": "/careers",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "Trailing slash normalization"
+    },
+    {
+      "sourceUrl": "/contact/",
+      "targetUrl": "/contact",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "Trailing slash normalization"
+    },
+    {
+      "sourceUrl": "/about-3/",
+      "targetUrl": "/about",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "URL structure changed in Nuxt migration"
+    },
+    {
+      "sourceUrl": "/gallery/132/",
+      "targetUrl": "/projects/132",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "URL structure changed in Nuxt migration"
+    },
+    {
+      "sourceUrl": "/gallery/bridges/",
+      "targetUrl": "/projects/bridges",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "URL structure changed in Nuxt migration"
+    },
+    {
+      "sourceUrl": "/gallery/commercial/",
+      "targetUrl": "/projects/commercial",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "URL structure changed in Nuxt migration"
+    },
+    {
+      "sourceUrl": "/gallery/misc/",
+      "targetUrl": "/projects/misc",
+      "status": "changed",
+      "redirectType": "301",
+      "notes": "URL structure changed in Nuxt migration"
+    },
+    {
+      "sourceUrl": "/category/uncategorized/",
+      "targetUrl": "",
+      "status": "removed",
+      "redirectType": "410",
+      "notes": "Permanently removed - WordPress system page not migrated"
+    },
+    {
+      "sourceUrl": "/author/root/",
+      "targetUrl": "",
+      "status": "removed",
+      "redirectType": "410",
+      "notes": "Permanently removed - WordPress system page not migrated"
+    }
+  ]
+}

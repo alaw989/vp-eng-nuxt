@@ -1,0 +1,47 @@
+[
+  {
+    "from": "/about-3/",
+    "to": "/about",
+    "statusCode": 301
+  },
+  {
+    "from": "/careers/",
+    "to": "/careers",
+    "statusCode": 301
+  },
+  {
+    "from": "/contact/",
+    "to": "/contact",
+    "statusCode": 301
+  },
+  {
+    "from": "/gallery/132/",
+    "to": "/projects/132",
+    "statusCode": 301
+  },
+  {
+    "from": "/gallery/bridges/",
+    "to": "/projects/bridges",
+    "statusCode": 301
+  },
+  {
+    "from": "/gallery/commercial/",
+    "to": "/projects/commercial",
+    "statusCode": 301
+  },
+  {
+    "from": "/gallery/misc/",
+    "to": "/projects/misc",
+    "statusCode": 301
+  },
+  {
+    "from": "/portfolio/",
+    "to": "/projects",
+    "statusCode": 301
+  },
+  {
+    "from": "/services/",
+    "to": "/services",
+    "statusCode": 301
+  }
+]
