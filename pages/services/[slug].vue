@@ -201,25 +201,25 @@
         </div>
       </AppSection>
 
-      <!-- Other Services -->
-      <AppSection bg-color="neutral-100" animate-on-scroll>
+      <!-- Related Services -->
+      <AppSection v-if="relatedServices.length > 0" bg-color="neutral-100" animate-on-scroll>
         <div class="text-center mb-12">
           <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-            Other Services
+            Related Services
           </h2>
           <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-            Explore our full range of structural engineering services
+            Explore other services that may fit your project needs
           </p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
           <ServiceCard
-            v-for="otherService in otherServices"
-            :key="otherService.slug"
-            :title="otherService.title"
-            :slug="otherService.slug"
-            :description="otherService.description"
-            :icon="otherService.icon"
+            v-for="relatedService in relatedServices"
+            :key="relatedService.slug"
+            :title="relatedService.title"
+            :slug="relatedService.slug"
+            :description="relatedService.description"
+            :icon="relatedService.icon"
           />
         </div>
 
@@ -522,27 +522,50 @@ const relatedProjects = ref([
   }
 ])
 
-// Other services to display
-const otherServices = ref([
-  {
-    title: 'Structural Steel Design',
-    description: 'AISC certified steel design',
-    icon: 'mdi:beam',
-    slug: 'structural-steel-design'
-  },
-  {
-    title: 'Concrete Design',
-    description: 'ACI certified concrete design',
-    icon: 'mdi:cube-outline',
-    slug: 'concrete-design'
-  },
-  {
-    title: 'Foundation Design',
-    description: 'Deep and shallow foundations',
-    icon: 'mdi:home-floor-0',
-    slug: 'foundation-design'
+// All services list for related services lookup
+const allServicesList = [
+  { title: 'Structural Steel Design', slug: 'structural-steel-design', icon: 'mdi:beam', description: 'AISC certified steel design' },
+  { title: 'Concrete Design', slug: 'concrete-design', icon: 'mdi:cube-outline', description: 'ACI certified concrete design' },
+  { title: 'Masonry Design', slug: 'masonry-design', icon: 'mdi:wall', description: 'ACI 530 compliant masonry design' },
+  { title: 'Wood Design', slug: 'wood-design', icon: 'mdi:tree', description: 'NDS standards for wood construction' },
+  { title: 'Foundation Design', slug: 'foundation-design', icon: 'mdi:home-floor-0', description: 'Deep and shallow foundations' },
+  { title: 'Seawall Design', slug: 'seawall-design', icon: 'mdi:waves', description: 'Coastal protection structures' },
+  { title: 'Steel Connection Design', slug: 'steel-connection-design', icon: 'mdi:vector-arrange-above', description: 'Detailed steel connection design' },
+  { title: 'CAD & 3D Modeling', slug: 'cad-3d-modeling', icon: 'mdi:cube-scan', description: 'Advanced CAD and BIM modeling' },
+  { title: 'Inspection Services', slug: 'inspection-services', icon: 'mdi:magnify-scan', description: 'Professional structural inspection' },
+  { title: 'Steel Detailing', slug: 'steel-detailing', icon: 'mdi:pencil-ruler', description: 'Professional steel detailing' }
+]
+
+// Service-to-category mapping function
+function getServiceCategory(serviceSlug: string): string | null {
+  const categoryMap: Record<string, string> = {
+    'structural-steel-design': 'structural',
+    'concrete-design': 'structural',
+    'masonry-design': 'structural',
+    'wood-design': 'structural',
+    'foundation-design': 'structural',
+    'steel-connection-design': 'design',
+    'cad-3d-modeling': 'design',
+    'steel-detailing': 'design',
+    'inspection-services': 'inspection',
+    'seawall-design': 'marine'
   }
-])
+  return categoryMap[serviceSlug] || null
+}
+
+// Related services computed - filters by same category, excludes current
+const relatedServices = computed(() => {
+  const currentCategory = getServiceCategory(slug)
+  if (!currentCategory) return []
+
+  // Get services in same category, excluding current
+  const sameCategory = allServicesList.filter(s =>
+    getServiceCategory(s.slug) === currentCategory && s.slug !== slug
+  )
+
+  // Return up to 3
+  return sameCategory.slice(0, 3)
+})
 
 // SEO Meta Tags
 watchEffect(() => {
