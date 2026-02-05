@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 5 of 10 (QA & PWA Foundation)
-Plan: 3 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-05 — Completed 05-03 Pre-commit Build & Preview Testing
+Last activity: 2026-02-05 — Completed 05-04 Lighthouse CI Integration
 
-Progress: [████████████░] 65%
+Progress: [█████████████] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 21
+- Total plans completed: 22
 - Average duration: ~4 min
-- Total execution time: 1.5 hours
+- Total execution time: 1.6 hours
 
 **By Phase:**
 
@@ -31,11 +31,11 @@ Progress: [████████████░] 65%
 | 02    | 4     | 4        | ~6 min   |
 | 03    | 3     | 3        | ~4 min   |
 | 04    | 5     | 5        | ~2 min   |
-| 05    | 5     | 3        | ~5 min   |
+| 05    | 5     | 4        | ~5 min   |
 
 **Recent Trend:**
-- Last 5 plans: 04-05 (~2 min), 05-01 (~3 min), 05-02 (~5 min), 05-03 (~10 min)
-- Trend: Phase 5 progressing, pre-commit build validation configured
+- Last 5 plans: 04-05 (~2 min), 05-01 (~3 min), 05-02 (~5 min), 05-03 (~10 min), 05-04 (~11 min)
+- Trend: Phase 5 almost complete, Lighthouse CI integration done
 
 *Updated after each plan completion*
 
@@ -107,6 +107,14 @@ Recent decisions affecting current work:
 - Bypass mechanisms: --no-verify for one-off, PRE_COMMIT_CHECKS_ENABLED=false for temporary
 - Process cleanup uses pkill on Linux, taskkill on Windows
 
+**From 05-04 (Lighthouse CI Integration):**
+- Lighthouse and chrome-launcher installed for programmatic performance auditing
+- Lighthouse audit script with 85+ budget targets (per Phase 5 Context, relaxed from roadmap's 90/95/100)
+- Pre-commit workflow now 5 steps: build -> preview -> hydration -> Lighthouse -> cleanup
+- Chrome availability detection enables graceful skip when Chrome unavailable (CI compatibility)
+- Performance history tracking via .planning/audit/lighthouse.json (stores last 30 runs)
+- Graceful handling of environments without Chrome prevents pre-commit failures
+
 **From 03-01 (Image Discovery and Download):**
 - Content-addressable storage using SHA-256 hashes prevents duplicate storage
 - Dual discovery: WordPress Media API + HTML crawling for comprehensive coverage
@@ -140,9 +148,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 05-03 Pre-commit Build & Preview Testing
+Stopped at: Completed 05-04 Lighthouse CI Integration
 Resume file: None
-Next: 05-04 Lighthouse CI Integration
+Next: 05-05 (final plan in Phase 5)
 
 ## Phase 1 Summary (Complete)
 
@@ -228,6 +236,7 @@ Plans executed:
 - 05-01: PWA Offline Support (complete)
 - 05-02: PWA Install Prompt (complete)
 - 05-03: Pre-commit Build & Preview Testing (complete)
+- 05-04: Lighthouse CI Integration (complete)
 
 **Deliverables:**
 - `nuxt.config.ts` - Updated PWA workbox configuration with globPatterns and CacheFirst for JS/CSS
@@ -235,11 +244,15 @@ Plans executed:
 - `components/PwaInstallPrompt.vue` - Simplified browser native install trigger (30 lines)
 - `components/AppHeader.vue` - Install prompt button in desktop navigation
 - `.husky/pre-commit` - Git hook for pre-commit validation
-- `scripts/pre-commit.js` - Build + preview validation script with hydration checking
+- `scripts/pre-commit.js` - Build + preview + hydration + Lighthouse validation script
+- `scripts/lighthouse-audit.js` - Lighthouse audit script with 85+ budget targets and Chrome availability detection
+- `.planning/audit/lighthouse.json` - Performance history tracking file (last 30 runs)
 
 **Statistics:**
 - Service worker: 157 precached resources
 - Runtime caching: CacheFirst for images, fonts, JS/CSS; NetworkFirst for WordPress API
 - Offline fallback: /offline page with helpful content
 - Install prompt: Browser native dialog, no custom modal
+- Lighthouse budgets: 85+ for performance, accessibility, seo, best-practices
+- Pre-commit workflow: 5 steps (build, preview, hydration, Lighthouse, cleanup)
 
