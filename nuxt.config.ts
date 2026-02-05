@@ -69,9 +69,11 @@ export default defineNuxtConfig({
 
   // Sitemap configuration - will use environment variable NUXT_PUBLIC_SITE_URL
   // Defaults to https://vp-associates.com
+  // Note: Dynamic sitemap generation is handled by server/routes/sitemap.xml.ts
   sitemap: {
-    // Exclude dynamic routes that need server-side data
-    exclude: ['/api/**', '/search'],
+    // Exclude only API routes from automated sitemap generation
+    // All public-facing pages including /search are included via server route
+    exclude: ['/api/**'],
     // Enable zero-runtime to reduce server bundle size
     zeroRuntime: true,
     // Default sitemap configuration
@@ -81,7 +83,7 @@ export default defineNuxtConfig({
       // Note: lastmod is handled per-route in server/routes/sitemap.xml.ts
       // to avoid serialization issues with runtime config
     },
-    // Static pages with specific priorities
+    // Static pages with specific priorities (synced with server/routes/sitemap.xml.ts)
     urls: [
       { loc: '/', changefreq: 'daily', priority: 1.0 },
       { loc: '/about', changefreq: 'monthly', priority: 0.9 },
@@ -89,6 +91,7 @@ export default defineNuxtConfig({
       { loc: '/projects', changefreq: 'weekly', priority: 0.9 },
       { loc: '/contact', changefreq: 'monthly', priority: 0.8 },
       { loc: '/careers', changefreq: 'monthly', priority: 0.7 },
+      { loc: '/search', changefreq: 'weekly', priority: 0.6 },
     ],
   },
 
