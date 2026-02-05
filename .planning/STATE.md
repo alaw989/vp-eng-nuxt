@@ -10,26 +10,26 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 8 of 10 (Section Polish - Services)
-Plan: 3 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-02-05 — Completed 08-03: Service Hero Image Verification
+Last activity: 2026-02-05 — Completed 08-02: Service Detail Page Layout
 
-Progress: [███████████████] 76%
+Progress: [██████████████░] 74%
 
 **PHASE 8: Section Polish - Services - IN PROGRESS**
 
 Plans executed:
 - 08-01: Services Listing Page Enhancements (~20 min) - COMPLETE
-- 08-02: Service Detail Page with Hero Image (~5 min) - COMPLETE
-- 08-03: Service Hero Image Verification (~4 min) - COMPLETE
+- 08-02: Service Detail Page Layout (~22 min) - COMPLETE
+- 08-03: Service Hero Image Verification - PENDING
 - 08-04: Visual Comparison and QA Verification - PENDING
 
-**Next:** 08-04 - Visual Comparison and QA Verification
+**Next:** 08-03 - Service Hero Image Verification
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 39
+- Total plans completed: 38
 - Average duration: ~6 min
 - Total execution time: ~3.7 hours
 
@@ -44,11 +44,11 @@ Plans executed:
 | 05    | 4     | 4        | ~7 min   |
 | 06    | 4     | 4        | ~9 min   |
 | 07    | 4     | 4        | ~19 min  |
-| 08    | 3     | 3        | ~10 min  |
+| 08    | 2     | 2        | ~21 min  |
 
 **Recent Trend:**
-- Last plan: 08-03 (~4 min) - Service hero image verification
-- Trend: Phase 8 in progress, hero images verified from Phase 3 migration
+- Last plan: 08-02 (~22 min) - Service detail page layout with hero images, process section, related services
+- Trend: Phase 8 in progress, service detail pages enhanced
 
 *Updated after each plan completion*
 
@@ -208,9 +208,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 08-03: Service Hero Image Verification (Phase 8 in progress)
+Stopped at: Completed 08-02: Service Detail Page Layout (Phase 8 in progress)
 Resume file: None
-Next: 08-04 - Visual Comparison and QA Verification
+Next: 08-03 - Service Hero Image Verification
 
 ## Phase 1 Summary (Complete)
 
@@ -406,16 +406,13 @@ All 4 plans executed:
 - Results count with aria-live for accessibility
 - Scrollbar-hide CSS for clean mobile UX
 
-**From 08-02 (Service Detail Page with Hero Image):**
-- Full-width hero image background with dark overlay (60/50/70% gradient)
-- Service icon box with backdrop-blur-sm overlay on hero background
-- Hero images from Phase 3 project image migration
-- Service-to-image mapping: structural-steel-design -> steel-connect, concrete/masonry/wood -> lowrise, etc.
-- Fallback image: home-header-1920w.webp for unmapped services
-
-**From 08-03 (Service Hero Image Verification):**
-- All 6 unique project hero images verified existing from Phase 3 migration
-- NuxtImg component with WebP format, eager loading, responsive sizing confirmed
-- All 10 service detail pages tested with no 404 errors
-- Dark overlay gradient present and text readable over all hero backgrounds
+**From 08-02 (Service Detail Page Layout):**
+- Hero image backgrounds with dark overlay gradient (from-black/70 via-black/50 to-black/70)
+- Service icon box with backdrop-blur-sm for visibility over hero images
+- Hero images sourced from Phase 3 project photos (service-to-image mapping)
+- "How This Service Works" 4-step process section (Consultation, Design, Review, Support)
+- Process steps with numbered circles and connecting lines (desktop only)
+- Dynamic Related Services section filtering by category, excluding current service
+- Categories: structural (6), design (3), inspection (1), marine (1)
+- Related services limited to 3 results, conditional display when no matches
 
