@@ -12,6 +12,32 @@
       </div>
     </AppSection>
 
+    <!-- Category Filter Section -->
+    <AppSection bg-color="neutral-50" padding="md">
+      <div class="container">
+        <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
+          <button
+            v-for="category in serviceCategories"
+            :key="category.id"
+            @click="setCategory(category.id)"
+            :class="[
+              'px-6 py-2.5 rounded-full font-semibold transition-all duration-300 whitespace-nowrap snap-start',
+              activeCategory === category.id
+                ? 'bg-primary text-white shadow-lg scale-105'
+                : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
+            ]"
+            :aria-pressed="activeCategory === category.id"
+            :aria-label="`Filter by ${category.name}`"
+          >
+            {{ category.name }}
+          </button>
+        </div>
+        <div class="text-center text-neutral-600 mt-4">
+          <span aria-live="polite">{{ filteredServices.length }} service{{ filteredServices.length !== 1 ? 's' : '' }}</span>
+        </div>
+      </div>
+    </AppSection>
+
     <!-- Services Overview -->
     <AppSection bg-color="white" animate-on-scroll>
       <div class="text-center mb-16">
@@ -23,7 +49,7 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div v-if="filteredServices.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
           v-for="service in filteredServices"
           :key="service.slug"
@@ -60,6 +86,10 @@
             <Icon name="mdi:arrow-right" class="w-4 h-4" />
           </NuxtLink>
         </div>
+      </div>
+      <div v-else class="text-center py-16">
+        <Icon name="mdi:folder-open-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+        <p class="text-xl text-neutral-500">No services found in this category.</p>
       </div>
     </AppSection>
 
@@ -440,3 +470,13 @@ useJsonld({
   })),
 })
 </script>
+
+<style scoped>
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+</style>
