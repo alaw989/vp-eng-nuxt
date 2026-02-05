@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Image Migration** - Download and optimize all images from source site
 - [x] **Phase 4: Content & SEO Validation** - Validate links, content integrity, and SEO preservation
 - [x] **Phase 5: QA & PWA Foundation** - Build testing infrastructure and PWA features
-- [ ] **Phase 6: Homepage Polish** - Fix homepage styling, layout, and migrate homepage images
+- [x] **Phase 6: Homepage Polish** - Fix homepage styling, layout, and migrate homepage images
 - [ ] **Phase 7: Section Polish - Projects** - Fix project listing/detail pages, migrate project images
 - [ ] **Phase 8: Section Polish - Services** - Fix service listing/detail pages, migrate service images
 - [ ] **Phase 9: Section Polish - About & Team** - Fix about/team pages, migrate team photos
@@ -120,13 +120,13 @@ Plans:
   3. Testimonials section displays with proper card layout and formatting
   4. Visual comparison shows no regressions from live site baseline
   5. Build and preview testing passes without hydration errors
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 06-01: Homepage hero section styling and image migration
-- [ ] 06-02: Featured projects and services section fixes
-- [ ] 06-03: Testimonials section polish
-- [ ] 06-04: Visual comparison and QA verification
+- [x] 06-01-PLAN.md — Hero section with parallax motion and optimized hero images
+- [x] 06-02-PLAN.md — Featured Projects and Services grid layouts
+- [x] 06-03-PLAN.md — Testimonials section with decorative quote marks
+- [x] 06-04-PLAN.md — Visual comparison and QA verification
 
 ### Phase 7: Section Polish - Projects
 **Goal**: Fix projects listing and detail pages with image migration
@@ -212,7 +212,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 3. Image Migration | 3/3 | Complete | 2026-02-05 |
 | 4. Content & SEO Validation | 5/5 | Complete | 2026-02-05 |
 | 5. QA & PWA Foundation | 4/4 | Complete | 2026-02-05 |
-| 6. Homepage Polish | 0/4 | Not started | - |
+| 6. Homepage Polish | 4/4 | Complete | 2026-02-05 |
 | 7. Section Polish - Projects | 0/4 | Not started | - |
 | 8. Section Polish - Services | 0/4 | Not started | - |
 | 9. Section Polish - About & Team | 0/4 | Not started | - |
