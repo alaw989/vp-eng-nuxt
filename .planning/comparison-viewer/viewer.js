@@ -191,7 +191,34 @@ async function loadComparison(timestamp) {
 
         const data = await response.json();
         state.comparisonData = data;
-        state.pages = data.pages || [];
+
+        // Transform results array to pages format for easier lookup
+        // results is a flat array of {page, slug, viewport, diffPercentage, ...}
+        // We need to group by slug and nest viewports
+        if (data.results && Array.isArray(data.results)) {
+            const pageMap = new Map();
+
+            for (const result of data.results) {
+                if (!pageMap.has(result.slug)) {
+                    pageMap.set(result.slug, {
+                        slug: result.slug,
+                        title: result.page,
+                        viewports: {}
+                    });
+                }
+                const page = pageMap.get(result.slug);
+                page.viewports[result.viewport] = {
+                    diffPercent: result.diffPercentage,
+                    diffPixels: result.diffCount,
+                    match: result.match,
+                    error: result.error
+                };
+            }
+
+            state.pages = Array.from(pageMap.values());
+        } else {
+            state.pages = data.pages || [];
+        }
 
         // Update timestamp display
         elements.timestamp.textContent = `Comparison: ${formatTimestamp(timestamp)}`;
@@ -246,7 +273,7 @@ function updateImages() {
 
     // Set image sources
     elements.baselineImage.src = `${basePath}/baseline-${state.currentViewport}.png`;
-    elements.currentImage.src = `${basePath}/${state.currentViewport}.png`;
+    elements.currentImage.src = `${basePath}/current-${state.currentViewport}.png`;
     elements.diffImage.src = `${basePath}/diff-${state.currentViewport}.png`;
 
     // Update labels
@@ -261,7 +288,7 @@ function updateImages() {
 function updateStats() {
     if (!state.comparisonData || !state.currentPage) return;
 
-    const pageData = state.comparisonData.pages.find(p => p.slug === state.currentPage);
+    const pageData = state.pages.find(p => p.slug === state.currentPage);
     if (!pageData || !pageData.viewports) return;
 
     const viewportData = pageData.viewports[state.currentViewport];
@@ -274,7 +301,13 @@ function updateStats() {
 
     elements.diffPercentage.textContent = formatPercentage(viewportData.diffPercent || 0);
     elements.diffPixels.textContent = formatNumber(viewportData.diffPixels || 0);
-    elements.totalPixels.textContent = formatNumber(viewportData.totalPixels || 0);
+    // Total pixels not available in current format, calculate from diff if available
+    if (viewportData.diffPercent && viewportData.diffPixels) {
+        const total = Math.round(viewportData.diffPixels / (viewportData.diffPercent / 100));
+        elements.totalPixels.textContent = formatNumber(total);
+    } else {
+        elements.totalPixels.textContent = '--';
+    }
 }
 
 /**
