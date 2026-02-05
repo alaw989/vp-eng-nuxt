@@ -23,6 +23,26 @@ if (process.env[ENABLED_ENV_VAR] === 'false') {
 console.log('Running pre-commit validation...\n');
 
 let previewProcess = null;
+let previewPid = null;
+
+// Cleanup function to kill the preview server
+const cleanupPreview = async () => {
+  if (previewPid) {
+    try {
+      if (process.platform === 'win32') {
+        execSync(`taskkill /F /T /PID ${previewPid}`, { stdio: 'ignore' });
+      } else {
+        // Kill the process and its child processes
+        execSync(`pkill -P ${previewPid}`, { stdio: 'ignore' });
+        process.kill(previewPid, 'SIGTERM');
+      }
+      // Wait a bit for graceful shutdown
+      await new Promise(resolve => setTimeout(resolve, 500));
+    } catch (killError) {
+      // Process may have already exited
+    }
+  }
+};
 
 try {
   // Step 1: Build
@@ -51,14 +71,15 @@ try {
     detached: true
   });
 
+  // Store the PID for later cleanup
+  previewPid = previewProcess.pid;
+
+  // Unref the process so it doesn't keep parent alive
+  previewProcess.unref();
+
   // Wait for server to start
   console.log(`Waiting ${PREVIEW_STARTUP_MS}ms for server startup...`);
   await new Promise(resolve => setTimeout(resolve, PREVIEW_STARTUP_MS));
-
-  // Check if server is running
-  if (!previewProcess.pid) {
-    throw new Error('Failed to start preview server');
-  }
 
   console.log('Preview server started.');
 
@@ -82,31 +103,16 @@ try {
   // Step 4: Cleanup (kill preview server)
   console.log('\nStep 4/4: Cleaning up...');
 
-  // Kill the process group
-  if (process.platform === 'win32') {
-    execSync(`taskkill /F /T /PID ${previewProcess.pid}`, { stdio: 'ignore' });
-  } else {
-    process.kill(-previewProcess.pid, 'SIGTERM');
-  }
+  await cleanupPreview();
 
-  await new Promise(resolve => setTimeout(resolve, 500));
+  console.log('Preview server stopped.');
 
   console.log('\nPre-commit checks passed!');
   process.exit(0);
 
 } catch (error) {
   // Cleanup on error
-  if (previewProcess && previewProcess.pid) {
-    try {
-      if (process.platform === 'win32') {
-        execSync(`taskkill /F /T /PID ${previewProcess.pid}`, { stdio: 'ignore' });
-      } else {
-        process.kill(-previewProcess.pid, 'SIGTERM');
-      }
-    } catch (killError) {
-      // Ignore cleanup errors
-    }
-  }
+  await cleanupPreview();
 
   console.error('\nPre-commit validation failed:');
   console.error(error.message);
