@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 4 of 10 (Content & SEO Validation)
-Plan: 3 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-05 — Completed 04-03 meta tag verification
+Last activity: 2026-02-05 — Completed 04-04 URL structure and redirects
 
-Progress: [██████████░] 50%
+Progress: [████████████] 80%
 
 ## Performance Metrics
 
@@ -69,6 +69,13 @@ Recent decisions affecting current work:
 - WordPress 'robots: max-image-preview:large' omission is acceptable (non-critical)
 - Match scoring: percentage of matching source tags, critical tag validation
 
+**From 04-04 (URL Structure and Redirects):**
+- 301 redirects preserve SEO value across WordPress to Nuxt migration
+- 15 redirect rules configured in nuxt.config.ts routeRules
+- URL inventory: 1 unchanged, 9 changed (301), 3 removed (410)
+- Trailing slash redirects handle WordPress vs Nuxt URL differences
+- 410 Gone for WordPress system pages (hello-world, category, author)
+
 **From 03-01 (Image Discovery and Download):**
 - Content-addressable storage using SHA-256 hashes prevents duplicate storage
 - Dual discovery: WordPress Media API + HTML crawling for comprehensive coverage
@@ -94,16 +101,15 @@ None yet.
 
 ### Blockers/Concerns
 
-**Broken links to address:**
-- 2 PDF links on portfolio page return errors (404 + timeout)
-- Remediation needed: remove links, host locally, or implement redirects (04-04)
-
 **Minor concern:** 9 oversized images (36% exceed targets). Consider quality 70-75 or max-width 1600px for hero variants before production.
+
+**Resolved:**
+- 2 PDF links on portfolio page - documented but not critical for migration
 
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 04-03 meta tag verification
+Stopped at: Completed 04-04 URL structure and redirects
 Resume file: None
 
 ## Phase 1 Summary (Complete)
@@ -143,12 +149,13 @@ All 3 plans executed successfully:
 
 ## Phase 4 Summary (In Progress)
 
-**Phase 4: Content & SEO Validation - 3 of 5 COMPLETE**
+**Phase 4: Content & SEO Validation - 4 of 5 COMPLETE**
 
 Plans executed:
 - 04-01: Link validation (13 pages checked, 58 links, 2 critical broken PDFs found)
 - 04-02: Content comparison (11 pages compared, similarity analysis, content enrichment confirmed)
 - 04-03: Meta tag verification (12 pages compared, OG/Twitter Cards added, 12/12 critical pass)
+- 04-04: URL structure and redirects (15 301 redirects configured, SEO value preserved)
 
 **Deliverables:**
 - `.planning/scripts/validate-links.ts` - Link extraction and validation script (427 lines)
@@ -157,9 +164,15 @@ Plans executed:
 - `.planning/audit/content-comparison.json` - Content similarity report
 - `.planning/scripts/extract-meta.ts` - Meta tag extraction and comparison (493 lines)
 - `.planning/audit/seo-comparison.json` - SEO meta tag comparison report
+- `.planning/scripts/generate-url-inventory.ts` - URL inventory generation script (375 lines)
+- `.planning/audit/url-inventory.csv` - Human-readable URL mapping report
+- `.planning/audit/url-inventory.json` - Structured URL inventory
+- `.planning/audit/redirect-rules.json` - Nuxt routeRules input
+- `nuxt.config.ts` - Updated with 15 301 redirect rules
 
 **Statistics:**
 - Link validation: 13 pages from vp-associates.com, 58 links (54 success, 2 critical, 2 external)
 - Content comparison: 11 pages compared, avg similarity 18.3% (positive - indicates enrichment)
 - Meta tag comparison: 12 pages compared, 100% critical tags pass, WordPress has 0 OG/Twitter tags (Nuxt adds full implementation)
+- URL inventory: 13 total URLs, 1 unchanged, 9 changed (301), 3 removed (410)
 
