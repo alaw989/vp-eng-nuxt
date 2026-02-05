@@ -1,0 +1,537 @@
+{
+  "generated": "2026-02-05T13:08:30.563Z",
+  "source": "www.vp-associates.com",
+  "pagesChecked": 13,
+  "linksChecked": 58,
+  "summary": {
+    "critical": 2,
+    "warning": 0,
+    "info": 2,
+    "success": 54
+  },
+  "links": [
+    {
+      "url": "tel:813.247.3835",
+      "status": 0,
+      "statusText": "External",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/",
+      "linkText": "813.247.3835",
+      "severity": "info"
+    },
+    {
+      "url": "https://www.vp-associates.com",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/portfolio/",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/",
+      "linkText": "PORTFOLIO",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/services/",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/",
+      "linkText": "SERVICES",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/careers/",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/",
+      "linkText": "CAREERS",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/contact/",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/",
+      "linkText": "CONTACT",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/about-3/",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/",
+      "linkText": "WHITEBOARD",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/5GC-1a.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/5GD-1.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/5GD-4.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/I-95-E2.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/5GD-4a.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/038-Stringer.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/test/wp-content/uploads/2018/02/066-hanrail.pdf",
+      "status": 404,
+      "statusText": "Not Found",
+      "ok": false,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "critical"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/D104-B.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/E2-02.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/E3-01.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/ISO-Copy.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Metso-ISO.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/189.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/199.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/1111.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/1118.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/1119.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/1122.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/AB1.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/B64.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/B65.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/B66.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/B68.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/C6.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/C8.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Dave-and-Busters-E1.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Camber-layout-WC1-012811.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Grade-layout-012811-WS2.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/I-95-D1.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/I-95-E1.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/I-95-E3.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/I-105-E1_Rev0.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/I-105-E3_Rev0.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Parker-Bridge-E1-1.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Bechtel-Stacks-E1-iso.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/01308.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/01309.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/01401.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/02109.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/02305.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/E306.pdf",
+      "status": 0,
+      "statusText": "Network Error",
+      "ok": false,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "critical",
+      "error": "[HEAD] \"https://www.vp-associates.com/wp-content/uploads/2018/02/E306.pdf\": <no response> [TimeoutError]: The operation was aborted due to timeout"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/E401.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Morten-Salt-Col-D2_Rev-0.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Morten-Salt-elev-E5_Rev-0.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/Morten-Salt-ISO_Rev-0.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/RMS-D7.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/RMS-D74.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/RMS-E2.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/RMS-E12.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "https://www.vp-associates.com/wp-content/uploads/2018/02/RMS-ISO.pdf",
+      "status": 200,
+      "statusText": "OK",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/portfolio/",
+      "linkText": "",
+      "severity": "success"
+    },
+    {
+      "url": "mailto:vphan@vp-associates.com",
+      "status": 0,
+      "statusText": "External",
+      "ok": true,
+      "sourcePage": "https://www.vp-associates.com/careers/",
+      "linkText": "here.",
+      "severity": "info"
+    }
+  ]
+}
