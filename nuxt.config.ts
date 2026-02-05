@@ -227,6 +227,8 @@ export default defineNuxtConfig({
     workbox: {
       // Navigate to fallback page for offline navigation
       navigateFallback: '/offline',
+      // Glob patterns for precaching app shell resources
+      globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,woff2}'],
       // Runtime caching strategies
       runtimeCaching: [
         // Cache WordPress API responses with network-first strategy
@@ -268,14 +270,14 @@ export default defineNuxtConfig({
             }
           }
         },
-        // Cache static assets (JS, CSS)
+        // Cache static assets (JS, CSS) - app shell uses CacheFirst for instant loads
         {
           urlPattern: /^https:\/\/.*\.(?:js|css)$/i,
-          handler: 'StaleWhileRevalidate',
+          handler: 'CacheFirst',
           options: {
-            cacheName: 'static-resources-cache',
+            cacheName: 'app-shell-cache',
             expiration: {
-              maxEntries: 100,
+              maxEntries: 50,
               maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
             }
           }
