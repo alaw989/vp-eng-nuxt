@@ -103,25 +103,34 @@ try {
   // Step 4: Run Lighthouse audit
   console.log('\nStep 4/5: Running Lighthouse audit...');
 
-  const { runLighthouse, checkBudgets, formatScores } = await import('./lighthouse-audit.js');
+  const { runLighthouse, checkBudgets, formatScores, isChromeAvailable } = await import('./lighthouse-audit.js');
 
   const lhr = await runLighthouse(PREVIEW_URL);
 
-  console.log('Lighthouse scores:');
-  console.log(formatScores(lhr));
+  // Check if Chrome was available
+  const hasChrome = isChromeAvailable();
 
-  const failures = checkBudgets(lhr);
+  if (hasChrome) {
+    // Only check budgets if we actually ran Lighthouse
+    console.log('Lighthouse scores:');
+    console.log(formatScores(lhr));
 
-  if (failures.length > 0) {
-    console.error('\nLighthouse budget failures:');
-    failures.forEach(f => {
-      console.error(`  ${f.category}: ${f.score} (below ${f.budget} by ${f.diff})`);
-    });
+    const failures = checkBudgets(lhr);
 
-    throw new Error('Lighthouse scores below budget (85+). Improve performance or adjust budgets.');
+    if (failures.length > 0) {
+      console.error('\nLighthouse budget failures:');
+      failures.forEach(f => {
+        console.error(`  ${f.category}: ${f.score} (below ${f.budget} by ${f.diff})`);
+      });
+
+      throw new Error('Lighthouse scores below budget (85+). Improve performance or adjust budgets.');
+    }
+
+    console.log('Lighthouse scores passed!');
+  } else {
+    console.log('Lighthouse audit skipped (Chrome not available).');
+    console.log('Install Chrome/Chromium to enable performance audits in pre-commit.');
   }
-
-  console.log('Lighthouse scores passed!');
 
   // Step 5: Cleanup (kill preview server)
   console.log('\nStep 5/5: Cleaning up...');
