@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Audit & Baseline Capture** - Establish content inventory, SEO baseline, and visual screenshots
 - [x] **Phase 2: Comparison Infrastructure** - Build visual diff tools and HTML comparison capabilities
 - [x] **Phase 3: Image Migration** - Download and optimize all images from source site
-- [ ] **Phase 4: Content & SEO Validation** - Validate links, content integrity, and SEO preservation
+- [x] **Phase 4: Content & SEO Validation** - Validate links, content integrity, and SEO preservation
 - [ ] **Phase 5: QA & PWA Foundation** - Build testing infrastructure and PWA features
 - [ ] **Phase 6: Homepage Polish** - Fix homepage styling, layout, and migrate homepage images
 - [ ] **Phase 7: Section Polish - Projects** - Fix project listing/detail pages, migrate project images
@@ -84,14 +84,14 @@ Plans:
   3. All SEO meta tags (title, description, Open Graph, Twitter) preserved from source
   4. URL structure documented with 301 redirects implemented for any changed URLs
   5. XML sitemap generated at /sitemap.xml and ready for Search Console submission
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 04-01: Internal link validation with broken link report generation
-- [ ] 04-02: Content integrity comparison between source and target
-- [ ] 04-03: Meta tag migration verification (Open Graph, Twitter Cards)
-- [ ] 04-04: URL structure documentation and redirect implementation
-- [ ] 04-05: Sitemap generation and Search Console preparation
+- [x] 04-01-PLAN.md — Internal link validation with broken link report generation
+- [x] 04-02-PLAN.md — Content integrity comparison between source and target
+- [x] 04-03-PLAN.md — Meta tag migration verification (Open Graph, Twitter Cards)
+- [x] 04-04-PLAN.md — URL structure documentation and redirect implementation
+- [x] 04-05-PLAN.md — Sitemap generation and Search Console preparation
 
 ### Phase 5: QA & PWA Foundation
 **Goal**: Establish quality assurance infrastructure and PWA capabilities
@@ -99,16 +99,16 @@ Plans:
 **Requirements**: REQ-PWA-001, REQ-PWA-002, REQ-QA-001, REQ-QA-002
 **Success Criteria** (what must be TRUE):
   1. Application functions offline with helpful fallback page and cached core resources
-  2. Install prompt appears when criteria met, with custom install button in navigation
+  2. Install prompt appears when criteria met (browser native per Phase 5 Context)
   3. All changes tested with `npm run build && npm run preview` before deployment
-  4. Lighthouse scores meet targets (Performance 90+, SEO 95+, Accessibility 100)
-**Plans**: TBD
+  4. Lighthouse scores meet targets (Performance, SEO, Accessibility all >= 85 per Phase 5 Context)
+**Plans**: 4 plans
 
 Plans:
-- [ ] 05-01: Offline support implementation with service worker caching
-- [ ] 05-02: Install prompt component and app icon generation
-- [ ] 05-03: Build & preview testing workflow establishment
-- [ ] 05-04: Lighthouse performance benchmarking and optimization
+- [ ] 05-01-PLAN.md — Offline support verification and service worker caching refinement
+- [ ] 05-02-PLAN.md — Install prompt configuration (browser native only per context decision)
+- [ ] 05-03-PLAN.md — Pre-commit hook with Husky for build & preview testing
+- [ ] 05-04-PLAN.md — Lighthouse performance benchmarking and optimization
 
 ### Phase 6: Homepage Polish
 **Goal**: Fix homepage styling, layout, and functionality to match or exceed live site
@@ -211,7 +211,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 2. Comparison Infrastructure | 4/4 | Complete | 2026-02-05 |
 | 3. Image Migration | 3/3 | Complete | 2026-02-05 |
 | 4. Content & SEO Validation | 5/5 | Complete | 2026-02-05 |
-| 5. QA & PWA Foundation | 0/4 | Not started | - |
+| 5. QA & PWA Foundation | 0/4 | Ready for execution | - |
 | 6. Homepage Polish | 0/4 | Not started | - |
 | 7. Section Polish - Projects | 0/4 | Not started | - |
 | 8. Section Polish - Services | 0/4 | Not started | - |
