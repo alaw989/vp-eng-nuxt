@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-02-04)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 4: Content & SEO Validation
+**Current focus:** Phase 5: QA & PWA Foundation
 
 ## Current Position
 
 Phase: 5 of 10 (QA & PWA Foundation)
-Plan: 0 of 5 in current phase
-Status: Ready to start
-Last activity: 2026-02-05 — Completed 04-05 XML Sitemap Verification
+Plan: 1 of 5 in current phase
+Status: In progress
+Last activity: 2026-02-05 — Completed 05-01 PWA Offline Support
 
-Progress: [████████████░] 50%
+Progress: [███████████░] 55%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 19
 - Average duration: ~4 min
 - Total execution time: 1.3 hours
 
@@ -31,11 +31,11 @@ Progress: [████████████░] 50%
 | 02    | 4     | 4        | ~6 min   |
 | 03    | 3     | 3        | ~4 min   |
 | 04    | 5     | 5        | ~2 min   |
-| 05    | 5     | 0        | -        |
+| 05    | 5     | 1        | ~3 min   |
 
 **Recent Trend:**
-- Last 5 plans: 02-04 (~4 min), 03-01 (~6 min), 03-02 (~2 min), 03-03 (~3 min), 04-01 (~2 min), 04-02 (~1 min), 04-03 (~2 min)
-- Trend: Phase 4 progressing, meta tag verification complete
+- Last 5 plans: 04-01 (~2 min), 04-02 (~1 min), 04-03 (~2 min), 04-04 (~1 min), 04-05 (~2 min), 05-01 (~3 min)
+- Trend: Phase 5 started, PWA offline support configured
 
 *Updated after each plan completion*
 
@@ -84,6 +84,14 @@ Recent decisions affecting current work:
 - /search page included in sitemap (was incorrectly excluded)
 - Google Search Console submission steps documented for post-deployment
 
+**From 05-01 (PWA Offline Support):**
+- Service worker configured with cache-first strategy for app shell (JS, CSS, fonts)
+- 157 resources precached including all pages, images, and bundles
+- Runtime caching: CacheFirst for images/fonts/JS/CSS, NetworkFirst for WordPress API
+- Offline fallback page at /offline serves helpful content when network unavailable
+- globPatterns added for precaching: ['**/*.{js,css,html,svg,png,jpg,jpeg,woff2}']
+- Changed JS/CSS from StaleWhileRevalidate to CacheFirst for instant app shell loads
+
 **From 03-01 (Image Discovery and Download):**
 - Content-addressable storage using SHA-256 hashes prevents duplicate storage
 - Dual discovery: WordPress Media API + HTML crawling for comprehensive coverage
@@ -117,9 +125,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 04-05 XML Sitemap Verification - Phase 4 complete
+Stopped at: Completed 05-01 PWA Offline Support
 Resume file: None
-Next: Phase 5 - QA & PWA Foundation
+Next: 05-02 PWA Install Prompt
 
 ## Phase 1 Summary (Complete)
 
@@ -196,4 +204,20 @@ All 5 plans executed:
 - REQ-SEO-001: Meta tags compared
 - REQ-SEO-002: URL structure and redirects configured
 - REQ-SEO-003: Sitemap verified
+
+## Phase 5 Summary (In Progress)
+
+**Phase 5: QA & PWA Foundation - IN PROGRESS**
+
+Plans executed:
+- 05-01: PWA Offline Support (complete)
+
+**Deliverables:**
+- `nuxt.config.ts` - Updated PWA workbox configuration with globPatterns and CacheFirst for JS/CSS
+- Service worker with 157 precache entries and runtime caching strategies
+
+**Statistics:**
+- Service worker: 157 precached resources
+- Runtime caching: CacheFirst for images, fonts, JS/CSS; NetworkFirst for WordPress API
+- Offline fallback: /offline page with helpful content
 
