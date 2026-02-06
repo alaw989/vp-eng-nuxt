@@ -206,8 +206,8 @@
             </h2>
 
             <div class="space-y-6">
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div class="flex items-start gap-4 group">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:map-marker" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -219,32 +219,32 @@
                 </div>
               </div>
 
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div class="flex items-start gap-4 group">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:phone" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Phone</div>
-                  <a href="tel:+18135551234" class="text-primary hover:text-primary-dark transition-colors">
+                  <a href="tel:+18135551234" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-200">
                     (813) 555-1234
                   </a>
                 </div>
               </div>
 
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div class="flex items-start gap-4 group">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:email" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Email</div>
-                  <a href="mailto:info@vp-associates.com" class="text-primary hover:text-primary-dark transition-colors">
+                  <a href="mailto:info@vp-associates.com" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-200">
                     info@vp-associates.com
                   </a>
                 </div>
               </div>
 
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div class="flex items-start gap-4 group">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:clock" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -282,7 +282,7 @@
           </div>
 
           <!-- Emergency Contact -->
-          <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+          <div class="bg-red-50 border border-red-200 rounded-xl p-6 hover:shadow-md transition-all duration-300">
             <div class="flex items-center gap-3 mb-3">
               <Icon name="mdi:alert-circle" class="w-6 h-6 text-red-600" />
               <div class="font-bold text-neutral-900">Emergency?</div>

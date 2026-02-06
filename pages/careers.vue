@@ -24,7 +24,7 @@
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        <div v-for="reason in reasons" :key="reason.title" class="bg-neutral-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+        <div v-for="reason in reasons" :key="reason.title" class="bg-neutral-50 rounded-xl p-8 hover:shadow-lg hover:-translate-y-1 hover:bg-neutral-100 transition-all duration-300">
           <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
             <Icon :name="reason.icon" class="w-8 h-8 text-primary" />
           </div>
@@ -50,8 +50,8 @@
           </p>
 
           <ul class="space-y-4">
-            <li v-for="benefit in benefits" :key="benefit" class="flex items-start gap-3">
-              <Icon name="mdi:check-circle" class="w-6 h-6 text-secondary flex-shrink-0 mt-0.5" />
+            <li v-for="benefit in benefits" :key="benefit" class="group flex items-start gap-3 transition-transform duration-200 group-hover:translate-x-1">
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-secondary flex-shrink-0 mt-0.5 transition-transform duration-200 group-hover:scale-110" />
               <span class="text-neutral-700">{{ benefit }}</span>
             </li>
           </ul>
@@ -157,8 +157,8 @@
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div v-for="value in values" :key="value.title" class="text-center">
-            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div v-for="value in values" :key="value.title" class="text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-white/20 transition-colors duration-200">
               <Icon :name="value.icon" class="w-8 h-8" />
             </div>
             <h3 class="text-xl font-bold mb-2">{{ value.title }}</h3>
@@ -228,7 +228,7 @@
               :class="index % 2 === 0 ? '' : 'md:flex'"
             >
               <div :class="index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:col-start-2 md:pl-12'">
-                <div class="bg-neutral-50 rounded-xl p-6 inline-block">
+                <div class="bg-neutral-50 rounded-xl p-6 inline-block hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                   <div class="flex items-center gap-3 mb-3" :class="index % 2 === 0 ? 'md:flex-row-reverse' : ''">
                     <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
                       {{ index + 1 }}
