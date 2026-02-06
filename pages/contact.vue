@@ -207,7 +207,7 @@
 
             <div class="space-y-6">
               <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:map-marker" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -220,7 +220,7 @@
               </div>
 
               <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:phone" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -232,7 +232,7 @@
               </div>
 
               <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:email" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -244,7 +244,7 @@
               </div>
 
               <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
                   <Icon name="mdi:clock" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
