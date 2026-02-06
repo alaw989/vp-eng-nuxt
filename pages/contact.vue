@@ -259,7 +259,7 @@
           </div>
 
           <!-- Interactive Map -->
-          <div class="rounded-xl overflow-hidden border border-neutral-200">
+          <div class="rounded-xl overflow-hidden border border-neutral-200 hover:shadow-md transition-shadow duration-300">
             <iframe
               title="VP Associates Office Location"
               src="https://www.openstreetmap.org/export/embed.html?bbox=-82.4620,27.9450,-82.4480,27.9600&amp;layer=mapnik&amp;marker=27.9525,-82.4550"
