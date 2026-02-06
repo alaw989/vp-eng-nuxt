@@ -172,7 +172,7 @@
             <button
               type="submit"
               :disabled="isSubmitting"
-              class="w-full px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+              class="w-full px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
             >
               <Icon v-if="isSubmitting" name="mdi:loading" class="w-5 h-5 animate-spin" />
               <span>{{ isSubmitting ? 'Sending...' : 'Send Message' }}</span>
@@ -181,8 +181,8 @@
             <div
               v-if="submitMessage"
               :class="[
-                'p-4 rounded-lg',
-                submitSuccess ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'
+                'p-4 rounded-lg shadow-sm animate-fade-in',
+                submitSuccess ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'
               ]"
               role="alert"
               :aria-live="submitSuccess ? 'polite' : 'assertive'"
@@ -517,3 +517,20 @@ const serviceAreas = [
   'Pasco County'
 ]
 </script>
+
+<style scoped>
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in;
+}
+</style>
