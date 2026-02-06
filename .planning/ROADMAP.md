@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 5: QA & PWA Foundation** - Build testing infrastructure and PWA features
 - [x] **Phase 6: Homepage Polish** - Fix homepage styling, layout, and migrate homepage images
 - [x] **Phase 7: Section Polish - Projects** - Fix project listing/detail pages, migrate project images
-- [ ] **Phase 8: Section Polish - Services** - Fix service listing/detail pages, migrate service images
+- [x] **Phase 8: Section Polish - Services** - Fix service listing/detail pages, migrate service images
 - [ ] **Phase 9: Section Polish - About & Team** - Fix about/team pages, migrate team photos
 - [ ] **Phase 10: Section Polish - Contact & Careers** - Fix contact/careers pages and form styling
 
@@ -159,10 +159,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Services listing page with horizontal scrollable category pills and URL state
-- [ ] 08-02-PLAN.md — Service detail page with hero image, process section, and dynamic related services
-- [ ] 08-03-PLAN.md — Service hero image verification from Phase 3 migration
-- [ ] 08-04-PLAN.md — Visual comparison and QA verification with screenshot capture
+- [x] 08-01-PLAN.md — Services listing page with horizontal scrollable category pills and URL state
+- [x] 08-02-PLAN.md — Service detail page with hero image, process section, and dynamic related services
+- [x] 08-03-PLAN.md — Service hero image verification from Phase 3 migration
+- [x] 08-04-PLAN.md — Visual comparison and QA verification with screenshot capture
 
 ### Phase 9: Section Polish - About & Team
 **Goal**: Fix about and team pages with team photo migration
