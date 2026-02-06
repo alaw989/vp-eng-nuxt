@@ -10,26 +10,26 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 9 of 10 (Section Polish - About & Team)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-02-06 — Completed 09-01: About Page Visual Styling
+Last activity: 2026-02-06 — Completed 09-02: Team Photo Optimization
 
-Progress: [█████████████░] 82%
+Progress: [█████████████░] 84%
 
 **PHASE 9: Section Polish - About & Team - IN PROGRESS**
 
 Executing Wave 1:
 - 09-01: About Page Visual Styling (~12 min) - COMPLETE
-- 09-02: Team Photo Optimization - COMPLETE (combined with 09-01)
+- 09-02: Team Photo Optimization (~14 min) - COMPLETE
 
 **Next:** 09-03 - Team Section Enhancement
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 43
+- Total plans completed: 45
 - Average duration: ~7 min
-- Total execution time: ~5 hours
+- Total execution time: ~5.3 hours
 
 **By Phase:**
 
@@ -43,11 +43,11 @@ Executing Wave 1:
 | 06    | 4     | 4        | ~9 min   |
 | 07    | 4     | 4        | ~19 min  |
 | 08    | 4     | 4        | ~16 min  |
-| 09    | 1     | 1        | ~12 min  |
+| 09    | 2     | 2        | ~13 min  |
 
 **Recent Trend:**
-- Last plan: 09-01 (~12 min) - About page styling with hover effects
-- Trend: Phase 9 in progress, About page polished with consistent visual hierarchy
+- Last plan: 09-02 (~14 min) - Team photo optimization with adaptive compression
+- Trend: Phase 9 in progress, team photos optimized to under 50KB each
 
 *Updated after each plan completion*
 
@@ -207,7 +207,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-06
-Stopped at: Completed 09-01: About Page Visual Styling
+Stopped at: Completed 09-02: Team Photo Optimization
 Resume file: None
 Next: 09-03 - Team Section Enhancement
 
@@ -475,24 +475,40 @@ All 4 plans executed:
 - tsconfig.json exclude pattern for tests-e2e to fix build blocking
 - Group-hover utility class pattern for parent-triggered child animations
 
+**From 09-02 (Team Photo Optimization):**
+- Adaptive quality compression: 85 for normal photos, 55 for large (>200KB) sources
+- No upscaling for small source images (300x200, 400x300) to preserve quality
+- Ultra-aggressive optimization (400x500, quality 55) for team-4 (318KB -> 42KB, 87% reduction)
+- 4:5 aspect ratio enforced via cover fit for consistent card heights
+- WebP primary format with JPG fallback for browser compatibility
+- Multiple size variants (640w, 800w) for responsive loading
+- Team photos stored in /public/images/team/ directory
+- API static fallback updated to use optimized photo paths
+
 ## Phase 9 Summary (In Progress)
 
 **Phase 9: Section Polish - About & Team - IN PROGRESS**
 
 Plans executed:
 - 09-01: About Page Visual Styling (~12 min) - COMPLETE
-- 09-02: Team Photo Optimization (completed in combined commit cee7e83)
+- 09-02: Team Photo Optimization (~14 min) - COMPLETE
 
 **Deliverables:**
 - `pages/about.vue` - Enhanced with hover effects on stats, value cards, and certification badges
+- `scripts/optimize-team-photos.ts` - Team photo optimization script with adaptive quality (231 lines)
+- `public/images/team/` - 16 optimized team photo variants (WebP + JPG, 640w + 800w)
+- `server/api/team.get.ts` - Updated static fallback paths to /images/team/
 - `tsconfig.json` - Fixed build by excluding tests-e2e directory
-- `.planning/phases/09-section-polish---about---team/09-01-SUMMARY.md` - Phase summary
+- `.planning/phases/09-section-polish---about---team/09-01-SUMMARY.md` - Phase 9-1 summary
+- `.planning/phases/09-section-polish---about---team/09-02-SUMMARY.md` - Phase 9-2 summary
 
 **Statistics:**
 - Company History stats: 3 stats with scale-105 hover effect
 - Mission & Values: 3 cards with hover lift and shadow effects
 - Certifications: 8 badges with hover border highlight
-- Build verification: PASSED (TypeScript compilation fixed)
+- Team photos optimized: 4 members, 16 variants, all under 50KB
+- team-4.jpg: 318KB -> 42KB WebP (87% reduction)
+- Build verification: PASSED (TypeScript compilation fixed, Playwright filter fixed)
 
 **Requirements Met:**
 - About page displays all content sections with proper visual hierarchy
@@ -500,6 +516,7 @@ Plans executed:
 - Company History stats display prominently with hover effects
 - Mission & Values cards show proper icon styling and hover lift
 - Certifications grid displays evenly with hover effects
+- Team photos optimized to under 50KB with 4:5 aspect ratio
 - Mobile responsive layout works correctly
 - No hydration errors in build output
 
