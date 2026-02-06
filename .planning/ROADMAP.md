@@ -174,13 +174,13 @@ Plans:
   3. All team member photos migrated and displaying with proper aspect ratios
   4. Company history/culture sections formatted properly
   5. Visual comparison shows no regressions from live site baseline
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 09-01: About page content section styling
-- [ ] 09-02: Team member card layout and styling fixes
-- [ ] 09-03: Team photo migration and optimization
-- [ ] 09-04: Visual comparison and QA verification
+- [ ] 09-01-PLAN.md — About page visual styling with section consistency and hover effects
+- [ ] 09-02-PLAN.md — Team photo optimization using Sharp (under 50KB target)
+- [ ] 09-03-PLAN.md — Team data and TeamMember component updates for optimized photos
+- [ ] 09-04-PLAN.md — Visual comparison and QA verification with user checkpoint
 
 ### Phase 10: Section Polish - Contact & Careers
 **Goal**: Fix contact and careers pages with form styling
