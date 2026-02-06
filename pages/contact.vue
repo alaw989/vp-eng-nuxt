@@ -45,7 +45,7 @@
                   aria-required="true"
                   :aria-invalid="errors.firstName ? 'true' : 'false'"
                   :aria-describedby="errors.firstName ? 'firstName-error' : undefined"
-                  class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                  class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
                   :class="errors.firstName ? 'border-red-500' : 'border-neutral-300'"
                   placeholder="John"
                 />
@@ -65,7 +65,7 @@
                   aria-required="true"
                   :aria-invalid="errors.lastName ? 'true' : 'false'"
                   :aria-describedby="errors.lastName ? 'lastName-error' : undefined"
-                  class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                  class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
                   :class="errors.lastName ? 'border-red-500' : 'border-neutral-300'"
                   placeholder="Smith"
                 />
@@ -87,7 +87,7 @@
                 aria-required="true"
                 :aria-invalid="errors.email ? 'true' : 'false'"
                 :aria-describedby="errors.email ? 'email-error' : undefined"
-                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
                 :class="errors.email ? 'border-red-500' : 'border-neutral-300'"
                 placeholder="john@example.com"
               />
@@ -104,7 +104,7 @@
                 id="phone"
                 v-model="form.phone"
                 type="tel"
-                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
                 placeholder="(813) 555-1234"
               />
             </div>
@@ -131,7 +131,7 @@
               <select
                 id="service"
                 v-model="form.service"
-                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-white"
+                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50 bg-white"
               >
                 <option value="">Select a service...</option>
                 <option>Structural Steel Design</option>
@@ -160,7 +160,7 @@
                 :aria-invalid="errors.message ? 'true' : 'false'"
                 :aria-describedby="errors.message ? 'message-error' : undefined"
                 rows="5"
-                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors resize-none"
+                class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50 resize-none"
                 :class="errors.message ? 'border-red-500' : 'border-neutral-300'"
                 placeholder="Tell us about your project..."
               ></textarea>
