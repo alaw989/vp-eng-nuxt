@@ -9,7 +9,7 @@
  */
 
 import sharp from 'sharp'
-import { existsSync, mkdirSync } from 'fs'
+import { existsSync, mkdirSync, statSync } from 'fs'
 import { join } from 'path'
 
 const inputDir = './public/images'
@@ -22,9 +22,20 @@ const TARGET_HEIGHT = 1000 // 4:5 aspect ratio
 const MOBILE_WIDTH = 640
 const MOBILE_HEIGHT = 800 // 4:5 aspect ratio
 
-// Quality settings (from Phase 3 context)
-const WEBP_QUALITY = 85
-const JPG_QUALITY = 85
+// Quality settings - adaptive based on source image size
+const DEFAULT_WEBP_QUALITY = 85
+const DEFAULT_JPG_QUALITY = 85
+const AGGRESSIVE_WEBP_QUALITY = 55
+const AGGRESSIVE_JPG_QUALITY = 55
+
+// Large photo threshold (use aggressive quality)
+const LARGE_PHOTO_THRESHOLD = 300 * 1024 // 300KB
+
+// Very large photo threshold (use ultra aggressive quality and smaller dimensions)
+const VERY_LARGE_PHOTO_THRESHOLD = 200 * 1024 // 200KB
+
+// Ultra aggressive dimension multiplier for very large photos
+const ULTRA_DIMENSION_MULTIPLIER = 0.65 // 35% reduction (520x650)
 
 interface PhotoResult {
   photo: string
@@ -53,37 +64,77 @@ async function optimizeTeamPhotos(): Promise<void> {
 
     console.log(`Processing ${photo}...`)
 
-    // Get metadata
+    // Get metadata and file size
     const metadata = await sharp(inputPath).metadata()
-    const originalSize = (await sharp(inputPath).metadata()).size || 0
+    const originalSize = statSync(inputPath).size
 
     console.log(`  Original: ${metadata.width}x${metadata.height}, ${(originalSize / 1024).toFixed(1)}KB`)
 
+    // Determine quality settings based on original file size
+    const useAggressiveQuality = originalSize > VERY_LARGE_PHOTO_THRESHOLD
+    const webpQuality = useAggressiveQuality ? AGGRESSIVE_WEBP_QUALITY : DEFAULT_WEBP_QUALITY
+    const jpgQuality = useAggressiveQuality ? AGGRESSIVE_JPG_QUALITY : DEFAULT_JPG_QUALITY
+
+    // For very large photos, also reduce target dimensions
+    let dimensionMultiplier = 1.0
+    if (useAggressiveQuality) {
+      console.log(`  Using aggressive quality (${webpQuality}/${jpgQuality}) for large source photo`)
+      dimensionMultiplier = ULTRA_DIMENSION_MULTIPLIER // Reduce dimensions by 35%
+    }
+
+    // Calculate actual target dimensions based on source size
+    // Don't upscale small images - use max of source or target, maintaining 4:5
+    let targetWidth = TARGET_WIDTH
+    let targetHeight = TARGET_HEIGHT
+    let mobileWidth = MOBILE_WIDTH
+    let mobileHeight = MOBILE_HEIGHT
+
+    // If source is smaller than target, use source dimensions (no upscaling)
+    if (metadata.width && metadata.width < TARGET_WIDTH && !useAggressiveQuality) {
+      targetWidth = metadata.width
+      targetHeight = Math.round(targetWidth / 0.8) // Maintain 4:5
+      console.log(`  Source smaller than target - using ${targetWidth}x${targetHeight} (no upscaling)`)
+    } else if (useAggressiveQuality) {
+      // For large photos, reduce target dimensions even more for 800w variant
+      // Use 0.5 multiplier (400x500) for 800w to meet 50KB target
+      targetWidth = Math.round(TARGET_WIDTH * 0.5) // 400px
+      targetHeight = Math.round(TARGET_HEIGHT * 0.5) // 500px
+      console.log(`  Using ultra-reduced dimensions ${targetWidth}x${targetHeight} for large source (800w variant)`)
+    }
+
+    if (metadata.width && metadata.width < MOBILE_WIDTH && !useAggressiveQuality) {
+      mobileWidth = metadata.width
+      mobileHeight = Math.round(mobileWidth / 0.8) // Maintain 4:5
+    } else if (useAggressiveQuality) {
+      // For mobile, use the dimensionMultiplier (0.65 = 416x520)
+      mobileWidth = Math.round(MOBILE_WIDTH * dimensionMultiplier)
+      mobileHeight = Math.round(MOBILE_HEIGHT * dimensionMultiplier)
+      console.log(`  Using reduced dimensions ${mobileWidth}x${mobileHeight} for large source (640w variant)`)
+    }
+
     // Generate 800w variants (desktop)
-    const image800 = sharp(inputPath).resize(TARGET_WIDTH, TARGET_HEIGHT, {
+    const image800 = sharp(inputPath).resize(targetWidth, targetHeight, {
       fit: 'cover',
-      position: 'center',
-      withoutEnlargement: true // From Phase 3 context
+      position: 'center'
     })
 
     const webp800Path = join(outputDir, `${outputName}-800w.webp`)
     const jpg800Path = join(outputDir, `${outputName}-800w.jpg`)
 
-    await image800.clone().webp({ quality: WEBP_QUALITY }).toFile(webp800Path)
-    await image800.clone().jpeg({ quality: JPG_QUALITY }).toFile(jpg800Path)
+    await image800.clone().webp({ quality: webpQuality, smartSubsample: true }).toFile(webp800Path)
+    await image800.clone().jpeg({ quality: jpgQuality, progressive: true }).toFile(jpg800Path)
 
     // Generate 640w variants (mobile)
-    const image640 = sharp(inputPath).resize(MOBILE_WIDTH, MOBILE_HEIGHT, {
+    const image640 = sharp(inputPath).resize(mobileWidth, mobileHeight, {
       fit: 'cover',
-      position: 'center',
-      withoutEnlargement: true
+      position: 'center'
     })
 
     const webp640Path = join(outputDir, `${outputName}-640w.webp`)
     const jpg640Path = join(outputDir, `${outputName}-640w.jpg`)
 
-    await image640.clone().webp({ quality: WEBP_QUALITY }).toFile(webp640Path)
-    await image640.clone().jpeg({ quality: JPG_QUALITY }).toFile(jpg640Path)
+    await image640.clone().webp({ quality: webpQuality, smartSubsample: true }).toFile(webp640Path)
+    await image640.clone().jpeg({ quality: jpgQuality, progressive: true }).toFile(jpg640Path)
 
     // Get output file sizes
     const webp800Size = (await sharp(webp800Path).metadata()).size || 0

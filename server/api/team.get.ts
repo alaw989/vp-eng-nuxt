@@ -6,6 +6,7 @@
 const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
 
 // Static fallback team members when API is unavailable
+// Photos point to optimized variants in /images/team/ directory (Phase 9: 09-02)
 const staticTeam = [
   {
     title: { rendered: 'Vincent P. Rodriguez, P.E.' },
@@ -14,7 +15,7 @@ const staticTeam = [
       bio: 'Founder and principal engineer with 35+ years of structural engineering experience. Licensed in Florida and multiple states. Specializes in complex commercial and marine structures.',
       email: 'vincent@vp-associates.com',
       phone: '+18135551201',
-      photo: '/images/team-1.jpg',
+      photo: '/images/team/team-1-800w.webp',
     }
   },
   {
@@ -24,7 +25,7 @@ const staticTeam = [
       bio: '20+ years of experience in structural design and project management. Expert in concrete and masonry design. Leads our commercial development projects.',
       email: 'jennifer@vp-associates.com',
       phone: '+18135551202',
-      photo: '/images/team-2.jpg',
+      photo: '/images/team/team-2-800w.webp',
     }
   },
   {
@@ -34,7 +35,7 @@ const staticTeam = [
       bio: '15+ years specializing in steel connection design and detailing. SDS2 expert and BIM specialist. Manages our industrial and marine projects.',
       email: 'david@vp-associates.com',
       phone: '+18135551203',
-      photo: '/images/team-3.jpg',
+      photo: '/images/team/team-3-800w.webp',
     }
   },
   {
@@ -44,7 +45,7 @@ const staticTeam = [
       bio: '12+ years in structural engineering with focus on residential and light commercial projects. Expert in foundation design and seawall structures.',
       email: 'sarah@vp-associates.com',
       phone: '+18135551204',
-      photo: '/images/team-4.jpg',
+      photo: '/images/team/team-4-800w.webp',
     }
   }
 ]
