@@ -85,7 +85,7 @@
         <div
           v-for="position in positions"
           :key="position.id"
-          class="border border-neutral-200 rounded-xl p-6 hover:border-primary hover:shadow-md transition-all"
+          class="border border-neutral-200 rounded-xl p-6 hover:border-primary hover:shadow-md hover:-translate-y-1 transition-all duration-300"
         >
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div class="flex-1">
@@ -115,12 +115,12 @@
               </div>
             </div>
             <div class="flex items-center gap-3">
-              <span v-if="position.department" class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">
+              <span v-if="position.department" class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold hover:bg-primary/20 transition-colors duration-200">
                 {{ position.department }}
               </span>
               <NuxtLink
                 :to="`/careers/${position.slug}`"
-                class="px-6 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors inline-flex items-center gap-2"
+                class="px-6 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 View Details
                 <Icon name="mdi:arrow-right" class="w-4 h-4" />
