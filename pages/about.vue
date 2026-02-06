@@ -36,18 +36,18 @@
             We combine deep technical expertise with practical construction knowledge to deliver designs that are not only code-compliant and safe, but also buildable and cost-effective.
           </p>
           <div class="flex items-center gap-4">
-            <div class="text-center">
-              <div class="text-4xl font-bold text-primary">30+</div>
+            <div class="text-center group cursor-default">
+              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">30+</div>
               <div class="text-sm text-neutral-600">Years in Business</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
-            <div class="text-center">
-              <div class="text-4xl font-bold text-primary">500+</div>
+            <div class="text-center group cursor-default">
+              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">500+</div>
               <div class="text-sm text-neutral-600">Projects Completed</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
-            <div class="text-center">
-              <div class="text-4xl font-bold text-primary">100%</div>
+            <div class="text-center group cursor-default">
+              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">100%</div>
               <div class="text-sm text-neutral-600">Code Compliance</div>
             </div>
           </div>
@@ -72,9 +72,9 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200">
+        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
           <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-            <Icon name="mdi:shield-check" class="w-8 h-8 text-primary" />
+            <Icon name="mdi:shield-check" class="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Safety First</h3>
           <p class="text-neutral-600">
@@ -82,9 +82,9 @@
           </p>
         </div>
 
-        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200">
+        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
           <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-            <Icon name="mdi:lightbulb" class="w-8 h-8 text-primary" />
+            <Icon name="mdi:lightbulb" class="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Innovation</h3>
           <p class="text-neutral-600">
@@ -92,9 +92,9 @@
           </p>
         </div>
 
-        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200">
+        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
           <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-            <Icon name="mdi:handshake" class="w-8 h-8 text-primary" />
+            <Icon name="mdi:handshake" class="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Client Service</h3>
           <p class="text-neutral-600">
@@ -161,7 +161,7 @@
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div v-for="cert in certifications" :key="cert" class="bg-white rounded-lg p-6 flex items-center justify-center shadow-md">
+        <div v-for="cert in certifications" :key="cert" class="bg-white rounded-lg p-6 flex items-center justify-center shadow-md hover:shadow-lg hover:border-primary border border-transparent transition-all duration-300">
           <div class="text-center">
             <Icon name="mdi:certificate" class="w-12 h-12 text-primary mx-auto mb-2" />
             <div class="font-semibold text-neutral-900 text-sm">{{ cert }}</div>
