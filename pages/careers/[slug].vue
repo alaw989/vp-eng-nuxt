@@ -38,10 +38,10 @@
         <div class="container text-white">
           <div class="max-w-4xl">
             <div class="flex flex-wrap items-center gap-3 mb-4">
-              <span v-if="position.department" class="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">
+              <span v-if="position.department" class="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold hover:bg-white/30 transition-colors duration-200">
                 {{ position.department }}
               </span>
-              <span class="px-3 py-1 bg-secondary rounded-full text-sm font-semibold">
+              <span class="px-3 py-1 bg-secondary rounded-full text-sm font-semibold hover:bg-secondary/80 transition-colors duration-200">
                 {{ position.type }}
               </span>
             </div>
@@ -131,26 +131,26 @@
           <div class="lg:col-span-1">
             <div class="sticky top-24 space-y-6">
               <!-- Quick Info Card -->
-              <div class="bg-neutral-50 rounded-xl p-6">
+              <div class="bg-neutral-50 rounded-xl p-6 shadow-sm">
                 <h3 class="font-bold text-neutral-900 mb-4">Position Details</h3>
                 <dl class="space-y-3">
-                  <div v-if="position.department">
+                  <div v-if="position.department" class="border-b border-neutral-200 pb-3 last:border-0 last:pb-0">
                     <dt class="text-sm text-neutral-500">Department</dt>
                     <dd class="font-semibold text-neutral-900">{{ position.department }}</dd>
                   </div>
-                  <div>
+                  <div class="border-b border-neutral-200 pb-3 last:border-0 last:pb-0">
                     <dt class="text-sm text-neutral-500">Employment Type</dt>
                     <dd class="font-semibold text-neutral-900">{{ position.type }}</dd>
                   </div>
-                  <div>
+                  <div class="border-b border-neutral-200 pb-3 last:border-0 last:pb-0">
                     <dt class="text-sm text-neutral-500">Location</dt>
                     <dd class="font-semibold text-neutral-900">{{ position.location }}</dd>
                   </div>
-                  <div v-if="position.experience">
+                  <div v-if="position.experience" class="border-b border-neutral-200 pb-3 last:border-0 last:pb-0">
                     <dt class="text-sm text-neutral-500">Experience Required</dt>
                     <dd class="font-semibold text-neutral-900">{{ position.experience }}</dd>
                   </div>
-                  <div v-if="position.salary">
+                  <div v-if="position.salary" class="border-b border-neutral-200 pb-3 last:border-0 last:pb-0">
                     <dt class="text-sm text-neutral-500">Salary Range</dt>
                     <dd class="font-semibold text-neutral-900">{{ position.salary }}</dd>
                   </div>
@@ -165,7 +165,7 @@
                 </p>
                 <NuxtLink
                   to="/contact"
-                  class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
+                  class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                 >
                   Apply Now
                   <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -223,7 +223,7 @@
           <div
             v-for="relatedPosition in relatedPositions"
             :key="relatedPosition.slug"
-            class="bg-white rounded-xl p-6 border border-neutral-200 hover:border-primary hover:shadow-md transition-all"
+            class="bg-white rounded-xl p-6 border border-neutral-200 hover:border-primary hover:shadow-md transition-all duration-300 hover:-translate-y-1"
           >
             <div class="flex items-start gap-3 mb-4">
               <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -243,7 +243,7 @@
             </div>
             <NuxtLink
               :to="`/careers/${relatedPosition.slug}`"
-              class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
+              class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all duration-200"
             >
               View Details
               <Icon name="mdi:arrow-right" class="w-4 h-4" />
