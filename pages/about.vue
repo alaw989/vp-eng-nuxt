@@ -266,7 +266,7 @@ const leadership = computed(() => {
     bio: member.acf?.bio || 'Professional structural engineer',
     email: member.acf?.email || 'info@vp-associates.com',
     phone: member.acf?.phone || '+18135551234',
-    photo: member.acf?.photo || '/images/team-1.jpg',
+    photo: member.acf?.photo || '/images/team/team-1-800w.webp',
   }))
 })
 
