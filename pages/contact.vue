@@ -311,9 +311,9 @@
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div v-for="area in serviceAreas" :key="area" class="bg-white rounded-lg p-4 text-center shadow-sm">
+        <div v-for="area in serviceAreas" :key="area" class="bg-white rounded-lg p-4 text-center shadow-sm border border-transparent hover:shadow-md hover:-translate-y-1 hover:border-primary transition-all duration-300">
           <Icon name="mdi:map-marker" class="w-6 h-6 text-primary mx-auto mb-2" />
-          <div class="font-medium text-neutral-900">{{ area }}</div>
+          <div class="font-medium text-neutral-900 hover:text-primary transition-colors duration-300">{{ area }}</div>
         </div>
       </div>
     </AppSection>
