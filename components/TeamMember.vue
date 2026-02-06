@@ -8,10 +8,11 @@
         :alt="`${name}, ${title}${bio ? ' - VP Associates team member' : ''}`"
         class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
         format="webp"
+        quality="85"
         loading="lazy"
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-        width="400"
-        height="500"
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        width="800"
+        height="1000"
         placeholder
       />
       <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20">
