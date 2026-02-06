@@ -192,13 +192,13 @@ Plans:
   3. Careers listing page shows open positions with proper formatting
   4. Individual job pages display full descriptions with apply functionality
   5. Visual comparison shows no regressions from live site baseline
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 10-01: Contact form styling and validation fixes
-- [ ] 10-02: Contact information display and map integration
-- [ ] 10-03: Careers listing and job detail page styling
-- [ ] 10-04: Visual comparison and final QA verification
+- [ ] 10-01-PLAN.md — Contact form styling and validation fixes with hover effects and focus states
+- [ ] 10-02-PLAN.md — Contact information display and map integration polish
+- [ ] 10-03-PLAN.md — Careers listing and job detail page styling with hover effects
+- [ ] 10-04-PLAN.md — Visual comparison and final QA verification with screenshots
 
 ## Progress
 
