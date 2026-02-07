@@ -84,6 +84,28 @@
   }
 }
 
+/* High contrast focus indicators for keyboard navigation (WCAG AA) */
+*,
+*::before,
+*::after {
+  &:focus-visible {
+    outline: 2px solid rgb(30 64 175); /* primary color - high contrast */
+    outline-offset: 2px;
+  }
+}
+
+/* Don't show focus ring on mouse click */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ensure skip link focus is very visible */
+.focus\:not-sr-only:focus {
+  outline: 3px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgb(30 64 175);
+}
+
 /* Page transition styles - Enhanced with scale and fade */
 .page-enter-active {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
