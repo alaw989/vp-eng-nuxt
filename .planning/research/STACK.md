@@ -1,293 +1,355 @@
-# Stack Research
+# Technology Stack: Performance Optimization
 
-**Domain:** Website Modernization & Migration Tools
-**Researched:** 2026-02-04
-**Confidence:** HIGH
+**Project:** VP Associates Website v1.1
+**Dimension:** Stack additions/changes for 90+ Lighthouse scores
+**Researched:** 2026-02-06
+**Overall Confidence:** HIGH
 
-## Current Stack (Existing Nuxt 3 Application)
+---
 
-### Frontend Framework
+## Executive Summary
 
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **Nuxt 3** | 3.14+ | Full-stack Vue framework | SSR/SSG hybrid, file-based routing, auto-imports |
-| **Vue 3** | Latest (via Nuxt) | UI framework | Composition API, reactivity system |
-| **TypeScript** | 5.x | Type safety | Catch errors at build time, better DX |
-| **Vite** | Bundled (via Nuxt) | Build tool | Fast HMR, optimized production builds |
+The existing Nuxt 3 stack is well-positioned for 90+ Lighthouse scores. **No major framework changes needed.** The path to 90+ focuses on:
 
-#### Why This Stack:
-- **Nuxt 3**: Modern Vue framework with excellent SEO, SSR capabilities, and zero-config TypeScript
-- **Stable**: Nuxt 3 reached stable release, production-ready
-- **Performance**: Built on Vite for fast development and optimized production builds
+1. **Bundle analysis and optimization** (rollup-plugin-visualizer)
+2. **Critical CSS inlining** (@nuxtjs/critters - replaces need for separate purgeCSS)
+3. **Performance testing automation** (unlighthouse)
+4. **Configuration refinements** (NuxtLink prefetch, image loading strategies)
+5. **Optional: Font self-hosting** for 200-300ms improvement (LOW priority given effort)
 
-### Styling & UI
+---
 
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **Tailwind CSS** | 3.x | Utility-first CSS | Rapid styling, consistent design system, responsive utilities |
-| **@nuxtjs/tailwindcss** | Latest | Nuxt Tailwind module | Auto-imports, optimized for Nuxt, purging in production |
-| **PostCSS** | 8.x | CSS processing | Tailwind dependency, autoprefixing, minification |
+## Current Stack (No Changes Needed)
 
-#### Why This Stack:
-- **Tailwind CSS**: Industry standard for utility-first CSS, excellent documentation, small production bundle after purging
-- **Integrated**: @nuxtjs/tailwindcss module provides seamless Nuxt integration with auto-imports
+| Technology | Version | Status for 90+ Lighthouse |
+|------------|---------|---------------------------|
+| Nuxt | 3.15.0 | Already optimal - SSR/SSG hybrid, Nitro engine |
+| @nuxt/image | 2.0.0 | Already optimal - WebP/AVIF, responsive |
+| @vite-pwa/nuxt | 1.1.0 | Already optimal - Workbox caching configured |
+| Tailwind CSS | 3.x (via @nuxtjs/tailwindcss) | Already optimal - JIT, minimal CSS |
+| TypeScript | 5.7.3 | No performance impact, keep for safety |
+| Pinia | 0.5.5 | Minimal state, no issues |
 
-### Image Optimization
+---
 
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **@nuxt/image** | Latest | Image optimization | Runtime optimization, format conversion, responsive images |
-| **Format Support** | webp, avif, jpg | Modern formats | WebP/AVIF for smaller sizes, JPG fallback |
+## Recommended Additions
 
-#### Why This Stack:
-- **@nuxt/image**: Native Nuxt integration, uses IPX for runtime optimization, supports external CDNs
-- **Format Support**: WebP/AVIF provide 20-30% size reduction over JPG with same quality
-- **Configured**: Already set up in nuxt.config.ts with format array
+### 1. Bundle Analysis: `rollup-plugin-visualizer`
 
-### PWA & Offline Support
+**Purpose:** Visualize bundle composition, identify oversized chunks, measure optimization impact.
 
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **@vite-pwa/nuxt** | Latest | PWA functionality | Service worker, manifest, offline support, install prompts |
-| **Workbox** | Via PWA module | Caching strategy | Precaching, runtime caching, offline fallbacks |
+**Version:** 6.0.5 (latest as of July 2025)
 
-#### Why This Stack:
-- **@vite-pwa/nuxt**: Official PWA module for Vite/Nuxt, mature and actively maintained
-- **Feature-complete**: Service worker generation, manifest auto-generation, update prompts
+**Why:**
+- Essential for data-driven optimization decisions
+- Integrates directly with Vite (Nuxt's build tool)
+- Generates treemap visualizations showing dependency sizes
+- Cannot optimize what you cannot measure
 
-### Content Management
-
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **WordPress REST API** | wp/v2 | Headless CMS | Content management, non-technical editors, existing content |
-| **@nuxtjs/strapi** | NOT USED | Alternative CMS | WordPress already chosen |
-
-#### Why This Stack:
-- **WordPress**: Industry-standard CMS, user-friendly for content editors, mature REST API
-- **Headless**: Decouples content from presentation, enables modern frontend, improves security
-- **API Endpoint**: https://www.vp-associates.com/wp-json/wp/v2
-
-### SEO & Meta Tags
-
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **@nuxtjs/seo** | NOT USED | Meta tags | Custom implementation via usePageMeta composable |
-| **@nuxtjs/sitemap** | Latest | Sitemap generation | Dynamic sitemap, automatic route discovery |
-| **Schema.org** | Custom | Structured data | JSON-LD for rich snippets |
-
-#### Why This Stack:
-- **Custom usePageMeta**: More control than SEO module, centralized meta tag management
-- **@nuxtjs/sitemap**: Automatic sitemap generation from Nuxt pages, lastmod timestamps
-
-### Analytics
-
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **Google Analytics 4** | Optional | User analytics | Industry standard, free tier sufficient |
-| **Custom Composable** | useAnalytics.ts | Event tracking | Consistent event tracking interface |
-
-#### Why This Stack:
-- **GA4**: Latest Google Analytics, event-based model, better privacy controls
-- **Optional**: Analytics gated behind NUXT_PUBLIC_GA_MEASUREMENT_ID environment variable
-
-### Development Tools
-
-| Component | Version | Purpose | Rationale |
-|-----------|---------|---------|-----------|
-| **ESLint** | NOT CONFIGURED | Linting | Not currently set up |
-| **Prettier** | Via Nuxt auto-format | Code formatting | Consistent formatting, zero-config |
-| **TypeScript** | Strict mode | Type checking | Catch errors early, better IDE support |
-
-#### Gaps:
-- **No testing framework**: No Vitest, Jest, or Playwright configured
-- **No linter**: No ESLint for code quality
-- **No pre-commit hooks**: No husky or lint-staged for git hooks
-
-## Tools for Website Modernization (New Recommendations)
-
-### Visual Regression Testing
-
-| Tool | Version | Use Case | Confidence | Notes |
-|------|---------|----------|------------|-------|
-| **Playwright** | Latest (1.40+) | Screenshot comparison, E2E | HIGH | Built-in visual assertions, cross-browser |
-| **@playwright/test** | Latest | Test runner | HIGH | Official Playwright test runner |
-| **pixelmatch** | Latest | Pixel diffing | HIGH | Lightweight image comparison library |
-| **resemblejs** | Latest | Image comparison | MEDIUM | Alternative to pixelmatch |
-
-#### Why Playwright:
-- **Native Visual Testing**: Built-in `expect(page).toHaveScreenshot()` for visual regression
-- **Cross-Browser**: Test on Chrome, Firefox, WebKit simultaneously
-- **Active Development**: Microsoft-backed, frequent updates, excellent docs
-- **Nuxt Integration**: Works with Nuxt 3 via `@nuxt/test-utils` or standalone
-
-#### Alternatives Considered:
-- **BackstopJS**: Mature but less active development, more complex setup
-- **Percy/Chromatic**: Excellent tools but expensive SaaS pricing
-- **Jest-Image-Snapshot**: Good for Jest projects, but Playwright more flexible
-
-### Site Comparison & Scraping
-
-| Tool | Version | Use Case | Confidence | Notes |
-|------|---------|----------|------------|-------|
-| **Cheerio** | Latest | HTML parsing, static scraping | HIGH | Fast, jQuery-like API, great for static sites |
-| **Axios** | Latest (1.7+) | HTTP requests, image download | HIGH | Promise-based, interceptors, good error handling |
-| **Playwright** | Latest | Dynamic content, screenshots | HIGH | Browser automation, handles JavaScript rendering |
-| **Puppeteer** | Latest | Alternative to Playwright | MEDIUM | Good but Playwright has better multi-browser support |
-| **fs-extra** | Latest | File system operations | HIGH | Convenient file operations, promises API |
-
-#### Why Cheerio + Axios for Scraping:
-- **Cheerio**: Fast HTML parsing, jQuery syntax (familiar to many developers), lightweight
-- **Axios**: Reliable HTTP client, supports streams for large files, good timeout handling
-- **Combination**: Proven pattern for static sites, sufficient for vp-associates.com
-- **Alternative**: Playwright if site uses heavy JavaScript rendering
-
-#### Image Download Strategy:
-```javascript
-// Recommended approach
-1. Axios + Cheerio for static image discovery (parse <img> src attributes)
-2. Axios download streams for bulk image saving
-3. Preserve directory structure or flatten as needed
-4. Add rate limiting to respect server (1-2 second delays)
-```
-
-### HTML Diff & Comparison
-
-| Tool | Version | Use Case | Confidence | Notes |
-|------|---------|----------|------------|-------|
-| **diffhtml** (npm) | Latest | HTML structure comparison | MEDIUM | Semantic HTML diffing |
-| **@playwright/test** | Latest | Side-by-side screenshots | HIGH | Visual comparison, not HTML |
-| **Custom implementation** | - | DOM structure comparison | HIGH | Parse HTML, compare semantic elements (h1-h6, nav, main, footer) |
-
-#### Why Custom Implementation:
-- **Limited good options**: Most HTML diff tools are unmaintained (html-diff last update 2019)
-- **Simple requirement**: Compare semantic HTML structure, not character-level diff
-- **Playwright alternative**: Visual comparison more important than HTML diffing
-
-### Link Checking
-
-| Tool | Version | Use Case | Confidence | Notes |
-|------|---------|----------|------------|-------|
-| **Custom fetch-based** | - | Internal link validation | HIGH | Simple HTTP HEAD requests, check status codes |
-| **axios** | Latest | HTTP client for link checking | HIGH | Already dependency, supports promises |
-
-#### Why Custom Implementation:
-- **Overkill to use full tools**: Simple fetch/axios sufficient for internal links
-- **Rate limiting**: Manual control over request rate
-- **External links**: Optional due to rate limiting concerns
-
-## Tools NOT to Use
-
-| Tool | Why Not to Use | Alternative |
-|------|----------------|-------------|
-| **html-diff** (npm package) | Last updated 2019, unmaintained | Custom DOM comparison or visual diff |
-| **Wget** | Gets messy with relative paths, downloads wrong assets | Targeted Playwright/Cheerio extraction |
-| **HTTrack** | Overkill for asset extraction, too many files | Focus on images only, not full mirroring |
-| **Screaming Frog** | Paid for full features, overkill | Simple custom link checker |
-| **CSS extraction tools** | Lose semantics, create unmaintainable code | Rewrite from design tokens |
-
-## Recommended Additions for This Project
-
-### For Visual Regression & Comparison
-
+**Installation:**
 ```bash
-npm install -D @playwright/test
-npm install -D pixelmatch
+npm install -D rollup-plugin-visualizer
 ```
 
-**Configuration needed:**
-- Playwright config for Nuxt 3 integration
-- Screenshot baseline storage
-- Diff threshold configuration
+**Configuration (nuxt.config.ts):**
+```typescript
+vite: {
+  plugins: [
+    visualizer({
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+      filename: '.output/stats.html'
+    })
+  ]
+}
+```
 
-### For Image Migration
+**When to use:** Run once before optimization, after each major change, and for final validation.
 
+---
+
+### 2. Critical CSS Inlining: `@nuxtjs/critters`
+
+**Purpose:** Extract and inline critical above-the-fold CSS, defer non-critical CSS, remove unused CSS.
+
+**Version:** Latest (see npm for current)
+
+**Why:**
+- Eliminates render-blocking CSS (major Lighthouse Performance factor)
+- Built-in PurgeCSS integration removes unused styles
+- Zero-configuration - works automatically with Nitro prerendering
+- Specific to Nuxt 3's architecture
+
+**Installation:**
 ```bash
-npm install cheerio axios
-npm install -D fs-extra
+npm install -D @nuxtjs/critters
 ```
 
-**Usage:**
-- Create utility script in `/scripts/migrate-images.ts`
-- Extract image URLs from vp-associates.com
-- Download to `public/images/` organized by section
-- Generate mapping file for reference
+**Configuration (nuxt.config.ts):**
+```typescript
+modules: ['@nuxtjs/critters'],
+critters: {
+  purgeCSS: true,  // Remove unused CSS
+  preload: 'swap'  // Don't block rendering
+}
+```
 
-### For Link Checking
+**Expected Impact:** 10-20 point improvement in Performance score by eliminating render-blocking resources.
 
+---
+
+### 3. Performance Testing: `unlighthouse`
+
+**Purpose:** Automated Lighthouse auditing across all pages with CI integration.
+
+**Version:** Latest (actively maintained)
+
+**Why:**
+- CI/CD integration ensures regressions are caught
+- Site-wide crawling catches page-specific issues
+- Budget assertions enforce performance standards
+- Official Nuxt integration available
+
+**Installation:**
 ```bash
-# No additional dependencies needed
-# Use existing `ofetch` or add axios if preferred
+npm install -D unlighthouse
 ```
 
-**Implementation:**
-- Server API route or standalone script
-- Crawl sitemap.xml for page list
-- Check internal links return 200 OK
-- Generate broken link report
-
-### For Testing (Future Addition)
-
-```bash
-npm install -D vitest @nuxt/test-utils
-npm install -D @playwright/test
-```
-
-**Priority:** P2 - Add when ready to implement test coverage
-
-## Dependency Versions (From package.json)
-
-**Current Dependencies:**
-```json
-{
-  "dependencies": {
-    "@nuxt/image": "^3.0.0",
-    "@nuxtjs/strapi": "^1.11.0",
-    "@nuxtjs/tailwindcss": "^6.12.1",
-    "@nuxtjs/sitemap": "^7.0.0",
-    "@vite-pwa/nuxt": "^0.10.5",
-    "nuxt": "^3.15.2"
+**Configuration (nuxt.config.ts):**
+```typescript
+modules: ['unlighthouse'],
+unlighthouse: {
+  domFlow: true,  // Analyze DOM for critical path
+  budget: {
+    scores: {
+      performance: 90,
+      accessibility: 90,
+      bestPractices: 90,
+      seo: 90
+    }
   }
 }
 ```
 
-**All versions are current as of 2026-02-04.**
+**Usage:**
+```bash
+npx unlighthouse --site https://vp-associates.com
+```
 
-## Stack Quality Metrics
+**Sources:**
+- [Unlighthouse Official](https://unlighthouse.dev/)
+- [Nuxt Integration Guide](https://unlighthouse.dev/integrations/nuxt)
 
-| Metric | Score | Notes |
-|--------|-------|-------|
-| **Current Stack Maturity** | 9/10 | Nuxt 3 is production-ready, all modules stable |
-| **Community Support** | 10/10 | Large communities for Nuxt, Vue, Tailwind, WordPress |
-| **Documentation Quality** | 10/10 | Excellent docs for all major components |
-| **Long-term Viability** | 9/10 | Strong corporate backing (Nuxt Labs, Vue core team) |
-| **Talent Availability** | 9/10 | Vue/Nuxt developers widely available |
-| **Learning Curve** | 7/10 | Moderate - Nuxt conventions, composable patterns |
+---
 
-## Migration-Specific Tools
+## Configuration Optimizations (No New Dependencies)
 
-For systematic website modernization, this project needs tools beyond standard web development:
+### 1. NuxtLink Prefetch Control
 
-| Category | Tool Choice | Rationale |
-|----------|------------|-----------|
-| **Screenshot Capture** | Playwright | Programmatic control, multi-viewport, integrated testing |
-| **Image Download** | Axios + Cheerio | Lightweight, sufficient for static content, easy to script |
-| **Visual Diff** | Playwright built-in or pixelmatch | Native visual assertions, or proven library |
-| **Link Validation** | Custom fetch/axios | Simple HTTP status checks, no complex tooling needed |
-| **HTML Structure Comparison** | Custom DOM parsing | Semantic comparison (h1-h6, nav, main), not character diff |
+**Current Behavior:** All NuxtLink components prefetch via Intersection Observer by default.
+
+**Issue:** Aggressive prefetching can spike bandwidth and affect Lighthouse "unused JavaScript" metrics.
+
+**Recommendation:** Selective prefetching based on user likelihood.
+
+**Implementation:**
+```vue
+<!-- Keep prefetching for high-likelihood navigation (default) -->
+<NuxtLink to="/services">Services</NuxtLink>
+
+<!-- Disable for footer links, less common routes -->
+<NuxtLink to="/privacy" no-prefetch>Privacy</NuxtLink>
+```
+
+**Global Control (if needed):**
+```typescript
+// nuxt.config.ts
+router: {
+  options: {
+    prefetch: false  // Disable globally, use :prefetch="{ intention: 'hover' }" per-link
+  }
+}
+```
+
+**Sources:**
+- [NuxtLink Documentation](https://nuxt.com/docs/3.x/api/components/nuxt-link)
+- [Prefetch Optimization Guide](https://whoisarjen.com/blog/nuxt-disable-prefetch-save-costs)
+
+---
+
+### 2. Image Loading Strategy Refinement
+
+**Current State:** @nuxt/image with quality: 80, WebP/AVIF formats.
+
+**Missing:** Above-the-fold images should use `loading="eager"` to prevent LCP penalties.
+
+**Implementation:**
+```vue
+<!-- Hero images (above fold) -->
+<NuxtImg
+  src="/hero/berlin-structure.jpg"
+  loading="eager"
+  priority
+  width="1920"
+  height="1080"
+  format="webp"
+/>
+
+<!-- Below-fold content -->
+<NuxtImg
+  src="/projects/image.jpg"
+  loading="lazy"
+  placeholder="blur"  // Improves perceived performance
+/>
+```
+
+**Why:** Lighthouse penalizes lazy-loading above-the-fold content. This is a quick win for LCP scores.
+
+---
+
+### 3. Script Loading Optimization
+
+**Current State:** Scripts load via standard Nuxt behavior.
+
+**Opportunity:** Defer non-critical third-party scripts using `useHead`.
+
+**Implementation:**
+```typescript
+// In page or component setup
+useHead({
+  script: [
+    {
+      src: 'https://analytics.example.com/script.js',
+      defer: true,
+      tagPosition: 'bodyClose'  // Load after main content
+    }
+  ]
+})
+```
+
+**Alternative for complex third-party management:** `@nuxtjs/script` (not needed unless using many external scripts)
+
+---
+
+## Optional Additions (Lower Priority)
+
+### 4. Font Self-Hosting (200-300ms Improvement)
+
+**Current State:** Google Fonts via CDN with preconnect.
+
+**Issue:** External request adds ~200-300ms vs self-hosted WOFF2.
+
+**Recommendation:** LOWER PRIORITY - Only implement if needed to reach 90+ after other optimizations.
+
+**Why Lower Priority:**
+- Requires font subset generation
+- Ongoing maintenance burden
+- CDN provides automatic updates
+- Current preconnect configuration already optimized
+
+**If implementing:**
+1. Download WOFF2 variants of Inter and Roboto Condensed
+2. Add to `public/fonts/`
+3. Update CSS to use local fonts
+4. Remove Google Fonts links from nuxt.config.ts
+
+**Sources:**
+- [Self-Hosted vs Google Fonts 2025](https://www.frontendtools.tech/blog/modern-image-optimization-techniques-2025)
+
+---
+
+## What NOT to Add
+
+| Technology | Why Avoid |
+|------------|-----------|
+| Separate PurgeCSS module | @nuxtjs/critters includes it |
+| nuxt-compress/nuxt-precompress | Use server-level compression (nginx/vercel) for dynamic content |
+| Separate lazy-loading library | @nuxt/image already handles this |
+| Additional analytics libraries | Third-party scripts hurt performance |
+| vue-lazy-hydration | Adds complexity; hydration issues should be fixed at source |
+
+---
+
+## Installation Summary
+
+```bash
+# Core optimization tools
+npm install -D rollup-plugin-visualizer
+npm install -D @nuxtjs/critters
+npm install -D unlighthouse
+
+# No other dependencies needed
+```
+
+---
+
+## Updated nuxt.config.ts Structure
+
+```typescript
+export default defineNuxtConfig({
+  modules: [
+    '@nuxt/image',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/sitemap',
+    '@pinia/nuxt',
+    '@vueuse/nuxt',
+    '@nuxt/icon',
+    '@vite-pwa/nuxt',
+    '@nuxtjs/critters',  // NEW
+    'unlighthouse'        // NEW
+  ],
+
+  vite: {
+    plugins: [
+      // Bundle visualization (dev only)
+      visualizer({
+        open: false,
+        gzipSize: true,
+        brotliSize: true,
+        filename: '.output/stats.html'
+      })
+    ]
+  },
+
+  critters: {
+    purgeCSS: true,
+    preload: 'swap'
+  },
+
+  unlighthouse: {
+    domFlow: true,
+    budget: {
+      scores: {
+        performance: 90,
+        accessibility: 90,
+        bestPractices: 90,
+        seo: 90
+      }
+    }
+  }
+})
+```
+
+---
+
+## Phase Implementation Order
+
+1. **Phase 1: Measurement** - Add rollup-plugin-visualizer, establish baseline
+2. **Phase 2: Critical Path** - Add @nuxtjs/critters, fix image loading="eager"
+3. **Phase 3: Validation** - Add unlighthouse, configure budget assertions
+4. **Phase 4: Polish** - Refine prefetching, script loading (if needed)
+
+---
 
 ## Sources
 
-- [Playwright Visual Testing Documentation](https://playwright.dev/docs/test-snapshots) - Official docs (HIGH confidence)
-- [Web Scraping with Axios and Cheerio in 2025](https://roundproxies.com/blog/web-scraping-with-axios-and-cheerio/) - Round Proxies (MEDIUM confidence)
-- [Cheerio Web Scraping With Node.js - 2025 Guide](https://marsproxies.com/blog/cheerio-web-scraping/) - MarsProxies (MEDIUM confidence)
-- [Top 7 Visual Regression Testing Tools in 2025](https://katalon.com/resources-center/blog/visual-regression-testing-tools/) - Katalon (LOW-MEDIUM confidence)
-- [Top 12 Best Regression Testing Tools in 2025](https://testomat.io/blog/the-best-regression-testing-tools-in-2025/) - Testomat (LOW-MEDIUM confidence)
-- [Reg-suit Visual Regression Tool](https://github.com/reg-viz/reg-suit) - GitHub (MEDIUM confidence)
-- [Nuxt 3 Documentation](https://nuxt.com/docs) - Official docs (HIGH confidence)
-- [@nuxt/image Documentation](https://image.nuxt.com) - Official docs (HIGH confidence)
-- [Nuxt SEO Documentation](https://nuxt.com/docs/getting-started/seo) - Official docs (HIGH confidence)
-- [Website Migration Mistakes - Oncrawl](https://www.oncrawl.com/technical-seo/common-website-migration-mistakes-drag-down-seo-performance/) (HIGH confidence)
-
----
-*Stack research for: VP Associates Website Modernization*
-*Researched: 2026-02-04*
+- [Nuxt Performance Best Practices](https://nuxt.com/docs/3.x/guide/best-practices/performance) - HIGH confidence, official
+- [Unlighthouse Nuxt Integration](https://unlighthouse.dev/integrations/nuxt) - HIGH confidence, official
+- [Nitro Cache Documentation](https://nitro.build/guide/cache) - HIGH confidence, official
+- [@nuxtjs/critters GitHub](https://github.com/nuxt-modules/critters) - HIGH confidence, official
+- [rollup-plugin-visualizer npm](https://www.npmjs.com/package/rollup-plugin-visualizer) - HIGH confidence, official
+- [Self-Hosted vs Google Fonts Performance](https://www.frontendtools.tech/blog/modern-image-optimization-techniques-2025) - MEDIUM confidence, 2025 source
+- [Nuxt Link Prefetch Deep Dive](https://medium.com/@pepcorns/deep-dive-into-the-nuxt-link-component-b9e189866991) - MEDIUM confidence
+- [Critical CSS Inlining Guide](https://softwarehouse.au/blog/implementing-critical-css-inlining-for-above-the-fold-content/) - MEDIUM confidence
+- [Vite-PWA Nuxt Guide](https://marcusn.dev/articles/2024-12/nuxt-3-pwa) - HIGH confidence, official

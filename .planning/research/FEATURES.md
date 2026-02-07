@@ -1,348 +1,303 @@
-# Feature Research
+# Feature Research: Performance Optimization for 90+ Lighthouse Scores
 
-**Domain:** Website Modernization & Migration Tools
-**Researched:** 2026-02-04
-**Confidence:** MEDIUM
+**Domain:** Nuxt 3 Performance Optimization
+**Researched:** 2026-02-06
+**Confidence:** HIGH
 
 ## Feature Landscape
 
-### Table Stakes (Users Expect These)
+### Table Stakes (Required for 90+ Lighthouse)
 
-Features users assume exist. Missing these = product feels incomplete.
+Features required to achieve 90+ Lighthouse scores. Missing these = cannot reach target.
 
-#### Site Comparison Tools
+| Feature | Why Expected | Complexity | Lighthouse Impact | Notes |
+|---------|--------------|------------|-------------------|-------|
+| **Image Optimization** | Images account for 50%+ of page weight | LOW | Performance, LCP | Already using @nuxt/image - verify all images optimized |
+| **Critical CSS Inlining** | Eliminates render-blocking CSS | MEDIUM | Performance, LCP | Inline above-the-fold CSS only |
+| **Font Optimization** | Prevents FOIT/FOUT, reduces CLS | LOW | Performance, CLS | Use font-display: swap, preload critical fonts |
+| **Bundle Code Splitting** | Reduces initial JS payload | MEDIUM | Performance, FID/INP | Route-based splitting automatic, component-level manual |
+| **Compression (Brotli/Gzip)** | Reduces transfer size 60-80% | LOW | Performance | Nitro supports both, prefer Brotli |
+| **Cache Headers** | Enables browser caching | LOW | Performance | Static assets: immutable, HTML: short TTL |
+| **Preconnect/DNS-Prefetch** | Reduces connection latency | LOW | Performance | Already configured for fonts/iconify |
+| **Remove Unused CSS/JS** | Reduces payload size | MEDIUM | Performance | Use purgecss, analyze bundle |
+| **Minify HTML/CSS/JS** | Standard optimization | LOW | Performance | Built into Nuxt build |
+| **Third-Party Script Optimization** | Scripts block main thread | HIGH | Performance, FID/INP | Defer non-critical, consider Partytown |
+| **Lazy Loading Below-Fold** | Reduces initial payload | LOW | Performance, LCP | Images, components, iframes |
+| **Proper Image Sizing** | Prevents layout shift | LOW | CLS | Use width/height, aspect-ratio |
+| **Avoid Large Layout Shifts** | CLS is pass/fail metric | MEDIUM | CLS | Reserve space for dynamic content |
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| Visual Diff (Side-by-Side) | Before/after comparison is fundamental to migration QA | MEDIUM | Show old vs new site simultaneously |
-| Screenshot Capture | Need to capture state of pages for comparison | LOW | Can use Playwright/Puppeteer |
-| Cross-Viewport Testing | Responsive design issues are common in migrations | MEDIUM | Mobile, tablet, desktop breakpoints |
-| HTML Source Comparison | DOM structure validation is table stakes for rebuild projects | MEDIUM | Compare rendered HTML structure |
-| Link Validation (Internal) | Broken internal links are migration failure indicator | LOW | Check all links return 200 OK |
-| Link Validation (External) | External links must remain functional | LOW | Optional due to rate limiting concerns |
-| Page List Enumeration | Need to know all pages to test | LOW | Sitemap.xml or crawl |
+### Differentiators (Advanced Optimizations)
 
-#### Image Migration Tools
+Features that push scores from 90-95 to 95-100.
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| Bulk Image Download | Manual download of hundreds of images is not viable | LOW | wget, HTTrack, or custom crawler |
-| URL Extraction | Finding all image URLs in source site | LOW | Parse HTML, CSS, JSON responses |
-| Organized File Placement | Images need structured directory for new project | MEDIUM | Mirror source structure or reorganize |
-| Format Detection | Knowing source formats (jpg, png, svg) | LOW | Content-Type header or extension |
-| Basic Integrity Check | Verify downloads completed successfully | LOW | File size comparison, checksum |
+| Feature | Value Proposition | Complexity | Lighthouse Impact | Notes |
+|---------|-------------------|------------|-------------------|-------|
+| **Lazy Hydration** | Defers component hydration until interaction | HIGH | Performance, INP | Use defineLazyHydrationComponent for heavy components |
+| **Islands Architecture** | Interactive islands in static page | HIGH | Performance | Experimental in Nuxt 3 (.island.vue) |
+| **Edge Rendering** | Server closer to user | MEDIUM | Performance, LCP | Deploy to Cloudflare Workers, Vercel Edge |
+| **Server Components** | Zero client JS for server-only content | HIGH | Performance | Reduces bundle significantly |
+| **Advanced Script Loading** | Partytown for third-party scripts | HIGH | Performance, INP | Moves scripts to web workers |
+| **HTTP/2 Server Push** | Proactive resource delivery | MEDIUM | Performance | Less critical with H3 priority |
+| **Resource Hints Optimization** | Smart prefetch based on user behavior | MEDIUM | Performance | IntersectionObserver already used by NuxtLink |
+| **Speculative Rules API** | Chrome-level prefetch | MEDIUM | Performance | Newer browser API, Chrome-only |
+| **Early Hints** | Send resources while server processes | HIGH | Performance | Requires server support (103 Early Hints) |
+| **Client Component Boundaries** | Minimize hydration boundaries | MEDIUM | Performance | Strategic use of ClientOnly |
+| **Build-Time Optimization** | Static generation where possible | LOW | Performance | ISR for dynamic content |
+| **Performance Monitoring** | Real-user measurement | MEDIUM | N/A | RUM, Core Web Vitals API |
+| **Bundle Size Budgets** | Prevent regression | LOW | Performance | Set limits in build config |
+| **Tree Shaking** | Remove unused code | LOW | Performance | Automatic for ES modules |
+| **Module/Nitro Optimization** | Runtime performance | HIGH | Performance | Async context, route rules |
 
-#### QA Automation
+### Anti-Features (Avoid for Performance)
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| Screenshot Comparison | Pixel-level diff is core visual regression feature | MEDIUM | Baseline vs current comparison |
-| Diff Highlighting | Show where differences are located | MEDIUM | Visual overlay of changes |
-| CI/CD Integration | Testing needs to run in pipeline | MEDIUM | GitHub Actions, GitLab CI |
-| Test Report Generation | Need to review results | LOW | HTML or JSON output |
-| Pass/Fail Status | Clear indication of what needs attention | LOW | Threshold-based |
-
----
-
-### Differentiators (Competitive Advantage)
-
-Features that set the product apart. Not required, but valuable.
-
-#### Site Comparison Differentiators
-
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **AI-Powered Visual Analysis** | Distinguish "looks wrong" from "pixel different" | HIGH | LLM evaluation of screenshots |
-| **Section-by-Section Comparison** | Compare hero, content, footer independently | MEDIUM | DOM-based segmentation |
-| **Interactive Diff Viewer** | Hover to reveal old/new, slider comparison | MEDIUM | Better UX than static side-by-side |
-| **Change Aggregation** | Show all changes in single view | MEDIUM | Reduce review noise |
-| **Smart Ignore Rules** | Ignore dynamic content (dates, counters) | MEDIUM | Configurable selectors |
-| **Accessibility Diff** | Compare ARIA labels, semantic HTML | HIGH | Ensure accessibility not regressed |
-| **Performance Comparison** | Lighthouse scores before/after | MEDIUM | Optional but valuable |
-
-#### Image Migration Differentiators
-
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Automatic Format Conversion** | Convert to WebP/AVIF during migration | MEDIUM | @nuxt/image can handle this |
-| **Optimization During Import** | Reduce file sizes during migration | MEDIUM | Sharp, imagemin integration |
-| **Smart Naming** | Preserve meaningful names or generate SEO-friendly names | MEDIUM | Slugify, preserve context |
-| **Missing Asset Detection** | Identify images referenced but not found | LOW | 404 detection on download |
-| **Usage Mapping** | Track which images used where | HIGH | Build asset dependency graph |
-| **CDN Migration Detection** | Handle images already on CDN | MEDIUM | Skip or re-host decision |
-
-#### QA Automation Differentiators
-
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Self-Healing Tests** | Auto-update baselines for accepted changes | HIGH | ML-based change classification |
-| **Component-Level Diff** | Isolate changes to specific components | HIGH | Requires component identification |
-| **Multi-Browser Parallel Testing** | Test Chrome, Firefox, Safari simultaneously | MEDIUM | BrowserStack, Selenium Grid |
-| **Historical Trend Analysis** | Track visual changes over time | MEDIUM | Git history integration |
-| **SEO Comparison** | Compare meta tags, structured data, headings | MEDIUM | Critical for migration success |
-| **Analytics Integration** | Compare page views, bounce rates for validation | MEDIUM | Post-launch verification |
-
-#### AI-Powered Features (2026 Trend)
-
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Automated Fix Suggestions** | Suggest CSS/HTML to match visual appearance | HIGH | Requires LLM vision + code gen |
-| **Content Migration Validation** | Verify text content matches between sites | MEDIUM | NLP similarity comparison |
-| **Layout Shift Detection** | Identify CLS issues before production | MEDIUM | Web Vitals integration |
-| **Accessibility Auto-Fix** | Suggest ARIA improvements | HIGH | Difficult to get right |
-
----
-
-### Anti-Features (Commonly Requested, Often Problematic)
-
-Features that seem good but create problems.
+Features that hurt performance despite seeming beneficial.
 
 | Anti-Feature | Why Requested | Why Problematic | Alternative |
 |--------------|---------------|-----------------|-------------|
-| **Full-Auto Migration** | Desire for zero-touch rebuild | Cannot judge intent, brand, quality | Semi-automated with human review at each section |
-| **Real-Time Browser Sync** | See changes instantly in browser | High complexity, flaky, adds noise | Screenshot-based comparison is more reliable |
-| **Pixel-Perfect Matching** | Want exact visual replica | Old site may have flaws; better to improve | Visual similarity threshold, focus on elements |
-| **Complete Content Scraping** | "Get all content from old site" | May violate ToS, get dynamic content mess | Manual content review, API when available |
-| **Automatic Redirect Generation** | "Handle all 301s automatically" | Cannot determine semantic equivalence | Manual redirect mapping with validation |
-| **Full Site Mirroring with wget** | Quick copy of everything | Gets broken HTML, wrong paths, assets in wrong places | Targeted asset extraction only |
-| **Live Site Side-by-Side Proxy** | See old and new simultaneously | CORS, mixed content, authentication issues | Independent screenshot capture and display |
-| **CSS Extraction/Conversion** | "Convert old CSS to Tailwind" | Loses semantics, creates unmaintainable code | Rewrite CSS from design tokens |
-| **Automated Accessibility Fixes** | "Fix all a11y issues automatically" | Fixes may break functionality or be wrong | Suggest fixes, require human review |
-
----
+| **Aggressive Prefetching** | Faster navigation | Can waste bandwidth, hurt LCP | Smart viewport-based prefetching |
+| **Client-Side Only Routing** | Faster transitions after load | Hurts initial SEO, performance metrics | Hybrid SSR for critical pages |
+| **Heavy Animation Libraries** | Visual appeal | Massive JS payload, CLS risk | CSS animations, lightweight alternatives |
+| **Too Many Third-Party Scripts** | Analytics, chat, social | #1 cause of poor performance | Defer loading, Partytown, self-host |
+| **Full Page Transitions** | Polished UX | Blocks interaction, delays hydration | Subtle micro-interactions only |
+| **Non-Critical Client State** | Interactive features | Unnecessary hydration | Server-render when possible |
+| **Universal/Bridge Mode** | Support older browsers | Polyfill bloat, slower | Progressive enhancement |
+| **Infinite Scroll** | UX pattern | Increases DOM size, CLS risk | Pagination with proper caching |
+| **Heavy Framework Components** | Developer convenience | Bundle bloat | Native web APIs where possible |
+| **Unoptimized LCP Images** | Hero image quality | Largest factor in Performance score | Use @nuxt/image, proper sizing |
+| **Font self-hosting without optimization** | Privacy/control | Often slower than CDN | Use @nuxt/fonts, WOFF2 only |
+| **Inline CSS for everything** | Reduce requests | HTML bloat, poor caching | Critical CSS inline, rest external |
+| **Javascript for layouts** | Dynamic layouts | Layout shift risk | CSS Grid/Flexbox |
 
 ## Feature Dependencies
 
 ```
-[Baseline Screenshots]
-    └──requires──> [Page List Enumeration]
-    └──requires──> [Screenshot Capture]
+[Image Optimization]
+    └──required-for──> [90+ Lighthouse Performance]
+                     └──enhanced-by──> [AVIF Format, Responsive Images]
 
-[Visual Diff]
-    └──requires──> [Baseline Screenshots]
-    └──requires──> [Screenshot Capture]
+[Critical CSS Inlining]
+    └──required-for──> [90+ Lighthouse Performance]
+                     └──enhanced-by──> [PurgeCSS, Tailwind CSS JIT]
 
-[Section-by-Section Comparison]
-    └──requires──> [Visual Diff]
-    └──requires──> [DOM Analysis]
+[Bundle Code Splitting]
+    └──required-for──> [90+ Lighthouse Performance]
+    └──enables──> [Lazy Hydration]
+    └──enables──> [Dynamic Imports]
 
-[AI Visual Analysis]
-    └──requires──> [Visual Diff]
-    └──enhances──> [Section-by-Section Comparison]
+[Lazy Hydration]
+    └──requires──> [Code Splitting]
+    └──enhances──> [INP Score]
+    └──reduces-need-for──> [Heavy Initial JS]
 
-[Image Migration]
-    └──requires──> [Page List Enumeration]
-    └──requires──> [URL Extraction]
+[Font Optimization]
+    └──required-for──> [90+ CLS Score]
+    └──requires──> [font-display: swap]
 
-[Link Validation]
-    └──requires──> [Page List Enumeration]
+[Third-Party Script Optimization]
+    └──required-for──> [90+ INP Score]
+    └──enables──> [Partytown Implementation]
 
-[SEO Comparison]
-    └──requires──> [HTML Source Comparison]
+[Islands Architecture]
+    └──requires──> [Component Boundaries]
+    └──enhances──> [Bundle Size, Hydration Speed]
 
-[Automated Fix Suggestions]
-    └──requires──> [AI Visual Analysis]
-    └──requires──> [DOM Analysis]
+[Edge Rendering]
+    └──enhances──> [LCP Score]
+    └──requires──> [Edge Deployment]
 ```
 
 ### Dependency Notes
 
-- **Baseline Screenshots requires Page List Enumeration**: Must know what pages exist before capturing
-- **Visual Diff requires Baseline Screenshots**: Cannot compare without reference images
-- **Section-by-Section Comparison requires DOM Analysis**: Need to identify sections to segment
-- **AI Visual Analysis enhances Section-by-Section**: Adds intelligence to basic comparison
-- **Image Migration requires URL Extraction**: Cannot download without knowing source URLs
-- **Link Validation requires Page List Enumeration**: Need pages to check links from
-- **SEO Comparison requires HTML Source Comparison**: Meta tags live in HTML
-- **Automated Fix Suggestions requires AI Visual Analysis**: Needs to understand what changed
+- **Image Optimization enables 90+ LCP**: Largest Contentful Paint is usually an image. Optimized images are the single biggest performance lever.
+- **Code Splitting enables Lazy Hydration**: Cannot defer hydration without component boundaries and dynamic imports.
+- **Critical CSS prevents render-blocking**: Above-the-fold content must render immediately; non-critical CSS can load later.
+- **Font Optimization prevents CLS**: Without font-display: swap and proper sizing, text causes layout shifts when fonts load.
+- **Third-Party Scripts are the #1 Performance Killer**: Analytics, chat, and social widgets often dominate main thread time. Partytown moves them to web workers.
+- **Lazy Hydration reduces INP**: Interaction to Next Paint improves when fewer components compete for main thread during initial hydration.
 
----
+## MVP Definition (For Performance Milestone)
 
-## MVP Definition
+### Launch With (Phase 1: Foundation)
 
-### Launch With (v1)
+Must-have optimizations to reach 90+ baseline.
 
-Minimum viable product — what's needed to validate the concept.
+- [ ] **Image Audit & Optimization** — Verify all images use @nuxt/image, proper sizing, WebP/AVIF
+- [ ] **Critical CSS Extraction** — Inline above-the-fold CSS, defer rest
+- [ ] **Font Optimization** — Verify font-display: swap, preload critical fonts
+- [ ] **Bundle Analysis** — Identify largest chunks, plan splitting strategy
+- [ ] **Remove Unused Code** — PurgeCSS, tree shaking verification
+- [ ] **Lazy Loading Components** — Below-fold components using Lazy prefix
+- [ ] **Script Deferment** — Defer all non-critical third-party scripts
+- [ ] **Compression Verification** — Enable Brotli for static assets
+- [ ] **Cache Headers** — Verify proper caching rules for all asset types
+- [ ] **LCP Element Optimization** — Identify and optimize LCP elements per page
 
-- [ ] **Page List Enumeration** — Essential for knowing scope of migration
-  - Crawl sitemap.xml or traverse site navigation
-  - Output: List of URLs to test
+### Add After Validation (Phase 2: Advanced)
 
-- [ ] **Screenshot Capture** — Capture current state of pages
-  - Use Playwright for multi-viewport capture
-  - Output: Organized screenshots by page and breakpoint
+Add when Phase 1 achieves 90+ but room for improvement.
 
-- [ ] **Visual Diff (Side-by-Side)** — Basic before/after comparison
-  - Show old and new site images
-  - Manual review required
+- [ ] **Lazy Hydration** — Implement for heavy interactive components
+- [ ] **Partytown Integration** — Move third-party scripts to web workers
+- [ ] **Advanced Code Splitting** — Component-level splitting for heavy pages
+- [ ] **Route-Specific Optimization** — Tailor strategy per route type
+- [ ] **Performance Budgets** — Add automated size limits to build
 
-- [ ] **Bulk Image Download** — Get all images from source
-  - Extract img src from HTML
-  - Download to organized directory
+### Future Consideration (Phase 3: Edge/Experimental)
 
-- [ ] **Link Validation (Internal)** — Check internal links work
-  - Simple HTTP status check
-  - Report broken links
+Defer until standard optimizations are exhausted.
 
-- [ ] **HTML Source Comparison** — Basic DOM structure comparison
-  - Compare semantic elements (h1-h6, nav, main, footer)
-  - Report structural differences
-
-### Add After Validation (v1.x)
-
-Features to add once core is working.
-
-- [ ] **Section-by-Section Comparison** — Granular component comparison
-  - Trigger: Basic visual diff proves useful but too noisy
-  - DOM-based segmentation of hero, content, sidebar, footer
-
-- [ ] **Interactive Diff Viewer** — Better UX for reviewing changes
-  - Trigger: Manual review becomes bottleneck
-  - Slider comparison, hover-to-reveal
-
-- [ ] **Smart Ignore Rules** — Reduce false positives
-  - Trigger: Dynamic content causes constant diff noise
-  - Ignore dates, timestamps, random IDs
-
-- [ ] **SEO Comparison** — Verify migration preserves SEO
-  - Trigger: Concern about search rankings
-  - Compare title, meta description, headings
-
-### Future Consideration (v2+)
-
-Features to defer until product-market fit is established.
-
-- [ ] **AI-Powered Visual Analysis** — Distinguish meaningful from trivial changes
-  - Defer: Requires expensive vision API, LLM integration
-  - Consider: GPT-4V or Claude Opus for image analysis
-
-- [ ] **Automated Fix Suggestions** — Generate code to fix visual diffs
-  - Defer: High complexity, risk of bad suggestions
-  - Consider: When AI accuracy exceeds human baseline
-
-- [ ] **Self-Healing Tests** — Auto-accept known-good changes
-  - Defer: Machine learning classification required
-  - Consider: After collecting training data from manual reviews
-
----
+- [ ] **Islands Architecture** — Evaluate when Nuxt 4 support stabilizes
+- [ ] **Edge Deployment** — Move to Cloudflare Workers or Vercel Edge
+- [ ] **Server Components** — When Nuxt implementation matures
+- [ ] **Early Hints** — When hosting platform supports 103 status
+- [ ] **Speculative Rules** — Chrome-specific prefetch optimization
 
 ## Feature Prioritization Matrix
 
-| Feature | User Value | Implementation Cost | Priority |
-|---------|------------|---------------------|----------|
-| Page List Enumeration | HIGH | LOW | P1 |
-| Screenshot Capture | HIGH | LOW | P1 |
-| Visual Diff (Side-by-Side) | HIGH | MEDIUM | P1 |
-| Bulk Image Download | HIGH | LOW | P1 |
-| Link Validation (Internal) | HIGH | LOW | P1 |
-| HTML Source Comparison | MEDIUM | MEDIUM | P1 |
-| Section-by-Section Comparison | HIGH | MEDIUM | P2 |
-| Interactive Diff Viewer | MEDIUM | MEDIUM | P2 |
-| Smart Ignore Rules | MEDIUM | MEDIUM | P2 |
-| SEO Comparison | HIGH | MEDIUM | P2 |
-| AI-Powered Visual Analysis | HIGH | HIGH | P3 |
-| Automated Fix Suggestions | MEDIUM | HIGH | P3 |
-| Self-Healing Tests | LOW | HIGH | P3 |
-| Multi-Browser Parallel Testing | MEDIUM | HIGH | P3 |
-| Component-Level Diff | MEDIUM | HIGH | P3 |
+| Feature | User Value | Implementation Cost | Priority | Lighthouse Metric |
+|---------|------------|---------------------|----------|-------------------|
+| Image Optimization | HIGH | LOW | P1 | Performance, LCP |
+| Critical CSS Inlining | HIGH | MEDIUM | P1 | Performance, LCP |
+| Font Optimization | HIGH | LOW | P1 | CLS |
+| Remove Unused CSS/JS | HIGH | MEDIUM | P1 | Performance |
+| Lazy Loading Below-Fold | HIGH | LOW | P1 | Performance, LCP |
+| Bundle Code Splitting | HIGH | LOW | P1 | Performance, INP |
+| Third-Party Script Optimization | HIGH | HIGH | P1 | Performance, INP |
+| Compression (Brotli) | MEDIUM | LOW | P1 | Performance |
+| Cache Headers | MEDIUM | LOW | P1 | Performance |
+| Lazy Hydration | MEDIUM | HIGH | P2 | Performance, INP |
+| Partytown Integration | MEDIUM | HIGH | P2 | Performance, INP |
+| Edge Rendering | MEDIUM | MEDIUM | P2 | Performance, LCP |
+| Islands Architecture | LOW | HIGH | P3 | Performance |
+| Server Components | LOW | HIGH | P3 | Performance |
+| Early Hints | LOW | HIGH | P3 | Performance |
+| Speculative Rules | LOW | MEDIUM | P3 | Performance |
 
 **Priority key:**
-- P1: Must have for launch (table stakes)
-- P2: Should have, add when possible (differentiators with reasonable cost)
-- P3: Nice to have, future consideration (complex differentiators)
+- P1: Must have for 90+ Lighthouse (launch)
+- P2: Should have for 95+ Lighthouse (post-launch)
+- P3: Nice to have for 98+ Lighthouse (future)
 
----
+## Lighthouse Metric Mapping
 
-## Tool Landscape (2026)
+### Performance Score (Weighted Average)
 
-### Existing Tools for Reference
+| Metric | Weight | Target | Key Features |
+|--------|--------|--------|--------------|
+| **LCP** (Largest Contentful Paint) | 25% | < 2.5s | Image optimization, critical CSS, preload, compression |
+| **INP** (Interaction to Next Paint) | 25% | < 200ms | Code splitting, lazy hydration, Partytown, main thread reduction |
+| **CLS** (Cumulative Layout Shift) | 25% | < 0.1 | Font optimization, image dimensions, reserve space |
+| **FCP** (First Contentful Paint) | 10% | < 1.8s | Critical CSS, preload key resources |
+| **TBT** (Total Blocking Time) | 25% | < 200ms | Code splitting, defer scripts, reduce JS payload |
+| **SI** (Speed Index) | 10% | < 3.4s | Progressive rendering, above-fold optimization |
 
-#### Visual Regression Testing
+### Best Practices Score
 
-| Tool | Type | Key Features | Notes |
-|------|------|--------------|-------|
-| **Playwright** | Open Source | Built-in visual comparison, multi-browser | Best for integrated testing |
-| **BackstopJS** | Open Source | Dedicated visual regression, CI/CD ready | Mature, component-focused |
-| **Percy** | SaaS | AI-powered diff, smart ignore | Expensive, excellent UX |
-| **Chromatic** | SaaS | Storybook integration, CI integration | Best for component libraries |
-| **Applitools** | SaaS | Visual AI, ultra-precise detection | Enterprise pricing |
+| Check | Impact | Feature |
+|-------|--------|---------|
+| Uses HTTPS | High | Deployment |
+| Uses HTTP/2 or HTTP/3 | Medium | Server config |
+| Avoids document.write() | High | No legacy scripts |
+| Avoids enormous network payloads | High | Bundle analysis, compression |
+| Avoids an excessive DOM size | Medium | Component optimization |
+| No vulnerable libraries | Medium | Dependency audit |
 
-#### Link Checking
+### Accessibility Score (Performance-Related)
 
-| Tool | Type | Key Features | Notes |
-|------|------|--------------|-------|
-| **Broken Link Check** | Free Online | Quick site scan | Rate limited |
-| **Screaming Frog** | Desktop App | Comprehensive SEO audit | Paid for full features |
-| **W3C Link Checker** | Open Source | Command-line tool | Basic but reliable |
+| Check | Impact | Feature |
+|-------|--------|---------|
+| Low contrast text | Medium | CSS optimization |
+| Missing alt text | Medium | Image optimization |
+| Form labels | Low | N/A |
 
-#### Site Download/Scraping
+### SEO Score (Performance-Related)
 
-| Tool | Type | Key Features | Notes |
-|------|------|--------------|-------|
-| **wget** | CLI | Recursive download, mature | Gets messy with relative paths |
-| **HTTrack** | GUI/CLI | Full site mirroring | Overkill for asset extraction |
-| **Playwright** | Library | Programmatic page access | Best for targeted extraction |
+| Check | Impact | Feature |
+|-------|--------|---------|
+| Structured data | Medium | Meta tags |
+| HTTP status codes | High | 301 redirects (configured) |
+| Crawlable links | Medium | Sitemap |
+| Mobile-friendly | High | Responsive design |
 
-#### AI Code Assistance (2026)
+## Current State Analysis (VP Associates Site)
 
-| Tool | Type | Key Features | Notes |
-|------|------|--------------|-------|
-| **Cursor** | IDE | AI code completion, multiline edit predictions | Popular in 2026 |
-| **CodeGPT** | Service | Context-aware debugging, automated fixes | Specialized in bug fixing |
-| **Aikido** | Tool | AI code review, security scanning | Focus on code quality |
+### Already Implemented (Good Foundation)
 
-### Build vs Buy Recommendations
+| Feature | Status | Notes |
+|---------|--------|-------|
+| @nuxt/image module | Active | Configured with WebP/AVIF |
+| PWA caching | Active | Service worker, offline support |
+| Route-based prerendering | Active | All main routes prerendered |
+| Cache headers | Active | Proper TTLs configured |
+| Font preconnect | Active | Google Fonts, Iconify |
+| Compression | Partial | Nitro supports, verify Brotli enabled |
+| 301 redirects | Active | WordPress migration preserved |
 
-| Category | Recommendation | Rationale |
-|----------|----------------|-----------|
-| Screenshot Capture | Build with Playwright | Simple API, already ecosystem standard |
-| Visual Diff | Build with pixelmatch or resemblejs | Open-source libraries are sufficient |
-| Link Checking | Build with simple HTTP client | Overkill to use full SEO tools |
-| Image Download | Build custom | Targeted extraction better than full mirroring |
-| AI Analysis | Buy/Integrate API | Building vision models is not core competency |
+### Gap Analysis (What's Missing)
 
----
+| Gap | Impact | Priority |
+|-----|--------|----------|
+| Critical CSS inlining | High LCP impact | P1 |
+| Lazy component loading | Medium JS reduction | P1 |
+| Third-party script audit | Unknown (no scripts visible) | P1 |
+| Bundle size analysis | Unknown current state | P1 |
+| Image sizing verification | CLS risk | P1 |
+| Lazy hydration | High INP improvement | P2 |
+| Partytown evaluation | Depends on third-party usage | P2 |
 
-## Competitor Feature Analysis
+## Competitor Analysis (Performance Leaders)
 
-| Feature | Percy | Chromatic | Custom Build |
-|---------|-------|-----------|--------------|
-| Screenshot comparison | Yes | Yes | Yes (via Playwright) |
-| CI/CD integration | Excellent | Excellent | DIY (GitHub Actions) |
-| Smart ignore | Yes | Yes | DIY (config) |
-| AI-powered diff | Yes | No | DIY (via API) |
-| Pricing | $$$$ | $$$ | Free (self-hosted) |
-| Section-by-section | No | Component-level | DIY (DOM-based) |
-| Image migration | No | No | DIY (wget/crawler) |
-| Link checking | No | No | DIY (fetch) |
-| SEO comparison | No | No | DIY (HTML parsing) |
+| Site | Lighthouse Score | Key Strategies |
+|------|------------------|----------------|
+| Vercel | 95-100 | Edge rendering, minimal JS, optimized images |
+| GitHub | 90-95 | Progressive enhancement, lazy loading |
+| Stripe | 95-100 | Server-side first, minimal client JS |
+| Airbnb | 85-90 | Code splitting, aggressive lazy loading |
 
-**Insight:** Existing tools focus on visual regression, not migration workflow. Our differentiator is the migration-specific workflow (image download, link validation, before/after comparison).
-
----
+**Common Patterns:**
+- Minimal JavaScript payload (< 100KB initial)
+- Server-side rendering for critical content
+- Aggressive lazy loading
+- Native web APIs over libraries
+- Edge deployment
 
 ## Sources
 
-- [14 Best Regression Testing Tools Compared (2026)](https://www.virtuosoqa.com/post/best-regression-testing-tools) - Virtuoso QA
-- [Top 7 Visual Testing Tools for 2026](https://testrigor.com/blog/visual-testing-tools/) - TestRigor
-- [Best Regression Testing Tools in 2026]((https://bugbug.io/blog/software-testing/best-regression-testing-tools/) - BugBug
-- [Percy vs Chromatic: Which visual regression testing tool to use?](https://medium.com/@crissyjoshua/percy-vs-chromatic-which-visual-regression-testing-tool-to-use-6cdce77238dc) - Medium (2025)
-- [Visual Testing Tools Comparison 2025](https://vizzly.dev/visual-testing-tools-comparison/) - Vizzly.dev
-- [10 Best Broken Link Checker Tools for Founders [2026]](https://founderpal.ai/best-marketing-tools/broken-link-checker-tools) - FounderPal
-- [Guide to Bulk Image Downloading](https://onescales.com/blogs/main/guide-to-bulk-image-downloading) - OneScales (2025)
-- [Playwright Visual Regression Testing Guide](https://testquality.com/visual-regression-testing-playwright-jest/) - TestQuality
-- [Top 23 Alternatives to BackstopJS](https://testdriver.ai/articles/top-23-alternatives-to-backstopjs-for-node-js-testing) - TestDriver.ai
-- [Best AI for Coding in 2026: Autocomplete Is Dead](https://medium.com/@krtarunsingh/best-ai-for-coding-in-2026-autocomplete-is-dead-agent-mode-is-here-7b18b70ef990) - Medium (2026)
-- [Top 6 AI Coding Agents 2026]((https://cloudelligent.com/blog/top-6-ai-coding-agents-2026/) - Cloudelligent
-- [AI Bug Fixing | Context-Aware Debugging & Fixes](https://codegpt.co/ai-bug-fixing) - CodeGPT
-- [Website QA Testing: Complete Guide to Quality Assurance in 2026](https://bugherd.com/blog/website-qa-testing-complete-guide-to-quality-assurance-in-2025) - BugHerd (2025)
-- [Ultimate Website Migration Checklist for 2026 & Beyond](https://www.eclicksoftwares.com/public/blog/ultimate-website-migration-checklist-for-2026-beyond) - eClickSoftwares (2025)
-- [A Complete Data Migration Checklist For 2026](https://rivery.io/data-learning-center/complete-data-migration-checklist/) - Rivery (2025)
-- [How can I download an entire website?](https://superuser.com/questions/14403/how-can-i-download-an-entire-website) - SuperUser (HTTrack recommendation)
-- [HTTrack Users Guide](https://www.httrack.com/html/fcguide.html) - Official HTTrack documentation
-- [Are there any tools out there to compare the structure of 2 web pages?](https://stackoverflow.com/questions/48669/are-there-any-tools-out-there-to-compare-the-structure-of-2-web-pages) - StackOverflow (DOM diff discussion)
-- [evolvingweb/sitediff](https://github.com/evolvingweb/sitediff) - Drupal site comparison tool
+### Official Documentation
+- [Nuxt Performance Best Practices](https://nuxt.com/docs/3.x/guide/best-practices/performance) - HIGH confidence
+- [Nuxt Hydration Best Practices](https://nuxt.com/docs/3.x/guide/best-practices/hydration) - HIGH confidence
+- [defineLazyHydrationComponent API](https://nuxt.com/docs/3.x/api/utils/define-lazy-hydration-component) - HIGH confidence
+- [@nuxt/fonts Module](https://nuxt.com/modules/fonts) - HIGH confidence
+- [NuxtLink Component Docs](https://nuxt.com/docs/3.x/api/components/nuxt-link) - HIGH confidence
+
+### Performance Guides (2025-2026)
+- [Nuxt 4 Performance Optimization: Complete Guide to Faster Apps in 2026](https://masteringnuxt.com/blog/nuxt-4-performance-optimization-complete-guide-to-faster-apps-in-2026) - MEDIUM confidence
+- [Core Web Vitals Optimization: Complete Guide for 2026](https://skyseodigital.com/core-web-vitals-optimization-complete-guide-for-2026/) - MEDIUM confidence
+- [Core Web Vitals 2026: Complete INP Guide & Assessment](https://koanthic.com/en/core-web-vitals-2026-complete-inp-guide-assessment/) - MEDIUM confidence
+- [Critical CSS Inlining: Boost Above-the-Fold Page Speed](https://softwarehouse.au/blog/implementing-critical-css-inlining-for-above-the-fold-content/) - MEDIUM confidence
+- [How We Achieve 90+ Lighthouse Performance Score](https://dev.to/jacobandrewsky/performance-checklist-for-vue-and-nuxt-cog) - MEDIUM confidence
+
+### Third-Party Optimization
+- [Partytown: Optimize Third Party Scripts with Web Workers](https://www.debugbear.com/blog/partytown-web-workers) - MEDIUM confidence
+- [Introducing Nuxt Scripts](https://nuxt.com/blog/nuxt-scripts) - HIGH confidence
+- [Using web workers to boost third-party script performance](https://blog.logrocket.com/using-web-workers-boost-third-party-script-performance/) - MEDIUM confidence
+
+### Compression & Server
+- [nuxt-precompress Module](https://nuxt.com/modules/precompress) - MEDIUM confidence
+- [Nuxt on the Edge](https://nuxt.com/blog/nuxt-on-the-edge) - HIGH confidence
+- [Diving Deep into Nitro](https://vueschool.io/articles/news/diving-deep-into-nitro-the-server-engine-behind-nuxt-insights-from-pooya-parsa-at-nuxt-nation-2024/) - MEDIUM confidence
+
+### Community Resources
+- [How To Optimize Performance In Nuxt Apps](https://www.debugbear.com/blog/optimize-nuxt-performance) - MEDIUM confidence
+- [Optimizing Nuxt Apps for Core Web Vitals](https://dev.to/jacobandrewsky/optimizing-nuxt-apps-for-core-web-vitals-106j) - MEDIUM confidence
+- [Lazy Hydration and Server Components in Nuxt](https://vueschool.io/articles/vuejs-tutorials/lazy-hydration-and-server-components-in-nuxt-vue-js-3-performance/) - MEDIUM confidence
+- [Nuxt Scripts 介绍](https://nuxtjs.org.cn/blog/nuxt-scripts) - LOW confidence (translation)
+
+### GitHub Discussions
+- [Lazy Hydration in Nuxt Core #24242](https://github.com/nuxt/nuxt/issues/24242) - MEDIUM confidence
+- [How to disable modulepreload/prefetch](https://github.com/nuxt/nuxt/discussions/16231) - MEDIUM confidence
+- [Server component roadmap #19772](https://github.com/nuxt/nuxt/issues/19772) - MEDIUM confidence
 
 ---
-*Feature research for: Website Modernization & Migration Tools*
-*Researched: 2026-02-04*
+*Feature research for: Nuxt 3 Performance Optimization*
+*Researched: 2026-02-06*

@@ -1,257 +1,183 @@
 # Project Research Summary
 
-**Project:** VP Associates Website Modernization
-**Domain:** Website Modernization & Migration Tools
-**Researched:** 2026-02-04
+**Project:** VP Associates Website v1.1 - Performance Optimization
+**Domain:** Nuxt 3 Website Performance Optimization
+**Researched:** 2026-02-06
 **Confidence:** HIGH
 
 ## Executive Summary
 
-This project is a **Nuxt 3 website modernization and migration platform** that combines systematic audit workflows, visual regression testing, and automated migration pipelines. Expert practitioners in this domain build these systems as **layered architectures** with audit-first discovery, baseline-driven comparison tools, and atomic fix pipelines. The research strongly supports building on the existing Nuxt 3 + Tailwind stack with Playwright for visual testing, Cheerio/Axios for scraping, and Nitro server routes for audit/migration workflows.
+This is a performance optimization project for an existing Nuxt 3 website targeting 90+ Lighthouse scores. The existing stack is well-positioned for success with Nuxt 3.15, @nuxt/image, PWA caching, and route-based prerendering already configured. Experts achieve high performance through a layered approach: configuration-first optimizations (route rules, caching headers), component-level optimizations (lazy loading, lazy hydration), and build-level optimizations (bundle analysis, code splitting).
 
-The recommended approach is to implement **audit-first discovery** before any changes—capturing comprehensive baselines of content, SEO, performance, and visual state. Then build **comparison infrastructure** (screenshot capture, diff generation, visual regression tests) before applying any fixes. This prevents the most critical risk identified: **SEO traffic loss from architecture changes** (20-40% drops are common when redirects, meta tags, or URL structures change without proper planning). Other key risks include image optimization failure in static exports, visual regression false positives paralyzing development, and hydration mismatch errors in production.
+The recommended approach is additive, not disruptive. No major framework changes are needed. The path to 90+ focuses on: (1) measurement with rollup-plugin-visualizer and unlighthouse, (2) critical path optimization with @nuxtjs/critters for critical CSS inlining, (3) strategic lazy loading and hydration for below-fold components, and (4) server-side caching for API routes. The biggest risk is "over-optimizing" by lazy loading critical above-fold content, which devastates LCP scores. Another key risk is optimizing without measuring—baseline Lighthouse scores must be established before any changes.
 
-Mitigation strategy is clear: (1) Run comprehensive audits before touching anything—establish content inventory, SEO baseline, and visual screenshots, (2) Implement automated comparison tools with appropriate thresholds and smart ignore rules before making changes, (3) Use atomic section-by-section fixes with rollback capability rather than monolithic deployments, (4) Pre-optimize all images before adding to `/public` since runtime optimization doesn't work in static exports, and (5) Test with `npm run build && npm run preview` before deploying to catch hydration errors early.
+Key mitigation strategies include: always use `loading="eager"` and `fetchpriority="high"` for LCP elements, apply lazy hydration only to below-fold components, use `defineCachedEventHandler` for API routes, and validate improvements with both lab (Lighthouse) and field (PageSpeed Insights CrUX) data.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The existing Nuxt 3 stack is **production-ready and well-chosen**. No major changes needed—only additions for migration/audit workflows.
+The existing Nuxt 3 stack is optimal for 90+ Lighthouse scores. Three additions are recommended for measurement and optimization:
 
-**Core technologies:**
-- **Nuxt 3 (3.14+)** — SSR/SSG hybrid framework for modern web applications with excellent SEO and zero-config TypeScript
-- **Vue 3 (Composition API)** — UI framework with reactivity system and component-based architecture
-- **TypeScript (5.x, strict mode)** — Type safety to catch errors at build time and improve developer experience
-- **Tailwind CSS (3.x)** — Utility-first CSS for rapid styling and consistent design system
-- **@nuxt/image** — Image optimization module with runtime optimization and modern format support (WebP/AVIF)
-- **@vite-pwa/nuxt** — PWA functionality with service workers, manifest, and offline support
-- **@nuxtjs/sitemap** — Dynamic sitemap generation with automatic route discovery
+**Core technologies (no changes needed):**
+- **Nuxt 3.15**: Already optimal—SSR/SSG hybrid with Nitro engine provides best-in-class performance
+- **@nuxt/image 2.0**: Already optimal—WebP/AVIF conversion, responsive sizing, lazy loading built-in
+- **@vite-pwa/nuxt 1.1**: Already optimal—Workbox caching configured for offline support
 
-**Additions for migration/audit workflows:**
-- **Playwright** — Screenshot capture and visual regression testing with built-in `toHaveScreenshot()` assertions, cross-browser support, and excellent Nuxt 3 integration
-- **Cheerio + Axios** — Lightweight HTML parsing and HTTP client for static site scraping and image download
-- **pixelmatch** — Pixel-level image comparison for visual diff generation
-- **Vitest + @nuxt/test-utils** — Unit and integration testing framework (add when ready to implement test coverage)
+**Recommended additions:**
+- **rollup-plugin-visualizer**: Bundle visualization—essential for data-driven optimization decisions, cannot optimize what you cannot measure
+- **@nuxtjs/critters**: Critical CSS inlining—eliminates render-blocking CSS (10-20 point Performance improvement), includes PurgeCSS
+- **unlighthouse**: Automated Lighthouse auditing—CI/CD integration ensures regressions are caught, site-wide crawling for comprehensive coverage
 
-**Not recommended (avoid):**
-- **html-diff package** — Unmaintained since 2019; use custom DOM comparison or visual diff instead
-- **HTTrack/wget for full mirroring** — Gets messy with relative paths and downloads wrong assets; use targeted Playwright/Cheerio extraction
-- **CSS extraction tools** — Lose semantics and create unmaintainable code; rewrite CSS from design tokens
+**Optional (lower priority):**
+- **Font self-hosting**: 200-300ms improvement but high maintenance—only pursue if other optimizations insufficient
 
 ### Expected Features
 
-**Must have (table stakes) — MVP features for launch:**
-- **Page List Enumeration** — Essential for knowing scope; crawl sitemap.xml or traverse site navigation
-- **Screenshot Capture** — Capture current state of pages using Playwright for multi-viewport capture
-- **Visual Diff (Side-by-Side)** — Basic before/after comparison for manual review
-- **Bulk Image Download** — Extract and download all images from source with organized file placement
-- **Link Validation (Internal)** — Simple HTTP status check for internal links with broken link report
-- **HTML Source Comparison** — Basic DOM structure comparison of semantic elements (h1-h6, nav, main, footer)
+Performance optimization features fall into three categories based on Lighthouse impact.
 
-**Should have (competitive) — Add after validation:**
-- **Section-by-Section Comparison** — Granular component comparison triggered when basic visual diff proves too noisy
-- **Interactive Diff Viewer** — Slider comparison and hover-to-reveal UX for reviewing changes
-- **Smart Ignore Rules** — Reduce false positives by ignoring dates, timestamps, random IDs
-- **SEO Comparison** — Verify migration preserves SEO by comparing title, meta description, headings
-- **Change Aggregation** — Show all changes in single view to reduce review noise
+**Must have (table stakes for 90+):**
+- **Image optimization** — Images account for 50%+ of page weight; @nuxt/image already configured, verify all images use it with proper sizing
+- **Critical CSS inlining** — Eliminates render-blocking CSS; inline above-the-fold only, defer rest
+- **Bundle code splitting** — Reduces initial JS payload; route-based automatic, component-level requires manual work
+- **Lazy loading below-fold content** — Reduces initial payload; images, components, iframes below viewport
+- **Font optimization** — Prevents FOIT/FOUT, reduces CLS; use font-display: swap, preload critical fonts
+- **Remove unused CSS/JS** — Reduces payload size; PurgeCSS (included in critters), tree shaking verification
+- **Third-party script optimization** — Scripts block main thread; defer non-critical, consider Partytown for web workers
 
-**Defer (v2+) — Future consideration:**
-- **AI-Powered Visual Analysis** — Distinguish meaningful from trivial changes; requires expensive vision API or LLM integration
-- **Automated Fix Suggestions** — Generate code to fix visual diffs; high complexity with risk of bad suggestions
-- **Self-Healing Tests** — Auto-accept known-good changes; requires machine learning classification
+**Should have (for 95+ scores):**
+- **Lazy hydration** — Defers component hydration until interaction; reduces TBT/INP for heavy components
+- **Partytown integration** — Moves third-party scripts to web workers; frees main thread
+- **Advanced code splitting** — Component-level splitting for heavy pages
+- **Performance budgets** — Automated size limits prevent regression
+
+**Defer (v2+):**
+- **Islands architecture** — Interactive islands in static page; experimental in Nuxt 3, consider when Nuxt 4 support stabilizes
+- **Server components** — Zero client JS for server-only content; when Nuxt implementation matures
+- **Edge rendering** — Server closer to user; requires Cloudflare Workers or Vercel Edge deployment
+- **Early hints** — Send resources while server processes; requires server support for 103 status
 
 ### Architecture Approach
 
-Recommended architecture follows a **layered approach** with clear separation between audit, analysis, execution, and QA layers. Each layer has distinct responsibilities and communicates through well-defined boundaries.
+Performance optimizations integrate at multiple architectural boundaries: config layer (nuxt.config.ts), component layer (lazy loading, hydration), server layer (cached event handlers), and build layer (bundle analysis).
 
 **Major components:**
-1. **Audit & Discovery Layer** — Content Audit Scanner (crawls pages, extracts content), SEO Audit Analyzer (meta tags, headings, structure), Performance Profiler (Core Web Vitals, bundle sizes), Visual Regression Comparison (screenshots, pixel/visual differences)
-2. **Analysis & Planning Layer** — Issue Aggregation Service (combines audit results, prioritizes by severity, exports tickets)
-3. **Execution Layer** — Section Fix Pipeline (orchestrates component updates, applies fixes per section), Image Migration Pipeline (downloads, optimizes, uploads images), Content Updates Pipeline (batch updates content, validates links)
-4. **QA & Validation Layer** — Visual Regression Tests (automated visual comparison on every change), E2E Tests (user flow validation), Performance Tests (continuous monitoring, regression detection), Content Validation (link checking, accessibility)
+1. **nuxt.config.ts** — Central configuration point for route rules, image optimization, caching headers; highest ROI, lowest risk
+2. **Nitro routeRules** — Hybrid rendering (SSR/SSG/ISR) and cache headers; per-route optimization strategy
+3. **Lazy components** — Code-split non-critical components using `Lazy` prefix; reduces initial bundle size
+4. **Lazy hydration** — Delay component interactivity using hydrate-on-visible/interaction directives; reduces TBT
+5. **defineCachedEventHandler** — Server-side caching wrapper for API routes; zero logic changes for significant response time improvement
+6. **@nuxt/image** — Automatic image optimization; verify all images use it with correct loading strategy
 
-**Key architectural patterns:**
-- **Audit-First Discovery** — Always run comprehensive audits before making changes to establish baseline
-- **Atomic Section Fixes** — Treat each website section as independent units that can be fixed, tested, and rolled back independently
-- **Baseline-Driven Visual Regression** — Capture comprehensive visual baselines, then compare all changes against baseline
-- **Pipeline-Based Image Migration** — Multi-stage pipeline: discover → download → optimize → upload → update references → validate
+**Key architectural pattern:** Config-first optimization. Maximize gains through nuxt.config.ts changes (route rules, caching, image settings) before code modifications. This provides the highest impact with lowest risk.
 
 ### Critical Pitfalls
 
-**Top 5 pitfalls with prevention strategies:**
+1. **Over-lazy-loading critical content** — Applying lazy loading to above-fold content delays LCP, causing scores to drop below 60. Always use `loading="eager"` and `fetchpriority="high"` for LCP elements.
 
-1. **SEO Traffic Loss from Architecture Changes** — Organic traffic drops 20-40% due to broken redirects, missing meta tags, or changed URL structures. **Prevention:** Create URL inventory spreadsheet before changes, implement 301 redirects for ALL changed URLs, verify canonical URLs, test with Google Search Console, maintain XML sitemap.
+2. **Not using lazy hydration for below-fold components** — All components hydrate immediately, causing large TBT and poor INP. Use `hydrate-on-visible` directive for components below the fold.
 
-2. **Image Optimization Failure in Static Exports** — Images not optimized during `nuxt generate` because IPX runtime optimization doesn't work in static builds. **Prevention:** Pre-optimize all images before adding to `/public` using TinyPNG/ImageOptim, configure `image.format: ['webp', 'avif', 'jpg']`, use `<NuxtImg>` with explicit width/height props, test with `npm run generate` and inspect file sizes.
+3. **Bundle size inflation from unoptimized dependencies** — JavaScript bundle exceeds 500KB, causing slow downloads and delayed hydration. Run `npx nuxi analyze` to identify oversized chunks, use tree-shakeable libraries.
 
-3. **Visual Regression False Positives Paralysis** — Pixel-perfect comparison generates so many false positives that team ignores results. **Prevention:** Use visual AI tools instead of strict pixel comparison, configure appropriate diff thresholds (0.1-1% tolerance), mock dynamic content before screenshots, exclude noisy elements (timestamps, random IDs).
+4. **Font loading causing layout shift** — CLS exceeds 0.1 when fonts load late and cause reflow. Use `font-display: swap`, define fallback font metrics, preload critical fonts.
 
-4. **Incremental Migration Styling Inconsistencies** — New components look different from legacy pages during section-by-section rebuild. **Prevention:** Use visual regression tools to compare legacy vs new, document all design tokens first, run both sites in parallel for side-by-side comparison, test on multiple browsers/devices.
-
-5. **Hydration Mismatch Errors in Production** — Pages work in dev but throw hydration errors in production. **Prevention:** Use `onMounted()` for browser-only APIs, ensure dev uses production-like API data, test with `npm run build && npm run preview`, use `<ClientOnly>` wrapper for client-specific components.
+5. **Measuring lab scores instead of real user experience** — Lighthouse 95+ but real users report slow experiences. Test on mobile with throttling, use PageSpeed Insights for CrUX field data, implement RUM.
 
 ## Implications for Roadmap
 
-Based on research, suggested phase structure:
+Based on research, suggested phase structure follows the architectural layers from highest-ROI config changes to lower-risk refinements.
 
-### Phase 1: Audit & Baseline Capture
-**Rationale:** Cannot measure improvement without baseline. Audit identifies all issues for planning. This phase must come first to avoid SEO traffic loss (critical pitfall #1).
-**Delivers:** Content inventory, SEO baseline report, performance profiling, visual screenshot baselines for all routes and viewports
-**Addresses:** Page List Enumeration, Screenshot Capture (from FEATURES.md)
-**Avoids:** SEO Traffic Loss from Architecture Changes, No Visual Baseline anti-pattern
+### Phase 1: Performance Audit & Baseline
+**Rationale:** Cannot optimize what is not measured. Baseline scores identify which metrics need focus and prevent wasted effort on already-optimized areas.
+**Delivers:** Lighthouse baseline report, bundle analysis, current score documentation
+**Addresses:** Performance measurement (rollup-plugin-visualizer, unlighthouse setup)
+**Avoids:** Optimizing without measuring (Anti-pattern #3)
+**Research flag:** Standard patterns—no additional research needed
 
-**Key components:**
-- Content Audit Scanner (crawl pages, extract content)
-- SEO Audit Analyzer (meta tags, structure validation)
-- Performance Profiler (Lighthouse integration, Core Web Vitals)
-- Visual Baseline Capture (Playwright multi-viewport screenshots)
+### Phase 2: Config-First Optimization
+**Rationale:** nuxt.config.ts changes affect entire site with no code modifications. Fastest path to 90+ scores with lowest risk.
+**Delivers:** Optimized route rules, verified image configuration, Nitro cache headers
+**Addresses:** Route rules (prerender static, ISR for semi-static), image config verification, cache headers
+**Avoids:** Pitfall #5 (not leveraging hybrid rendering)
+**Research flag:** Standard patterns—well-documented in Nuxt docs
 
-### Phase 2: Comparison Infrastructure
-**Rationale:** Comparison tools enable safe iteration. Without them, every change is risky. This phase builds the safety net before applying fixes.
-**Delivers:** Screenshot capture service, diff generation (pixelmatch), visual diff viewer UI, comparison reports
-**Uses:** Playwright, pixelmatch (from STACK.md)
-**Implements:** Screenshot Capture Service, Diff Generation Service, Visual Diff Viewer (from ARCHITECTURE.md)
-**Addresses:** Visual Diff (Side-by-Side) from FEATURES.md
+### Phase 3: Critical Path Optimization
+**Rationale:** Critical CSS inlining and LCP element optimization provide 10-30 point improvements in Performance score.
+**Delivers:** @nuxtjs/critters integration, eager-loaded LCP images, critical CSS inlined
+**Addresses:** Critical CSS inlining, image loading strategy (eager vs lazy)
+**Avoids:** Pitfall #1 (over-lazy-loading critical content)
+**Research flag:** Standard patterns—@nuxtjs/critters has official documentation
 
-**Key components:**
-- Screenshot Capture Service (automated capture infrastructure)
-- Diff Generation Service (pixel/Layout/content comparison)
-- Visual Diff Viewer (side-by-side UI for reviewing differences)
+### Phase 4: Server-Side Caching
+**Rationale:** Server-side caching has massive impact with minimal code changes. Reduces WordPress API dependency.
+**Delivers:** Cached API handlers (projects, services, team, testimonials)
+**Addresses:** defineCachedEventHandler wrappers, cache invalidation strategy
+**Uses:** defineCachedEventHandler pattern from ARCHITECTURE.md
+**Research flag:** Standard patterns—Nitro caching is well-documented
 
-### Phase 3: QA Integration
-**Rationale:** QA must be in place before applying fixes. Tests catch regressions early. Shift-left testing prevents expensive late-stage fixes.
-**Delivers:** Visual regression test suite, E2E test integration, performance test CI/CD integration
-**Uses:** Vitest, @nuxt/test-utils, Playwright (from STACK.md)
-**Implements:** Visual Regression Tests, E2E Tests, Performance Tests (from ARCHITECTURE.md)
-**Avoids:** Testing After Completion anti-pattern
+### Phase 5: Component Lazy Loading & Hydration
+**Rationale:** Component-level optimizations reduce JavaScript payload and improve TTI. Requires testing for visual issues.
+**Delivers:** Lazy-loaded below-fold components, lazy hydration for heavy interactive components
+**Addresses:** Lazy component loading, hydrate-on-visible directive
+**Avoids:** Pitfall #2 (not using lazy hydration), Anti-pattern #1 (universal lazy loading)
+**Research flag:** Standard patterns—Nuxt lazy loading and hydration well-documented
 
-**Key components:**
-- Visual Regression Tests (automated visual validation on every change)
-- E2E Test Integration (user flow validation)
-- Performance Test Integration (continuous monitoring)
+### Phase 6: Image Optimization Completion
+**Rationale:** Images are typically the #1 performance factor. Already partially optimized, this completes the work.
+**Delivers:** All images converted to WebP/AVIF, proper loading strategies applied, responsive sizing verified
+**Addresses:** Image audit, loading strategies (eager for above-fold, lazy below), next-gen format conversion
+**Uses:** @nuxt/image module configuration
+**Research flag:** Standard patterns—@nuxt/image has comprehensive documentation
 
-### Phase 4: Image Migration
-**Rationale:** Migration requires solid foundation and QA. Doing it earlier risks data loss. Images are critical assets that need careful handling.
-**Delivers:** Bulk image download from source, format conversion to WebP/AVIF, optimization pipeline, CDN upload with URL mapping
-**Uses:** Cheerio, Axios, Sharp (from STACK.md)
-**Implements:** Image Migration Pipeline (from ARCHITECTURE.md)
-**Addresses:** Bulk Image Download (from FEATURES.md)
-**Avoids:** Image Optimization Failure in Static Exports pitfall
+### Phase 7: Advanced Optimizations
+**Rationale:** These optimizations yield diminishing returns after phases 1-6. Higher complexity requires more testing.
+**Delivers:** Bundle optimization, plugin-to-composable conversion, Vue performance directives
+**Addresses:** Bundle analysis and code splitting, analytics lazy loading, v-memo/v-once directives
+**Uses:** rollup-plugin-visualizer, Vue performance patterns
+**Research flag:** Standard patterns—Vue and Nuxt performance docs cover these
 
-**Key components:**
-- Discovery Stage (scan content API, find image URLs)
-- Download Stage (download with retry, progress tracking)
-- Optimization Stage (Sharp processing, format conversion, responsive variants)
-- Upload Stage (CDN upload, URL mapping)
-- Validation Stage (verify accessibility, visual regression)
-
-### Phase 5: Content & Link Validation
-**Rationale:** After images are migrated, validate content integrity and link health. This ensures migration success before applying fixes.
-**Delivers:** Link validation (internal + external), HTML source comparison, SEO comparison (meta tags, headings)
-**Uses:** Custom fetch/axios (from STACK.md)
-**Implements:** Content Validation (from ARCHITECTURE.md)
-**Addresses:** Link Validation, HTML Source Comparison, SEO Comparison (from FEATURES.md)
-
-**Key components:**
-- Link Checker (HTTP status validation, broken link report)
-- HTML Source Comparison (semantic DOM structure comparison)
-- SEO Comparison (meta tags, structured data, headings)
-
-### Phase 6: Section-by-Section Fixes
-**Rationale:** Fix execution is safest when audit, comparison, and QA are all in place. Atomic fixes reduce risk and enable progressive deployment.
-**Delivers:** Section fix orchestration, rollback capability, fix preview UI, issue tracking integration
-**Uses:** Composables, Nitro server routes (from ARCHITECTURE.md)
-**Implements:** Section Fix Pipeline, Rollback Services (from ARCHITECTURE.md)
-**Addresses:** Section-by-Section Comparison from FEATURES.md
-**Avoids:** Monolithic Fix Deployment anti-pattern
-
-**Key components:**
-- Section Fix Orchestration (apply fixes by section)
-- Preview Fix UI (show expected changes before apply)
-- Rollback Services (safety net for failed fixes)
-- Issue Tracking Integration (connect fixes to audit results)
-
-### Phase 7: Automation & CI/CD
-**Rationale:** Automation accelerates but manual processes work first. Add automation last when workflows are proven.
-**Delivers:** Automated audit scheduling, CI/CD pipeline integration, dashboard & reporting
-**Uses:** GitHub Actions, Lighthouse CI (from ARCHITECTURE.md)
-**Implements:** Automated Audit Scheduling, CI/CD Pipeline Integration (from ARCHITECTURE.md)
-
-**Key components:**
-- Automated Audit Scheduling (regular health checks)
-- CI/CD Pipeline Integration (continuous validation)
-- Dashboard & Reporting (visibility into progress)
+### Phase 8: Monitoring & CI Integration
+**Rationale:** Monitoring prevents regression but doesn't improve scores directly. Add after optimizations complete.
+**Delivers:** Lighthouse CI integration, automated performance regression testing, optional RUM
+**Addresses:** CI/CD performance gates, score thresholds
+**Uses:** unlighthouse CI integration
+**Research flag:** Standard patterns—Unlighthouse CI docs available
 
 ### Phase Ordering Rationale
 
-- **Audit-first prevents SEO disaster:** Comprehensive audits before changes avoid the critical SEO traffic loss pitfall. You cannot protect what you haven't measured.
-- **Comparison infrastructure before fixes:** Building comparison tools first creates safety net for all subsequent changes. Without baselines and diff tools, every fix is risky.
-- **QA before execution:** Shift-left testing catches issues early when they're cheap to fix. Testing after completion is an anti-pattern.
-- **Images before content fixes:** Image migration is foundational—content fixes depend on proper asset handling.
-- **Atomic fixes enable progressive deployment:** Section-by-section fixes with rollback capability reduce risk compared to monolithic deployments.
-- **Automation last:** Manual workflows validate the approach before investing in automation. Automation of broken processes just scales problems.
+The order follows impact-to-effort ratio and architectural dependencies. Config changes (Phase 2-3) affect the entire application with minimal risk. Server-side caching (Phase 4) reduces load times before client-side optimizations. Component work (Phase 5-6) comes after server optimizations to avoid optimizing the wrong things. Advanced optimizations (Phase 7) are deferred until foundational work is complete. Monitoring (Phase 8) ensures gains are maintained.
+
+This ordering also avoids the key pitfalls identified in research: we measure before optimizing (Phase 1), eagerly load critical content (Phase 3), apply lazy hydration strategically (Phase 5), and validate with real-world data (Phase 8).
 
 ### Research Flags
 
-**Phases likely needing deeper research during planning:**
-- **Phase 2 (Comparison Infrastructure):** Complex integration with Playwright for screenshot capture, diff threshold tuning, smart ignore rules for dynamic content. Needs `/gsd:research-phase` during planning.
-- **Phase 4 (Image Migration):** Pipeline architecture with rollback capability, CDN integration specifics, optimization parameters for WebP/AVIF. Needs `/gsd:research-phase` during planning.
-- **Phase 6 (Section Fixes):** Atomic fix orchestration strategy, section boundary definitions, rollback implementation details. Needs `/gsd:research-phase` during planning.
+Phases with standard patterns (skip `/gsd:research-phase`):
+- **Phase 1-8**: All phases rely on well-documented Nuxt features and established performance patterns. Official documentation is comprehensive. No additional research needed during planning.
 
-**Phases with standard patterns (skip research-phase):**
-- **Phase 1 (Audit & Baseline):** Well-documented patterns for crawling, SEO analysis, Lighthouse integration. Official docs and community examples are sufficient.
-- **Phase 3 (QA Integration):** Standard testing patterns with Vitest, Playwright, Lighthouse CI. Excellent documentation available.
-- **Phase 5 (Content & Link Validation):** Straightforward HTTP validation and HTML parsing. Simple enough to implement without deep research.
-- **Phase 7 (Automation & CI/CD):** Standard GitHub Actions and CI/CD patterns. Well-documented elsewhere.
+Phases potentially needing deeper research:
+- **None identified** — All optimization techniques are well-documented in official Nuxt documentation and authoritative performance guides.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All components verified with official documentation. Nuxt 3, Playwright, Tailwind are production-ready with excellent docs. WordPress API integration is well-documented. |
-| Features | MEDIUM | MVP features validated against multiple industry sources. Differentiators based on 2026 tool landscape analysis. Some AI features deferred due to complexity. |
-| Architecture | MEDIUM | Layered architecture approach validated by systematic improvement methodologies. Component responsibilities clearly defined. Anti-patterns identified from real-world migration failures. |
-| Pitfalls | HIGH | SEO traffic loss, image optimization failures, and hydration errors well-documented across multiple sources. Prevention strategies validated against official docs and community best practices. |
+| Stack | HIGH | Official Nuxt documentation provides comprehensive guidance. All recommended additions have official support. |
+| Features | HIGH | Core Web Vitals and Lighthouse metrics are well-defined industry standards. Feature-Lighthouse mapping is definitive. |
+| Architecture | HIGH | Nuxt 3 architecture patterns are documented in official guides. Caching and rendering patterns have authoritative sources. |
+| Pitfalls | HIGH | Identified from official Nuxt docs, authoritative performance guides, and real-world case studies. Warning signs are concrete. |
 
 **Overall confidence:** HIGH
 
-Research synthesized from official documentation (Nuxt, Playwright, WordPress API), high-quality industry sources (SEO migration guides, visual regression testing best practices), and 2026 tool landscape analysis. No critical gaps identified. Recommendations are actionable and roadmapper can proceed with confidence.
+All research sources are either official documentation (Nuxt, Vite, Google Core Web Vitals) or authoritative performance guides from recognized experts. No inference required—recommendations are based on established best practices with concrete implementation examples.
 
 ### Gaps to Address
 
-Minor gaps that should be validated during implementation:
-
-- **Visual diff thresholds:** Exact pixel difference tolerance (0.1-1%) needs tuning during Phase 2 implementation. Start with 0.5% and adjust based on false positive rate.
-- **Section boundary definitions:** Specific component groupings for "atomic section fixes" will emerge during Phase 6 planning. Start with obvious sections (header, hero, content, footer) and refine.
-- **CDN integration details:** Image CDN choice (Cloudinary vs ImageKit vs built-in) and upload flow needs decision during Phase 4. Both have good docs, choice depends on pricing/scale requirements.
-
-All gaps are minor and can be resolved during phase planning without blocking roadmap creation.
-
-## Sources
-
-### Primary (HIGH confidence)
-- [Nuxt 3 Documentation](https://nuxt.com/docs) — Core framework, directory structure, server routes, testing
-- [Playwright Documentation](https://playwright.dev) — Screenshot capture, visual regression testing, cross-browser testing
-- [@nuxt/image Documentation](https://image.nuxt.com) — Image optimization, static export limitations
-- [Nuxt SEO Documentation](https://nuxt.com/docs/getting-started/seo) — Meta tags, sitemap, structured data
-- [Website Migration Mistakes - Oncrawl](https://www.oncrawl.com/technical-seo/common-website-migration-mistakes-drag-down-seo-performance/) — SEO traffic loss prevention
-- [Visual Regression Testing Best Practices - BrowserStack](https://www.browserstack.com/guide/how-to-reduce-false-positives-in-visual-testing) — False positive prevention
-- [Global Internal Audit Standards 2024](https://www.theiia.org/globalassets/site/standards/globalinternalauditstandards_2024january9.pdf) — Audit-first methodology
-
-### Secondary (MEDIUM confidence)
-- [Top 7 Visual Regression Testing Tools in 2025 - Katalon](https://katalon.com/resources-center/blog/visual-regression-testing-tools/) — Tool landscape comparison
-- [Web Scraping with Axios and Cheerio - Round Proxies](https://roundproxies.com/blog/web-scraping-with-axios-and-cheerio/) — Scraping patterns
-- [Cheerio Web Scraping Guide - MarsProxies](https://marsproxies.com/blog/cheerio-web-scraping/) — HTML parsing techniques
-- [Percy vs Chromatic Comparison - Medium](https://medium.com/@crissyjoshua/percy-vs-chromatic-which-visual-regression-testing-tool-to-use-6cdce77238dc) — Visual testing tool comparison
-- [A Systematic Review of Website Performance Metrics - MDPI](https://www.mdpi.com/2073-431X/14/10/446) — Performance measurement methodology
-- [Refactoring.guru](https://refactoring.guru/) — Refactoring patterns and best practices
-
-### Tertiary (LOW confidence)
-- [Digital Volcanoes - Website Redesign Mistakes](https://digitalvolcanoes.com/blogs/dont-make-these-common-website-redesign-mistakes-in-2026) — General advice, needs validation
-- [Acclaim Agency - SEO Audit Mistakes](https://acclaim.agency/blog/common-website-audit-mistakes-and-how-to-avoid-them) — SEO-specific pitfalls
-- [eClickSoftwares - Website Migration Checklist 2026](https://www.eclicksoftwares.com/public/blog/ultimate-website-migration-checklist-for-2026-beyond) — Migration checklist, validate against project needs
+- **Current baseline scores unknown**: Run Lighthouse audit in Phase 1 to establish baseline. Cannot know which optimizations are most critical without measuring first.
+- **Image optimization status partial**: HERO images are optimized, but projects/ and other directories need verification. Address in Phase 6 image audit.
+- **Third-party script usage unclear**: Analytics plugin exists but implementation unknown. Review during Phase 5 component optimization.
+- **Production caching headers unverified**: Configured in nuxt.config.ts but need production verification. Test in Phase 2.
 
 ---
-*Research completed: 2026-02-04*
+
+*Research completed: 2026-02-06*
 *Ready for roadmap: yes*
