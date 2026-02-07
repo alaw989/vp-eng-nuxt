@@ -22,8 +22,9 @@ async function installApp() {
       class="text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors"
       @click="installApp"
       title="Install app on your device"
+      aria-label="Install this app on your device for offline access"
     >
-      <Icon name="mdi:download" class="inline mr-1" />
+      <Icon name="mdi:download" class="inline mr-1" aria-hidden="true" />
       Install App
     </button>
   </ClientOnly>

@@ -14,7 +14,7 @@
     </a>
 
     <AppHeader role="banner" />
-    <main id="main-content" class="flex-1" tabindex="-1" role="main">
+    <main ref="mainContentRef" id="main-content" class="flex-1" role="main">
       <slot />
     </main>
     <AppFooter role="contentinfo" />
@@ -22,5 +22,36 @@
 
     <!-- PWA Components -->
     <LazyPwaReloadPrompt />
+
+    <!-- Live region for screen reader announcements -->
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+      class="sr-only"
+    >
+      {{ a11yAnnouncement }}
+    </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useA11yRouteAnnouncer, useAnnouncer } from '~/composables/useA11y'
+
+const mainContentRef = ref<HTMLElement | null>(null)
+const route = useRoute()
+
+// Focus main content on route change for screen reader accessibility
+watch(() => route.path, async () => {
+  await nextTick()
+  if (mainContentRef.value) {
+    mainContentRef.value.tabIndex = -1
+    mainContentRef.value.focus()
+  }
+})
+
+// This will automatically announce route changes
+useA11yRouteAnnouncer()
+
+// Expose message for template
+const { message: a11yAnnouncement } = useAnnouncer()
+</script>

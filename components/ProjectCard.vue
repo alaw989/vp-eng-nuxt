@@ -5,6 +5,7 @@
       'group overflow-hidden rounded-xl bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
       viewMode === 'list' ? 'flex flex-col md:flex-row' : 'block'
     ]"
+    :aria-label="`View project: ${title}${category ? ` - ${category}` : ''}${location ? ` in ${location}` : ''}`"
   >
     <!-- Project Image -->
     <div :class="[
@@ -24,8 +25,8 @@
         :height="viewMode === 'list' ? 400 : 600"
         :placeholder="!priority"
       />
-      <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20">
-        <Icon name="mdi:building" class="w-16 h-16 text-primary/40" />
+      <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20" aria-hidden="true">
+        <Icon name="mdi:building" class="w-16 h-16 text-primary/40" aria-hidden="true" />
       </div>
     </div>
 
@@ -47,11 +48,11 @@
       <!-- Project Meta -->
       <div v-if="location || year" class="flex items-center gap-4 text-sm text-neutral-500 mt-auto">
         <span v-if="location" class="flex items-center gap-1">
-          <Icon name="mdi:map-marker" class="w-4 h-4" />
+          <Icon name="mdi:map-marker" class="w-4 h-4" aria-hidden="true" />
           {{ location }}
         </span>
         <span v-if="year" class="flex items-center gap-1">
-          <Icon name="mdi:calendar" class="w-4 h-4" />
+          <Icon name="mdi:calendar" class="w-4 h-4" aria-hidden="true" />
           {{ year }}
         </span>
       </div>

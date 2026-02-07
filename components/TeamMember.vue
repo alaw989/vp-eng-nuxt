@@ -16,8 +16,8 @@
         height="1000"
         :placeholder="!priority"
       />
-      <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20">
-        <Icon name="mdi:account-tie" class="w-20 h-20 text-primary/40" />
+      <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20" aria-hidden="true">
+        <Icon name="mdi:account-tie" class="w-20 h-20 text-primary/40" aria-hidden="true" />
       </div>
     </div>
 

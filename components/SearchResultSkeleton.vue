@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6" aria-hidden="true">
     <!-- Pages skeleton -->
     <div>
       <div class="h-6 w-32 bg-neutral-200 rounded animate-pulse mb-4"></div>

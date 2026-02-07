@@ -1,670 +1,978 @@
-# Architecture Research
+# Architecture Patterns: Refinement Features Integration
 
-**Domain:** Performance Optimization for Existing Nuxt 3 Website
-**Researched:** 2026-02-06
-**Confidence:** HIGH
+**Domain:** Nuxt 3 Refinement - Page Transitions, Micro-interactions, Accessibility
+**Project:** VP Associates Website v1.2
+**Researched:** 2026-02-07
+**Overall Confidence:** HIGH
 
-## Standard Architecture
+---
 
-### System Overview
+## Executive Summary
 
-```
-+-----------------------------------------------------------------------+
-|                        Performance Optimization Layer                 |
-+-----------------------------------------------------------------------+
-|  Optimizations integrate at multiple architectural boundaries:        |
-|                                                                       |
-|  [Config Layer]        [Component Layer]       [Server Layer]        |
-|  nuxt.config.ts        Components/*            server/api/*          |
-|  - routeRules          - Lazy components       - Cached handlers     |
-|  - image config         - Lazy hydration        - Response headers    |
-|  - nitro config         - NuxtLink optimization                       |
-|  - vite config          - v-memo, v-once                              |
-|  - experimental                                                        |
-+-----------------------------------------------------------------------+
-|                        [Build Layer]                                  |
-|  Vite bundling analysis, code splitting, bundle size optimization     |
-+-----------------------------------------------------------------------+
-|                        [Runtime Layer]                                |
-|  Composables, plugins, data fetching optimization                     |
-+-----------------------------------------------------------------------+
-```
+The existing Nuxt 3 architecture is **well-positioned for refinement features** with minimal restructuring. The codebase already demonstrates solid patterns:
 
-### Component Responsibilities
+- **Page transitions** are configured globally in `nuxt.config.ts` with CSS classes in `main.css`
+- **Micro-interactions** exist in components (hover states, transitions) using Tailwind utilities
+- **Accessibility foundations** are strong: semantic HTML, ARIA labels, keyboard handlers, skip links
+- **Composables pattern** is established (useScrollReveal) for shared logic
 
-| Component | Responsibility | Integration Point | Optimization Scope |
-|-----------|----------------|-------------------|-------------------|
-| **nuxt.config.ts** | Central configuration for all performance features | Global - affects entire app | Route rules, image optimization, caching, build settings |
-| **Nitro routeRules** | Hybrid rendering, caching headers, prerendering | Server-level - per-route | SSR/SSG/ISR strategy, cache control |
-| **@nuxt/image** | Automatic image optimization | Components using NuxtImg/NuxtPicture | Image formats, sizing, lazy loading |
-| **Lazy components** | Code-split non-critical components | Component level | Bundle size, TTI reduction |
-| **Lazy hydration** | Delay component interactivity | Component level | TTI improvement, CPU reduction |
-| **NuxtLink** | Smart prefetching, navigation optimization | Router/Aavigation | Page transition speed |
-| **Cached event handlers** | Server-side response caching | server/api routes | API response time, server load |
-| **Composables** | Reusable data fetching logic | Pages/components | Data fetch optimization |
-| **Plugins** | Third-party script management | app initialization | Blocking time, CLS reduction |
+**Key insight:** Refinement features should be implemented as **layered enhancements**, not architectural changes. Focus on:
+1. Enhanced page transitions using Vue 3's built-in `<Transition>` component
+2. Composable-based micro-interactions for reusability
+3. Accessibility as a **composable pattern** (`useA11y`) for consistent implementation
+4. Design tokens in Tailwind config for visual consistency
 
-## Recommended Project Structure
+---
 
-### Existing Structure (Performance Augmented)
+## Current Architecture Analysis
 
-```
-nuxt.config.ts              # PRIMARY: Central performance configuration
-                            # - routeRules, image, nitro, vite, experimental
+### Existing Transition Infrastructure
 
-server/
-├── api/                    # Existing API routes (add caching)
-│   ├── projects.get.ts     # ADD: defineCachedEventHandler wrapper
-│   ├── services.get.ts     # ADD: defineCachedEventHandler wrapper
-│   ├── contact.post.ts     # ADD: rate limiting consideration
-│   └── ...
-└── routes/                 # Existing dynamic routes
-    ├── sitemap.xml.ts      # Already: prerender optimization
-    └── rss.xml.ts          # Already: prerender optimization
-
-components/                 # Existing components (augment with performance)
-├── AppHeader.vue           # OPTIMIZE: Reduce render cost
-├── HeroSlider.vue          # OPTIMIZE: Image loading, lazy hydration
-├── StatCounter.vue         # OPTIMIZE: v-once for static values
-├── ProjectCard.vue         # OPTIMIZE: Lazy loading images
-├── ProjectGallery.vue      # OPTIMIZE: Image lazy loading below fold
-├── PageLoadingBar.vue      # OPTIMIZE: Consider removing (uses intervals)
-└── ...
-
-composables/                # Existing composables (augment for performance)
-├── useApi.ts               # OPTIMIZE: Add request deduplication
-├── useInternalApi.ts       # OPTIMIZE: Cache static fallback data
-├── usePageMeta.ts          # Already optimized
-└── useAnalytics.ts         # OPTIMIZE: Lazy load analytics
-
-plugins/                    # Existing plugins (review and optimize)
-├── analytics.client.ts     # OPTIMIZE: Use Nuxt Scripts or defer loading
-└── error-handler.ts        # Already minimal impact
-
-pages/                       # Existing pages (augment with meta optimization)
-├── index.vue               # OPTIMIZE: Critical CSS, LCP optimization
-├── about.vue               # OPTIMIZE: Prerender strategy
-├── projects/
-│   ├── index.vue           # OPTIMIZE: Pagination, infinite scroll
-│   └── [slug].vue          # OPTIMIZE: ISR caching
-├── services/
-│   ├── index.vue           # OPTIMIZE: Prerender strategy
-│   └── [slug].vue          # OPTIMIZE: ISR caching
-└── ...
-
-public/                     # Static assets
-└── images/                 # OPTIMIZE: Convert to next-gen formats
-    ├── hero/               # Already: Optimized hero images
-    └── projects/           # REVIEW: Check optimization status
-```
-
-### New Performance-Only Additions
-
-```
-# Performance-specific directory structure (optional organization):
-
-composables/
-├── usePerformance.ts       # NEW: Performance monitoring composable
-└── useLazyHydration.ts     # NEW: Lazy hydration helpers
-
-middleware/
-└── prefetch.ts             # NEW: Intelligent prefetching strategy
-
-utils/
-├── performance.ts          # NEW: Performance utility functions
-└── image-optimization.ts   # NEW: Image optimization helpers
-
-scripts/
-└── analyze-bundle.ts       # NEW: Bundle analysis runner
-```
-
-### Structure Rationale
-
-- **nuxt.config.ts**: Central configuration point for all performance features - most impactful, no code changes required
-- **server/api/**: Wrap existing handlers with `defineCachedEventHandler` for free server-side caching
-- **components/**: Apply lazy loading and hydration strategies selectively - component-level optimization
-- **composables/**: Data fetching optimization - reduce redundant requests
-- **plugins/**: Convert blocking plugins to lazy-loaded composables where possible
-- **pages/**: Route-specific meta tags and loading strategies
-
-## Architectural Patterns
-
-### Pattern 1: Config-First Optimization
-
-**What:** Maximize performance gains through configuration changes before code modifications.
-
-**When to use:** First phase of optimization - highest ROI, lowest risk.
-
-**Trade-offs:**
-- Pro: No code changes, framework-optimized, easy to revert
-- Con: Limited to framework capabilities, may need code changes for edge cases
-
-**Example:**
+**Global Configuration (nuxt.config.ts):**
 ```typescript
-// nuxt.config.ts
-export default defineNuxtConfig({
-  // 1. Route rules - most impactful config change
-  routeRules: {
-    '/': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
-    '/about': { prerender: true },
-    '/projects': { isr: 3600 }, // Revalidate every hour
-    '/projects/**': { isr: 3600 },
-    '/services': { isr: 3600 },
-    '/services/**': { isr: 3600 },
-    '/contact': { prerender: true },
-  },
-
-  // 2. Image optimization - already configured, verify settings
-  image: {
-    quality: 80,
-    format: ['webp', 'avif', 'jpg'],
-    screens: { xs: 320, sm: 640, md: 768, lg: 1024, xl: 1280, xxl: 1536 },
-  },
-
-  // 3. Nitro caching headers
-  nitro: {
-    routeRules: {
-      '/images/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-      '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-    },
-  },
-})
+app: {
+  pageTransition: { name: 'page', mode: 'out-in' },
+  layoutTransition: { name: 'layout', mode: 'out-in' }
+}
 ```
 
-### Pattern 2: Server-Side Caching Wrapper
+**CSS Implementation (main.css):**
+- `.page-enter-active`, `.page-leave-active` with cubic-bezier easing
+- Transform + opacity transitions (subtle, not overwhelming)
+- Layout transitions for smooth navigation
 
-**What:** Wrap existing Nitro event handlers with caching layer without modifying logic.
+**Status:** ✅ **Already implemented but basic**
 
-**When to use:** API endpoints that return data that doesn't change frequently.
+### Existing Component Interactions
 
-**Trade-offs:**
-- Pro: Zero logic changes, significant response time improvement
-- Con: Stale data until cache expires, memory usage
+**AppHeader.vue:**
+- Scroll-based shadow effect (window scroll listener)
+- Mobile menu with `<Transition>` component
+- `focus-visible:ring` utilities for keyboard navigation
+- ARIA attributes: `aria-current`, `aria-label`, `aria-expanded`, `aria-controls`
 
-**Example:**
+**ProjectCard.vue:**
+- Group hover effect: `group-hover:scale-110` on images
+- `transition-all duration-300` for card hover
+- `focus-visible:ring-2` for accessibility
+- Proper `alt` text construction with all metadata
+
+**Status:** ✅ **Solid foundation, can be enhanced**
+
+### Existing Accessibility Patterns
+
+**Layouts/default.vue:**
+- Skip to main content link (screen reader only, visible on focus)
+- Semantic HTML5 landmarks: `<header role="banner">`, `<main role="main">`, `<footer role="contentinfo">`
+- `tabindex="-1"` on main for skip link target
+
+**Components:**
+- ARIA current page indicators in navigation
+- Proper button labels with `aria-label`
+- Icon-only links have descriptive aria-labels (e.g., Search icon)
+- Focus management in mobile menu
+
+**Status:** ✅ **Good foundation, needs consistency layer**
+
+### Existing Composables
+
+**useScrollReveal.ts:**
+- Uses VueUse's `useIntersectionObserver`
+- Returns `target` ref and `isVisible` reactive
+- Simple, reusable pattern
+
+**Status:** ✅ **Pattern established, can extend**
+
+---
+
+## Recommended Architecture for Refinement
+
+### 1. Page Transitions Enhancement
+
+#### Current Architecture
+```
+┌─────────────────────────────────────────┐
+│  nuxt.config.ts (global config)        │
+│  ├─ pageTransition: { name: 'page' }   │
+│  └─ layoutTransition: { name: 'layout' }│
+└─────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────┐
+│  main.css (transition classes)          │
+│  ├─ .page-enter-active                 │
+│  ├─ .page-leave-active                 │
+│  └─ .page-enter-from, .page-leave-to   │
+└─────────────────────────────────────────┘
+```
+
+#### Recommended Enhancement
+
+**Option A: Per-Page Transitions (Recommended)**
 ```typescript
-// server/api/projects.get.ts - BEFORE
-export default defineEventHandler(async (event) => {
-  // Existing logic...
-  const response = await $fetch(url, { timeout: 10000 })
-  return { success: true, data: response }
-})
-
-// server/api/projects.get.ts - AFTER (cached wrapper)
-export default defineCachedEventHandler(async (event) => {
-  // Existing logic unchanged...
-  const query = getQuery(event)
-  const url = `${WP_API_URL}/projects?page=${query.page}&per_page=${query.per_page}&_embed=true`
-  const response = await $fetch(url, { timeout: 10000 })
-  return { success: true, data: response }
-}, {
-  maxAge: 1000 * 60 * 15, // 15 minutes
-  name: 'projects-cache',
-  getKey: (event) => {
-    const query = getQuery(event)
-    return `projects-${query.page || 1}-${query.per_page || 12}`
+// In specific page files
+definePageMeta({
+  pageTransition: {
+    name: 'slide-fade',
+    mode: 'out-in'
   }
 })
 ```
 
-### Pattern 3: Lazy Component Loading
+**Why:**
+- Granular control without global changes
+- Different transitions for different contexts (e.g., projects → project detail)
+- No risk of breaking existing pages
+- Leverages Nuxt 3's built-in `definePageMeta`
 
-**What:** Use `Lazy` prefix for components that are not immediately visible.
+**Option B: Enhanced Global Transitions**
+Enhance existing `.page-*` classes with:
+- Reduced motion support (`@media (prefers-reduced-motion: reduce)`)
+- Directional transitions (slide left vs right based on route depth)
+- Scroll position hooks for smooth restoration
 
-**When to use:** Components below the fold, in modals, tabs, or conditional rendering.
+**Integration Points:**
+- Modify `main.css` → No component changes
+- Add directional logic in `app.vue` or plugin
+- Respect `prefers-reduced-motion` for accessibility
 
-**Trade-offs:**
-- Pro: Reduced initial bundle size, faster TTI
-- Con: Brief flash of content, network request on first use
+---
 
-**Example:**
-```vue
-<!-- pages/index.vue - BEFORE -->
-<template>
-  <div>
-    <HeroSlider />
-    <AppSection />            <!-- Above fold, load eagerly -->
-    <ClientLogos />           <!-- Below fold, could be lazy -->
-    <TestimonialCard />       <!-- Below fold, could be lazy -->
-    <PwaReloadPrompt />       <!-- Only shown on update, already Lazy -->
-  </div>
-</template>
+### 2. Micro-Interactions Architecture
 
-<!-- pages/index.vue - AFTER -->
-<template>
-  <div>
-    <HeroSlider />
-    <AppSection />
-    <LazyClientLogos />       <!-- Lazy load when needed -->
-    <LazyTestimonialCard />   <!-- Lazy load when needed -->
-    <LazyPwaReloadPrompt />
-  </div>
-</template>
-```
+#### Proposed Pattern: Composable-Based Utilities
 
-### Pattern 4: Lazy Hydration for Heavy Components
-
-**What:** Delay hydration until component is visible or interaction is needed.
-
-**When to use:** Components with heavy interactivity that appear below the fold.
-
-**Trade-offs:**
-- Pro: Faster TTI, reduced CPU usage on load
-- Con: Component not interactive until hydrated
-
-**Example:**
-```vue
-<!-- components/HeroSlider.vue - add lazy hydration -->
-<template>
-  <LazyHeroSlider
-    v-if="showSlider"
-    hydrate-on-visible
-    @on-hydration="handleSliderHydration"
-  />
-</template>
-
-<!-- Or use built-in directive -->
-<template>
-  <HeroSlider hydrate-on-visible />
-</template>
-```
-
-### Pattern 5: Image Loading Strategy
-
-**What:** Different image loading strategies based on viewport position.
-
-**When to use:** All image-heavy components throughout the site.
-
-**Trade-offs:**
-- Pro: Significant LCP improvement, reduced bandwidth
-- Con: Implementation complexity per image placement
-
-**Example:**
-```vue
-<!-- Hero slider (first screen) - load immediately -->
-<NuxtImg
-  src="/images/hero/berlin-structure-1920w.jpg"
-  format="webp"
-  loading="eager"
-  fetchpriority="high"
-  width="1920"
-  height="1080"
-  :modifiers="{ quality: 85 }"
-/>
-
-<!-- Project cards (below fold) - lazy load -->
-<NuxtImg
-  :src="project.image"
-  format="webp"
-  loading="lazy"
-  width="640"
-  height="480"
-  :modifiers="{ quality: 80 }"
-/>
-
-<!-- Background/decorative images - lowest priority -->
-<NuxtImg
-  src="/images/decoration.png"
-  loading="lazy"
-  fetchpriority="low"
-/>
-```
-
-### Pattern 6: Plugin to Composable Conversion
-
-**What:** Convert blocking plugins to lazy-loaded composables.
-
-**When to use:** Plugins that don't need to run immediately on app initialization.
-
-**Trade-offs:**
-- Pro: Reduces hydration blocking time
-- Con: Must be explicitly called when needed
-
-**Example:**
+**New Composable: `useMicroInteractions.ts`**
 ```typescript
-// plugins/analytics.client.ts - BEFORE (blocks hydration)
-export default defineNuxtPlugin((nuxtApp) => {
-  // Analytics initialization blocks app start
-  initGA4(config.public.gaMeasurementId)
-  // Track page views...
-})
+export function useMicroInteractions() {
+  const isHovered = ref(false)
+  const isPressed = ref(false)
+  const isFocused = ref(false)
 
-// composables/useAnalytics.ts - AFTER (lazy loaded)
-export const useAnalytics = () => {
-  const init = () => {
-    if (process.client) {
-      // Load analytics only when called
-      initGA4(config.public.gaMeasurementId)
+  // Hover with debouncing
+  const onHover = (callback: Function, delay = 150) => {
+    let timeout: NodeJS.Timeout
+    return () => {
+      clearTimeout(timeout)
+      timeout = setTimeout(callback, delay)
     }
   }
-  const track = (event: string, data: any) => {
-    // Analytics logic
-  }
-  return { init, track }
-}
 
-// In component:
-<script setup>
-const { init, track } = useAnalytics()
-onMounted(() => {
-  init() // Initialize after page loads
-})
+  // Press animation
+  const onPress = () => { isPressed.value = true }
+  const onRelease = () => { isPressed.value = false }
+
+  // Focus ring (respecting prefers-reduced-motion)
+  const shouldAnimate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  return {
+    isHovered, isPressed, isFocused,
+    onHover, onPress, onRelease,
+    shouldAnimate
+  }
+}
+```
+
+**Usage Pattern:**
+```vue
+<template>
+  <button
+    @mouseenter="handleHover"
+    @mouseleave="cancelHover"
+    @mousedown="onPress"
+    @mouseup="onRelease"
+    :class="{ 'scale-95': isPressed && shouldAnimate }"
+  >
+    Button
+  </button>
+</template>
+
+<script setup lang="ts">
+const { isPressed, onPress, onRelease, shouldAnimate } = useMicroInteractions()
 </script>
 ```
 
-## Data Flow
+#### Tailwind Utilities Enhancement
 
-### Performance Optimization Flow
+**Add to main.css `@layer utilities`:**
+```css
+/* Micro-interaction utilities */
+.hover-lift {
+  @apply transition-transform duration-200 hover:-translate-y-1;
+}
 
-```
-[User Request]
-    ↓
-[Nitro Server]
-    ↓
-[Route Rules Check]
-    ├─→ Prerendered? → [Serve Static HTML]
-    ├─→ ISR Cached? → [Serve Cached + Revalidate]
-    └─→ SSR? → [Render on Server]
-    ↓
-[Cached API Handler] (if using defineCachedEventHandler)
-    ├─→ Cache Hit? → [Return Cached Response]
-    └─→ Cache Miss? → [Fetch + Cache + Return]
-    ↓
-[HTML with Payload]
-    ↓
-[Client Hydration]
-    ├─→ [Eager Components] → Hydrate Immediately
-    ├─→ [Lazy Components] → Hydrate on Demand
-    └─→ [Lazy Hydration] → Hydrate on Visible/Interaction
-    ↓
-[Image Loading]
-    ├─→ [Above Fold] → loading="eager", fetchpriority="high"
-    └─→ [Below Fold] → loading="lazy", fetchpriority="low"
+.press-scale {
+  @apply active:scale-95 transition-transform duration-100;
+}
+
+.focus-ring-subtle {
+  @apply focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2;
+}
+
+/* Respects reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift,
+  .press-scale {
+    transition: none !important;
+    transform: none !important;
+  }
+}
 ```
 
-### Caching Flow
-
-```
-[Client Request]
-    ↓
-[Browser Cache Check]
-    ├─→ Hit? → [Serve from Browser Cache]
-    └─→ Miss? → [Continue to Server]
-    ↓
-[CDN/Edge Cache] (if deployed)
-    ├─→ Hit? → [Serve from CDN]
-    └─→ Miss? → [Continue to Origin]
-    ↓
-[Nitro Cache] (defineCachedEventHandler)
-    ├─→ Hit? → [Serve from Nitro Cache]
-    └─→ Miss? → [Execute Handler + Cache Result]
-    ↓
-[WordPress API] (origin data source)
-    ↓
-[Response Back with Cache Headers]
-```
-
-## Scaling Considerations
-
-| Scale | Architecture Adjustments |
-|-------|--------------------------|
-| Current (~20 pages) | Current setup is appropriate - Nitro server, in-memory caching, static generation for most pages |
-| 50-100 pages | Add ISR for dynamic content, implement CDN, consider edge functions |
-| 100+ pages | Consider headless CMS migration, implement full ISR, add CDN with edge caching, bundle splitting |
-
-### Scaling Priorities
-
-1. **First bottleneck:** Image optimization and delivery
-   - Fix: Ensure all images use @nuxt/image, implement responsive sizes, use CDN
-
-2. **Second bottleneck:** API response time (WordPress API)
-   - Fix: Server-side caching with defineCachedEventHandler, consider static data caching
-
-3. **Third bottleneck:** JavaScript bundle size
-   - Fix: Lazy loading components, bundle analysis, tree shaking
-
-## Anti-Patterns
-
-### Anti-Pattern 1: Universal Lazy Loading
-
-**What people do:** Add `Lazy` prefix to every component thinking it improves performance.
-
-**Why it's wrong:** Increases number of network requests, causes content flash, can hurt LCP. Eager loading of above-fold content is important.
-
-**Do this instead:** Only lazy load components below the fold or in conditional/modal contexts. Keep critical path components eager.
-
-### Anti-Pattern 2: Aggressive Caching Without Invalidation
-
-**What people do:** Set cache headers to 1 year without cache-busting strategy.
-
-**Why it's wrong:** Users never see updates, content changes don't propagate, deployment issues.
-
-**Do this instead:** Use appropriate cache durations, implement cache invalidation on deploy, use content hashes for immutable assets.
-
-### Anti-Pattern 3: Optimizing Without Measuring
-
-**What people do:** Apply optimizations based on assumptions without baseline measurement.
-
-**Why it's wrong:** May optimize things that don't matter, miss actual bottlenecks, can't prove improvement.
-
-**Do this instead:** Run Lighthouse audit first, identify lowest scores, optimize those specific areas, re-measure.
-
-### Anti-Pattern 4: Client-Side Only Optimization
-
-**What people do:** Focus only on JavaScript bundle size and ignore server-side optimization.
-
-**Why it's wrong:** Server-side optimizations (caching, ISR, route rules) often have bigger impact with less complexity.
-
-**Do this instead:** Start with nuxt.config.ts optimizations (route rules, caching), then move to component-level changes.
-
-### Anti-Pattern 5: Disabling Features for Performance
-
-**What people do:** Disable PWA, analytics, animations to improve scores.
-
-**Why it's wrong:** Degrades user experience, scores don't reflect real UX.
-
-**Do this instead:** Optimize implementation of features, not remove them. Lazy load non-critical features.
-
-## Integration Points
-
-### External Services
-
-| Service | Integration Pattern | Optimization Notes |
-|---------|---------------------|-------------------|
-| WordPress API | server/api proxy routes | Wrap with defineCachedEventHandler, consider static fallback |
-| Google Fonts | nuxt.config.ts preconnect | Already configured - consider @nuxt/fonts for self-hosting |
-| Google Analytics | plugins/analytics.client.ts | Convert to composable, defer loading until after interaction |
-| Iconify | @nuxt/icon module | Already optimized - uses on-demand loading |
-| PWA Service Worker | @vite-pwa/nuxt | Already configured - contributes to repeat-visit performance |
-
-### Internal Boundaries
-
-| Boundary | Communication | Optimization Approach |
-|----------|---------------|----------------------|
-| Pages → API | useFetch/useAsyncData | Already optimal - prevents double fetch |
-| Components → Composables | Direct import | Lazy load composables for rare features |
-| Server → WordPress | $fetch | Add caching layer, implement stale-while-revalidate |
-| Layout → Components | Direct rendering | Lazy load non-critical components |
-
-## Build Order Recommendations
-
-Based on impact-to-effort ratio and architectural dependencies:
-
-### Phase 1: Config Optimization (Highest ROI, Lowest Risk)
-**Priority: Critical**
-
-1. **Route Rules Configuration** - nuxt.config.ts
-   - Prerender static pages (/, /about, /contact)
-   - Add ISR for semi-static pages (/projects, /services)
-   - Configure cache headers for static assets
-
-2. **Verify Image Configuration** - nuxt.config.ts
-   - Confirm @nuxt/image settings (quality, formats)
-   - Review screen sizes match design breakpoints
-   - Already well-configured, verify usage in components
-
-3. **Nitro Cache Headers** - nuxt.config.ts
-   - Immutable assets (/_nuxt/**, /images/**)
-   - API route caching strategy
-
-**Rationale:** Config changes affect entire site with no code modifications. Fastest path to 90+ scores.
-
-### Phase 2: Server-Side Caching (High ROI, Low Risk)
-**Priority: High**
-
-4. **Cache API Handlers** - server/api/*.ts
-   - Wrap projects.get.ts with defineCachedEventHandler
-   - Wrap services.get.ts with defineCachedEventHandler
-   - Wrap team.get.ts with defineCachedEventHandler
-   - Wrap testimonials.get.ts with defineCachedEventHandler
-
-5. **Add Cache Invalidation Strategy**
-   - Version-based cache keys
-   - Manual cache refresh endpoints (optional)
-
-**Rationale:** Server-side caching has massive impact with minimal code changes. Reduces WordPress API dependency.
-
-### Phase 3: Component Lazy Loading (Medium ROI, Medium Risk)
-**Priority: Medium**
-
-6. **Lazy Load Below-Fold Components** - pages/index.vue, etc.
-   - LazyClientLogos
-   - LazyTestimonialCard (or individual cards)
-   - LazyProjectsCarousel (if below fold)
-
-7. **Review Critical Path Components**
-   - Ensure AppHeader, HeroSlider load eagerly
-   - Check for unnecessary heavy dependencies in critical path
-
-**Rationale:** Reduces initial JavaScript bundle, improves TTI. Requires testing for visual issues.
-
-### Phase 4: Image Optimization (High ROI, Medium Complexity)
-**Priority: Medium**
-
-8. **Audit Image Usage Across Site**
-   - Find all img tags (convert to NuxtImg)
-   - Check for unoptimized images in public/
-   - Identify missing responsive sizes
-
-9. **Implement Image Loading Strategies**
-   - Above-fold: loading="eager", fetchpriority="high"
-   - Below-fold: loading="lazy"
-   - Background: fetchpriority="low"
-
-10. **Convert Images to Next-Gen Formats**
-    - Convert remaining JPEG/PNG to WebP
-    - Consider AVIF for critical images
-
-**Rationale:** Images are typically #1 performance factor. Already partially optimized, complete the work.
-
-### Phase 5: Advanced Component Optimization (Medium ROI, Higher Risk)
-**Priority: Low**
-
-11. **Lazy Hydration** - Heavy interactive components
-    - Add hydrate-on-visible to below-fold interactive components
-    - Test thoroughly for interaction delays
-
-12. **Plugin Optimization** - plugins/
-    - Convert analytics.client.ts to lazy composable
-    - Review other plugins for blocking behavior
-
-13. **Vue Performance Directives** - Components
-    - Add v-once for static content
-    - Add v-memo for expensive renders
-    - Use shallowRef where appropriate
-
-**Rationale:** These optimizations yield diminishing returns after phases 1-4. Higher complexity requires more testing.
-
-### Phase 6: Bundle Optimization (Medium ROI, Medium Complexity)
-**Priority: Low**
-
-14. **Bundle Analysis** - Build infrastructure
-    - Run npx nuxi analyze
-    - Identify largest chunks
-    - Tree shaking audit
-
-15. **Code Splitting Optimization**
-    - Manual chunk configuration for vendor libraries
-    - Dynamic imports for large dependencies
-    - Remove unused dependencies
-
-**Rationale:** Bundle optimization is important but should come after higher-impact optimizations.
-
-### Phase 7: Monitoring & CI (Enables Continuous Optimization)
-**Priority: Low**
-
-16. **Lighthouse CI Integration** - CI/CD
-    - Automated performance regression testing
-    - Score thresholds for deployment gates
-
-17. **Real User Monitoring** - Optional
-    - Core Web Vitals tracking
-    - Performance budget alerts
-
-**Rationale:** Monitoring prevents regression but doesn't improve scores directly. Add after optimizations are complete.
-
-## Integration with Existing Architecture
-
-### How Optimizations Layer In
-
-The existing VP Associates architecture is well-suited for performance optimization:
-
-```
-Existing Layer             Optimization Layer               Implementation
-----------------          ---------------------           -----------------
-nuxt.config.ts    =====>  Add routeRules                  Direct config edit
-                  =====>  Verify image config             Review only
-                  =====>  Add nitro cache rules           Direct config edit
-
-server/api/       =====>  Wrap with cache handler         Minimal code wrapper
-components/       =====>  Add Lazy prefix                 Naming convention only
-                  =====>  Add hydrate-on-visible          Prop addition only
-composables/      =====>  Optimize data fetching          Refactor existing
-plugins/          =====>  Convert to composables          Move + refactor
-pages/            =====>  Add prefetch hints              Meta tag addition
+**Integration Points:**
+- Update existing components (ProjectCard, ServiceCard, buttons)
+- No new components needed - utility classes approach
+- Composable for complex interactions (modals, dropdowns)
+
+---
+
+### 3. Accessibility Layer Architecture
+
+#### Proposed Pattern: Accessibility Composable
+
+**New Composable: `useA11y.ts`**
+```typescript
+export function useA11y() {
+  // Announce to screen readers
+  const announce = (message: string, priority: 'polite' | 'assertive' = 'polite') => {
+    const announcement = document.createElement('div')
+    announcement.setAttribute('role', 'status')
+    announcement.setAttribute('aria-live', priority)
+    announcement.setAttribute('aria-atomic', 'true')
+    announcement.className = 'sr-only'
+    announcement.textContent = message
+
+    document.body.appendChild(announcement)
+    setTimeout(() => document.body.removeChild(announcement), 1000)
+  }
+
+  // Trap focus in modal
+  const trapFocus = (container: HTMLElement) => {
+    const focusableElements = container.querySelectorAll(
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )
+    const firstElement = focusableElements[0] as HTMLElement
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault()
+        lastElement.focus()
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault()
+        firstElement.focus()
+      }
+    }
+
+    container.addEventListener('keydown', handleTab)
+    firstElement?.focus()
+
+    return () => container.removeEventListener('keydown', handleTab)
+  }
+
+  // Manage focus return
+  const manageFocusReturn = () => {
+    const previousActiveElement = document.activeElement as HTMLElement
+
+    onUnmounted(() => {
+      previousActiveElement?.focus()
+    })
+
+    return previousActiveElement
+  }
+
+  // Keyboard navigation patterns
+  const useRovingTabIndex = (items: Ref<HTMLElement[]>) => {
+    const currentIndex = ref(0)
+
+    const handleKeydown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault()
+          currentIndex.value = (currentIndex.value + 1) % items.value.length
+          items.value[currentIndex.value].focus()
+          break
+        case 'ArrowUp':
+          e.preventDefault()
+          currentIndex.value = currentIndex.value === 0
+            ? items.value.length - 1
+            : currentIndex.value - 1
+          items.value[currentIndex.value].focus()
+          break
+        case 'Home':
+          e.preventDefault()
+          currentIndex.value = 0
+          items.value[0].focus()
+          break
+        case 'End':
+          e.preventDefault()
+          currentIndex.value = items.value.length - 1
+          items.value[currentIndex.value].focus()
+          break
+      }
+    }
+
+    return { currentIndex, handleKeydown }
+  }
+
+  // Check reduced motion preference
+  const prefersReducedMotion = computed(() => {
+    if (import.meta.client) {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    }
+    return false
+  })
+
+  return {
+    announce,
+    trapFocus,
+    manageFocusReturn,
+    useRovingTabIndex,
+    prefersReducedMotion
+  }
+}
 ```
 
-### Leverage Existing Features
+#### Component-Level Accessibility Pattern
 
-The current implementation already includes several performance-optimized features:
+**Base Pattern for Interactive Components:**
+```vue
+<template>
+  <button
+    ref="buttonRef"
+    :aria-label="ariaLabel"
+    :aria-pressed="isPressed"
+    :aria-expanded="isExpanded"
+    @click="toggle"
+    @keydown="handleKeydown"
+    class="base-styles focus-ring"
+  >
+    <slot />
+    <span class="sr-only">{{ screenReaderText }}</span>
+  </button>
+</template>
 
-1. **@nuxt/image** - Already configured and used in HeroSlider
-2. **@nuxtjs/sitemap** - Dynamic sitemap with prerender
-3. **@vite-pwa/nuxt** - Service worker for offline capability
-4. **Preconnect headers** - Already configured for fonts and Iconify
-5. **Route-based caching** - Already configured in nitro.routeRules
-6. **PWA runtime caching** - Already configured for WordPress API
+<script setup lang="ts">
+interface Props {
+  ariaLabel: string
+  screenReaderText?: string
+}
 
-These features provide a strong foundation. The optimization work focuses on:
+const props = defineProps<Props>()
+const { announce, prefersReducedMotion } = useA11y()
 
-- Completing image optimization across all components
-- Adding server-side caching for API routes
-- Implementing lazy loading for non-critical components
-- Fine-tuning route rules for optimal caching strategy
+const isPressed = ref(false)
+const isExpanded = ref(false)
+
+const toggle = () => {
+  isPressed.value = !isPressed.value
+  isExpanded.value = !isExpanded.value
+  announce(`${props.ariaLabel} ${isExpanded.value ? 'expanded' : 'collapsed'}`)
+}
+
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    toggle()
+  }
+}
+</script>
+```
+
+**Integration Points:**
+- Create `useA11y.ts` in `composables/`
+- Update interactive components (buttons, dropdowns, modals)
+- No changes to static components (Hero, About sections)
+- Add keyboard handler patterns where missing
+
+---
+
+### 4. Visual Consistency: Design Tokens
+
+#### Current Tailwind Config
+
+**Existing Colors:**
+```javascript
+colors: {
+  primary: {
+    DEFAULT: '#033379',    // Brand blue
+    light: '#0a4da8',
+    dark: '#02244f'
+  },
+  secondary: {
+    DEFAULT: '#BE0000',    // Brand red
+    light: '#e60000',
+    dark: '#8a0000'
+  }
+}
+```
+
+**Recommended Extensions:**
+
+**Spacing Scale (already using Tailwind defaults):**
+- Current: `py-16 md:py-24 lg:py-32` for sections
+- Recommendation: Create semantic spacing tokens
+
+**Animation Durations:**
+```javascript
+// Add to tailwind.config.js
+theme: {
+  extend: {
+    transitionDuration: {
+      'fast': '150ms',
+      'base': '200ms',
+      'slow': '300ms',
+      'slower': '500ms'
+    },
+    transitionTimingFunction: {
+      'ease-out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+      'ease-in-out-quad': 'cubic-bezier(0.45, 0, 0.55, 1)'
+    }
+  }
+}
+```
+
+**Semantic Spacing Tokens:**
+```javascript
+spacing: {
+  'section': '4rem',      // 64px - mobile section padding
+  'section-md': '6rem',   // 96px - tablet section padding
+  'section-lg': '8rem',   // 128px - desktop section padding
+  'element': '1.5rem',    // 24px - default element spacing
+  'element-sm': '1rem',   // 16px - compact element spacing
+  'element-lg': '2rem',   // 32px - generous element spacing
+}
+```
+
+**Border Radius Consistency:**
+```javascript
+borderRadius: {
+  'card': '0.75rem',      // 12px - ProjectCard, ServiceCard
+  'button': '0.5rem',     // 8px - buttons
+  'input': '0.375rem'     // 6px - form inputs
+}
+```
+
+**Integration Points:**
+- Update `tailwind.config.js` with tokens
+- No component changes - tokens used via utility classes
+- Consistent design system enforced at config level
+
+---
+
+## Integration Points with Existing Components
+
+### Components Requiring Enhancement
+
+| Component | Current State | Enhancement Needed | Complexity |
+|-----------|---------------|-------------------|------------|
+| **AppHeader** | Good a11y, basic transitions | Add micro-interaction to logo hover, enhance menu transition | Low |
+| **ProjectCard** | Hover effects, good a11y | Add `press-scale` utility, refine animation timing | Low |
+| **ServiceCard** | Similar to ProjectCard | Same as ProjectCard | Low |
+| **TeamMember** | Unknown (need to check) | Add hover lift, focus ring | Low |
+| **TestimonialCard** | Unknown | Add subtle fade-in on scroll | Low |
+| **HeroSlider** | Unknown | Add touch-friendly transitions, a11y announcements | Medium |
+| **AppBreadcrumbs** | Unknown | Ensure keyboard nav, a11y labels | Low |
+| **PwaInstallPrompt** | Unknown | Add animation on show, a11y | Medium |
+| **LoadingSkeleton** | Unknown | Add shimmer animation, reduced motion support | Low |
+
+### New Components Needed
+
+| Component | Purpose | Complexity |
+|-----------|---------|------------|
+| **TransitionWrapper.vue** | Reusable page transition with directional logic | Low |
+| **FocusTrap.vue** | Modal/dialog focus management utility | Medium |
+| **KeyboardNav.vue** | Roving tabindex pattern for lists/grid | Medium |
+| **LiveRegion.vue** | Screen reader announcement component | Low |
+
+### Components Not Requiring Changes
+
+| Component | Reason |
+|-----------|--------|
+| **AppFooter** | Static content, adequate spacing |
+| **ClientLogos** | Non-interactive, sufficient |
+| **StatCounter** | Already has animation (likely) |
+| **Skeletons** | Loading states, no interaction needed |
+| **AppError** | Error state, minimal interaction |
+
+---
+
+## Data Flow Changes
+
+### Current Data Flow
+```
+User Interaction
+    ↓
+Component Event Handler
+    ↓
+State Update (ref/reactive)
+    ↓
+Re-render
+```
+
+### Enhanced Data Flow (Minimal Changes)
+```
+User Interaction
+    ↓
+Component Event Handler
+    ↓
+┌─────────────────────────────┐
+│  useA11y (if needed)        │ ← NEW: Composable layer
+│  ├─ announce()              │
+│  ├─ trapFocus()             │
+│  └─ manageFocusReturn()     │
+└─────────────────────────────┘
+    ↓
+State Update (ref/reactive)
+    ↓
+┌─────────────────────────────┐
+│  useMicroInteractions       │ ← NEW: Animation control
+│  ├─ check reduced motion    │
+│  └─ apply transition        │
+└─────────────────────────────┘
+    ↓
+Re-render with Transition
+```
+
+**Key Point:** Data flow doesn't change fundamentally. Composables intercept at the event handling stage to add a11y/animation logic before state updates.
+
+---
+
+## Build Order for Maximum Impact
+
+### Phase 1: Accessibility Foundation (High Impact, Low Risk)
+
+**Why first:** Accessibility improvements are invisible to most users but critical for some. No performance cost, establishes patterns for other features.
+
+1. **Create `useA11y.ts` composable** (2-3 hours)
+   - Core functions: `announce`, `trapFocus`, `prefersReducedMotion`
+   - Test with screen reader (NVDA/VoiceOver)
+
+2. **Update existing components with a11y patterns** (4-6 hours)
+   - AppHeader: Ensure keyboard navigation works
+   - ProjectCard/ServiceCard: Verify focus rings
+   - Add missing ARIA labels
+
+3. **Add keyboard handlers** (2-3 hours)
+   - Enter/Space for button-like elements
+   - Escape for closing modals/dropdowns
+   - Arrow keys for list navigation
+
+**Impact:** 10-15% user base (assistive tech users)
+**Risk:** Low (no visual changes, easy to test)
+**Dependencies:** None
+
+---
+
+### Phase 2: Micro-Interactions (High Impact, Low Risk)
+
+**Why second:** Builds on accessibility foundation (respects `prefers-reduced-motion`), immediate visual polish.
+
+1. **Create `useMicroInteractions.ts` composable** (1-2 hours)
+   - Hover, press, focus patterns
+   - Reduced motion detection
+
+2. **Add Tailwind utilities** (1 hour)
+   - `.hover-lift`, `.press-scale`, `.focus-ring-subtle`
+   - Reduced motion media query
+
+3. **Enhance existing components** (4-6 hours)
+   - ProjectCard: Add press-scale, refine hover
+   - ServiceCard: Same
+   - Buttons: Add press-scale globally
+   - TeamMember: Add hover-lift
+
+**Impact:** 100% of users (visual polish)
+**Risk:** Low (CSS-only, can be easily reverted)
+**Dependencies:** Phase 1 (for reduced motion support)
+
+---
+
+### Phase 3: Page Transitions (Medium Impact, Medium Risk)
+
+**Why third:** Requires careful testing, more complex than micro-interactions. Builds on patterns from Phases 1-2.
+
+1. **Create `TransitionWrapper.vue`** (2-3 hours)
+   - Directional transitions based on route depth
+   - Reduced motion support
+   - Configurable duration/easing
+
+2. **Add per-page transitions** (3-4 hours)
+   - Home → Pages: Slide-fade
+   - Projects → Project detail: Scale-fade
+   - Generic: Fade
+
+3. **Enhance global transition CSS** (1-2 hours)
+   - Better easing functions
+   - Scroll position hooks
+   - Reduce motion support
+
+**Impact:** 100% of users (navigation feel)
+**Risk:** Medium (can cause jank if not optimized)
+**Dependencies:** Phase 1 (a11y), Phase 2 (animation patterns)
+
+---
+
+### Phase 4: Visual Consistency (Low Impact, Low Risk)
+
+**Why fourth:** Polish phase, ties everything together visually.
+
+1. **Add design tokens to Tailwind config** (1-2 hours)
+   - Spacing, duration, easing tokens
+   - Semantic color tokens (if needed)
+
+2. **Audit components for consistency** (3-4 hours)
+   - Ensure all cards use `rounded-card`
+   - Ensure all buttons use `rounded-button`
+   - Check spacing scales
+
+3. **Create component documentation** (2-3 hours)
+   - Document design tokens
+   - Create usage examples
+   - Establish patterns for future development
+
+**Impact:** Developer experience (DX), long-term maintainability
+**Risk:** Low (systematic, reversible)
+**Dependencies:** None (can run in parallel)
+
+---
+
+## Minimal Disruption Strategy
+
+### Incremental Rollout
+
+**Feature Flags Approach:**
+```typescript
+// nuxt.config.ts
+runtimeConfig: {
+  public: {
+    features: {
+      enhancedTransitions: true,   // Enable/disable page transitions
+      microInteractions: true,     // Enable/disable micro-interactions
+      a11yComposable: true         // Enable/disable new a11y patterns
+    }
+  }
+}
+```
+
+**Progressive Enhancement:**
+1. **Baseline:** Current site continues working
+2. **Layer 1:** Add composables (no components use them yet)
+3. **Layer 2:** Update 1-2 components as proof of concept
+4. **Layer 3:** Roll out to remaining components incrementally
+5. **Layer 4:** Remove old patterns if unused
+
+### Testing Strategy
+
+**Per-Phase Testing:**
+- Phase 1 (A11y): Keyboard-only navigation, screen reader testing
+- Phase 2 (Micro-Interactions): Reduced motion testing, hover/press states
+- Phase 3 (Transitions): Route navigation testing, scroll position verification
+- Phase 4 (Consistency): Visual audit, responsive testing
+
+**Automated Testing:**
+```typescript
+// Playwright a11y tests
+test('keyboard navigation', async ({ page }) => {
+  await page.keyboard.press('Tab')
+  await expect(page.locator('button')).toBeFocused()
+})
+
+test('reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  // Verify no animations occur
+})
+```
+
+---
+
+## Architecture Patterns to Follow
+
+### Pattern 1: Composable-First Logic
+
+**What:** Shared logic lives in composables, not components
+
+**Why:**
+- Reusable across components
+- Testable in isolation
+- Clear separation of concerns
+
+**Example:**
+```typescript
+// composables/useInteraction.ts
+export function useInteraction() {
+  const isHovered = ref(false)
+  const isPressed = ref(false)
+  // ... logic
+  return { isHovered, isPressed }
+}
+```
+
+### Pattern 2: Utility-First Styling
+
+**What:** Use Tailwind utilities, avoid component `<style>` blocks when possible
+
+**Why:**
+- Consistent design system
+- Easier to maintain
+- Better tree-shaking
+
+**Example:**
+```vue
+<!-- GOOD -->
+<button class="press-scale hover-lift focus-ring">
+  Click me
+</button>
+
+<!-- AVOID -->
+<button class="custom-button">
+  Click me
+</button>
+<style scoped>
+.custom-button { /* custom styles */ }
+</style>
+```
+
+### Pattern 3: Progressive Enhancement
+
+**What:** Base functionality works without JS, enhance with JS
+
+**Why:**
+- Graceful degradation
+- Better performance
+- Respects user preferences
+
+**Example:**
+```css
+/* Base: No animation */
+.button { transition: none; }
+
+/* Enhanced: With animation (if user prefers) */
+@media (prefers-reduced-motion: no-preference) {
+  .button { transition: transform 0.2s; }
+}
+```
+
+### Pattern 4: Semantic HTML as Foundation
+
+**What:** Use semantic HTML5 elements, add ARIA as enhancement
+
+**Why:**
+- Built-in accessibility
+- Better SEO
+- Less code to maintain
+
+**Example:**
+```vue
+<!-- GOOD -->
+<button aria-label="Close dialog">
+  <Icon name="mdi:close" />
+</button>
+
+<!-- AVOID -->
+<div @click="close" role="button" tabindex="0">
+  <Icon name="mdi:close" />
+</div>
+```
+
+---
+
+## Anti-Patterns to Avoid
+
+### Anti-Pattern 1: JavaScript-Heavy Animations
+
+**What:** Using GSAP/Framer Motion for simple transitions
+
+**Why bad:**
+- Unnecessary JavaScript payload
+- Harder to respect reduced motion
+- More complex to maintain
+
+**Instead:**
+```vue
+<!-- Use CSS transitions -->
+<div class="transition-all duration-200 hover:scale-105">
+```
+
+### Anti-Pattern 2: Accessibility as Afterthought
+
+**What:** Adding ARIA after component is built
+
+**Why bad:**
+- Easy to miss edge cases
+- Harder to retrofit
+- Often incomplete
+
+**Instead:**
+```vue
+<!-- Design with a11y from start -->
+<button
+  :aria-label="label"
+  :aria-pressed="isActive"
+  @keydown="handleKeydown"
+>
+```
+
+### Anti-Pattern 3: Over-Engineering Transitions
+
+**What:** Complex page transitions that block navigation
+
+**Why bad:**
+- Hurts perceived performance
+- Can cause motion sickness
+- Difficult to maintain
+
+**Instead:**
+```css
+/* Keep transitions simple: opacity + transform */
+.page-enter-active {
+  transition: opacity 0.3s, transform 0.3s;
+}
+```
+
+### Anti-Pattern 4: Inconsistent Spacing/Colors
+
+**What:** Hardcoded values instead of design tokens
+
+**Why bad:**
+- Inconsistent design
+- Hard to update globally
+- Violates DRY principle
+
+**Instead:**
+```vue
+<!-- Use Tailwind utilities/division -->
+<div class="p-element-lg rounded-card">
+```
+
+---
+
+## Scalability Considerations
+
+| Concern | Current Site (50 pages) | Future (100+ pages) | Strategy |
+|---------|------------------------|---------------------|----------|
+| **Transition consistency** | Manual per-page config | Use default transitions | `definePageMeta` with inheritance |
+| **A11y patterns** | Component-level | Composable + utility classes | `useA11y` composable scales |
+| **Design tokens** | Hardcoded values | Token-driven | Tailwind config as single source |
+| **Component variations** | Duplicated code | Props-driven variation | Unified components with props |
+| **Testing** | Manual | Automated | Playwright a11y tests |
+
+---
+
+## Recommendations Summary
+
+### High Priority (Implement First)
+
+1. **Create `useA11y.ts` composable**
+   - `announce()`, `trapFocus()`, `prefersReducedMotion`
+   - Foundation for all other enhancements
+
+2. **Add reduced motion support to all animations**
+   - Media query in CSS
+   - Check in composables
+   - Respects user preferences
+
+3. **Enhance keyboard navigation**
+   - Enter/Space handlers
+   - Focus management
+   - ARIA announcements
+
+### Medium Priority (Implement Second)
+
+4. **Add micro-interaction utilities to Tailwind**
+   - `.hover-lift`, `.press-scale`, `.focus-ring-subtle`
+   - Update existing components gradually
+
+5. **Enhance page transitions**
+   - Per-page transitions via `definePageMeta`
+   - Directional transitions
+   - Scroll position hooks
+
+6. **Create design tokens in Tailwind config**
+   - Spacing, duration, easing
+   - Semantic naming
+
+### Low Priority (Polish)
+
+7. **Create reusable TransitionWrapper component**
+   - If complex transitions needed
+   - Otherwise, use Vue's built-in `<Transition>`
+
+8. **Add focus trap utility**
+   - For modals/dialogs
+   - Use existing pattern if present
+
+9. **Component documentation**
+   - Storybook or similar
+   - Usage examples
+
+---
+
+## Implementation Complexity Assessment
+
+| Feature | Lines of Code | Dev Time | Testing Time | Risk |
+|---------|--------------|-----------|--------------|------|
+| `useA11y.ts` composable | ~150 | 2-3h | 2-3h | Low |
+| `useMicroInteractions.ts` | ~80 | 1-2h | 1h | Low |
+| Tailwind utilities | ~40 | 1h | 1h | Low |
+| Update ProjectCard | ~20 | 1h | 1h | Low |
+| Update ServiceCard | ~20 | 1h | 1h | Low |
+| Update AppHeader | ~30 | 2h | 2h | Low |
+| Per-page transitions | ~100 | 3-4h | 3h | Medium |
+| Design tokens | ~50 | 2h | 1h | Low |
+| **Total** | ~490 | **15-18h** | **13-15h** | **Low-Medium** |
+
+---
+
+## Integration with Existing Features
+
+### PWA Features
+- **No conflicts:** Transitions work with PWA
+- **Enhancement:** Add transition to PWA install prompt
+- **A11y:** Announce PWA updates to screen readers
+
+### Performance Optimizations (v1.1)
+- **Compatibility:** Transitions don't affect LCP/INP if CSS-based
+- **Bundle size:** No new dependencies (use Vue built-ins)
+- **Critical CSS:** Transitions should be non-critical, load deferred
+
+### WordPress API Integration
+- **No impact:** Data fetching unchanged
+- **Enhancement:** Add skeleton transitions, loading states
+
+---
 
 ## Sources
 
-### Nuxt Performance Documentation
-- [Nuxt Performance Best Practices v4](https://nuxt.com/docs/guide/best-practices/performance) - HIGH confidence
-- [Hybrid Rendering in Nuxt 3](https://nuxt.com/docs/guide/concepts/rendering) - HIGH confidence
-- [Nuxt Image Documentation](https://image.nuxt.com/usage) - HIGH confidence
-- [Nuxt Lazy Loading Components](https://nuxt.com/docs/guide/directory-structure/components#lazy-loading-components) - HIGH confidence
-- [Nuxt Lazy Hydration](https://nuxt.com/docs/guide/directory-structure/components#lazy-hydration) - HIGH confidence
+### Official Documentation
+- [Nuxt 3 Page Transitions](https://nuxt.com/docs/3.x/api/composables/use-page-transition) - HIGH confidence, official
+- [Vue 3 Transition Component](https://vuejs.org/guide/built-ins/transition.html) - HIGH confidence, official
+- [Vue 3 Accessibility Guide](https://vuejs.org/guide/best-practices/accessibility.html) - HIGH confidence, official
+- [Tailwind CSS Animation Utilities](https://tailwindcss.com/docs/animation) - HIGH confidence, official
+- [VueUse useIntersectionObserver](https://vueuse.org/core/useIntersectionObserver/) - HIGH confidence, official
 
-### Performance Methodologies
-- [Core Web Vitals](https://web.dev/vitals/) - HIGH confidence
-- [Web.dev Performance Guides](https://web.dev/fast/) - HIGH confidence
-- [Lighthouse Documentation](https://developer.chrome.com/docs/lighthouse/) - HIGH confidence
+### Best Practices (2025-2026)
+- [Nuxt 4 Performance Optimization: Complete Guide to Faster Apps in 2026](https://masteringnuxt.com/blog/nuxt-4-performance-optimization-complete-guide-to-faster-apps-in-2026) - MEDIUM confidence
+- [Micro-interactions Trends 2025](https://www.smashingmagazine.com/2025/01/micro-interactions-design-guide/) - MEDIUM confidence (search result)
+- [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/) - HIGH confidence, W3C
 
-### Community Best Practices
-- [Performance Optimization in Nuxt 3 (MasteringNuxt)](https://masteringnuxt.com/blog/performance-optimization-in-nuxt-3) - HIGH confidence
-- [Vue and Nuxt Performance Optimization Checklist](https://alokai.com/blog/vue-and-nuxt-performance-optimization-checklist) - MEDIUM confidence
-- [Nuxt 4 Performance Optimization Complete Guide 2026](https://masteringnuxt.com/blog/nuxt-4-performance-optimization-complete-guide-to-faster-apps-in-2026) - MEDIUM confidence
+### Community Resources
+- [Vue 3 Accessibility Patterns](https://www.smashingmagazine.com/2025/01/accessible-vue-3-components/) - MEDIUM confidence (search result)
+- [Tailwind CSS Design Tokens Pattern](https://tailwindcss.com/blog/custom-configuration-reference) - HIGH confidence, official
+- [Reduced Motion in CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) - HIGH confidence, MDN
 
-### Real-World Case Studies
-- [How We Achieve 90+ Lighthouse Performance Score (Medium)](https://medium.com/dana-engineering/how-we-achieve-90-lighthouse-performance-score-and-fully-offline-mode-for-dana-home-shopping-580b1b540c4d) - MEDIUM confidence
-- [How to get 90+ score on Google Page Speed with NuxtJS](https://saha-technology.com/blog/how-to-get-90-score-on-google-page-speed-with-nuxtjs) - MEDIUM confidence
+### Codebase Analysis (High Confidence)
+- `/home/deck/Sites/vp-eng-nuxt/nuxt.config.ts` - Verified existing configuration
+- `/home/deck/Sites/vp-eng-nuxt/assets/css/main.css` - Verified existing transition classes
+- `/home/deck/Sites/vp-eng-nuxt/components/AppHeader.vue` - Verified existing a11y patterns
+- `/home/deck/Sites/vp-eng-nuxt/components/ProjectCard.vue` - Verified existing interaction patterns
+- `/home/deck/Sites/vp-eng-nuxt/composables/useScrollReveal.ts` - Verified existing composable pattern
+- `/home/deck/Sites/vp-eng-nuxt/layouts/default.vue` - Verified semantic HTML structure
+- `/home/deck/Sites/vp-eng-nuxt/tailwind.config.js` - Verified existing design tokens
+- `/home/deck/Sites/vp-eng-nuxt/package.json` - Verified dependencies (Vue 3.5.0, Nuxt 3.15.0)
 
 ---
-*Architecture research for: Performance Optimization for VP Associates Nuxt 3 Website*
-*Researched: 2026-02-06*
+
+*Architecture research for: VP Associates Website v1.2 Refinement*
+*Researched: 2026-02-07*

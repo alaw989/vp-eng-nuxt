@@ -12,6 +12,19 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     '@pinia/nuxt',
     '@vueuse/nuxt',
+    ['@nuxt/a11y', {
+      // Enable the module (default: true in dev mode)
+      enabled: true,
+      // Log violations to browser console
+      logIssues: true,
+      // Configure axe-core
+      axe: {
+        runOptions: {
+          // WCAG 2.1 Level AA compliance
+          runOnly: ['wcag21aa'],
+        },
+      },
+    }],
     '@nuxt/icon',
     '@vite-pwa/nuxt',
     '@nuxtjs/critters',
