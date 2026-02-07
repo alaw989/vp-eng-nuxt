@@ -174,7 +174,7 @@ export default defineNuxtConfig({
     // Enable typed pages for better type safety
     typedPages: true,
     // Enable view transition API for smoother page transitions
-    viewTransition: true,
+    viewTransition: false, // Disabled - causing infinite redirect issues
     // Enable inline payload for faster initial page loads
     inlineRouteRules: false, // Keep separate for better caching
   },

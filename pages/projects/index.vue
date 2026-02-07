@@ -565,20 +565,27 @@ function setSort() {
 
 // Set view mode and update URL
 function setViewMode(mode: ViewMode) {
+  if (viewMode.value === mode) return // Skip if already set
   viewMode.value = mode
-  const query: Record<string, string> = {}
+
+  const query: Record<string, string | undefined> = {}
   if (filters.category !== 'all') query.category = filters.category
   if (filters.location) query.location = filters.location
   if (filters.year) query.year = filters.year
   if (filters.sort !== 'newest') query.sort = filters.sort
   if (mode === 'list') query.view = 'list'
   if (currentPage.value > 1) query.page = currentPage.value.toString()
-  navigateTo({ query }, { replace: true })
+
+  // Only navigate if query would actually change
+  const hasQueryChanged = JSON.stringify(route.query) !== JSON.stringify(query)
+  if (hasQueryChanged) {
+    navigateTo({ query }, { replace: true })
+  }
 }
 
 // Update URL with current filter state
 function updateFilters() {
-  const query: Record<string, string> = {}
+  const query: Record<string, string | undefined> = {}
 
   if (filters.category !== 'all') query.category = filters.category
   if (filters.location) query.location = filters.location
@@ -586,8 +593,11 @@ function updateFilters() {
   if (filters.sort !== 'newest') query.sort = filters.sort
   if (currentPage.value > 1) query.page = currentPage.value.toString()
 
-  // Navigate to new URL with query params (replaces history)
-  navigateTo({ query }, { replace: true })
+  // Only navigate if query would actually change
+  const hasQueryChanged = JSON.stringify(route.query) !== JSON.stringify(query)
+  if (hasQueryChanged) {
+    navigateTo({ query }, { replace: true })
+  }
 }
 
 // Clear all filters
@@ -694,7 +704,7 @@ function goToPage(page: number) {
   currentPage.value = page
 
   // Update URL with new page
-  const query: Record<string, string> = {}
+  const query: Record<string, string | undefined> = {}
   if (filters.category !== 'all') query.category = filters.category
   if (filters.location) query.location = filters.location
   if (filters.year) query.year = filters.year
@@ -702,7 +712,11 @@ function goToPage(page: number) {
   if (viewMode.value === 'list') query.view = 'list'
   if (page > 1) query.page = page.toString()
 
-  navigateTo({ query }, { replace: true })
+  // Only navigate if query would actually change
+  const hasQueryChanged = JSON.stringify(route.query) !== JSON.stringify(query)
+  if (hasQueryChanged) {
+    navigateTo({ query }, { replace: true })
+  }
 
   // Scroll to top of projects grid
   nextTick(() => {

@@ -49,20 +49,16 @@ const finishLoading = () => {
   }, 300)
 }
 
-// Listen to page loading events
+// Use Nuxt's built-in page loading lifecycle hooks
 onMounted(() => {
-  // Start loading on route change
-  const router = useRouter()
-  router.beforeEach(() => {
-    startLoading()
-  })
-
-  router.afterEach(() => {
-    finishLoading()
-  })
+  // Show loading bar when page starts loading
+  window.addEventListener('nuxt:start', startLoading)
+  window.addEventListener('nuxt:finish', finishLoading)
 })
 
 onUnmounted(() => {
+  window.removeEventListener('nuxt:start', startLoading)
+  window.removeEventListener('nuxt:finish', finishLoading)
   if (intervalId) {
     clearInterval(intervalId)
   }

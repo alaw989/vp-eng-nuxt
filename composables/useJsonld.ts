@@ -3,21 +3,28 @@
  * Helps search engines understand page content for rich results
  */
 export function useJsonld(jsonld: any) {
-  // Convert computed refs to their values and remove circular references
-  const processed = JSON.parse(JSON.stringify(jsonld, (key, value) => {
-    // Unwrap computed refs
-    if (value && typeof value === 'object' && '__v_isRef' in value) {
-      return toValue(value)
-    }
-    return value
-  }))
+  // Use computed to create reactive head object
+  const head = computed(() => {
+    const value = typeof jsonld === 'function' ? jsonld() : toValue(jsonld)
 
-  useHead({
-    script: [
-      {
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify(processed),
-      },
-    ],
+    // Convert computed refs to their values and remove circular references
+    const processed = JSON.parse(JSON.stringify(value, (key, val) => {
+      // Unwrap computed refs
+      if (val && typeof val === 'object' && '__v_isRef' in val) {
+        return toValue(val)
+      }
+      return val
+    }))
+
+    return {
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify(processed),
+        },
+      ],
+    }
   })
+
+  useHead(head)
 }

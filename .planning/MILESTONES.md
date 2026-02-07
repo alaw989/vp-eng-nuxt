@@ -1,21 +1,13 @@
-# Roadmap: VP Associates Website Modernization
+# Project Milestones: VP Associates Website Modernization
 
-## Overview
-
-This roadmap delivers a modern Nuxt 3 headless website that systematically improves the VP Associates web presence through methodical section-by-section refinement.
-
-## Milestones
-
-- ✅ **v1.0 Website Modernization** — Phases 1-10 (shipped 2026-02-06) — [See archive](.planning/milestones/v1.0-ROADMAP.md)
-- 📋 **v1.1** — Future improvements (not yet planned)
-
-## v1.0 Summary
+## v1.0 Website Modernization (Shipped: 2026-02-06)
 
 **Delivered:** A complete modern Nuxt 3 headless website with visual and functional parity to the source WordPress site.
 
 **Phases completed:** 1-10 (55 plans)
 
 **Key accomplishments:**
+
 - Audit & baseline capture with page enumeration and screenshot infrastructure
 - Visual comparison tools with pixel diff and HTML content verification
 - Complete image migration with WebP/JPG responsive variants
@@ -24,12 +16,15 @@ This roadmap delivers a modern Nuxt 3 headless website that systematically impro
 - Section polish for all major pages (Homepage, Projects, Services, About/Team, Contact/Careers)
 
 **Stats:**
+
 - 10 phases, 55 plans
 - ~14,000 lines of Vue/TypeScript
-- 3 days execution (Feb 3-6, 2026)
+- 3 days from start to ship (Feb 3-6, 2026)
 
-**Git range:** feat(01-01) → feat(10-04)
+**Git range:** `feat(01-01)` → `feat(10-04)`
+
+**What's next:** Future improvements (v1.1) not yet planned
 
 ---
 
-*Last updated: 2026-02-06 after v1.0 milestone*
+*See .planning/milestones/v1.0-ROADMAP.md for full milestone details*

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- VP Monogram - Bold, Geometric -->
+  <g fill="url(#logoGradient)">
+    <!-- V -->
+    <path d="M 8 12 L 20 42 L 32 12 L 26 12 L 20 28 L 14 12 Z" />
+
+    <!-- P -->
+    <path d="M 38 12 L 38 42 L 44 42 L 44 32 L 50 32 C 57 32 60 28 60 22 C 60 16 57 12 50 12 Z M 44 18 L 50 18 C 53 18 54 19 54 22 C 54 25 53 26 50 26 L 44 26 Z" />
+  </g>
+
+  <!-- Associates Text - Clean, Modern -->
+  <text x="72" y="38" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="500" fill="#64748b" letter-spacing="1.5">
+    ASSOCIATES
+  </text>
+
+  <!-- Tagline -->
+  <text x="72" y="52" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="400" fill="#94a3b8" letter-spacing="0.5">
+    STRUCTURAL ENGINEERING
+  </text>
+</svg>

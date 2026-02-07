@@ -40,10 +40,9 @@
               format="webp"
               loading="eager"
               fetchpriority="high"
-              sizes="100vw"
               width="1920"
               height="1080"
-              placeholder
+              :modifiers="{ quality: 85 }"
             />
           </div>
           <!-- Overlay -->
@@ -185,8 +184,8 @@ const props = withDefaults(
         id: 1,
         title: 'Structural Engineering\nExcellence',
         description: 'Serving Tampa Bay with comprehensive structural design, inspection, and detailing services',
-        image: '/images/hero/home-header-1920w.webp',
-        alt: 'VP Associates home header - Professional structural engineering office building',
+        image: '/images/hero/berlin-structure-1920w.jpg',
+        alt: 'Modern architectural steel structure showcasing precision engineering',
         primaryLink: '/services',
         primaryText: 'Our Services'
       },
@@ -194,8 +193,8 @@ const props = withDefaults(
         id: 2,
         title: 'Innovative Design\nSolutions',
         description: 'From concept to completion, we deliver engineering excellence for projects of all sizes',
-        image: '/images/hero/skyskr-1-1920w.webp',
-        alt: 'High-rise skyscraper construction project - Structural engineering expertise in action',
+        image: '/images/hero/paris-skyscraper-1920w.jpg',
+        alt: 'Contemporary glass skyscraper with unique geometric design',
         primaryLink: '/projects',
         primaryText: 'View Projects'
       },
@@ -203,10 +202,64 @@ const props = withDefaults(
         id: 3,
         title: 'Trusted by Tampa\nBay Since 1990',
         description: 'Over 30 years of experience delivering quality structural engineering services',
-        image: '/images/hero/uploads-2018-06-1920w.webp',
-        alt: 'Commercial construction project - VP Associates engineering portfolio showcase',
+        image: '/images/hero/toronto-marina-1920w.jpg',
+        alt: 'Waterfront development with scenic city skyline views',
         primaryLink: '/about',
         primaryText: 'Learn More'
+      },
+      {
+        id: 4,
+        title: 'Precision in Every\nProject',
+        description: 'Meticulous attention to detail in structural analysis and design',
+        image: '/images/hero/crane-building-1920w.jpg',
+        alt: 'Construction crane against modern building facade',
+        primaryLink: '/services',
+        primaryText: 'Our Services'
+      },
+      {
+        id: 5,
+        title: 'Building Tomorrow\'s\nSkyline',
+        description: 'Creating iconic structures that define our communities',
+        image: '/images/hero/aerial-red-glass-1920w.jpg',
+        alt: 'Aerial view of striking red glass architectural masterpiece',
+        primaryLink: '/projects',
+        primaryText: 'View Projects'
+      },
+      {
+        id: 6,
+        title: 'Expertise You Can\nBuild On',
+        description: 'Licensed professional engineers committed to your project\'s success',
+        image: '/images/hero/montreal-glass-1920w.jpg',
+        alt: 'Reflective glass tower catching natural light',
+        primaryLink: '/about',
+        primaryText: 'Learn More'
+      },
+      {
+        id: 7,
+        title: 'Foundations of\nExcellence',
+        description: 'Strong structural solutions that stand the test of time',
+        image: '/images/hero/gray-building-pattern-1920w.jpg',
+        alt: 'Modern building with rhythmic geometric facade pattern',
+        primaryLink: '/services',
+        primaryText: 'Our Services'
+      },
+      {
+        id: 8,
+        title: 'Visionary\nEngineering',
+        description: 'Transforming architectural vision into structural reality',
+        image: '/images/hero/worms-eye-building-1920w.jpg',
+        alt: 'Dramatic upward view of modern architectural columns',
+        primaryLink: '/projects',
+        primaryText: 'View Projects'
+      },
+      {
+        id: 9,
+        title: 'Comprehensive\nStructural Services',
+        description: 'From residential renovations to large-scale commercial developments',
+        image: '/images/hero/yellow-crane-1920w.jpg',
+        alt: 'Yellow construction crane against blue sky',
+        primaryLink: '/services',
+        primaryText: 'Our Services'
       }
     ],
     autoplayInterval: 9000

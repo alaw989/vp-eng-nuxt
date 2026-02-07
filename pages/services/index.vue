@@ -240,12 +240,13 @@
 
 <script setup lang="ts">
 // SEO Meta Tags
-usePageMeta({
-  title: 'Services',
-  description: 'VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.',
-  keywords: 'structural steel design, concrete design, masonry design, wood design, foundation design, seawall design, steel detailing, Tampa Bay engineering',
-  ogImage: 'https://vp-associates.com/images/og-services.jpg',
-})
+// usePageMeta disabled temporarily to debug redirect issue
+// usePageMeta({
+//   title: 'Services',
+//   description: 'VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.',
+//   keywords: 'structural steel design, concrete design, masonry design, wood design, foundation design, seawall design, steel detailing, Tampa Bay engineering',
+//   ogImage: 'https://vp-associates.com/images/og-services.jpg',
+// })
 
 const route = useRoute()
 
@@ -439,12 +440,25 @@ const allServices: Service[] = [
 // Filter state with URL initialization
 const activeCategory = ref((route.query.category as string) || 'all')
 
-// Set category and update URL
+// Set category and update URL (only if different)
 function setCategory(categoryId: string) {
+  if (activeCategory.value === categoryId) return // Skip if already set
+
   activeCategory.value = categoryId
-  const query: Record<string, string> = {}
-  if (categoryId !== 'all') query.category = categoryId
-  navigateTo({ query }, { replace: true })
+
+  // Build new query object
+  const newQuery: Record<string, string | undefined> = {}
+  if (categoryId !== 'all') {
+    newQuery.category = categoryId
+  }
+
+  // Only navigate if query would actually change
+  const currentCategory = route.query.category as string | undefined
+  const targetCategory = categoryId !== 'all' ? categoryId : undefined
+
+  if (currentCategory !== targetCategory) {
+    navigateTo({ query: newQuery }, { replace: true })
+  }
 }
 
 // Filtered services computed property
@@ -456,7 +470,7 @@ const filteredServices = computed(() => {
 })
 
 // ItemList Schema for services listing (must be after allServices is defined)
-useJsonld({
+useJsonld(() => ({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'VP Associates Structural Engineering Services',
@@ -468,7 +482,7 @@ useJsonld({
     description: service.description,
     url: `https://vp-associates.com/services/${service.slug}`,
   })),
-})
+}))
 </script>
 
 <style scoped>

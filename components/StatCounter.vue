@@ -4,10 +4,10 @@
     class="stat-item"
     :class="{ visible: isVisible }"
   >
-    <div class="text-5xl md:text-6xl font-display font-bold text-primary mb-2">
-      {{ animatedValue }}<span v-if="suffix">{{ suffix }}</span>
+    <div class="text-5xl md:text-6xl font-display font-bold text-white mb-2">
+      {{ Math.round(animatedValue) }}<span v-if="suffix">{{ suffix }}</span>
     </div>
-    <div class="text-lg md:text-xl text-neutral-600">
+    <div class="text-lg md:text-xl text-neutral-300">
       {{ label }}
     </div>
   </div>
@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const counterRef = ref<HTMLElement>()
-const { target, isVisible } = useScrollReveal(0.3)
+const { target, isVisible } = useScrollReveal(0.1)
 const animatedValue = ref(0)
 const hasAnimated = ref(false)
 
@@ -90,6 +90,7 @@ watch(isVisible, (visible) => {
 
 <style scoped>
 .stat-item {
+  text-align: center;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
