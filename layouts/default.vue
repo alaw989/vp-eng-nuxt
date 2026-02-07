@@ -22,10 +22,21 @@
 
     <!-- PWA Components -->
     <LazyPwaReloadPrompt />
+
+    <!-- Live region for screen reader announcements -->
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+      class="sr-only"
+    >
+      {{ a11yAnnouncement }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useA11yRouteAnnouncer, useAnnouncer } from '~/composables/useA11y'
+
 const mainContentRef = ref<HTMLElement | null>(null)
 const route = useRoute()
 
@@ -37,4 +48,10 @@ watch(() => route.path, async () => {
     mainContentRef.value.focus()
   }
 })
+
+// This will automatically announce route changes
+useA11yRouteAnnouncer()
+
+// Expose message for template
+const { message: a11yAnnouncement } = useAnnouncer()
 </script>

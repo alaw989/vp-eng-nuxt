@@ -97,6 +97,10 @@
       leave-to-class="opacity-0 -translate-y-2"
     >
       <div v-show="isOpen" id="mobile-menu" class="md:hidden bg-white border-t border-neutral-200">
+        <!-- Screen reader announcement for menu state -->
+        <div class="sr-only" aria-live="polite">
+          {{ isOpen ? 'Menu opened' : 'Menu closed' }}
+        </div>
         <nav class="container py-4 space-y-2" role="navigation" aria-label="Mobile navigation">
           <NuxtLink
             to="/"
