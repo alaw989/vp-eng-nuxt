@@ -1,303 +1,771 @@
-# Feature Research: Performance Optimization for 90+ Lighthouse Scores
+# Feature Research: UX Refinement for Professional Services Website
 
-**Domain:** Nuxt 3 Performance Optimization
-**Researched:** 2026-02-06
-**Confidence:** HIGH
+**Domain:** Nuxt 3 UX/Accessibility Refinement
+**Project:** VP Associates Website - Structural Engineering Firm
+**Milestone:** v1.2 Refinement
+**Researched:** 2026-02-07
+**Overall Confidence:** HIGH
 
-## Feature Landscape
+## Executive Summary
 
-### Table Stakes (Required for 90+ Lighthouse)
+This research covers page transitions, micro-interactions, accessibility, and visual consistency for a professional services website refinement. Key findings: **subtle, fast interactions** (150-300ms) are preferred for professional services; **accessibility is non-negotiable** (WCAG 2.1 AA); **animations must respect `prefers-reduced-motion`**; performance optimization from v1.1 must not be compromised.
 
-Features required to achieve 90+ Lighthouse scores. Missing these = cannot reach target.
+### Critical Insights
 
-| Feature | Why Expected | Complexity | Lighthouse Impact | Notes |
+1. **Professional services UX emphasizes trust and competence over flashiness** - Micro-interactions should reinforce reliability, not entertain
+2. **Accessibility is a table stakes requirement** - WCAG 2.1 AA compliance is expected, not optional, for professional services
+3. **Performance constrains animation** - All interactions must maintain the 90+ Lighthouse scores achieved in v1.1
+4. **Page transitions in Nuxt 3 are built-in** - No external libraries needed; Vue's `<Transition>` component is sufficient
+5. **Micro-interactions have measurable ROI** - 47% boost in onboarding activation, 76% user retention improvement with smooth UX
+
+## Table Stakes
+
+Features users expect on a professional services website. Missing = product feels incomplete or amateur.
+
+| Feature | Why Expected | Complexity | Performance Impact | Notes |
 |---------|--------------|------------|-------------------|-------|
-| **Image Optimization** | Images account for 50%+ of page weight | LOW | Performance, LCP | Already using @nuxt/image - verify all images optimized |
-| **Critical CSS Inlining** | Eliminates render-blocking CSS | MEDIUM | Performance, LCP | Inline above-the-fold CSS only |
-| **Font Optimization** | Prevents FOIT/FOUT, reduces CLS | LOW | Performance, CLS | Use font-display: swap, preload critical fonts |
-| **Bundle Code Splitting** | Reduces initial JS payload | MEDIUM | Performance, FID/INP | Route-based splitting automatic, component-level manual |
-| **Compression (Brotli/Gzip)** | Reduces transfer size 60-80% | LOW | Performance | Nitro supports both, prefer Brotli |
-| **Cache Headers** | Enables browser caching | LOW | Performance | Static assets: immutable, HTML: short TTL |
-| **Preconnect/DNS-Prefetch** | Reduces connection latency | LOW | Performance | Already configured for fonts/iconify |
-| **Remove Unused CSS/JS** | Reduces payload size | MEDIUM | Performance | Use purgecss, analyze bundle |
-| **Minify HTML/CSS/JS** | Standard optimization | LOW | Performance | Built into Nuxt build |
-| **Third-Party Script Optimization** | Scripts block main thread | HIGH | Performance, FID/INP | Defer non-critical, consider Partytown |
-| **Lazy Loading Below-Fold** | Reduces initial payload | LOW | Performance, LCP | Images, components, iframes |
-| **Proper Image Sizing** | Prevents layout shift | LOW | CLS | Use width/height, aspect-ratio |
-| **Avoid Large Layout Shifts** | CLS is pass/fail metric | MEDIUM | CLS | Reserve space for dynamic content |
+| **Smooth Page Transitions** | Users expect app-like navigation | LOW | Low | Use Nuxt built-in transitions, 150-300ms duration |
+| **Button Hover States** | Basic interactivity feedback | LOW | None | CSS only, color/transform changes |
+| **Loading Indicators** | System status visibility | LOW | Low | Skeleton loaders already built |
+| **Focus Indicators** | Keyboard navigation visibility | LOW | None | Visible focus rings for accessibility |
+| **Skip Links** | Accessibility requirement | LOW | None | Allow keyboard users to skip navigation |
+| **ARIA Labels** | Screen reader compatibility | LOW | None | All interactive elements labeled |
+| **Form Validation Feedback** | Real-time error prevention | LOW | None | Visual + ARIA error announcements |
+| **Color Contrast WCAG AA** | Accessibility compliance | LOW | None | 4.5:1 for text, 3:1 for large text |
+| **Semantic HTML** | SEO & accessibility foundation | LOW | None | Proper heading hierarchy, landmarks |
+| **Keyboard Navigation** | Full keyboard access | MEDIUM | None | Tab order, focus management |
+| **Responsive Touch Targets** | Mobile usability | LOW | None | Minimum 44×44px (WCAG) |
+| **prefers-reduced-motion** | Respect user preferences | LOW | None | Disable animations when set |
+| **Consistent Spacing Scale** | Visual polish | LOW | None | Design tokens for spacing |
+| **Typography Hierarchy** | Professional appearance | LOW | None | Consistent heading sizes |
+| **Alt Text for Images** | Accessibility requirement | LOW | None | Meaningful descriptions |
+| **Error Recovery Messages** | User guidance | LOW | None | Clear, actionable error text |
+| **Visible Focus States** | Keyboard accessibility | LOW | None | High contrast, 2px minimum |
+| **Form Field Labels** | Accessibility requirement | LOW | None | Explicit labels, not placeholders |
+| **Link Purpose Clarity** | Accessibility (WCAG 2.4.4) | LOW | None | Descriptive link text |
+| **Page Titles** | SEO & orientation | LOW | None | Unique, descriptive titles |
 
-### Differentiators (Advanced Optimizations)
+## Differentiators
 
-Features that push scores from 90-95 to 95-100.
+Features that set VP Associates apart from competing engineering firms.
 
-| Feature | Value Proposition | Complexity | Lighthouse Impact | Notes |
+| Feature | Value Proposition | Complexity | Performance Impact | Notes |
 |---------|-------------------|------------|-------------------|-------|
-| **Lazy Hydration** | Defers component hydration until interaction | HIGH | Performance, INP | Use defineLazyHydrationComponent for heavy components |
-| **Islands Architecture** | Interactive islands in static page | HIGH | Performance | Experimental in Nuxt 3 (.island.vue) |
-| **Edge Rendering** | Server closer to user | MEDIUM | Performance, LCP | Deploy to Cloudflare Workers, Vercel Edge |
-| **Server Components** | Zero client JS for server-only content | HIGH | Performance | Reduces bundle significantly |
-| **Advanced Script Loading** | Partytown for third-party scripts | HIGH | Performance, INP | Moves scripts to web workers |
-| **HTTP/2 Server Push** | Proactive resource delivery | MEDIUM | Performance | Less critical with H3 priority |
-| **Resource Hints Optimization** | Smart prefetch based on user behavior | MEDIUM | Performance | IntersectionObserver already used by NuxtLink |
-| **Speculative Rules API** | Chrome-level prefetch | MEDIUM | Performance | Newer browser API, Chrome-only |
-| **Early Hints** | Send resources while server processes | HIGH | Performance | Requires server support (103 Early Hints) |
-| **Client Component Boundaries** | Minimize hydration boundaries | MEDIUM | Performance | Strategic use of ClientOnly |
-| **Build-Time Optimization** | Static generation where possible | LOW | Performance | ISR for dynamic content |
-| **Performance Monitoring** | Real-user measurement | MEDIUM | N/A | RUM, Core Web Vitals API |
-| **Bundle Size Budgets** | Prevent regression | LOW | Performance | Set limits in build config |
-| **Tree Shaking** | Remove unused code | LOW | Performance | Automatic for ES modules |
-| **Module/Nitro Optimization** | Runtime performance | HIGH | Performance | Async context, route rules |
+| **Scroll-Triggered Animations** | Reveals content progressively | MEDIUM | Low | Intersection Observer, GPU-accelerated |
+| **Smart Page Transitions** | Context-aware navigation | MEDIUM | Low | Different transitions for sections |
+| **Project Gallery Micro-interactions** | Engaging project showcase | MEDIUM | Low | Hover previews, subtle zoom |
+| **Team Member Cards with Interactions** | Humanize the firm | LOW | Low | Social links, expertise reveal on hover |
+| **Service Filter Animations** | Dynamic filtering feedback | LOW | Low | Smooth layout changes using FLIP |
+| **Contact Form Progress Indicators** | Reduce form abandonment | MEDIUM | None | Multi-step progress, validation ticks |
+| **Testimonial Carousel Interactions** | Social proof engagement | MEDIUM | Low | Smooth transitions, pause on hover |
+| **Stats Counter Animations** | Visualize impact | LOW | Low | Count-up animation when in viewport |
+| **Breadcrumbs with Micro-interactions** | Enhanced navigation context | LOW | None | Collapse on mobile, hover previews |
+| **Back-to-Top with Progress** | Reading progress indicator | MEDIUM | Low | Shows scroll percentage |
+| **Smart Search Suggestions** | Faster project discovery | HIGH | Medium | Debounced, autocomplete |
+| **Dark Mode Toggle** | User preference support | HIGH | Low | Persistent, system-aware |
+| **Print Styles** | Professional resource sharing | MEDIUM | None | Optimized for printing case studies |
 
-### Anti-Features (Avoid for Performance)
+## Anti-Features
 
-Features that hurt performance despite seeming beneficial.
+Features to explicitly NOT build. These hurt UX, performance, or accessibility.
 
-| Anti-Feature | Why Requested | Why Problematic | Alternative |
-|--------------|---------------|-----------------|-------------|
-| **Aggressive Prefetching** | Faster navigation | Can waste bandwidth, hurt LCP | Smart viewport-based prefetching |
-| **Client-Side Only Routing** | Faster transitions after load | Hurts initial SEO, performance metrics | Hybrid SSR for critical pages |
-| **Heavy Animation Libraries** | Visual appeal | Massive JS payload, CLS risk | CSS animations, lightweight alternatives |
-| **Too Many Third-Party Scripts** | Analytics, chat, social | #1 cause of poor performance | Defer loading, Partytown, self-host |
-| **Full Page Transitions** | Polished UX | Blocks interaction, delays hydration | Subtle micro-interactions only |
-| **Non-Critical Client State** | Interactive features | Unnecessary hydration | Server-render when possible |
-| **Universal/Bridge Mode** | Support older browsers | Polyfill bloat, slower | Progressive enhancement |
-| **Infinite Scroll** | UX pattern | Increases DOM size, CLS risk | Pagination with proper caching |
-| **Heavy Framework Components** | Developer convenience | Bundle bloat | Native web APIs where possible |
-| **Unoptimized LCP Images** | Hero image quality | Largest factor in Performance score | Use @nuxt/image, proper sizing |
-| **Font self-hosting without optimization** | Privacy/control | Often slower than CDN | Use @nuxt/fonts, WOFF2 only |
-| **Inline CSS for everything** | Reduce requests | HTML bloat, poor caching | Critical CSS inline, rest external |
-| **Javascript for layouts** | Dynamic layouts | Layout shift risk | CSS Grid/Flexbox |
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| **Heavy JavaScript Animation Libraries** | Massive bundle size (GSAP = 100KB+), performance regression | CSS transitions, Vue built-in transitions |
+| **Full Page Overhaul Transitions** | Disorienting, blocks interaction, delays hydration | Subtle cross-fade (300ms max) |
+| **Parallax Scrolling** | Performance killer, causes CLS, accessibility issues | Static backgrounds with subtle depth |
+| **Auto-Playing Carousels** | WCAG violation, motion sensitivity, user control issues | Manual controls with pause |
+| **Complex Loading Animations** | Increases perceived wait time, CLS risk | Skeleton screens, simple spinners |
+| **Popups/Modals on Entry** | Annoying, blocks content, SEO penalty | Inline call-to-actions |
+| **Infinite Scroll** | Performance issues, no footer access, CLS risk | Pagination with "Load More" button |
+| **Motion Without prefers-reduced-motion** | Vestibular disorders, motion sickness | Always check media query |
+| **Color-Only State Indicators** | Color blindness accessibility issue | Icons + color + text labels |
+| **Placeholder-Only Form Labels** | Accessibility failure, poor UX | Explicit visible labels |
+| **Drag-to-Reorder Interactions** | Keyboard inaccessible, complex | Simple up/down controls |
+| **Sound Effects** | Startling, accessibility issue, unprofessional | Visual feedback only |
+| **Cursor-Following Animations** | Distracting, performance drain, accessibility issue | Static cursor, hover effects |
+| **Long Page Transitions (>500ms)** | Feels sluggish, blocks navigation | Keep under 300ms |
+| **Multiple Conflicting Animations** | Cognitive load, performance issues | One animation per element max |
+| **Splash Screens** | Blocks content, delays engagement | Fast loading, skeleton states |
+| **Scrolljacking** | Hijacks user control, accessibility issue | Native scroll behavior |
+| **Hover-Only Content** | Mobile inaccessible | Click/tap for all interactions |
+| **Low Contrast Text** | Accessibility failure, readability issue | WCAG AA contrast ratios |
+| **Tiny Touch Targets** | Mobile usability issue | Minimum 44×44px |
 
 ## Feature Dependencies
 
 ```
-[Image Optimization]
-    └──required-for──> [90+ Lighthouse Performance]
-                     └──enhanced-by──> [AVIF Format, Responsive Images]
+[Page Transitions]
+    └──requires──> [Nuxt Built-in Transitions]
+    └──requires──> [prefers-reduced-motion Check]
+    └──enhanced-by──> [View Transitions API - Optional]
 
-[Critical CSS Inlining]
-    └──required-for──> [90+ Lighthouse Performance]
-                     └──enhanced-by──> [PurgeCSS, Tailwind CSS JIT]
+[Micro-interactions]
+    └──requires──> [CSS Transitions]
+    └──requires──> [Hover + Focus States]
+    └──requires──> [prefers-reduced-motion Check]
+    └──enhanced-by──> [JavaScript for Complex Interactions]
 
-[Bundle Code Splitting]
-    └──required-for──> [90+ Lighthouse Performance]
-    └──enables──> [Lazy Hydration]
-    └──enables──> [Dynamic Imports]
+[Accessibility]
+    └──requires──> [Semantic HTML]
+    └──requires──> [ARIA Labels]
+    └──requires──> [Keyboard Navigation]
+    └──requires──> [Focus Management]
+    └──requires──> [Color Contrast]
+    └──requires──> [Screen Reader Testing]
 
-[Lazy Hydration]
-    └──requires──> [Code Splitting]
-    └──enhances──> [INP Score]
-    └──reduces-need-for──> [Heavy Initial JS]
+[Visual Consistency]
+    └──requires──> [Design Tokens]
+    └──requires──> [Component Library]
+    └──requires──> [Spacing Scale]
+    └──requires──> [Typography System]
 
-[Font Optimization]
-    └──required-for──> [90+ CLS Score]
-    └──requires──> [font-display: swap]
-
-[Third-Party Script Optimization]
-    └──required-for──> [90+ INP Score]
-    └──enables──> [Partytown Implementation]
-
-[Islands Architecture]
-    └──requires──> [Component Boundaries]
-    └──enhances──> [Bundle Size, Hydration Speed]
-
-[Edge Rendering]
-    └──enhances──> [LCP Score]
-    └──requires──> [Edge Deployment]
+[Scroll Animations]
+    └──requires──> [Intersection Observer]
+    └──requires──> [GPU-Accelerated CSS]
+    └──constrained-by──> [Performance Budgets]
 ```
 
-### Dependency Notes
+## Page Transitions - Detailed Analysis
 
-- **Image Optimization enables 90+ LCP**: Largest Contentful Paint is usually an image. Optimized images are the single biggest performance lever.
-- **Code Splitting enables Lazy Hydration**: Cannot defer hydration without component boundaries and dynamic imports.
-- **Critical CSS prevents render-blocking**: Above-the-fold content must render immediately; non-critical CSS can load later.
-- **Font Optimization prevents CLS**: Without font-display: swap and proper sizing, text causes layout shifts when fonts load.
-- **Third-Party Scripts are the #1 Performance Killer**: Analytics, chat, and social widgets often dominate main thread time. Partytown moves them to web workers.
-- **Lazy Hydration reduces INP**: Interaction to Next Paint improves when fewer components compete for main thread during initial hydration.
+### What Professional Services Users Expect
 
-## MVP Definition (For Performance Milestone)
+Based on research into professional services and engineering firm websites:
 
-### Launch With (Phase 1: Foundation)
+**Expected Behavior:**
+- **Subtle cross-fade** (not dramatic wipes, slides, or 3D effects)
+- **Fast duration** (150-300ms maximum)
+- **Consistent across site** (same transition pattern everywhere)
+- **Non-blocking** (user can click away if needed)
+- **Accessible** (respects `prefers-reduced-motion`, announces route changes)
 
-Must-have optimizations to reach 90+ baseline.
+**Unprofessional/Avoid:**
+- Complex multi-stage animations
+- Long durations (>500ms)
+- Direction changes per page
+- Flashy effects (slides, flips, rotations)
+- Blocking navigation during animation
 
-- [ ] **Image Audit & Optimization** — Verify all images use @nuxt/image, proper sizing, WebP/AVIF
-- [ ] **Critical CSS Extraction** — Inline above-the-fold CSS, defer rest
-- [ ] **Font Optimization** — Verify font-display: swap, preload critical fonts
-- [ ] **Bundle Analysis** — Identify largest chunks, plan splitting strategy
-- [ ] **Remove Unused Code** — PurgeCSS, tree shaking verification
-- [ ] **Lazy Loading Components** — Below-fold components using Lazy prefix
-- [ ] **Script Deferment** — Defer all non-critical third-party scripts
-- [ ] **Compression Verification** — Enable Brotli for static assets
-- [ ] **Cache Headers** — Verify proper caching rules for all asset types
-- [ ] **LCP Element Optimization** — Identify and optimize LCP elements per page
+### Nuxt 3 Implementation Strategy
 
-### Add After Validation (Phase 2: Advanced)
+**HIGH Confidence** - Based on official Nuxt 3 documentation
 
-Add when Phase 1 achieves 90+ but room for improvement.
+Nuxt 3 provides built-in page transitions using Vue's `<Transition>` component:
 
-- [ ] **Lazy Hydration** — Implement for heavy interactive components
-- [ ] **Partytown Integration** — Move third-party scripts to web workers
-- [ ] **Advanced Code Splitting** — Component-level splitting for heavy pages
-- [ ] **Route-Specific Optimization** — Tailor strategy per route type
-- [ ] **Performance Budgets** — Add automated size limits to build
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' }
+  }
+})
+```
 
-### Future Consideration (Phase 3: Edge/Experimental)
+**CSS Implementation:**
+```css
+/* 300ms cross-fade - professional and fast */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 300ms ease;
+}
 
-Defer until standard optimizations are exhausted.
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
 
-- [ ] **Islands Architecture** — Evaluate when Nuxt 4 support stabilizes
-- [ ] **Edge Deployment** — Move to Cloudflare Workers or Vercel Edge
-- [ ] **Server Components** — When Nuxt implementation matures
-- [ ] **Early Hints** — When hosting platform supports 103 status
-- [ ] **Speculative Rules** — Chrome-specific prefetch optimization
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition: none;
+  }
+}
+```
+
+**Accessibility Enhancement:**
+- Announce page changes to screen readers (Nuxt does this automatically)
+- Manage focus (Nuxt handles route focus)
+- Respect motion preferences (developer must add CSS)
+
+### Performance Considerations
+
+**DO NOT use external libraries for page transitions:**
+- GSAP (~100KB) - unnecessary for simple cross-fades
+- Lottie (~150KB+) - overkill for transitions
+- AutoAnimate (~20KB) - not needed for page navigation
+
+**Built-in Nuxt transitions:**
+- Zero additional bundle size
+- Optimized for SSR/hydration
+- Accessibility-friendly
+- Performant (CSS-only, GPU-accelerated)
+
+## Micro-interactions - Detailed Analysis
+
+### What Works for Professional Services
+
+Based on UX research and professional services best practices:
+
+**Effective Micro-interaction Patterns:**
+
+| Pattern | Purpose | Implementation | Duration |
+|---------|---------|----------------|----------|
+| **Button Hover** | Show interactivity | Color change + subtle transform | 150-200ms |
+| **Form Validation** | Real-time feedback | Border color + icon + ARIA | Instant |
+| **Loading States** | Show system status | Skeleton screens | Until loaded |
+| **Success Feedback** | Confirm action | Checkmark animation | 300ms |
+| **Link Hover** | Show clickable | Underline or color shift | 150ms |
+| **Card Hover** | Depth/interest | Subtle lift (transform Y) | 200ms |
+| **Focus Rings** | Keyboard visibility | High contrast outline | Instant |
+| **Progress Bars** | Show completion | Smooth fill | Real-time |
+| **Accordion Expand** | Reveal content | Height transition | 300ms |
+| **Dropdown Open** | Show options | Opacity + transform | 200ms |
+
+### Timing Guidelines
+
+**HIGH Confidence** - Based on UX research from Interaction Design Foundation and AlterSquare
+
+- **Instant feedback** (0-100ms): Button clicks, hover states
+- **Fast transitions** (150-200ms): Link hovers, simple state changes
+- **Standard transitions** (200-300ms): Modals, accordions, page transitions
+- **Slow transitions** (300-400ms): Complex animations, multiple elements
+- **Avoid**: >500ms (feels sluggish)
+
+**Easing Functions:**
+- **ease-out**: Elements entering screen (more natural)
+- **ease-in**: Elements exiting screen
+- **ease-in-out**: Bidirectional movement
+- **Avoid**: linear (feels mechanical)
+
+### Accessibility Requirements
+
+**CRITICAL: All micro-interactions must:**
+
+1. **Respect `prefers-reduced-motion`**
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+2. **Provide non-motion feedback**
+- Don't rely on animation alone
+- Use color + icon + text labels
+- Example: Error state = red border + icon + "Invalid email" text
+
+3. **Support keyboard navigation**
+- All hover effects must have :focus equivalent
+- Visible focus indicators (2px minimum, high contrast)
+- Logical tab order
+
+4. **Screen reader compatibility**
+- Announce state changes with ARIA
+- Don't use `aria-hidden` on focusable elements
+- Live regions for dynamic content
+
+### Performance-Aware Implementation
+
+**GPU-Accelerated Properties Only:**
+```css
+/* GOOD - GPU-accelerated */
+transform: translateY(-2px);
+opacity: 0.5;
+filter: blur(2px);
+
+/* BAD - triggers layout, causes reflow */
+left: 100px;
+width: 200px;
+height: 100px;
+margin-top: 10px;
+```
+
+**Best Practices:**
+- Use `transform` and `opacity` for animations
+- Avoid animating layout-triggering properties
+- Use `will-change` sparingly (remove after animation)
+- Test on low-end devices (CPU throttling in DevTools)
+
+## Accessibility - Detailed Analysis
+
+### WCAG 2.1 AA Requirements
+
+**HIGH Confidence** - Based on W3C official documentation
+
+Professional services websites must meet WCAG 2.1 AA standards:
+
+#### Level A Requirements (Must Have)
+
+| Requirement | Description | Implementation |
+|-------------|-------------|----------------|
+| **2.1.1 Keyboard** | All functionality via keyboard | Semantic HTML, tab order, no keyboard traps |
+| **1.1.1 Text Alternatives** | Alt text for images | Descriptive alt attributes |
+| **2.4.1 Bypass Blocks** | Skip navigation link | "Skip to main content" link |
+| **2.4.2 Page Titles** | Descriptive page titles | Unique titles per page |
+| **3.1.1 Language of Page** | Lang attribute | `<html lang="en">` |
+| **3.3.2 Labels or Instructions** | Form field labels | Explicit labels, not placeholders |
+| **4.1.1 Parsing** | Valid HTML | Semantic markup |
+| **4.1.2 Name, Role, Value** | ARIA attributes | Proper ARIA usage |
+
+#### Level AA Requirements (Standard)
+
+| Requirement | Description | Implementation |
+|-------------|-------------|----------------|
+| **1.4.3 Contrast (Minimum)** | 4.5:1 text, 3:1 large | Color contrast checker |
+| **1.4.4 Resize Text** | 200% zoom functional | Responsive design |
+| **2.4.7 Focus Visible** | Visible focus indicator | High contrast focus rings |
+| **3.3.1 Error Identification** | Clear error messages | Inline error text + icons |
+| **3.3.3 Error Suggestion** | Suggestions for errors | Example: "Did you mean gmail.com?" |
+
+### Focus Management
+
+**Critical for accessibility:**
+
+1. **Visible Focus Indicators**
+```css
+/* High contrast focus ring */
+*:focus-visible {
+  outline: 2px solid #005fcc;
+  outline-offset: 2px;
+}
+
+/* Don't remove focus on mouse */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+2. **Logical Tab Order**
+- Follow DOM order (reading order)
+- Skip links first
+- Main content second
+- Navigation last
+- No tabindex > 0 (breaks natural order)
+
+3. **Focus Traps**
+- Modals must trap focus
+- Escape key closes
+- Focus returns to trigger
+
+### Screen Reader Considerations
+
+- **Semantic HTML first** (headings, landmarks, lists)
+- **ARIA labels** when HTML isn't enough
+- **Live regions** for dynamic content
+- **Announce page changes** (Nuxt does this)
+- **Don't hide content with aria-hidden** unless necessary
+
+### Keyboard Navigation Testing
+
+**Manual testing checklist:**
+- [ ] Tab through entire page
+- [ ] All interactive elements reachable
+- [ ] Focus indicator visible on all elements
+- [ ] Tab order is logical
+- [ ] Shift+Tab works (reverse order)
+- [ ] Enter/Space activate buttons
+- [ ] Escape closes modals/menus
+- [ ] Arrow keys navigate menus/dropdowns
+- [ ] Skip links work
+
+## Visual Consistency - Detailed Analysis
+
+### Professional Services Design Patterns
+
+Based on research into engineering firm websites:
+
+**Expected Visual Elements:**
+- **Generous white space** (clean, professional feel)
+- **Limited color palette** (2-3 primary colors)
+- **Consistent typography** (2-3 fonts max)
+- **Grid-based layouts** (structured, organized)
+- **High-quality imagery** (project photos, team)
+- **Subtle depth** (shadows, minimal gradients)
+- **Aligned content** (strict grid alignment)
+
+**Anti-Patterns to Avoid:**
+- Cluttered layouts
+- Too many colors (>4)
+- Multiple font families
+- Inconsistent spacing
+- Misaligned elements
+- Low-quality images
+- Flashy graphics
+
+### Design Token Strategy
+
+**Create design tokens for consistency:**
+
+```javascript
+// tokens/spacing.ts
+export const spacing = {
+  xs: '0.25rem',  // 4px
+  sm: '0.5rem',   // 8px
+  md: '1rem',     // 16px
+  lg: '1.5rem',   // 24px
+  xl: '2rem',     // 32px
+  '2xl': '3rem',  // 48px
+  '3xl': '4rem',  // 64px
+}
+
+// tokens/typography.ts
+export const typography = {
+  heading: {
+    h1: { size: '2.5rem', weight: 700, lineHeight: 1.2 },
+    h2: { size: '2rem', weight: 700, lineHeight: 1.3 },
+    h3: { size: '1.5rem', weight: 600, lineHeight: 1.4 },
+    h4: { size: '1.25rem', weight: 600, lineHeight: 1.4 },
+  },
+  body: {
+    size: '1rem',
+    weight: 400,
+    lineHeight: 1.6,
+  }
+}
+
+// tokens/colors.ts
+export const colors = {
+  primary: {
+    50: '#f0f9ff',
+    500: '#0ea5e9',
+    900: '#0c4a6e',
+  },
+  neutral: {
+    50: '#f9fafb',
+    900: '#111827',
+  }
+}
+```
+
+### Component Consistency
+
+**Enforce patterns:**
+- All cards use same padding, border-radius, shadow
+- All buttons use same variants (primary, secondary, ghost)
+- All forms use same input styling, error states
+- All sections use consistent spacing between
+- All headings follow hierarchy
+
+## Known Issues - Fix Priority
+
+From the milestone context:
+
+### High Priority (Blockers)
+1. **Hero Image Dimensions** - CLS impact
+   - Fix: Add explicit width/height or aspect-ratio
+   - Performance: Prevents layout shift
+   - Complexity: LOW
+
+2. **Duplicate Chunks** - Bundle size bloat
+   - Fix: Analyze webpack bundle, identify duplicates
+   - Performance: Reduces JS payload
+   - Complexity: MEDIUM
+
+### Medium Priority (Polish)
+3. **Inconsistent Spacing** - Visual quality
+   - Fix: Design tokens, spacing scale
+   - Impact: Professional appearance
+   - Complexity: LOW
+
+4. **Missing Hover States** - Interactivity
+   - Fix: Add CSS hover effects
+   - Impact: User feedback
+   - Complexity: LOW
+
+## MVP Definition (For v1.2 Refinement)
+
+### Launch With (Phase 1: Essential Polish)
+
+Must-have UX refinements for professional appearance.
+
+**Page Transitions:**
+- [ ] **Nuxt Page Transitions** — 300ms cross-fade, accessible
+- [ ] **prefers-reduced-motion** — Disable animations when set
+- [ ] **Layout Transitions** — Smooth layout changes
+- [ ] **Route Change Announcements** — Screen reader compatibility
+
+**Micro-interactions:**
+- [ ] **Button Hover States** — Color + transform (150ms)
+- [ ] **Link Hover States** — Underline or color shift
+- [ ] **Card Hover Effects** — Subtle lift on project/service cards
+- [ ] **Form Validation Feedback** — Real-time visual + ARIA
+- [ ] **Loading States** — Skeleton screens for async content
+- [ ] **Focus Indicators** — High contrast focus rings
+
+**Accessibility:**
+- [ ] **Skip Links** — "Skip to main content"
+- [ ] **ARIA Labels** — All interactive elements
+- [ ] **Keyboard Navigation** — Full keyboard access
+- [ ] **Color Contrast Audit** — WCAG AA compliance
+- [ ] **Alt Text Audit** — Meaningful descriptions
+- [ ] **Focus Management** — Logical tab order
+- [ ] **Semantic HTML** — Proper headings, landmarks
+
+**Visual Consistency:**
+- [ ] **Spacing Design Tokens** — Consistent spacing scale
+- [ ] **Typography System** — Heading hierarchy
+- [ ] **Button Variants** — Primary, secondary, ghost
+- [ ] **Form Styling** — Consistent inputs, labels, errors
+- [ ] **Card Component** — Unified styling
+
+**Known Issue Fixes:**
+- [ ] **Hero Image Dimensions** — Aspect ratio, prevent CLS
+- [ ] **Duplicate Chunks** — Bundle analysis, deduplication
+
+### Add After Validation (Phase 2: Enhanced Polish)
+
+Add when Phase 1 is complete and validated.
+
+**Advanced Micro-interactions:**
+- [ ] **Scroll-Triggered Animations** — Intersection Observer
+- [ ] **Stats Counter Animation** — Count-up when in viewport
+- [ ] **Service Filter Animations** — FLIP technique
+- [ ] **Testimonial Carousel Interactions** — Smooth transitions
+- [ ] **Project Gallery Micro-interactions** — Hover previews
+- [ ] **Back-to-Top with Progress** — Scroll percentage
+- [ ] **Breadcrumbs Micro-interactions** — Collapse on mobile
+
+**Enhanced Accessibility:**
+- [ ] **Focus Trap in Modals** — Proper modal management
+- [ ] **Live Region Announcements** — Dynamic content updates
+- [ ] **Advanced ARIA Patterns** — Complex widgets
+- [ ] **Keyboard Shortcuts** — Power user navigation
+
+### Defer to Post-MVP (Phase 3: Future Enhancements)
+
+Nice-to-haves for future consideration.
+
+- [ ] **Dark Mode** — Theme toggle, persistent
+- [ ] **Smart Search Suggestions** — Debounced autocomplete
+- [ ] **Smart Page Transitions** — Context-aware transitions
+- [ ] **View Transitions API** — Modern browser API (experimental)
+- [ ] **Print Styles** — Optimized printing
+- [ ] **Team Member Card Interactions** — Social link reveals
+- [ ] **Advanced Scroll Animations** — Parallax-like effects (carefully)
+
+## Performance Constraints
+
+**CRITICAL: All refinements must maintain v1.1 performance optimization work.**
+
+### Performance Budgets
+
+| Metric | Target | Impact of Features |
+|--------|--------|-------------------|
+| **Performance Score** | ≥ 90 | Animations must be GPU-accelerated |
+| **LCP** | < 2.5s | Transitions must be CSS-only |
+| **INP** | < 200ms | Interactions must be <300ms |
+| **CLS** | < 0.1 | Image dimensions required |
+| **TBT** | < 200ms | No animation library bloat |
+| **Bundle Size** | Current + 10KB max | Built-in Nuxt features only |
+
+### Red Flags
+
+**DO NOT compromise performance for UX:**
+- No JavaScript animation libraries (GSAP, Anime.js, etc.)
+- No external transition libraries
+- All animations < 400ms duration
+- All animations use GPU-accelerated properties
+- All animations respect `prefers-reduced-motion`
+- Test on 4G connections and low-end devices
 
 ## Feature Prioritization Matrix
 
-| Feature | User Value | Implementation Cost | Priority | Lighthouse Metric |
-|---------|------------|---------------------|----------|-------------------|
-| Image Optimization | HIGH | LOW | P1 | Performance, LCP |
-| Critical CSS Inlining | HIGH | MEDIUM | P1 | Performance, LCP |
-| Font Optimization | HIGH | LOW | P1 | CLS |
-| Remove Unused CSS/JS | HIGH | MEDIUM | P1 | Performance |
-| Lazy Loading Below-Fold | HIGH | LOW | P1 | Performance, LCP |
-| Bundle Code Splitting | HIGH | LOW | P1 | Performance, INP |
-| Third-Party Script Optimization | HIGH | HIGH | P1 | Performance, INP |
-| Compression (Brotli) | MEDIUM | LOW | P1 | Performance |
-| Cache Headers | MEDIUM | LOW | P1 | Performance |
-| Lazy Hydration | MEDIUM | HIGH | P2 | Performance, INP |
-| Partytown Integration | MEDIUM | HIGH | P2 | Performance, INP |
-| Edge Rendering | MEDIUM | MEDIUM | P2 | Performance, LCP |
-| Islands Architecture | LOW | HIGH | P3 | Performance |
-| Server Components | LOW | HIGH | P3 | Performance |
-| Early Hints | LOW | HIGH | P3 | Performance |
-| Speculative Rules | LOW | MEDIUM | P3 | Performance |
+| Feature | User Value | Accessibility Value | Implementation Cost | Performance Risk | Priority |
+|---------|------------|---------------------|---------------------|------------------|----------|
+| Page Transitions (Nuxt built-in) | HIGH | MEDIUM | LOW | Low | P1 |
+| prefers-reduced-motion | LOW | HIGH | LOW | None | P1 |
+| Button Hover States | MEDIUM | HIGH | LOW | None | P1 |
+| Focus Indicators | LOW | HIGH | LOW | None | P1 |
+| ARIA Labels | LOW | HIGH | MEDIUM | None | P1 |
+| Keyboard Navigation | LOW | HIGH | MEDIUM | None | P1 |
+| Color Contrast Audit | MEDIUM | HIGH | MEDIUM | None | P1 |
+| Form Validation Feedback | HIGH | HIGH | LOW | None | P1 |
+| Loading States (Skeletons) | HIGH | MEDIUM | LOW | Low | P1 |
+| Skip Links | LOW | HIGH | LOW | None | P1 |
+| Spacing Design Tokens | MEDIUM | LOW | LOW | None | P1 |
+| Typography System | MEDIUM | LOW | LOW | None | P1 |
+| Hero Image Dimensions | HIGH | MEDIUM | LOW | Positive | P1 |
+| Duplicate Chunks Fix | MEDIUM | LOW | MEDIUM | Positive | P1 |
+| Card Hover Effects | MEDIUM | LOW | LOW | Low | P1 |
+| Link Hover States | LOW | LOW | LOW | None | P1 |
+| Scroll Animations | MEDIUM | LOW | MEDIUM | Low | P2 |
+| Stats Counter Animation | LOW | LOW | LOW | Low | P2 |
+| Service Filter Animations | MEDIUM | LOW | MEDIUM | Low | P2 |
+| Testimonial Carousel Interactions | MEDIUM | LOW | MEDIUM | Low | P2 |
+| Back-to-Top with Progress | LOW | LOW | MEDIUM | Low | P2 |
+| Focus Traps | LOW | HIGH | HIGH | None | P2 |
+| Live Regions | LOW | HIGH | MEDIUM | None | P2 |
+| Dark Mode | MEDIUM | LOW | HIGH | Low | P3 |
+| Smart Search | HIGH | MEDIUM | HIGH | Medium | P3 |
+| View Transitions API | LOW | LOW | MEDIUM | Low | P3 |
 
 **Priority key:**
-- P1: Must have for 90+ Lighthouse (launch)
-- P2: Should have for 95+ Lighthouse (post-launch)
-- P3: Nice to have for 98+ Lighthouse (future)
+- P1: Must have for v1.2 refinement (essential polish)
+- P2: Should have for enhanced experience (post-MVP)
+- P3: Nice to have for future consideration
 
-## Lighthouse Metric Mapping
+## Accessibility Audit Checklist
 
-### Performance Score (Weighted Average)
+Use this checklist to validate WCAG 2.1 AA compliance.
 
-| Metric | Weight | Target | Key Features |
-|--------|--------|--------|--------------|
-| **LCP** (Largest Contentful Paint) | 25% | < 2.5s | Image optimization, critical CSS, preload, compression |
-| **INP** (Interaction to Next Paint) | 25% | < 200ms | Code splitting, lazy hydration, Partytown, main thread reduction |
-| **CLS** (Cumulative Layout Shift) | 25% | < 0.1 | Font optimization, image dimensions, reserve space |
-| **FCP** (First Contentful Paint) | 10% | < 1.8s | Critical CSS, preload key resources |
-| **TBT** (Total Blocking Time) | 25% | < 200ms | Code splitting, defer scripts, reduce JS payload |
-| **SI** (Speed Index) | 10% | < 3.4s | Progressive rendering, above-fold optimization |
+### Perceivable
+- [ ] All images have alt text
+- [ ] Color contrast meets WCAG AA (4.5:1 text, 3:1 large)
+- [ ] Don't use color alone to convey information
+- [ ] Captions provided for video content
+- [ ] Text can be resized to 200% without horizontal scroll
+- [ ] Headings form logical outline
+- [ ] Lists are properly marked up
 
-### Best Practices Score
+### Operable
+- [ ] All functionality available via keyboard
+- [ ] Keyboard focus is visible (high contrast)
+- [ ] Tab order is logical
+- [ ] Skip links provided
+- [ ] No keyboard traps
+- [ ] Page titles are descriptive
+- [ ] Link purpose is clear from text
+- [ ] Focus returns after modal closes
 
-| Check | Impact | Feature |
-|-------|--------|---------|
-| Uses HTTPS | High | Deployment |
-| Uses HTTP/2 or HTTP/3 | Medium | Server config |
-| Avoids document.write() | High | No legacy scripts |
-| Avoids enormous network payloads | High | Bundle analysis, compression |
-| Avoids an excessive DOM size | Medium | Component optimization |
-| No vulnerable libraries | Medium | Dependency audit |
+### Understandable
+- [ ] Language of page declared (lang attribute)
+- [ ] Form inputs have labels
+- [ ] Error messages are clear and actionable
+- [ ] Consistent navigation
+- [ ] Error prevention (confirmations for destructive actions)
+- [ ] Instructions provided for complex tasks
 
-### Accessibility Score (Performance-Related)
+### Robust
+- [ ] Valid HTML
+- [ ] ARIA attributes used correctly
+- [ ] Semantic HTML elements
+- [ ] Custom components have proper ARIA roles
+- [ ] Screen reader testing passed
+- [ ] Keyboard testing passed
 
-| Check | Impact | Feature |
-|-------|--------|---------|
-| Low contrast text | Medium | CSS optimization |
-| Missing alt text | Medium | Image optimization |
-| Form labels | Low | N/A |
+## Testing Strategy
 
-### SEO Score (Performance-Related)
+### Manual Testing
 
-| Check | Impact | Feature |
-|-------|--------|---------|
-| Structured data | Medium | Meta tags |
-| HTTP status codes | High | 301 redirects (configured) |
-| Crawlable links | Medium | Sitemap |
-| Mobile-friendly | High | Responsive design |
+**Accessibility:**
+- Keyboard navigation (Tab, Shift+Tab, Enter, Escape, Arrows)
+- Screen reader (NVDA/JAWS on Windows, VoiceOver on Mac)
+- Color contrast checker
+- Zoom to 200%
+- Browser devTools Accessibility pane
 
-## Current State Analysis (VP Associates Site)
+**Performance:**
+- Lighthouse audit (target 90+ Performance)
+- LCP < 2.5s
+- INP < 200ms
+- CLS < 0.1
+- CPU throttling (4x slowdown)
+- 4G network throttling
 
-### Already Implemented (Good Foundation)
+**UX:**
+- All hover states work
+- Focus indicators visible
+- Transitions smooth (<400ms)
+- Loading states clear
+- Form feedback immediate
+- No jank or stuttering
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| @nuxt/image module | Active | Configured with WebP/AVIF |
-| PWA caching | Active | Service worker, offline support |
-| Route-based prerendering | Active | All main routes prerendered |
-| Cache headers | Active | Proper TTLs configured |
-| Font preconnect | Active | Google Fonts, Iconify |
-| Compression | Partial | Nitro supports, verify Brotli enabled |
-| 301 redirects | Active | WordPress migration preserved |
+### Automated Testing
 
-### Gap Analysis (What's Missing)
+**Accessibility:**
+- axe DevTools
+- Lighthouse Accessibility
+- WAVE browser extension
+- pa11y CI integration
 
-| Gap | Impact | Priority |
-|-----|--------|----------|
-| Critical CSS inlining | High LCP impact | P1 |
-| Lazy component loading | Medium JS reduction | P1 |
-| Third-party script audit | Unknown (no scripts visible) | P1 |
-| Bundle size analysis | Unknown current state | P1 |
-| Image sizing verification | CLS risk | P1 |
-| Lazy hydration | High INP improvement | P2 |
-| Partytown evaluation | Depends on third-party usage | P2 |
+**Performance:**
+- Lighthouse CI
+- WebPageTest
+- Core Web Vitals monitoring
 
-## Competitor Analysis (Performance Leaders)
+## Success Criteria
 
-| Site | Lighthouse Score | Key Strategies |
-|------|------------------|----------------|
-| Vercel | 95-100 | Edge rendering, minimal JS, optimized images |
-| GitHub | 90-95 | Progressive enhancement, lazy loading |
-| Stripe | 95-100 | Server-side first, minimal client JS |
-| Airbnb | 85-90 | Code splitting, aggressive lazy loading |
+v1.2 Refinement is complete when:
 
-**Common Patterns:**
-- Minimal JavaScript payload (< 100KB initial)
-- Server-side rendering for critical content
-- Aggressive lazy loading
-- Native web APIs over libraries
-- Edge deployment
+### Accessibility
+- [ ] WCAG 2.1 AA compliant (manual + automated testing)
+- [ ] All keyboard navigation works
+- [ ] Screen reader testing passed
+- [ ] Color contrast meets AA standards
+- [ ] All interactive elements labeled
+
+### UX Polish
+- [ ] Page transitions smooth (<400ms)
+- [ ] All hover states implemented
+- [ ] Loading states for all async content
+- [ ] Form validation provides immediate feedback
+- [ ] Focus indicators visible on all focusable elements
+
+### Visual Consistency
+- [ ] Spacing follows design tokens
+- [ ] Typography hierarchy consistent
+- [ ] Component styling unified
+- [ ] No layout shifts (CLS < 0.1)
+- [ ] Professional appearance
+
+### Performance
+- [ ] Lighthouse Performance ≥ 90
+- [ ] LCP < 2.5s
+- [ ] INP < 200ms
+- [ ] CLS < 0.1
+- [ ] No bundle size regression (>10KB increase)
+
+### Known Issues
+- [ ] Hero image dimensions fixed
+- [ ] Duplicate chunks eliminated
+- [ ] No visual bugs or inconsistencies
 
 ## Sources
 
-### Official Documentation
-- [Nuxt Performance Best Practices](https://nuxt.com/docs/3.x/guide/best-practices/performance) - HIGH confidence
-- [Nuxt Hydration Best Practices](https://nuxt.com/docs/3.x/guide/best-practices/hydration) - HIGH confidence
-- [defineLazyHydrationComponent API](https://nuxt.com/docs/3.x/api/utils/define-lazy-hydration-component) - HIGH confidence
-- [@nuxt/fonts Module](https://nuxt.com/modules/fonts) - HIGH confidence
-- [NuxtLink Component Docs](https://nuxt.com/docs/3.x/api/components/nuxt-link) - HIGH confidence
+### Page Transitions & Nuxt 3
+- [Transitions · Get Started with Nuxt v3](https://nuxt.com/docs/3.x/getting-started/transitions) - HIGH confidence (official docs)
+- [Nuxt Configuration v3](https://nuxt.com/docs/3.x/api/nuxt-config) - HIGH confidence (official docs)
+- [<NuxtPage> · Nuxt Components v3](https://nuxt.com/docs/3.x/api/components/nuxt-page) - HIGH confidence (official docs)
+- [Level Up Your Website. Custom Page Transitions in Nuxt3](https://medium.com/@dannyjustinjansen/level-up-your-website-custom-page-transitions-in-nuxt3-2880e48a2eaa) - MEDIUM confidence (community guide)
+- [2025最新：Nuxt.js页面过渡动画全攻略](https://blog.csdn.net/gitblog_01164/article/details/148889328) - MEDIUM confidence (2025 comprehensive guide)
+- [How to get seamless app-like page transitions in Nuxt 3](https://www.youtube.com/watch?v=OHFEZM7H8cQ) - MEDIUM confidence (video tutorial)
 
-### Performance Guides (2025-2026)
-- [Nuxt 4 Performance Optimization: Complete Guide to Faster Apps in 2026](https://masteringnuxt.com/blog/nuxt-4-performance-optimization-complete-guide-to-faster-apps-in-2026) - MEDIUM confidence
-- [Core Web Vitals Optimization: Complete Guide for 2026](https://skyseodigital.com/core-web-vitals-optimization-complete-guide-for-2026/) - MEDIUM confidence
-- [Core Web Vitals 2026: Complete INP Guide & Assessment](https://koanthic.com/en/core-web-vitals-2026-complete-inp-guide-assessment/) - MEDIUM confidence
-- [Critical CSS Inlining: Boost Above-the-Fold Page Speed](https://softwarehouse.au/blog/implementing-critical-css-inlining-for-above-the-fold-content/) - MEDIUM confidence
-- [How We Achieve 90+ Lighthouse Performance Score](https://dev.to/jacobandrewsky/performance-checklist-for-vue-and-nuxt-cog) - MEDIUM confidence
+### Micro-interactions & UX
+- [Micro-Interactions That Actually Improve User Experience](https://altersquare.io/micro-interactions-that-actually-improve-user-experience-with-examples/) - HIGH confidence (comprehensive 2025 guide)
+- [The Role of Micro-interactions in Modern UX](https://www.interaction-design.org/literature/article/micro-interactions-ux) - HIGH confidence (authoritative UX resource)
+- [How to Design Micro-interactions: A Guide and Tools](https://www.uxdesigninstitute.com/blog/how-to-design-micro-interactions/) - MEDIUM confidence (UX design resource)
+- [Micro Interactions in Web Design](https://blog.designcrowd.com/article/2250-micro-interactions-in-web-design) - MEDIUM confidence (design resource)
 
-### Third-Party Optimization
-- [Partytown: Optimize Third Party Scripts with Web Workers](https://www.debugbear.com/blog/partytown-web-workers) - MEDIUM confidence
-- [Introducing Nuxt Scripts](https://nuxt.com/blog/nuxt-scripts) - HIGH confidence
-- [Using web workers to boost third-party script performance](https://blog.logrocket.com/using-web-workers-boost-third-party-script-performance/) - MEDIUM confidence
+### Accessibility
+- [Understanding Success Criterion 2.1.1: Keyboard](https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html) - HIGH confidence (W3C official)
+- [Understanding Guideline 2.1: Keyboard Accessible](https://www.w3.org/WAI/WCAG22/Understanding/keyboard-accessible.html) - HIGH confidence (W3C official)
+- [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/) - HIGH confidence (W3C standard)
+- [prefers-reduced-motion - CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion) - HIGH confidence (MDN official)
+- [Using the CSS prefers-reduced-motion query](https://www.w3.org/WAI/WCAG21/Techniques/css/C39) - HIGH confidence (W3C technique)
+- [prefers-reduced-motion: Sometimes less movement is more](https://web.dev/articles/prefers-reduced-motion) - HIGH confidence (web.dev official)
+- [Accessibility - Vue.js Guide](https://vuejs.org/guide/best-practices/accessibility) - HIGH confidence (official Vue docs)
+- [Best practices for Accessibility in Vue / Nuxt](https://dev.to/jacobandrewsky/best-practices-for-accessibility-in-vue-nuxt-1cga) - MEDIUM confidence (community guide)
+- [How to Build Accessible Vue.js Applications](https://www.vuemastery.com/blog/how-to-build-accessible-vuejs-applications/) - MEDIUM confidence (Vue Mastery)
 
-### Compression & Server
-- [nuxt-precompress Module](https://nuxt.com/modules/precompress) - MEDIUM confidence
-- [Nuxt on the Edge](https://nuxt.com/blog/nuxt-on-the-edge) - HIGH confidence
-- [Diving Deep into Nitro](https://vueschool.io/articles/news/diving-deep-into-nitro-the-server-engine-behind-nuxt-insights-from-pooya-parsa-at-nuxt-nation-2024/) - MEDIUM confidence
+### Performance
+- [The most effective ways to improve Core Web Vitals](https://web.dev/articles/top-cwv) - HIGH confidence (Google official)
+- [Optimizing Web Performance: Core Web Vitals Guide](https://medium.com/@nomannayeem/optimizing-web-performance-an-easy-guide-to-core-web-vitals-db20b1120578) - MEDIUM confidence (2025 guide)
+- [Optimizing FID, LCP, and CLS: Technical Deep Dive](https://dev.to/yehia_samir/optimizing-fid-lcp-and-cls-a-technical-deep-dive-into-web-performance-and-design-strategy-2481) - MEDIUM confidence (technical analysis)
+- [Core Web Vitals Guide: What They Are & How to Improve](https://www.siteground.com/academy/core-web-vitals-complete-guide/) - MEDIUM confidence (comprehensive guide)
 
-### Community Resources
-- [How To Optimize Performance In Nuxt Apps](https://www.debugbear.com/blog/optimize-nuxt-performance) - MEDIUM confidence
-- [Optimizing Nuxt Apps for Core Web Vitals](https://dev.to/jacobandrewsky/optimizing-nuxt-apps-for-core-web-vitals-106j) - MEDIUM confidence
-- [Lazy Hydration and Server Components in Nuxt](https://vueschool.io/articles/vuejs-tutorials/lazy-hydration-and-server-components-in-nuxt-vue-js-3-performance/) - MEDIUM confidence
-- [Nuxt Scripts 介绍](https://nuxtjs.org.cn/blog/nuxt-scripts) - LOW confidence (translation)
-
-### GitHub Discussions
-- [Lazy Hydration in Nuxt Core #24242](https://github.com/nuxt/nuxt/issues/24242) - MEDIUM confidence
-- [How to disable modulepreload/prefetch](https://github.com/nuxt/nuxt/discussions/16231) - MEDIUM confidence
-- [Server component roadmap #19772](https://github.com/nuxt/nuxt/issues/19772) - MEDIUM confidence
+### Professional Services UX
+- [Best Practices For UI/UX Engineering](https://folderit.net/best-practices-for-ui-ux-engineering/) - MEDIUM confidence (industry practices)
+- [8 Enterprise UX Design Best Practices](https://uxpilot.ai/blogs/enterprise-ux-design) - MEDIUM confidence (UX design principles)
+- [8 Best Practices for Industrial Web Development](https://www.dbswebsite.com/blog/best-practices-for-industrial-web-development/) - MEDIUM confidence (industrial/sector focus)
+- [6 Essential Features of Great Engineering Web Design](https://www.webfx.com/industries/professional-services/engineering/web-design/) - MEDIUM confidence (engineering-specific)
+- [Website Design and Functionality Best Practices for Professional Service Providers](https://socialeyescommunications.com/website-design-and-functionality-best-practices-for-professional-service-providers/) - MEDIUM confidence (professional services focus)
+- [Corporate Website Design – Examples and Best Practices](https://www.uxpin.com/studio/blog/corporate-website-design-examples/) - MEDIUM confidence (corporate design)
 
 ---
-*Feature research for: Nuxt 3 Performance Optimization*
-*Researched: 2026-02-06*
+*Feature research for: VP Associates Website v1.2 Refinement Milestone*
+*Researched: 2026-02-07*
+*Confidence: HIGH*

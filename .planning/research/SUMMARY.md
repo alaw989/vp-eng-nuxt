@@ -1,183 +1,503 @@
-# Project Research Summary
+# v1.2 Refinement Research Summary
 
-**Project:** VP Associates Website v1.1 - Performance Optimization
-**Domain:** Nuxt 3 Website Performance Optimization
-**Researched:** 2026-02-06
+**Date:** 2026-02-07
 **Confidence:** HIGH
+**Milestone:** v1.2 Refinement - UX Polish, Page Transitions, Micro-interactions, Accessibility
+
+---
 
 ## Executive Summary
 
-This is a performance optimization project for an existing Nuxt 3 website targeting 90+ Lighthouse scores. The existing stack is well-positioned for success with Nuxt 3.15, @nuxt/image, PWA caching, and route-based prerendering already configured. Experts achieve high performance through a layered approach: configuration-first optimizations (route rules, caching headers), component-level optimizations (lazy loading, lazy hydration), and build-level optimizations (bundle analysis, code splitting).
+The v1.2 Refinement Milestone focuses on **polishing an existing high-performing Nuxt 3 website** with page transitions, micro-interactions, and accessibility improvements. Key finding: The existing codebase is **well-architected for refinement** with minimal restructuring needed. Only **2 new packages** are recommended (1 runtime, 1 dev dependency), keeping the total bundle impact under 20KB.
 
-The recommended approach is additive, not disruptive. No major framework changes are needed. The path to 90+ focuses on: (1) measurement with rollup-plugin-visualizer and unlighthouse, (2) critical path optimization with @nuxtjs/critters for critical CSS inlining, (3) strategic lazy loading and hydration for below-fold components, and (4) server-side caching for API routes. The biggest risk is "over-optimizing" by lazy loading critical above-fold content, which devastates LCP scores. Another key risk is optimizing without measuring—baseline Lighthouse scores must be established before any changes.
+**Critical insight:** The biggest risk in refinement work is **undoing v1.1 performance optimizations** with well-intentioned but poorly implemented UX enhancements. The research emphasizes a **"CSS-first, progressive enhancement" approach**: use built-in Nuxt/Vue capabilities before adding libraries, respect `prefers-reduced-motion`, and maintain 90+ Lighthouse Performance scores.
 
-Key mitigation strategies include: always use `loading="eager"` and `fetchpriority="high"` for LCP elements, apply lazy hydration only to below-fold components, use `defineCachedEventHandler` for API routes, and validate improvements with both lab (Lighthouse) and field (PageSpeed Insights CrUX) data.
+**Professional services UX context:** This is a structural engineering firm website, not a consumer app. UX should emphasize **trust and competence over flashiness**. Animations must be subtle (150-300ms), accessibility is non-negotiable (WCAG 2.1 AA), and performance cannot be compromised.
 
-## Key Findings
+---
 
-### Recommended Stack
+## Stack Additions
 
-The existing Nuxt 3 stack is optimal for 90+ Lighthouse scores. Three additions are recommended for measurement and optimization:
+### Recommended Packages (2 total)
 
-**Core technologies (no changes needed):**
-- **Nuxt 3.15**: Already optimal—SSR/SSG hybrid with Nitro engine provides best-in-class performance
-- **@nuxt/image 2.0**: Already optimal—WebP/AVIF conversion, responsive sizing, lazy loading built-in
-- **@vite-pwa/nuxt 1.1**: Already optimal—Workbox caching configured for offline support
+| Package | Version | Type | Purpose | Bundle Impact |
+|---------|---------|------|---------|---------------|
+| **@formkit/auto-animate** | ^0.9.0 | Runtime | Layout animations (list filtering, reordering) | ~15KB |
+| **@nuxtjs/a11y** | ^2.1.0 | Dev dependency | Automated accessibility testing (axe-core) | 0KB (dev-only) |
 
-**Recommended additions:**
-- **rollup-plugin-visualizer**: Bundle visualization—essential for data-driven optimization decisions, cannot optimize what you cannot measure
-- **@nuxtjs/critters**: Critical CSS inlining—eliminates render-blocking CSS (10-20 point Performance improvement), includes PurgeCSS
-- **unlighthouse**: Automated Lighthouse auditing—CI/CD integration ensures regressions are caught, site-wide crawling for comprehensive coverage
+### Leveraging Existing Stack
 
-**Optional (lower priority):**
-- **Font self-hosting**: 200-300ms improvement but high maintenance—only pursue if other optimizations insufficient
+**No new packages needed for:**
+- **Page transitions** — Nuxt 3 built-in transitions already configured in `nuxt.config.ts`
+- **Micro-interactions** — Tailwind CSS 6.12 hover/focus/active states already available
+- **Scroll animations** — `@vueuse/nuxt@12.0.1` already installed with `useIntersectionObserver`
+- **Focus management** — VueUse provides `useFocusTrap`, `useKeyboard` (already installed)
+- **Image optimization** — `@nuxt/image` already handles hero dimensions with `fit="cover"`
 
-### Expected Features
+### Installation
 
-Performance optimization features fall into three categories based on Lighthouse impact.
+```bash
+# Page transitions & layout animations
+npm install @formkit/auto-animate
 
-**Must have (table stakes for 90+):**
-- **Image optimization** — Images account for 50%+ of page weight; @nuxt/image already configured, verify all images use it with proper sizing
-- **Critical CSS inlining** — Eliminates render-blocking CSS; inline above-the-fold only, defer rest
-- **Bundle code splitting** — Reduces initial JS payload; route-based automatic, component-level requires manual work
-- **Lazy loading below-fold content** — Reduces initial payload; images, components, iframes below viewport
-- **Font optimization** — Prevents FOIT/FOUT, reduces CLS; use font-display: swap, preload critical fonts
-- **Remove unused CSS/JS** — Reduces payload size; PurgeCSS (included in critters), tree shaking verification
-- **Third-party script optimization** — Scripts block main thread; defer non-critical, consider Partytown for web workers
+# Accessibility testing (dev-only)
+npm install -D @nuxtjs/a11y
+```
 
-**Should have (for 95+ scores):**
-- **Lazy hydration** — Defers component hydration until interaction; reduces TBT/INP for heavy components
-- **Partytown integration** — Moves third-party scripts to web workers; frees main thread
-- **Advanced code splitting** — Component-level splitting for heavy pages
-- **Performance budgets** — Automated size limits prevent regression
+### Configuration Changes
 
-**Defer (v2+):**
-- **Islands architecture** — Interactive islands in static page; experimental in Nuxt 3, consider when Nuxt 4 support stabilizes
-- **Server components** — Zero client JS for server-only content; when Nuxt implementation matures
-- **Edge rendering** — Server closer to user; requires Cloudflare Workers or Vercel Edge deployment
-- **Early hints** — Send resources while server processes; requires server support for 103 status
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: [
+    // ... existing modules
+    '@formkit/auto-animate',
+    '@nuxtjs/a11y',
+  ],
+  a11y: {
+    dev: true,
+    inspect: true,
+    global: {
+      respectPrefersReducedMotion: true,
+    },
+  },
+})
+```
 
-### Architecture Approach
+---
 
-Performance optimizations integrate at multiple architectural boundaries: config layer (nuxt.config.ts), component layer (lazy loading, hydration), server layer (cached event handlers), and build layer (bundle analysis).
+## Key Features
 
-**Major components:**
-1. **nuxt.config.ts** — Central configuration point for route rules, image optimization, caching headers; highest ROI, lowest risk
-2. **Nitro routeRules** — Hybrid rendering (SSR/SSG/ISR) and cache headers; per-route optimization strategy
-3. **Lazy components** — Code-split non-critical components using `Lazy` prefix; reduces initial bundle size
-4. **Lazy hydration** — Delay component interactivity using hydrate-on-visible/interaction directives; reduces TBT
-5. **defineCachedEventHandler** — Server-side caching wrapper for API routes; zero logic changes for significant response time improvement
-6. **@nuxt/image** — Automatic image optimization; verify all images use it with correct loading strategy
+### Table Stakes (Must-Have for v1.2)
 
-**Key architectural pattern:** Config-first optimization. Maximize gains through nuxt.config.ts changes (route rules, caching, image settings) before code modifications. This provides the highest impact with lowest risk.
+**Page Transitions:**
+- Smooth page transitions using Nuxt built-ins (150-300ms cross-fade)
+- `prefers-reduced-motion` support (disable animations when OS setting enabled)
+- Layout transitions for smooth navigation
+- Route change announcements for screen readers
 
-### Critical Pitfalls
+**Micro-interactions:**
+- Button hover states (color + subtle transform, 150-200ms)
+- Link hover states (underline or color shift)
+- Card hover effects (subtle lift on ProjectCard/ServiceCard)
+- Form validation feedback (real-time visual + ARIA)
+- Loading states (skeleton screens for async content)
+- Focus indicators (high contrast focus rings, 2px minimum)
 
-1. **Over-lazy-loading critical content** — Applying lazy loading to above-fold content delays LCP, causing scores to drop below 60. Always use `loading="eager"` and `fetchpriority="high"` for LCP elements.
+**Accessibility (WCAG 2.1 AA):**
+- Skip links ("Skip to main content")
+- ARIA labels on all interactive elements
+- Full keyboard navigation (Tab, Enter, Escape, Arrow keys)
+- Color contrast audit (4.5:1 for text, 3:1 for large text)
+- Alt text audit (meaningful descriptions)
+- Focus management (logical tab order, focus returns after modal closes)
+- Semantic HTML (proper headings, landmarks)
 
-2. **Not using lazy hydration for below-fold components** — All components hydrate immediately, causing large TBT and poor INP. Use `hydrate-on-visible` directive for components below the fold.
+**Visual Consistency:**
+- Spacing design tokens (consistent spacing scale)
+- Typography system (heading hierarchy)
+- Button variants (primary, secondary, ghost)
+- Form styling (consistent inputs, labels, errors)
+- Card component (unified styling)
 
-3. **Bundle size inflation from unoptimized dependencies** — JavaScript bundle exceeds 500KB, causing slow downloads and delayed hydration. Run `npx nuxi analyze` to identify oversized chunks, use tree-shakeable libraries.
+**Known Issue Fixes:**
+- Hero image dimensions (aspect ratio, prevent CLS)
+- Duplicate chunks (bundle analysis, deduplication)
 
-4. **Font loading causing layout shift** — CLS exceeds 0.1 when fonts load late and cause reflow. Use `font-display: swap`, define fallback font metrics, preload critical fonts.
+### Differentiators (Should-Have for Enhanced Experience)
 
-5. **Measuring lab scores instead of real user experience** — Lighthouse 95+ but real users report slow experiences. Test on mobile with throttling, use PageSpeed Insights for CrUX field data, implement RUM.
+- Scroll-triggered animations (Intersection Observer, GPU-accelerated)
+- Stats counter animation (count-up when in viewport)
+- Service filter animations (FLIP technique for smooth layout changes)
+- Testimonial carousel interactions (smooth transitions, pause on hover)
+- Project gallery micro-interactions (hover previews, subtle zoom)
+- Back-to-top button with progress (shows scroll percentage)
+- Breadcrumbs with micro-interactions (collapse on mobile, hover previews)
 
-## Implications for Roadmap
+### Anti-Features (Explicitly NOT Build)
 
-Based on research, suggested phase structure follows the architectural layers from highest-ROI config changes to lower-risk refinements.
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| **GSAP/heavy animation libraries** | 100KB+ bundle, performance regression | CSS transitions, Vue built-ins |
+| **Full page overhaul transitions** | Disorienting, blocks interaction | Subtle cross-fade (300ms max) |
+| **Parallax scrolling** | Performance killer, CLS issues | Static backgrounds with subtle depth |
+| **Auto-playing carousels** | WCAG violation, motion sensitivity | Manual controls with pause |
+| **Popups/modals on entry** | Annoying, blocks content, SEO penalty | Inline call-to-actions |
+| **Infinite scroll** | Performance issues, no footer access | Pagination with "Load More" button |
+| **Motion without reduced-motion check** | Vestibular disorders, motion sickness | Always check media query |
+| **Color-only state indicators** | Color blindness accessibility issue | Icons + color + text labels |
+| **Placeholder-only form labels** | Accessibility failure, poor UX | Explicit visible labels |
+| **Splash screens** | Blocks content, delays engagement | Fast loading, skeleton states |
 
-### Phase 1: Performance Audit & Baseline
-**Rationale:** Cannot optimize what is not measured. Baseline scores identify which metrics need focus and prevent wasted effort on already-optimized areas.
-**Delivers:** Lighthouse baseline report, bundle analysis, current score documentation
-**Addresses:** Performance measurement (rollup-plugin-visualizer, unlighthouse setup)
-**Avoids:** Optimizing without measuring (Anti-pattern #3)
-**Research flag:** Standard patterns—no additional research needed
+---
 
-### Phase 2: Config-First Optimization
-**Rationale:** nuxt.config.ts changes affect entire site with no code modifications. Fastest path to 90+ scores with lowest risk.
-**Delivers:** Optimized route rules, verified image configuration, Nitro cache headers
-**Addresses:** Route rules (prerender static, ISR for semi-static), image config verification, cache headers
-**Avoids:** Pitfall #5 (not leveraging hybrid rendering)
-**Research flag:** Standard patterns—well-documented in Nuxt docs
+## Architecture Approach
 
-### Phase 3: Critical Path Optimization
-**Rationale:** Critical CSS inlining and LCP element optimization provide 10-30 point improvements in Performance score.
-**Delivers:** @nuxtjs/critters integration, eager-loaded LCP images, critical CSS inlined
-**Addresses:** Critical CSS inlining, image loading strategy (eager vs lazy)
-**Avoids:** Pitfall #1 (over-lazy-loading critical content)
-**Research flag:** Standard patterns—@nuxtjs/critters has official documentation
+### Minimal Disruption Strategy
 
-### Phase 4: Server-Side Caching
-**Rationale:** Server-side caching has massive impact with minimal code changes. Reduces WordPress API dependency.
-**Delivers:** Cached API handlers (projects, services, team, testimonials)
-**Addresses:** defineCachedEventHandler wrappers, cache invalidation strategy
-**Uses:** defineCachedEventHandler pattern from ARCHITECTURE.md
-**Research flag:** Standard patterns—Nitro caching is well-documented
+The existing Nuxt 3 architecture requires **no structural changes** for refinement features. Enhancements should be implemented as **layered additions**:
 
-### Phase 5: Component Lazy Loading & Hydration
-**Rationale:** Component-level optimizations reduce JavaScript payload and improve TTI. Requires testing for visual issues.
-**Delivers:** Lazy-loaded below-fold components, lazy hydration for heavy interactive components
-**Addresses:** Lazy component loading, hydrate-on-visible directive
-**Avoids:** Pitfall #2 (not using lazy hydration), Anti-pattern #1 (universal lazy loading)
-**Research flag:** Standard patterns—Nuxt lazy loading and hydration well-documented
+1. **Enhance existing CSS transitions** in `main.css` (no component changes)
+2. **Add composables** (`useA11y.ts`, `useMicroInteractions.ts`) for shared logic
+3. **Update components incrementally** with new utility classes
+4. **Add Tailwind utilities** for consistent patterns
 
-### Phase 6: Image Optimization Completion
-**Rationale:** Images are typically the #1 performance factor. Already partially optimized, this completes the work.
-**Delivers:** All images converted to WebP/AVIF, proper loading strategies applied, responsive sizing verified
-**Addresses:** Image audit, loading strategies (eager for above-fold, lazy below), next-gen format conversion
-**Uses:** @nuxt/image module configuration
-**Research flag:** Standard patterns—@nuxt/image has comprehensive documentation
+### Recommended Architecture Patterns
 
-### Phase 7: Advanced Optimizations
-**Rationale:** These optimizations yield diminishing returns after phases 1-6. Higher complexity requires more testing.
-**Delivers:** Bundle optimization, plugin-to-composable conversion, Vue performance directives
-**Addresses:** Bundle analysis and code splitting, analytics lazy loading, v-memo/v-once directives
-**Uses:** rollup-plugin-visualizer, Vue performance patterns
-**Research flag:** Standard patterns—Vue and Nuxt performance docs cover these
+**Pattern 1: Composable-First Logic**
 
-### Phase 8: Monitoring & CI Integration
-**Rationale:** Monitoring prevents regression but doesn't improve scores directly. Add after optimizations complete.
-**Delivers:** Lighthouse CI integration, automated performance regression testing, optional RUM
-**Addresses:** CI/CD performance gates, score thresholds
-**Uses:** unlighthouse CI integration
-**Research flag:** Standard patterns—Unlighthouse CI docs available
+```typescript
+// composables/useA11y.ts (NEW)
+export function useA11y() {
+  const announce = (message: string, priority = 'polite') => {
+    // Screen reader announcement
+  }
 
-### Phase Ordering Rationale
+  const trapFocus = (container: HTMLElement) => {
+    // Modal focus management
+  }
 
-The order follows impact-to-effort ratio and architectural dependencies. Config changes (Phase 2-3) affect the entire application with minimal risk. Server-side caching (Phase 4) reduces load times before client-side optimizations. Component work (Phase 5-6) comes after server optimizations to avoid optimizing the wrong things. Advanced optimizations (Phase 7) are deferred until foundational work is complete. Monitoring (Phase 8) ensures gains are maintained.
+  const prefersReducedMotion = computed(() => {
+    if (import.meta.client) {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    }
+    return false
+  }
 
-This ordering also avoids the key pitfalls identified in research: we measure before optimizing (Phase 1), eagerly load critical content (Phase 3), apply lazy hydration strategically (Phase 5), and validate with real-world data (Phase 8).
+  return { announce, trapFocus, prefersReducedMotion }
+}
+```
 
-### Research Flags
+**Pattern 2: Utility-First Styling**
 
-Phases with standard patterns (skip `/gsd:research-phase`):
-- **Phase 1-8**: All phases rely on well-documented Nuxt features and established performance patterns. Official documentation is comprehensive. No additional research needed during planning.
+```vue
+<!-- Use Tailwind utilities, avoid scoped <style> -->
+<button class="press-scale hover-lift focus-ring">
+  Click me
+</button>
+```
 
-Phases potentially needing deeper research:
-- **None identified** — All optimization techniques are well-documented in official Nuxt documentation and authoritative performance guides.
+**Pattern 3: Progressive Enhancement**
+
+```css
+/* Base: No animation */
+.button { transition: none; }
+
+/* Enhanced: With animation (if user prefers) */
+@media (prefers-reduced-motion: no-preference) {
+  .button { transition: transform 0.2s; }
+}
+```
+
+### Integration Points
+
+**Existing components requiring enhancement:**
+- **AppHeader** — Add micro-interaction to logo hover, enhance menu transition
+- **ProjectCard** — Add `press-scale` utility, refine animation timing
+- **ServiceCard** — Same as ProjectCard
+- **TeamMember** — Add hover lift, focus ring
+- **Forms** — Proper labels, error announcements, keyboard navigation
+
+**New components needed:**
+- **TransitionWrapper.vue** — Reusable page transition with directional logic (optional)
+- **FocusTrap.vue** — Modal/dialog focus management utility
+- **KeyboardNav.vue** — Roving tabindex pattern for lists/grids
+
+**Components NOT requiring changes:**
+- **AppFooter** — Static content, adequate spacing
+- **ClientLogos** — Non-interactive, sufficient
+- **StatCounter** — Already has animation (likely)
+
+---
+
+## Pitfalls to Avoid
+
+### Top 5 Critical Pitfalls
+
+**1. Page Transitions Causing White Flash/Blank Screen**
+
+*What goes wrong:* Adding `<NuxtPage>` transitions causes noticeable white flash during navigation.
+
+*Prevention:*
+- Use `mode="out-in"` to coordinate enter/leave timing
+- Keep transition duration short (200-300ms max)
+- Test on mobile (worse on slower devices)
+- Always test with production build, not dev mode
+
+**2. Animations Regressing Lighthouse Performance Scores**
+
+*What goes wrong:* Adding animations causes Lighthouse Performance to drop from 90+ to 70-80.
+
+*Prevention:*
+- **Only animate `transform` and `opacity`** (GPU-accelerated)
+- Avoid animating layout-triggering properties (width, height, top, left)
+- Test with Lighthouse after each animation addition
+- Keep animation duration under 300ms
+
+**3. Scroll Position Breaking with Page Transitions**
+
+*What goes wrong:* Navigating back to a page doesn't restore scroll position (user at top instead of where they scrolled).
+
+*Prevention:*
+```typescript
+// nuxt.config.ts
+router: {
+  options: {
+    scrollBehaviorType: 'smooth',
+  }
+}
+```
+
+**4. Accessibility Improvements Breaking Existing Features**
+
+*What goes wrong:* Adding ARIA attributes or keyboard navigation accidentally breaks dropdowns/modals/forms.
+
+*Prevention:*
+- Test with keyboard only (unplug mouse) before and after changes
+- Test with actual screen reader (NVDA on Windows, VoiceOver on Mac)
+- Don't add ARIA if semantic HTML works
+- Use `@nuxt/a11y` module for real-time feedback
+
+**5. Ignoring `prefers-reduced-motion`**
+
+*What goes wrong:* Users with motion sensitivity experience nausea/dizziness from animations.
+
+*Prevention:*
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+### Performance Regression Prevention
+
+| Feature Added | Potential Regression | Detection Method |
+|--------------|---------------------|------------------|
+| Page transitions | LCP +300ms, white flash | Lighthouse, manual navigation testing |
+| CSS animations | TBT +200ms if poorly implemented | Lighthouse TBT score |
+| JS animation libraries | Bundle +100KB | `nuxi analyze` bundle size |
+| ARIA attributes | Can break features if wrong | Manual testing, screen reader |
+
+---
+
+## Recommended Phase Structure
+
+### Phase 1: Accessibility Foundation (8-10 hours)
+
+**Why first:** Accessibility improvements are critical for some users but invisible to most. No performance cost, establishes patterns for other features.
+
+**Deliverables:**
+- Create `useA11y.ts` composable (2-3h)
+  - `announce()`, `trapFocus()`, `prefersReducedMotion` functions
+- Update existing components with a11y patterns (4-6h)
+  - AppHeader: Ensure keyboard navigation works
+  - ProjectCard/ServiceCard: Verify focus rings
+  - Add missing ARIA labels
+- Add keyboard handlers (2-3h)
+  - Enter/Space for button-like elements
+  - Escape for closing modals/dropdowns
+  - Arrow keys for list navigation
+
+**Success criteria:**
+- [ ] Keyboard-only navigation works (unplug mouse, complete user journey)
+- [ ] Screen reader testing passed (NVDA/VoiceOver)
+- [ ] Lighthouse Accessibility ≥ 90
+- [ ] All interactive elements labeled
+- [ ] No features broken by a11y changes
+
+**Risk:** Low (no visual changes, easy to test)
+
+---
+
+### Phase 2: Micro-Interactions (6-8 hours)
+
+**Why second:** Builds on accessibility foundation (respects `prefers-reduced-motion`), immediate visual polish.
+
+**Deliverables:**
+- Create `useMicroInteractions.ts` composable (1-2h)
+  - Hover, press, focus patterns
+  - Reduced motion detection
+- Add Tailwind utilities (1h)
+  - `.hover-lift`, `.press-scale`, `.focus-ring-subtle`
+  - Reduced motion media query
+- Enhance existing components (4-6h)
+  - ProjectCard: Add press-scale, refine hover
+  - ServiceCard: Same
+  - Buttons: Add press-scale globally
+  - TeamMember: Add hover-lift
+
+**Success criteria:**
+- [ ] All hover states implemented
+- [ ] Press animations work (scale-95)
+- [ ] Focus indicators visible on all focusable elements
+- [ ] Animations respect `prefers-reduced-motion`
+- [ ] Lighthouse Performance ≥ 90 (no regression)
+
+**Risk:** Low (CSS-only, can be easily reverted)
+
+---
+
+### Phase 3: Page Transitions (6-8 hours)
+
+**Why third:** Requires careful testing, more complex than micro-interactions. Builds on patterns from Phases 1-2.
+
+**Deliverables:**
+- Enhance global transition CSS (1-2h)
+  - Better easing functions
+  - Scroll position hooks
+  - Reduced motion support
+- Add per-page transitions (3-4h)
+  - Home → Pages: Slide-fade
+  - Projects → Project detail: Scale-fade
+  - Generic: Fade
+- Test scroll restoration (1-2h)
+  - Verify scroll position preserved on back navigation
+
+**Success criteria:**
+- [ ] Page transitions smooth (<400ms)
+- [ ] No white flash during navigation
+- [ ] Scroll position preserved on back navigation
+- [ ] Transitions respect `prefers-reduced-motion`
+- [ ] All existing features work with transitions
+
+**Risk:** Medium (can cause jank if not optimized)
+
+---
+
+### Phase 4: Visual Consistency & Known Issues (4-6 hours)
+
+**Why fourth:** Polish phase, ties everything together visually. Fixes known issues from v1.1.
+
+**Deliverables:**
+- Add design tokens to Tailwind config (1-2h)
+  - Spacing, duration, easing tokens
+  - Semantic naming
+- Audit components for consistency (2-3h)
+  - Ensure all cards use `rounded-card`
+  - Ensure all buttons use `rounded-button`
+  - Check spacing scales
+- Fix hero image dimensions (1h)
+  - Add explicit width/height or aspect-ratio
+  - Use `fit="cover"` on NuxtImg
+- Fix duplicate chunks (1h)
+  - Configure `manualChunks` in vite config
+  - Run bundle analysis
+
+**Success criteria:**
+- [ ] Spacing follows design tokens
+- [ ] Typography hierarchy consistent
+- [ ] Component styling unified
+- [ ] Hero images don't cause CLS
+- [ ] Duplicate chunks eliminated
+- [ ] No visual bugs or inconsistencies
+
+**Risk:** Low (systematic, reversible)
+
+---
+
+## Research Flags
+
+### Phases Requiring Deeper Research
+
+**Phase 3 (Page Transitions):**
+- Should we use Nuxt's built-in transitions or a library like `nuxt-page-transitions`?
+- Directional transitions based on route depth — worth the complexity?
+
+**Phase 4 (Bundle Optimization):**
+- Analyze current bundle with `npx nuxi analyze` before making changes
+- Determine optimal `manualChunks` strategy for vendor code
+
+### Phases with Well-Documented Patterns (Skip Research)
+
+**Phase 1 (Accessibility):**
+- WCAG 2.1 AA requirements are well-documented
+- Vue.js official accessibility guide provides clear patterns
+- No research needed — implement known best practices
+
+**Phase 2 (Micro-Interactions):**
+- Tailwind CSS utilities fully documented
+- CSS transition patterns are standard
+- No research needed — use existing stack
+
+---
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | Official Nuxt documentation provides comprehensive guidance. All recommended additions have official support. |
-| Features | HIGH | Core Web Vitals and Lighthouse metrics are well-defined industry standards. Feature-Lighthouse mapping is definitive. |
-| Architecture | HIGH | Nuxt 3 architecture patterns are documented in official guides. Caching and rendering patterns have authoritative sources. |
-| Pitfalls | HIGH | Identified from official Nuxt docs, authoritative performance guides, and real-world case studies. Warning signs are concrete. |
+| **Stack** | HIGH | Based on official Nuxt/Vue documentation, existing codebase analysis |
+| **Features** | HIGH | Professional services UX patterns well-documented, WCAG 2.1 AA clear |
+| **Architecture** | HIGH | Existing codebase analyzed, composable pattern established |
+| **Pitfalls** | HIGH | Based on official docs, real-world Nuxt issues, accessibility experts |
 
-**Overall confidence:** HIGH
+**Overall Confidence:** HIGH
 
-All research sources are either official documentation (Nuxt, Vite, Google Core Web Vitals) or authoritative performance guides from recognized experts. No inference required—recommendations are based on established best practices with concrete implementation examples.
-
-### Gaps to Address
-
-- **Current baseline scores unknown**: Run Lighthouse audit in Phase 1 to establish baseline. Cannot know which optimizations are most critical without measuring first.
-- **Image optimization status partial**: HERO images are optimized, but projects/ and other directories need verification. Address in Phase 6 image audit.
-- **Third-party script usage unclear**: Analytics plugin exists but implementation unknown. Review during Phase 5 component optimization.
-- **Production caching headers unverified**: Configured in nuxt.config.ts but need production verification. Test in Phase 2.
+**Gaps to Address:**
+- Screen reader testing: Which screen readers to prioritize? (NVDA Windows, VoiceOver Mac, TalkBack Android)
+- Performance budget: What's acceptable bundle size increase? (Current baseline: 90+ Lighthouse)
 
 ---
 
-*Research completed: 2026-02-06*
-*Ready for roadmap: yes*
+## Implementation Complexity
+
+| Feature | Lines of Code | Dev Time | Testing Time | Risk |
+|---------|--------------|-----------|--------------|------|
+| `useA11y.ts` composable | ~150 | 2-3h | 2-3h | Low |
+| `useMicroInteractions.ts` | ~80 | 1-2h | 1h | Low |
+| Tailwind utilities | ~40 | 1h | 1h | Low |
+| Update ProjectCard | ~20 | 1h | 1h | Low |
+| Update ServiceCard | ~20 | 1h | 1h | Low |
+| Update AppHeader | ~30 | 2h | 2h | Low |
+| Per-page transitions | ~100 | 3-4h | 3h | Medium |
+| Design tokens | ~50 | 2h | 1h | Low |
+| **Total** | ~490 | **13-16h** | **12-14h** | **Low-Medium** |
+
+**Total Estimated Time:** 25-30 hours
+
+---
+
+## Sources
+
+### Stack Research
+- [Nuxt Transitions Documentation](https://nuxt.com/docs/3.x/getting-started/transitions) — HIGH confidence, official
+- [AutoAnimate Official Documentation](https://auto-animate.formkit.com/) — HIGH confidence, official
+- [@nuxtjs/a11y GitHub Repository](https://github.com/nuxt/a11y) — HIGH confidence, official
+- [VueUse useIntersectionObserver](https://vueuse.org/core/useintersectionobserver/) — HIGH confidence, official
+
+### Feature Research
+- [WCAG 2.1 Guidelines](https://www.w3.org/TR/WCAG21/) — HIGH confidence, W3C standard
+- [Vue.js Accessibility Guide](https://vuejs.org/guide/best-practices/accessibility) — HIGH confidence, official
+- [Micro-Interactions That Actually Improve UX](https://altersquare.io/micro-interactions-that-actually-improve-user-experience-with-examples/) — HIGH confidence, comprehensive 2025 guide
+- [Tailwind CSS Hover, Focus, and Other States](https://tailwindcss.com/docs/hover-focus-and-other-states) — HIGH confidence, official
+
+### Architecture Research
+- [Nuxt 3 Page Transitions](https://nuxt.com/docs/3.x/api/composables/use-page-transition) — HIGH confidence, official
+- [Vue 3 Transition Component](https://vuejs.org/guide/built-ins/transition.html) — HIGH confidence, official
+- [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/) — HIGH confidence, W3C
+- [Tailwind CSS Design Tokens Pattern](https://tailwindcss.com/blog/custom-configuration-reference) — HIGH confidence, official
+
+### Pitfalls Research
+- [Page Transition White Flash #32053](https://github.com/nuxt/nuxt/issues/32053) — MEDIUM confidence, active Nuxt issue
+- [web.dev - prefers-reduced-motion](https://web.dev/articles/prefers-reduced-motion) — HIGH confidence, official
+- [Layout Transition Scroll Position #28988](https://github.com/nuxt/nuxt/issues/28988) — MEDIUM confidence, active Nuxt issue
+- [MDN - CSS vs JS Animation Performance](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/CSS_JavaScript_animation_performance) — HIGH confidence
+
+### Codebase Analysis (High Confidence)
+- `/home/deck/Sites/vp-eng-nuxt/nuxt.config.ts` — Verified existing configuration
+- `/home/deck/Sites/vp-eng-nuxt/assets/css/main.css` — Verified existing transition classes
+- `/home/deck/Sites/vp-eng-nuxt/components/AppHeader.vue` — Verified existing a11y patterns
+- `/home/deck/Sites/vp-eng-nuxt/components/ProjectCard.vue` — Verified existing interaction patterns
+- `/home/deck/Sites/vp-eng-nuxt/composables/useScrollReveal.ts` — Verified existing composable pattern
+- `/home/deck/Sites/vp-eng-nuxt/layouts/default.vue` — Verified semantic HTML structure
+- `/home/deck/Sites/vp-eng-nuxt/tailwind.config.js` — Verified existing design tokens
+
+---
+
+*Research synthesized: 2026-02-07*
+*Next step: Requirements definition → Roadmap creation*
