@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-neutral-900 text-white">
+  <footer class="bg-neutral-900 text-white" role="contentinfo">
     <div class="container">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
         <!-- Company Info -->
