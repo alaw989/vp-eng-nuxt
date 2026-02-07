@@ -299,8 +299,24 @@
       </div>
     </AppSection>
 
-    <!-- Service Areas -->
+    <!-- Service Area Map -->
     <AppSection bg-color="neutral-50" animate-on-scroll>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-display font-bold text-neutral-900 mb-4">
+          Serving Tampa Bay
+        </h2>
+        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          Interactive map showing our service area coverage across the Tampa Bay region
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto">
+        <ServiceAreaMap />
+      </div>
+    </AppSection>
+
+    <!-- Service Areas List -->
+    <AppSection bg-color="white" animate-on-scroll>
       <div class="text-center mb-12">
         <h2 class="text-3xl font-display font-bold text-neutral-900 mb-4">
           Service Areas
@@ -311,7 +327,7 @@
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div v-for="area in serviceAreas" :key="area" class="bg-white rounded-lg p-4 text-center shadow-sm border border-transparent hover:shadow-md hover:-translate-y-1 hover:border-primary transition-all duration-300">
+        <div v-for="area in serviceAreas" :key="area" class="bg-neutral-50 rounded-lg p-4 text-center shadow-sm border border-transparent hover:shadow-md hover:-translate-y-1 hover:border-primary transition-all duration-300">
           <Icon name="mdi:map-marker" class="w-6 h-6 text-primary mx-auto mb-2" />
           <div class="font-medium text-neutral-900 hover:text-primary transition-colors duration-300">{{ area }}</div>
         </div>
