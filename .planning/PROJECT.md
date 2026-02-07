@@ -29,7 +29,15 @@ VP Associates has a fast, modern, SEO-optimized website that's easy to maintain 
 
 ### Active
 
-*All v1.0 requirements complete. Next milestone to be planned.*
+*All v1.0-v1.1 requirements complete. v1.2 Refinement milestone in progress.*
+
+**v1.2 Refinement:**
+- WCAG 2.1 AA accessibility compliance (9 requirements)
+- Page transitions with reduced motion support (6 requirements)
+- Micro-interactions for responsive UX (10 requirements)
+- Known issue fixes (hero dimensions, duplicate chunks)
+
+### v1.1 Validated (Complete)
 
 ### v1.0 Validated (Complete)
 
@@ -52,11 +60,17 @@ VP Associates has a fast, modern, SEO-optimized website that's easy to maintain 
 - **Brand redesign** — Preserving existing brand identity, modernizing technical implementation only
 - **Advanced performance** — Edge deployment, islands architecture, Partytown deferred to future milestones
 
-## Current State (v1.1 Shipped)
+## Current State (v1.2 In Progress)
 
-**Delivered:** 2026-02-07
+**Started:** 2026-02-07
 
-Performance optimization and WordPress headless architecture integration. All 6 phases of v1.1 executed successfully (59 plans complete, 1 manual task pending):
+**v1.2 Refinement** - 5 phases planned (27 requirements):
+
+- Phase 17: Accessibility Foundation (5 plans) - WCAG 2.1 AA compliance
+- Phase 18: Core Micro-interactions (5 plans) - Hover states, form validation, loading states
+- Phase 19: Page Transitions (5 plans) - Smooth transitions with reduced motion support
+- Phase 20: Advanced Micro-interactions (4 plans) - Scroll animations, stats counters
+- Phase 21: Known Issue Fixes (2 plans) - Hero dimensions, bundle optimization
 
 - Phase 11: Navigation Fixes (1 plan)
 - Phase 12: Performance Baseline (3 plans)
@@ -128,5 +142,7 @@ No urgency or deadline. Methodical section-by-section improvement. Each section 
 | Preserve WordPress CMS | Content already managed there, headless approach avoids content migration | ✓ Good |
 | Nuxt 3 headless architecture | Modern tech stack with better performance, SEO, DX than traditional WordPress | ✓ Good |
 
+**Previous Milestone (v1.1):** Performance optimization and WordPress headless architecture integration. All 6 phases executed successfully (59 plans complete, 1 manual task pending).
+
 ---
-*Last updated: 2026-02-07 after v1.1 milestone*
+*Last updated: 2026-02-07 after v1.2 milestone initialization*
