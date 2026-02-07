@@ -11,9 +11,9 @@ See: .planning/PROJECT.md (updated 2026-02-07)
 
 Milestone: v1.2 Refinement
 Phase: 17 of 21 (Accessibility Foundation)
-Plan: 4 of 5 in current phase
+Plan: 3 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-07 — Completed 17-04: Focus management with VueUse and enhanced focus indicators
+Last activity: 2026-02-07 — Completed 17-03: Keyboard navigation with VueUse useMagicKeys
 
 Progress: [██████████████████████░░░░░░░░] 75% (62/81 plans complete)
 
@@ -92,6 +92,10 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Use VueUse useFocusTrap instead of custom focus trap implementations (handles edge cases)
 - Focus-visible styles only show on keyboard navigation, not mouse clicks
 - Route changes move focus to main-content for screen reader accessibility
+- Use VueUse useMagicKeys with watch() instead of whenever() for better type safety
+- Escape key closes mobile menu and other overlays (useEscapeKey pattern)
+- Arrow keys navigate sliders (HeroSlider, TestimonialsSlider, ProjectsCarousel)
+- aria-live="polite" regions announce slide changes to screen readers
 
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
@@ -123,7 +127,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 17-04, focus management with VueUse and enhanced focus indicators
+Stopped at: Completed 17-03, keyboard navigation with VueUse useMagicKeys
 Resume file: None
 
 ## Next Steps
