@@ -1,5 +1,5 @@
 <template>
-  <div class="animate-pulse">
+  <div class="animate-pulse" aria-hidden="true">
     <div class="bg-neutral-200 rounded-lg" :class="heightClass"></div>
   </div>
 </template>

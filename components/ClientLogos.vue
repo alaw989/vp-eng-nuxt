@@ -24,7 +24,7 @@
         <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10" />
 
         <!-- Scrolling track -->
-        <div class="flex items-center">
+        <div class="flex items-center" aria-label="Our clients">
           <div
             class="flex gap-12 animate-scroll"
             :class="{ 'hover:pause': pauseOnHover }"
@@ -47,6 +47,7 @@
                   <Icon
                     :name="client.icon || 'mdi:domain'"
                     class="w-10 h-10 text-primary flex-shrink-0"
+                    aria-hidden="true"
                   />
                   <span class="font-semibold text-neutral-700 whitespace-nowrap">
                     {{ client.name }}
@@ -62,15 +63,19 @@
       <div
         v-if="showStaticGrid"
         class="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+        role="list"
+        aria-label="Our clients"
       >
         <div
           v-for="client in clients.slice(0, 6)"
           :key="`static-${client.name}`"
           class="flex items-center justify-center gap-2 px-4 py-3 bg-neutral-50 rounded-lg border border-neutral-200 hover:border-primary transition-all"
+          role="listitem"
         >
           <Icon
             :name="client.icon || 'mdi:domain'"
             class="w-8 h-8 text-primary flex-shrink-0"
+            aria-hidden="true"
           />
           <span class="text-sm font-medium text-neutral-700 text-center">
             {{ client.name }}

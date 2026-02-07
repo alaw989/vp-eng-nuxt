@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+  <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-neutral-200" aria-hidden="true">
     <!-- Photo placeholder -->
     <div class="aspect-[3/4] bg-neutral-200 animate-pulse"></div>
 

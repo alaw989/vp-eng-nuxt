@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div aria-hidden="true">
     <!-- Header skeleton -->
     <div class="bg-primary-dark py-16">
       <div class="container">
