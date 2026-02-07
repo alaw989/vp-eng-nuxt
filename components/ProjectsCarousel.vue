@@ -69,6 +69,15 @@
         @click="goToSlide(index)"
       />
     </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+    >
+      Slide {{ currentSlide + 1 }} of {{ slides.length }}
+    </div>
   </section>
 </template>
 
@@ -276,5 +285,18 @@ defineExpose({
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(10%);
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 </style>
