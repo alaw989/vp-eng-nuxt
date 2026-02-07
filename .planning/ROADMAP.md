@@ -7,7 +7,7 @@ The v1.0 milestone delivered a complete Nuxt 3 headless website with visual and 
 ## Milestones
 
 - ✅ **v1.0 Website Modernization** - Phases 1-10 (shipped 2026-02-06) - [See archive](.planning/milestones/v1.0-ROADMAP.md)
-- 🚧 **v1.1 WordPress API & Performance** - Phases 11-16 (in progress)
+- ✅ **v1.1 Performance Optimization & WordPress API** - Phases 11-16 (shipped 2026-02-07) - [See archive](.planning/milestones/v1.1-ROADMAP.md)
 
 ## Phases
 
@@ -56,9 +56,10 @@ The v1.0 milestone delivered a complete Nuxt 3 headless website with visual and 
 
 </details>
 
-### 🚧 v1.1 Performance Optimization (In Progress)
+<details>
+<summary>✅ v1.1 Performance Optimization & WordPress API (Phases 11-16) - SHIPPED 2026-02-07</summary>
 
-**Milestone Goal:** VP Associates website achieves 90+ Lighthouse scores across all pages through measurement-driven optimization of critical path, code, and server-side caching.
+**Milestone Goal:** VP Associates website achieves 90+ Lighthouse scores across all pages through measurement-driven optimization of critical path, code, and server-side caching. WordPress headless architecture established with live API integration.
 
 #### Phase 11: Navigation Fixes
 **Goal**: Critical navigation issues are resolved to enable routing to all pages
@@ -157,6 +158,8 @@ Plans:
 - [x] 16-06: Create Testimonials Slider Component
 - [x] 16-07: Enhance Hero Section with Gradients
 
+</details>
+
 ## Progress
 
 **Execution Order:**
@@ -179,6 +182,6 @@ Phases execute in numeric order: 11 → 12 → 13 → 14 → 15
 | 13. Critical Path Optimization | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 14. Code Optimization | v1.1 | 4/4 | Complete | 2026-02-06 |
 | 15. Validation & Monitoring | v1.1 | 3/3 | Complete | 2026-02-06 |
-| 16. WordPress API Integration | v1.1 | 6/7 | In Progress | 2026-02-06 |
+| 16. WordPress API Integration | v1.1 | 6/7 | Complete | 2026-02-07 |
 
-**Overall Progress:** 59/62 plans complete (95%)
+**Overall Progress:** 59/62 plans complete (95%) - Plan 16-03 is manual content migration by user

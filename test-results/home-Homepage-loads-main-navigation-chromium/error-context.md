@@ -1,0 +1,302 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - progressbar
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=e5]:
+      - generic [ref=e7]:
+        - link "VP Associates" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e9]: VP Associates
+        - navigation "Main navigation" [ref=e10]:
+          - link "Home" [ref=e11] [cursor=pointer]:
+            - /url: /
+          - link "About" [ref=e12] [cursor=pointer]:
+            - /url: /about
+          - link "Services" [ref=e13] [cursor=pointer]:
+            - /url: /services
+          - link "Projects" [ref=e14] [cursor=pointer]:
+            - /url: /projects
+          - link "Careers" [ref=e15] [cursor=pointer]:
+            - /url: /careers
+          - link "Search" [ref=e16] [cursor=pointer]:
+            - /url: /search
+          - link "Contact" [ref=e18] [cursor=pointer]:
+            - /url: /contact
+    - main [ref=e19]:
+      - generic [ref=e20]:
+        - region "Hero slider" [ref=e21]:
+          - generic [ref=e22]:
+            - img "Modern architectural steel structure showcasing precision engineering" [ref=e25]
+            - generic [ref=e28]:
+              - heading "Structural Engineering Excellence" [level=1] [ref=e29]
+              - paragraph [ref=e30]: Serving Tampa Bay with comprehensive structural design, inspection, and detailing services
+              - link "Our Services" [ref=e32] [cursor=pointer]:
+                - /url: /services
+          - button "Previous slide" [ref=e33] [cursor=pointer]
+          - button "Next slide" [ref=e35] [cursor=pointer]
+          - generic [ref=e37]:
+            - button "Go to slide 1" [ref=e38] [cursor=pointer]
+            - button "Go to slide 2" [ref=e39] [cursor=pointer]
+            - button "Go to slide 3" [ref=e40] [cursor=pointer]
+            - button "Go to slide 4" [ref=e41] [cursor=pointer]
+            - button "Go to slide 5" [ref=e42] [cursor=pointer]
+            - button "Go to slide 6" [ref=e43] [cursor=pointer]
+            - button "Go to slide 7" [ref=e44] [cursor=pointer]
+            - button "Go to slide 8" [ref=e45] [cursor=pointer]
+            - button "Go to slide 9" [ref=e46] [cursor=pointer]
+          - status [ref=e48]: Slide 1 of 9
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - heading "Trusted Structural Engineers in Tampa Bay" [level=2] [ref=e53]
+            - paragraph [ref=e54]: VP Associates has been providing exceptional structural engineering services to the Tampa Bay area for over 30 years. Our team of licensed engineers brings expertise, innovation, and dedication to every project.
+            - paragraph [ref=e55]: From commercial developments to residential projects, we deliver comprehensive structural solutions that meet the highest standards of safety, efficiency, and code compliance.
+            - link "Learn More About Us" [ref=e56] [cursor=pointer]:
+              - /url: /about
+              - text: Learn More About Us
+          - generic [ref=e61]:
+            - generic [ref=e64]: Licensed & Insured
+            - paragraph [ref=e65]: Fully licensed Florida engineers with comprehensive coverage
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - generic [ref=e70]: 0+
+            - generic [ref=e71]: Projects Completed
+          - generic [ref=e72]:
+            - generic [ref=e73]: 0+
+            - generic [ref=e74]: Years Experience
+          - generic [ref=e75]:
+            - generic [ref=e76]: 0%
+            - generic [ref=e77]: Client Satisfaction
+          - generic [ref=e78]:
+            - generic [ref=e79]: 0+
+            - generic [ref=e80]: Team Members
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - heading "Our Services" [level=2] [ref=e84]
+            - paragraph [ref=e85]: Comprehensive structural engineering solutions for projects of all sizes
+          - generic [ref=e86]:
+            - link "Structural Steel Design AISC certified steel design for commercial and industrial projects Learn more" [ref=e87] [cursor=pointer]:
+              - /url: /services/structural-steel-design
+              - heading "Structural Steel Design" [level=3] [ref=e90]
+              - paragraph [ref=e91]: AISC certified steel design for commercial and industrial projects
+              - generic [ref=e92]: Learn more
+            - link "Concrete Design ACI certified concrete design for foundations and structures Learn more" [ref=e94] [cursor=pointer]:
+              - /url: /services/concrete-design
+              - heading "Concrete Design" [level=3] [ref=e97]
+              - paragraph [ref=e98]: ACI certified concrete design for foundations and structures
+              - generic [ref=e99]: Learn more
+            - link "Masonry Design ACI 530 compliant masonry design and detailing Learn more" [ref=e101] [cursor=pointer]:
+              - /url: /services/masonry-design
+              - heading "Masonry Design" [level=3] [ref=e104]
+              - paragraph [ref=e105]: ACI 530 compliant masonry design and detailing
+              - generic [ref=e106]: Learn more
+          - link "View All Services" [ref=e109] [cursor=pointer]:
+            - /url: /services
+            - text: View All Services
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - heading "Featured Projects" [level=2] [ref=e114]
+            - paragraph [ref=e115]: Explore our portfolio of successful engineering projects across Tampa Bay
+          - generic [ref=e116]:
+            - link "Tampa Marina Complex - Marine project in Tampa, FL Marine Tampa Marina Complex Complete structural design for a 50-slip marina with restaurant and retail spaces Tampa, FL 2024" [ref=e117] [cursor=pointer]:
+              - /url: /projects/tampa-marina-complex
+              - img "Tampa Marina Complex - Marine project in Tampa, FL" [ref=e119]
+              - generic [ref=e122]:
+                - generic [ref=e123]: Marine
+                - heading "Tampa Marina Complex" [level=3] [ref=e124]
+                - paragraph [ref=e125]: Complete structural design for a 50-slip marina with restaurant and retail spaces
+                - generic [ref=e126]:
+                  - generic [ref=e127]: Tampa, FL
+                  - generic [ref=e129]: "2024"
+            - link "Downtown Office Tower - Commercial project in Tampa, FL Commercial Downtown Office Tower Structural steel design for 12-story commercial office building Tampa, FL 2023" [ref=e131] [cursor=pointer]:
+              - /url: /projects/downtown-office-tower
+              - img "Downtown Office Tower - Commercial project in Tampa, FL" [ref=e133]
+              - generic [ref=e136]:
+                - generic [ref=e137]: Commercial
+                - heading "Downtown Office Tower" [level=3] [ref=e138]
+                - paragraph [ref=e139]: Structural steel design for 12-story commercial office building
+                - generic [ref=e140]:
+                  - generic [ref=e141]: Tampa, FL
+                  - generic [ref=e143]: "2023"
+            - link "Coastal Seawall System - Marine project in Clearwater, FL Marine Coastal Seawall System Engineered seawall protection system for luxury waterfront property Clearwater, FL 2024" [ref=e145] [cursor=pointer]:
+              - /url: /projects/coastal-seawall-system
+              - img "Coastal Seawall System - Marine project in Clearwater, FL" [ref=e147]
+              - generic [ref=e150]:
+                - generic [ref=e151]: Marine
+                - heading "Coastal Seawall System" [level=3] [ref=e152]
+                - paragraph [ref=e153]: Engineered seawall protection system for luxury waterfront property
+                - generic [ref=e154]:
+                  - generic [ref=e155]: Clearwater, FL
+                  - generic [ref=e157]: "2024"
+          - link "View All Projects" [ref=e160] [cursor=pointer]:
+            - /url: /projects
+            - text: View All Projects
+        - generic [ref=e164]:
+          - generic [ref=e165]:
+            - heading "Trusted by Industry Leaders" [level=2] [ref=e166]
+            - paragraph [ref=e167]: Proud to serve prestigious clients across Tampa Bay and Florida
+          - generic [ref=e172]:
+            - generic [ref=e173]:
+              - generic [ref=e177]: Tampa General
+              - generic [ref=e181]: Raymond James
+              - generic [ref=e185]: Port Tampa Bay
+              - generic [ref=e189]: Hillsborough County
+              - generic [ref=e193]: City of Tampa
+              - generic [ref=e197]: USF
+              - generic [ref=e201]: Moffitt Cancer Center
+              - generic [ref=e205]: TECO
+            - generic [ref=e206]:
+              - generic [ref=e210]: Tampa General
+              - generic [ref=e214]: Raymond James
+              - generic [ref=e218]: Port Tampa Bay
+              - generic [ref=e222]: Hillsborough County
+              - generic [ref=e226]: City of Tampa
+              - generic [ref=e230]: USF
+              - generic [ref=e234]: Moffitt Cancer Center
+              - generic [ref=e238]: TECO
+          - generic [ref=e239]:
+            - generic [ref=e242]: Tampa General
+            - generic [ref=e245]: Raymond James
+            - generic [ref=e248]: Port Tampa Bay
+            - generic [ref=e251]: Hillsborough County
+            - generic [ref=e254]: City of Tampa
+            - generic [ref=e257]: USF
+        - generic [ref=e259]:
+          - generic [ref=e260]:
+            - heading "What Our Clients Say" [level=2] [ref=e261]
+            - paragraph [ref=e262]: Trusted by architects, contractors, and developers throughout Florida
+          - generic [ref=e263]:
+            - generic [ref=e264]:
+              - blockquote [ref=e265]: "\"VP Associates delivered exceptional structural engineering services for our commercial development. Their attention to detail and code expertise made all the difference.\""
+              - generic [ref=e269]:
+                - generic [ref=e270]: Michael Chen
+                - generic [ref=e271]: Project Manager
+                - generic [ref=e272]: Chen Development Group
+            - generic [ref=e273]:
+              - blockquote [ref=e274]: "\"Working with VP Associates was seamless from start to finish. They met every deadline and provided innovative solutions for our complex project.\""
+              - generic [ref=e278]:
+                - generic [ref=e279]: Sarah Rodriguez
+                - generic [ref=e280]: Principal Architect
+                - generic [ref=e281]: Rodriguez Architecture
+            - generic [ref=e282]:
+              - blockquote [ref=e283]: "\"The team at VP Associates brings decades of expertise to every project. Their seawall designs have stood up to Florida weather for years.\""
+              - generic [ref=e287]:
+                - generic [ref=e288]: James Morrison
+                - generic [ref=e289]: Construction Director
+                - generic [ref=e290]: Gulf Coast Contractors
+            - generic [ref=e291]:
+              - blockquote [ref=e292]: "\"We have trusted VP Associates with multiple hospital projects. Their knowledge of Florida building codes and healthcare requirements is unparalleled.\""
+              - generic [ref=e296]:
+                - generic [ref=e297]: Jennifer Walsh
+                - generic [ref=e298]: Facilities Director
+                - generic [ref=e299]: Bay Area Health Systems
+            - generic [ref=e300]:
+              - blockquote [ref=e301]: "\"Professional, responsive, and technically excellent. VP Associates consistently delivers high-quality structural calculations and drawings.\""
+              - generic [ref=e305]:
+                - generic [ref=e306]: Robert Kim
+                - generic [ref=e307]: CEO
+                - generic [ref=e308]: Sunset Developers
+            - generic [ref=e309]:
+              - blockquote [ref=e310]: "\"Their marine structural expertise helped us design a seawall that has withstood multiple hurricane seasons. Highly recommend for any coastal project.\""
+              - generic [ref=e314]:
+                - generic [ref=e315]: Amanda Foster
+                - generic [ref=e316]: Property Manager
+                - generic [ref=e317]: Coastal Properties LLC
+        - generic [ref=e320]:
+          - heading "Ready to Start Your Project?" [level=2] [ref=e321]
+          - paragraph [ref=e322]: Contact us today to discuss your structural engineering needs
+          - generic [ref=e323]:
+            - link "Contact Us" [ref=e324] [cursor=pointer]:
+              - /url: /contact
+            - link "(813) 555-1234" [ref=e325] [cursor=pointer]:
+              - /url: tel:+18135551234
+              - text: (813) 555-1234
+    - contentinfo [ref=e327]:
+      - generic [ref=e328]:
+        - generic [ref=e329]:
+          - generic [ref=e330]:
+            - heading "VP Associates" [level=3] [ref=e331]
+            - paragraph [ref=e332]: Providing structural engineering services to Tampa Bay and surrounding areas for over 30 years.
+            - paragraph [ref=e333]:
+              - text: Licensed & Insured Florida Engineers
+              - text: "FL License #PEC-0001234"
+          - generic [ref=e334]:
+            - heading "Quick Links" [level=4] [ref=e335]
+            - list [ref=e336]:
+              - listitem [ref=e337]:
+                - link "About Us" [ref=e338] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e339]:
+                - link "Services" [ref=e340] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e341]:
+                - link "Projects Portfolio" [ref=e342] [cursor=pointer]:
+                  - /url: /projects
+              - listitem [ref=e343]:
+                - link "Contact Us" [ref=e344] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e345]:
+            - heading "Our Services" [level=4] [ref=e346]
+            - list [ref=e347]:
+              - listitem [ref=e348]:
+                - link "Structural Steel Design" [ref=e349] [cursor=pointer]:
+                  - /url: /services/structural-steel-design
+              - listitem [ref=e350]:
+                - link "Concrete Design" [ref=e351] [cursor=pointer]:
+                  - /url: /services/concrete-design
+              - listitem [ref=e352]:
+                - link "Foundation Design" [ref=e353] [cursor=pointer]:
+                  - /url: /services/foundation-design
+              - listitem [ref=e354]:
+                - link "Seawall Design" [ref=e355] [cursor=pointer]:
+                  - /url: /services/seawall-design
+              - listitem [ref=e356]:
+                - link "Steel Detailing" [ref=e357] [cursor=pointer]:
+                  - /url: /services/steel-detailing
+              - listitem [ref=e358]:
+                - link "View All Services →" [ref=e359] [cursor=pointer]:
+                  - /url: /services
+          - generic [ref=e360]:
+            - heading "Contact Info" [level=4] [ref=e361]
+            - generic [ref=e362]:
+              - paragraph [ref=e363]:
+                - generic [ref=e365]: Tampa Bay Area, Florida
+              - paragraph [ref=e366]:
+                - link "(813) 555-1234" [ref=e368] [cursor=pointer]:
+                  - /url: tel:+18135551234
+              - paragraph [ref=e369]:
+                - link "info@vp-associates.com" [ref=e371] [cursor=pointer]:
+                  - /url: mailto:info@vp-associates.com
+              - paragraph [ref=e372]:
+                - generic [ref=e374]: "Mon-Fri: 8:00 AM - 5:00 PM"
+        - generic [ref=e376]:
+          - paragraph [ref=e377]: © 2026 VP Associates. All rights reserved.
+          - generic [ref=e378]:
+            - link "Site Map" [ref=e379] [cursor=pointer]:
+              - /url: /sitemap
+            - link "LinkedIn" [ref=e380] [cursor=pointer]:
+              - /url: https://linkedin.com
+              - generic [ref=e382]: LinkedIn
+            - link "Facebook" [ref=e383] [cursor=pointer]:
+              - /url: https://facebook.com
+              - generic [ref=e385]: Facebook
+  - generic:
+    - img
+  - generic:
+    - generic:
+      - generic:
+        - button "Go to parent" [disabled]
+        - button "Open in editor"
+        - button "Close"
+  - generic [ref=e386]:
+    - button "Toggle Nuxt DevTools" [ref=e387] [cursor=pointer]:
+      - img [ref=e388]
+    - generic "Page load time" [ref=e391]:
+      - generic [ref=e392]: "474"
+      - generic [ref=e393]: ms
+    - button "Toggle Component Inspector" [ref=e395] [cursor=pointer]:
+      - img [ref=e396]
+```

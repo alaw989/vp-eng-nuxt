@@ -47,48 +47,52 @@ VP Associates has a fast, modern, SEO-optimized website that's easy to maintain 
 
 ### Out of Scope
 
-- **Complete content migration** — Content managed via WordPress CMS, ongoing editorial process
+- **Complete content migration** — Content managed via WordPress CMS, ongoing editorial process (Plan 16-03 is manual)
 - **New features beyond live site** — Current scope is parity with vp-associates.com unless specific gaps identified
 - **Brand redesign** — Preserving existing brand identity, modernizing technical implementation only
-- **Performance benchmarking** — No specific performance targets, qualitative improvement focus
+- **Advanced performance** — Edge deployment, islands architecture, Partytown deferred to future milestones
 
-## Current State (v1.0 Shipped)
+## Current State (v1.1 Shipped)
 
-**Delivered:** 2026-02-06
+**Delivered:** 2026-02-07
 
-A complete Nuxt 3 headless website with visual and functional parity to the source WordPress site. All 10 phases executed successfully (55 plans):
+Performance optimization and WordPress headless architecture integration. All 6 phases of v1.1 executed successfully (59 plans complete, 1 manual task pending):
 
-- Phase 1: Audit & Baseline Capture (3 plans)
-- Phase 2: Comparison Infrastructure (4 plans)
-- Phase 3: Image Migration (3 plans)
-- Phase 4: Content & SEO Validation (5 plans)
-- Phase 5: QA & PWA Foundation (4 plans)
-- Phase 6: Homepage Polish (4 plans)
-- Phase 7: Section Polish - Projects (4 plans)
-- Phase 8: Section Polish - Services (4 plans)
-- Phase 9: Section Polish - About & Team (4 plans)
-- Phase 10: Section Polish - Contact & Careers (4 plans)
+- Phase 11: Navigation Fixes (1 plan)
+- Phase 12: Performance Baseline (3 plans)
+- Phase 13: Critical Path Optimization (3 plans)
+- Phase 14: Code Optimization (4 plans)
+- Phase 15: Validation & Monitoring (3 plans)
+- Phase 16: WordPress API Integration (6 of 7 plans - Plan 16-03 is manual content migration)
 
 **Technical Environment:**
 - Frontend: Nuxt 3.14, Vue 3, TypeScript, Tailwind CSS
-- CMS: WordPress REST API at vp-associates.com/wp-json
+- CMS: WordPress REST API at vp-associates.com/wp-json (live API integration)
 - Deployment: Static generation (SSG) with server-side rendering (SSR) where needed
 - PWA: @vite-pwa/nuxt with service worker and manifest
+- Performance: @nuxtjs/critters, rollup-plugin-visualizer
+- Testing: Playwright E2E with Lighthouse CI
 - Analytics: Google Analytics 4 (optional via NUXT_PUBLIC_GA_MEASUREMENT_ID)
 
 **Stats:**
-- ~14,000 lines of Vue/TypeScript
-- 34+ files modified
-- 3 days execution (Feb 3-6, 2026)
+- ~16,400 total lines of Vue/TypeScript
+- 94 files modified across v1.0 + v1.1
+- 4 days total execution (Feb 3-7, 2026)
 
 **Known Issues Resolved:**
-- Image migration completed with WebP/JPG responsive variants
-- All section polish completed with consistent hover/focus patterns
-- Services navigation fixed (NuxtLink for client-side routing)
-- JSON-LD schema composable fixed for SSR
+- Navigation routing conflicts (careers page, trailing slash redirects)
+- Performance baseline established with 608 KB client JS
+- Critical CSS inlining configured
+- LCP images use eager loading
+- Lazy loading for below-fold components
+- Server-side caching for API routes
+- WordPress CPT plugin with live API integration
+- Circle elements styling, testimonials slider, hero gradients
 
 **Known Issues (None Critical):**
-- Minor: Some workflow templates have hardcoded paths
+- Manual: Plan 16-03 - User to migrate content to WordPress CPTs via admin interface
+- Minor: Some hero images could benefit from explicit width/height attributes
+- Minor: Duplicate chunk names in bundle suggest potential optimization opportunity
 
 <details>
 <summary>Original Context (pre-v1.0)</summary>
@@ -125,4 +129,4 @@ No urgency or deadline. Methodical section-by-section improvement. Each section 
 | Nuxt 3 headless architecture | Modern tech stack with better performance, SEO, DX than traditional WordPress | ✓ Good |
 
 ---
-*Last updated: 2026-02-06 after v1.0 milestone*
+*Last updated: 2026-02-07 after v1.1 milestone*
