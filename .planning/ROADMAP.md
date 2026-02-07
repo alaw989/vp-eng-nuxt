@@ -2,12 +2,13 @@
 
 ## Overview
 
-The v1.0 milestone delivered a complete Nuxt 3 headless website with visual and functional parity to the source WordPress site. The v1.1 milestone focuses on performance optimization to achieve 90+ Lighthouse scores across all pages. The approach is measurement-driven: establish baselines, optimize the critical path first (highest ROI), then implement code-level optimizations, and finally set up continuous monitoring to prevent regression.
+A modernization rebuild of vp-associates.com using Nuxt 3 headless architecture with WordPress CMS integration. The rebuild improves performance, SEO, and maintainability while preserving all existing functionality. Work proceeds section-by-section, systematically fixing styling/layout/functionality issues and migrating images from the live site.
 
 ## Milestones
 
 - ✅ **v1.0 Website Modernization** - Phases 1-10 (shipped 2026-02-06) - [See archive](.planning/milestones/v1.0-ROADMAP.md)
-- ✅ **v1.1 Performance Optimization & WordPress API** - Phases 11-16 (shipped 2026-02-07) - [See archive](.planning/milestones/v1.1-ROADMAP.md)
+- ✅ **v1.1 Performance Optimization & WordPress API Integration** - Phases 11-16 (shipped 2026-02-07) - [See archive](.planning/milestones/v1.1-ROADMAP.md)
+- 🚧 **v1.2 Refinement** - Phases 17-21 (in progress)
 
 ## Phases
 
@@ -57,131 +58,161 @@ The v1.0 milestone delivered a complete Nuxt 3 headless website with visual and 
 </details>
 
 <details>
-<summary>✅ v1.1 Performance Optimization & WordPress API (Phases 11-16) - SHIPPED 2026-02-07</summary>
+<summary>✅ v1.1 Performance Optimization & WordPress API Integration (Phases 11-16) - SHIPPED 2026-02-07</summary>
 
 **Milestone Goal:** VP Associates website achieves 90+ Lighthouse scores across all pages through measurement-driven optimization of critical path, code, and server-side caching. WordPress headless architecture established with live API integration.
 
 #### Phase 11: Navigation Fixes
 **Goal**: Critical navigation issues are resolved to enable routing to all pages
-**Depends on**: Phase 10 (v1.0 complete)
-**Requirements**: NAV-01, NAV-02, NAV-03
-**Success Criteria** (what must be TRUE):
-  1. User can navigate to /careers page without encountering route conflicts
-  2. User can navigate to /services and /careers pages via header, footer, and sitemap links using client-side routing
-  3. User does not encounter infinite redirect loops when accessing /services/ or /careers/ with trailing slash
 **Plans**: 1 plan
-
-Plans:
-- [x] 11-01: Fix careers route conflict, update NuxtLink navigation, remove redirect loop
 
 #### Phase 12: Performance Baseline
 **Goal**: Comprehensive performance measurement establishes current state and identifies optimization targets
-**Depends on**: Phase 11
-**Requirements**: PERF-01, PERF-02, PERF-03
-**Success Criteria** (what must be TRUE):
-  1. Lighthouse audit has been run on all major pages and baseline scores are documented
-  2. Bundle analysis visualization exists showing JavaScript payload sizes by chunk
-  3. LCP (Largest Contentful Paint) element is identified for each route to prioritize optimization
 **Plans**: 3 plans
-
-Plans:
-- [x] 12-01: Run Lighthouse audit across all pages and document baseline scores
-- [x] 12-02: Perform bundle size analysis with rollup-plugin-visualizer
-- [x] 12-03: Identify LCP element for each route
 
 #### Phase 13: Critical Path Optimization
 **Goal**: Render-blocking resources are eliminated and LCP elements load instantly
-**Depends on**: Phase 12
-**Requirements**: PERF-04, PERF-05, PERF-06
-**Success Criteria** (what must be TRUE):
-  1. Above-the-fold content renders immediately without waiting for CSS (critical CSS inlined)
-  2. LCP images load with eager loading and priority hints (no delay on largest content element)
-  3. Critical fonts and resources have preload hints in document head
 **Plans**: 3 plans
-
-Plans:
-- [x] 13-01: Implement critical CSS inlining with @nuxtjs/critters
-- [x] 13-02: Optimize LCP images with eager loading and priority hints
-- [x] 13-03: Add preload hints for critical fonts and resources
 
 #### Phase 14: Code Optimization
 **Goal**: JavaScript payload is reduced and server response times are improved through caching
-**Depends on**: Phase 13
-**Requirements**: PERF-07, PERF-08, PERF-09, PERF-10
-**Success Criteria** (what must be TRUE):
-  1. Below-fold components load lazily reducing initial JavaScript payload
-  2. Heavy interactive components hydrate only when visible (reduces main thread blocking)
-  3. Unused CSS and JavaScript have been removed from production bundle
-  4. API routes respond quickly with server-side caching enabled
 **Plans**: 4 plans
-
-Plans:
-- [x] 14-01: Implement lazy loading for below-fold components
-- [x] 14-02: Implement lazy hydration for heavy components
-- [x] 14-03: Remove unused CSS and JavaScript with bundle analysis
-- [x] 14-04: Implement server-side caching for API routes
 
 #### Phase 15: Validation & Monitoring
 **Goal**: Performance optimizations are verified and continuous monitoring prevents regression
-**Depends on**: Phase 14
-**Requirements**: PERF-11, PERF-12, PERF-13
-**Success Criteria** (what must be TRUE):
-  1. Lighthouse CI runs on each build with budget assertions enforcing score thresholds
-  2. Brotli compression is active in production reducing asset transfer sizes
-  3. Cache headers are configured correctly for static assets and API responses
 **Plans**: 3 plans
-
-Plans:
-- [x] 15-01: Integrate Lighthouse CI with budget assertions
-- [x] 15-02: Verify Brotli compression is enabled in production
-- [x] 15-03: Verify cache headers are configured correctly
 
 #### Phase 16: WordPress API Integration
 **Goal**: Establish headless WordPress architecture with Custom Post Types and integrate live API content into Nuxt frontend
-**Depends on**: None (can run parallel to performance phases)
-**Requirements**: WPAPI-01, WPAPI-02, WPAPI-03
-**Success Criteria** (what must be TRUE):
-  1. WordPress Custom Post Types (Services, Projects, Team, Testimonials) registered with REST API enabled ✓
-  2. Custom field meta boxes created for each CPT with appropriate fields (using native custom fields) ✓
-  3. Nuxt site successfully fetches and displays content from live WordPress API ✓
-  4. Circular elements render as perfect circles ✓
-  5. Testimonials display as single-row slider ✓
-  6. Hero section has gradient enhancement ✓
-**Plans**: 7 plans
-
-Plans:
-- [x] 16-01: Create WordPress CPT Registration Plugin
-- [x] 16-02: Create ACF Field Groups for CPTs (using native custom fields instead)
-- [ ] 16-03: Migrate Existing Content to CPTs (user to complete via WordPress admin)
-- [x] 16-04: Update Nuxt API Integration
-- [x] 16-05: Fix Circle Elements Styling
-- [x] 16-06: Create Testimonials Slider Component
-- [x] 16-07: Enhance Hero Section with Gradients
+**Plans**: 7 plans (6 complete, 1 manual)
 
 </details>
+
+### 🚧 v1.2 Refinement (In Progress)
+
+**Milestone Goal:** VP Associates website has polished UX with smooth page transitions, responsive micro-interactions, full WCAG 2.1 AA accessibility, and all known technical issues resolved.
+
+#### Phase 17: Accessibility Foundation
+**Goal**: WCAG 2.1 AA compliance with full keyboard navigation and screen reader support
+**Depends on**: Phase 16
+**Requirements**: A11Y-01 through A11Y-09 (9 requirements)
+**Success Criteria** (what must be TRUE):
+  1. User can navigate entire site using only keyboard (Tab, Enter, Escape, Arrow keys)
+  2. Screen reader announces page changes and interactive elements correctly
+  3. All interactive elements have visible focus indicators (2px minimum, high contrast)
+  4. Color contrast meets WCAG AA standards (4.5:1 for text, 3:1 for large text)
+  5. Modal/dialog focus traps work and focus returns after closing
+**Plans**: 5 plans
+
+**Wave Structure:**
+- Wave 1 (parallel): 17-01 (@nuxt/a11y + semantic audit), 17-02 (ARIA labels + landmarks)
+- Wave 2 (parallel): 17-03 (keyboard navigation), 17-04 (focus management + focus traps)
+- Wave 3 (sequential): 17-05 (live regions + E2E tests)
+
+Plans:
+- [ ] 17-01-PLAN.md — Install @nuxt/a11y module, verify skip link, audit semantic HTML structure
+- [ ] 17-02-PLAN.md — Add ARIA labels to icon buttons, cards, and interactive components
+- [ ] 17-03-PLAN.md — Implement keyboard navigation (Escape, Arrow keys) using VueUse useMagicKeys
+- [ ] 17-04-PLAN.md — Implement focus management with VueUse useFocusTrap and enhance focus indicators
+- [ ] 17-05-PLAN.md — Create live region composable, add route announcements, E2E accessibility tests
+
+#### Phase 18: Core Micro-interactions
+**Goal**: Responsive visual feedback on all interactive elements
+**Depends on**: Phase 17
+**Requirements**: MICRO-01 through MICRO-06 (6 requirements)
+**Success Criteria** (what must be TRUE):
+  1. All buttons show hover state (color + subtle transform, 150-200ms)
+  2. All links show hover indication (underline or color shift)
+  3. Cards (ProjectCard, ServiceCard, TeamMember) show subtle lift on hover
+  4. Form fields show real-time validation feedback (visual + ARIA)
+  5. Loading states display skeleton screens for async content
+  6. Focus indicators are visible on all focusable elements
+**Plans**: TBD
+
+Plans:
+- [ ] 18-01: Button and link hover states
+- [ ] 18-02: Card hover effects
+- [ ] 18-03: Form validation feedback
+- [ ] 18-04: Loading states and skeleton screens
+- [ ] 18-05: Focus indicator enhancement
+
+#### Phase 19: Page Transitions
+**Goal**: Smooth navigation with accessibility-aware page transitions
+**Depends on**: Phase 18
+**Requirements**: TRANS-01 through TRANS-06 (6 requirements)
+**Success Criteria** (what must be TRUE):
+  1. Page transitions are smooth (150-300ms cross-fade)
+  2. Transitions respect `prefers-reduced-motion` OS setting
+  3. Layout transitions work smoothly during navigation
+  4. Route changes are announced to screen readers
+  5. Directional transitions (slide based on route depth) work appropriately
+  6. Custom transitions exist for pages where appropriate
+**Plans**: TBD
+
+Plans:
+- [ ] 19-01: Global page transition configuration
+- [ ] 19-02: Reduced motion support
+- [ ] 19-03: Layout transition optimization
+- [ ] 19-04: Screen reader route announcements
+- [ ] 19-05: Directional transitions
+
+#### Phase 20: Advanced Micro-interactions
+**Goal**: Engaging scroll-triggered and animated interactions
+**Depends on**: Phase 19
+**Requirements**: MICRO-07 through MICRO-10 (4 requirements)
+**Success Criteria** (what must be TRUE):
+  1. Elements animate smoothly when scrolling into viewport (Intersection Observer)
+  2. Stats counter animates (count-up) when visible
+  3. Service filter changes layout smoothly (FLIP technique)
+  4. Testimonial carousel transitions are smooth
+**Plans**: TBD
+
+Plans:
+- [ ] 20-01: Scroll-triggered animations
+- [ ] 20-02: Stats counter animation
+- [ ] 20-03: Service filter animations
+- [ ] 20-04: Testimonial carousel polish
+
+#### Phase 21: Known Issue Fixes
+**Goal**: Resolve remaining technical debt and CLS issues
+**Depends on**: Phase 20
+**Requirements**: FIX-01, FIX-02 (2 requirements)
+**Success Criteria** (what must be TRUE):
+  1. Hero images have explicit dimensions preventing Cumulative Layout Shift
+  2. Duplicate chunks eliminated from bundle (verified via bundle analysis)
+**Plans**: TBD
+
+Plans:
+- [ ] 21-01: Hero image aspect ratio and dimensions
+- [ ] 21-02: Bundle deduplication and chunk optimization
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 11 → 12 → 13 → 14 → 15
+Phases execute in numeric order: 17 → 18 → 19 → 20 → 21
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 1. Audit & Baseline Capture | v1.0 | 3/3 | Complete | 2025-02-03 |
-| 2. Comparison Infrastructure | v1.0 | 4/4 | Complete | 2025-02-03 |
-| 3. Image Migration | v1.0 | 3/3 | Complete | 2025-02-03 |
-| 4. Content & SEO Validation | v1.0 | 5/5 | Complete | 2025-02-04 |
-| 5. QA & PWA Foundation | v1.0 | 4/4 | Complete | 2025-02-04 |
-| 6. Homepage Polish | v1.0 | 4/4 | Complete | 2025-02-05 |
-| 7. Section Polish - Projects | v1.0 | 4/4 | Complete | 2025-02-05 |
-| 8. Section Polish - Services | v1.0 | 4/4 | Complete | 2025-02-06 |
-| 9. Section Polish - About & Team | v1.0 | 4/4 | Complete | 2025-02-06 |
-| 10. Section Polish - Contact & Careers | v1.0 | 4/4 | Complete | 2025-02-06 |
+| 1. Audit & Baseline Capture | v1.0 | 3/3 | Complete | 2026-02-03 |
+| 2. Comparison Infrastructure | v1.0 | 4/4 | Complete | 2026-02-03 |
+| 3. Image Migration | v1.0 | 3/3 | Complete | 2026-02-04 |
+| 4. Content & SEO Validation | v1.0 | 5/5 | Complete | 2026-02-04 |
+| 5. QA & PWA Foundation | v1.0 | 4/4 | Complete | 2026-02-04 |
+| 6. Homepage Polish | v1.0 | 4/4 | Complete | 2026-02-05 |
+| 7. Section Polish - Projects | v1.0 | 4/4 | Complete | 2026-02-05 |
+| 8. Section Polish - Services | v1.0 | 4/4 | Complete | 2026-02-06 |
+| 9. Section Polish - About & Team | v1.0 | 4/4 | Complete | 2026-02-06 |
+| 10. Section Polish - Contact & Careers | v1.0 | 4/4 | Complete | 2026-02-06 |
 | 11. Navigation Fixes | v1.1 | 1/1 | Complete | 2026-02-06 |
 | 12. Performance Baseline | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 13. Critical Path Optimization | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 14. Code Optimization | v1.1 | 4/4 | Complete | 2026-02-06 |
 | 15. Validation & Monitoring | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 16. WordPress API Integration | v1.1 | 6/7 | Complete | 2026-02-07 |
+| 17. Accessibility Foundation | v1.2 | 0/5 | Not started | - |
+| 18. Core Micro-interactions | v1.2 | 0/5 | Not started | - |
+| 19. Page Transitions | v1.2 | 0/5 | Not started | - |
+| 20. Advanced Micro-interactions | v1.2 | 0/4 | Not started | - |
+| 21. Known Issue Fixes | v1.2 | 0/2 | Not started | - |
 
-**Overall Progress:** 59/62 plans complete (95%) - Plan 16-03 is manual content migration by user
+**Overall Progress:** 59/81 plans complete (73%) - Plan 16-03 is manual content migration by user
