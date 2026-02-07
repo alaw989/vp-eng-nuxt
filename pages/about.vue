@@ -175,9 +175,21 @@
     <AppSection bg-color="white" animate-on-scroll>
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div class="order-2 md:order-1">
-          <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-            <Icon name="mdi:map-marker-radius" class="w-40 h-40 text-primary/30" />
+          <!-- Interactive Tampa Bay Area Map -->
+          <div class="rounded-2xl overflow-hidden shadow-2xl border border-neutral-200">
+            <iframe
+              title="VP Associates Service Area - Tampa Bay Region"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-82.7800,27.6000,-82.2000,28.1000&amp;layer=mapnik"
+              class="w-full aspect-square border-0"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
+          <p class="text-sm text-neutral-500 mt-3 text-center">
+            <Icon name="mdi:information-outline" class="w-4 h-4 inline-block align-middle mr-1" />
+            Interactive map of Tampa Bay service area
+          </p>
         </div>
         <div class="order-1 md:order-2">
           <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-6">
