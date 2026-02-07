@@ -1,8 +1,8 @@
 <template>
   <div class="relative bg-white rounded-xl p-8 border border-neutral-200 shadow-lg border-t-4 border-t-primary">
     <!-- Decorative Quote Mark -->
-    <div class="absolute top-4 left-4 text-primary/10 pointer-events-none">
-      <Icon name="mdi:format-quote-open" class="w-16 h-16" />
+    <div class="absolute top-4 left-4 text-primary/10 pointer-events-none" aria-hidden="true">
+      <Icon name="mdi:format-quote-open" class="w-16 h-16" aria-hidden="true" />
     </div>
 
     <!-- Testimonial Text -->
@@ -24,8 +24,8 @@
           placeholder
         />
       </div>
-      <div v-else class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-        <Icon name="mdi:account" class="w-6 h-6 text-primary" />
+      <div v-else class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+        <Icon name="mdi:account" class="w-6 h-6 text-primary" aria-hidden="true" />
       </div>
 
       <div>
