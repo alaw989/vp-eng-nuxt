@@ -136,7 +136,7 @@
         <!-- Team members -->
         <template v-else>
           <TeamMember
-            v-for="member in leadership"
+            v-for="(member, index) in leadership"
             :key="member.name"
             :name="member.name"
             :title="member.title"
@@ -144,6 +144,7 @@
             :photo="member.photo"
             :email="member.email"
             :phone="member.phone"
+            :priority="index === 0"
           />
         </template>
       </div>
@@ -262,11 +263,12 @@ const leadership = computed(() => {
   if (!teamData.value || !Array.isArray(teamData.value)) return []
   return teamData.value.slice(0, 4).map((member: any) => ({
     name: member.title?.rendered || 'Team Member',
-    title: member.acf?.title || 'Team',
-    bio: member.acf?.bio || 'Professional structural engineer',
-    email: member.acf?.email || 'info@vp-associates.com',
-    phone: member.acf?.phone || '+18135551234',
-    photo: member.acf?.photo || '/images/team/team-1-800w.webp',
+    title: member.custom_fields?.title || ['Team']?.[0] || 'Team',
+    bio: member.custom_fields?.bio?.[0] || 'Professional structural engineer',
+    email: member.custom_fields?.email?.[0] || 'info@vp-associates.com',
+    phone: member.custom_fields?.phone?.[0] || '+18135551234',
+    photo: member.custom_fields?.photo?.[0] || '/images/team/team-1-800w.webp',
+    linkedin: member.custom_fields?.linkedin?.[0] || '',
   }))
 })
 

@@ -2,7 +2,7 @@
  * WordPress REST API Base Configuration
  * API endpoint for VP Associates WordPress backend
  */
-export const WP_API_URL = 'https://whataustinhasmade.com/vp-eng/wp-json/wp/v2'
+export const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
 export const SITE_URL = 'https://vp-associates.com'
 
 /**
@@ -18,10 +18,9 @@ export interface WPImage {
   }
 }
 
-export interface WPServicesMeta {
+export interface WPServiceMeta {
   icon?: string
-  capabilities?: string[]
-  related_projects?: number[]
+  featured?: string
 }
 
 export interface WPService {
@@ -34,23 +33,15 @@ export interface WPService {
   _embedded?: {
     'wp:featuredmedia'?: WPImage[]
   }
-  services_meta?: WPServicesMeta
-  acf?: WPServicesMeta
+  custom_fields?: WPServiceMeta
 }
 
 export interface WPProjectMeta {
   location?: string
   year?: string
-  square_footage?: string
+  sqft?: string
   category?: string
-  services_provided?: string[]
-  project_stats?: {
-    year?: string
-    square_footage?: string
-    capacity?: string
-    duration?: string
-  }
-  featured?: boolean
+  featured?: string
 }
 
 export interface WPProject {
@@ -63,16 +54,15 @@ export interface WPProject {
   _embedded?: {
     'wp:featuredmedia'?: WPImage[]
   }
-  project_meta?: WPProjectMeta
-  acf?: WPProjectMeta
+  custom_fields?: WPProjectMeta
 }
 
 export interface WPTeamMeta {
-  title?: string
-  bio?: string
+  job_title?: string
   email?: string
   phone?: string
   linkedin?: string
+  display_order?: number
 }
 
 export interface WPTeamMember {
@@ -85,14 +75,13 @@ export interface WPTeamMember {
   _embedded?: {
     'wp:featuredmedia'?: WPImage[]
   }
-  team_meta?: WPTeamMeta
-  acf?: WPTeamMeta
+  custom_fields?: WPTeamMeta
 }
 
 export interface WPTestimonialMeta {
   client_name?: string
   company?: string
-  project_id?: number
+  role?: string
   rating?: number
 }
 
@@ -106,8 +95,7 @@ export interface WPTestimonial {
   _embedded?: {
     'wp:featuredmedia'?: WPImage[]
   }
-  testimonial_meta?: WPTestimonialMeta
-  acf?: WPTestimonialMeta
+  custom_fields?: WPTestimonialMeta
 }
 
 /**
@@ -118,7 +106,6 @@ export async function useServices() {
     `${WP_API_URL}/services?_embed&_per_page=100`,
     {
       transform: (data: any) => {
-        // Transform API response to normalize data structure
         return data.map((item: any) => ({
           id: item.id,
           title: item.title,
@@ -127,9 +114,7 @@ export async function useServices() {
           content: item.content,
           featured_media: item.featured_media,
           _embedded: item._embedded,
-          // Check for ACF or custom meta fields
-          services_meta: item.services_meta || item.acf || {},
-          acf: item.acf || item.services_meta || {},
+          custom_fields: item.custom_fields || {},
         }))
       },
     }
@@ -160,8 +145,7 @@ export async function useService(slug: string) {
           content: item.content,
           featured_media: item.featured_media,
           _embedded: item._embedded,
-          services_meta: item.services_meta || item.acf || {},
-          acf: item.acf || item.services_meta || {},
+          custom_fields: item.custom_fields || {},
         }] as WPService[]
       },
     }
@@ -193,8 +177,7 @@ export async function useProjects(page = 1, perPage = 12, category?: string) {
           content: item.content,
           featured_media: item.featured_media,
           _embedded: item._embedded,
-          project_meta: item.project_meta || item.acf || {},
-          acf: item.acf || item.project_meta || {},
+          custom_fields: item.custom_fields || {},
         }))
       },
     }
@@ -225,8 +208,7 @@ export async function useProject(slug: string) {
           content: item.content,
           featured_media: item.featured_media,
           _embedded: item._embedded,
-          project_meta: item.project_meta || item.acf || {},
-          acf: item.acf || item.project_meta || {},
+          custom_fields: item.custom_fields || {},
         }] as WPProject[]
       },
     }
@@ -246,20 +228,21 @@ export async function useProject(slug: string) {
  */
 export async function useFeaturedProjects() {
   const { data, error } = await useFetch<WPProject[]>(
-    `${WP_API_URL}/projects?_embed&acf_featured=true&per_page=6`,
+    `${WP_API_URL}/projects?_embed&per_page=6`,
     {
       transform: (data: any) => {
-        return data.map((item: any) => ({
-          id: item.id,
-          title: item.title,
-          slug: item.slug,
-          excerpt: item.excerpt,
-          content: item.content,
-          featured_media: item.featured_media,
-          _embedded: item._embedded,
-          project_meta: item.project_meta || item.acf || {},
-          acf: item.acf || item.project_meta || {},
-        }))
+        return data
+          .filter((item: any) => item.custom_fields?.project_featured === '1')
+          .map((item: any) => ({
+            id: item.id,
+            title: item.title,
+            slug: item.slug,
+            excerpt: item.excerpt,
+            content: item.content,
+            featured_media: item.featured_media,
+            _embedded: item._embedded,
+            custom_fields: item.custom_fields || {},
+          }))
       },
     }
   )
@@ -286,8 +269,7 @@ export async function useTeam() {
           content: item.content,
           featured_media: item.featured_media,
           _embedded: item._embedded,
-          team_meta: item.team_meta || item.acf || {},
-          acf: item.acf || item.team_meta || {},
+          custom_fields: item.custom_fields || {},
         }))
       },
     }
@@ -315,8 +297,7 @@ export async function useTestimonials() {
           content: item.content,
           featured_media: item.featured_media,
           _embedded: item._embedded,
-          testimonial_meta: item.testimonial_meta || item.acf || {},
-          acf: item.acf || item.testimonial_meta || {},
+          custom_fields: item.custom_fields || {},
         }))
       },
     }

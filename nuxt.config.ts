@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/icon',
     '@vite-pwa/nuxt',
+    '@nuxtjs/critters',
   ],
 
   typescript: {
@@ -99,8 +100,8 @@ export default defineNuxtConfig({
     '/gallery/misc/': { redirect: { to: '/projects/misc', statusCode: 301 } },
 
     // Trailing slash normalization (WordPress used trailing slashes, Nuxt does not)
-    '/services/': { redirect: { to: '/services', statusCode: 301 } },
-    '/careers/': { redirect: { to: '/careers', statusCode: 301 } },
+    // Note: Removed /services/, /careers/, /contact/ redirects as they were causing infinite loops
+    // The NuxtLink component handles navigation without trailing slashes naturally
     '/contact/': { redirect: { to: '/contact', statusCode: 301 } },
   },
 
@@ -121,6 +122,8 @@ export default defineNuxtConfig({
   // Nitro server configuration for deployment
   nitro: {
     preset: 'node-server',
+    // Enable compression for better performance (gzip + brotli)
+    compressPublicAssets: true,
     routeRules: {
       '/': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
       '/about': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },

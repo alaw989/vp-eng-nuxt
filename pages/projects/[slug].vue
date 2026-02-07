@@ -322,16 +322,16 @@ const project = computed(() => {
 })
 
 // Project metadata
-const projectCategory = computed(() => project.value?.acf?.category || 'Project')
-const projectLocation = computed(() => project.value?.acf?.location || 'Tampa Bay')
-const projectYear = computed(() => project.value?.acf?.year || '2024')
+const projectCategory = computed(() => project.value?.custom_fields?.category?.[0] || 'Project')
+const projectLocation = computed(() => project.value?.custom_fields?.location?.[0] || 'Tampa Bay')
+const projectYear = computed(() => project.value?.custom_fields?.year?.[0] || '2024')
 const projectDescription = computed(() => {
   const excerpt = project.value?.excerpt?.rendered || ''
   return excerpt.replace(/<[^>]*>/g, '').trim() ||
     `${project.value?.title?.rendered || 'Project'} by VP Associates`
 })
-const projectStats = computed(() => project.value?.acf || {})
-const servicesProvided = computed(() => project.value?.acf?.services_provided || [
+const projectStats = computed(() => project.value?.custom_fields || {})
+const servicesProvided = computed(() => project.value?.custom_fields?.services_provided || [
   'Structural Engineering',
   'Design Services',
   'Code Compliance'
@@ -447,7 +447,7 @@ const allProjectsData = [
 const relatedProjects = computed(() => {
   if (!project.value) return []
 
-  const currentCategory = project.value?.acf?.category
+  const currentCategory = project.value?.custom_fields?.category?.[0]
   if (!currentCategory) return []
 
   // Filter by same category, exclude current project, limit to 3

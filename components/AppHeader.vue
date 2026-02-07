@@ -6,10 +6,14 @@
     <div class="container">
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center space-x-3">
-          <div class="text-2xl font-display font-bold text-primary">
-            VP Associates
-          </div>
+        <NuxtLink to="/" class="flex items-center" aria-label="VP Associates Home">
+          <img
+            src="/images/logo.png"
+            alt="VP & Associates, Inc. Logo"
+            class="h-12 w-auto"
+            width="180"
+            height="50"
+          />
         </NuxtLink>
 
         <!-- Desktop Navigation -->

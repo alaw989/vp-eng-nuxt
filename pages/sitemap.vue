@@ -186,25 +186,25 @@ const mainPages = [
   },
   {
     label: 'Services',
-    href: '/services',
+    to: '/services',
     icon: 'mdi:cogs',
     description: 'Our engineering services'
   },
   {
     label: 'Projects',
-    href: '/projects',
+    to: '/projects',
     icon: 'mdi:folder-multiple',
     description: 'Project portfolio'
   },
   {
     label: 'Careers',
-    href: '/careers',
+    to: '/careers',
     icon: 'mdi:briefcase',
     description: 'Join our team'
   },
   {
     label: 'Contact',
-    href: '/contact',
+    to: '/contact',
     icon: 'mdi:email',
     description: 'Get in touch'
   },

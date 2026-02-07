@@ -469,14 +469,14 @@ const service = computed(() => {
 })
 
 // Service metadata
-const serviceIcon = computed(() => service.value?.acf?.icon || 'mdi:cog')
-const serviceStandard = computed(() => service.value?.acf?.standard || '')
+const serviceIcon = computed(() => service.value?.custom_fields?.icon?.[0] || 'mdi:cog')
+const serviceStandard = computed(() => service.value?.custom_fields?.standard?.[0] || '')
 const serviceDescription = computed(() => {
   const excerpt = service.value?.excerpt?.rendered || ''
   return excerpt.replace(/<[^>]*>/g, '').trim() ||
     `${service.value?.title?.rendered || 'Service'} by VP Associates`
 })
-const serviceCapabilities = computed(() => service.value?.acf?.capabilities || [])
+const serviceCapabilities = computed(() => service.value?.custom_fields?.capabilities || [])
 const serviceBenefits = computed(() => [
   'Licensed Florida engineers',
   'Code-compliant designs',

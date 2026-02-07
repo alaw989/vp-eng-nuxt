@@ -1,0 +1,97 @@
+# Lighthouse Baseline Scores
+
+**Date:** 2026-02-06
+
+## Instructions
+
+Run Lighthouse manually in Chrome DevTools and record scores below:
+
+### How to Run Lighthouse
+
+1. Open Chrome and navigate to: `https://vp-associates.com` (or `http://localhost:3000`)
+2. Press F12 to open DevTools
+3. Go to the "Lighthouse" tab
+4. Select "Desktop" or "Mobile"
+5. Click "Analyze page load"
+
+---
+
+## Homepage (/)
+
+| Metric | Desktop | Mobile | Target |
+|--------|--------|--------|--------|
+| Performance | _ | _ | 90+ |
+| Accessibility | _ | _ | 90+ |
+| Best Practices | _ | _ | 90+ |
+| SEO | _ | _ | 90+ |
+| FCP | _ | _ | < 1.8s |
+| LCP | _ | _ | < 2.5s |
+| TBT | _ | _ | < 200ms |
+| CLS | _ | _ | < 0.1 |
+
+**LCP Element:** Hero background image (`/images/hero/*.jpg`)
+
+---
+
+## About (/about)
+
+| Metric | Desktop | Mobile | Target |
+|--------|--------|--------|--------|
+| Performance | _ | _ | 90+ |
+| Accessibility | _ | _ | 90+ |
+| Best Practices | _ | _ | 90+ |
+| SEO | _ | _ | 90+ |
+
+**LCP Element:** Page heading text
+
+---
+
+## Services (/services)
+
+| Metric | Desktop | Mobile | Target |
+|--------|--------|--------|--------|
+| Performance | _ | _ | 90+ |
+| Accessibility | _ | _ | 90+ |
+| Best Practices | _ | _ | 90+ |
+| SEO | _ | _ | 90+ |
+
+**LCP Element:** Page heading text
+
+---
+
+## Projects (/projects)
+
+| Metric | Desktop | Mobile | Target |
+|--------|--------|--------|--------|
+| Performance | _ | _ | 90+ |
+| Accessibility | _ | _ | 90+ |
+| Best Practices | _ | _ | 90+ |
+| SEO | _ | _ | 90+ |
+
+**LCP Element:** First project card image
+
+---
+
+## Contact (/contact)
+
+| Metric | Desktop | Mobile | Target |
+|--------|--------|--------|--------|
+| Performance | _ | _ | 90+ |
+| Accessibility | _ | _ | 90+ |
+| Best Practices | _ | _ | 90+ |
+| SEO | _ | _ | 90+ |
+
+**LCP Element:** Page heading text
+
+---
+
+## Careers (/careers)
+
+| Metric | Desktop | Mobile | Target |
+|--------|--------|--------|--------|
+| Performance | _ | _ | 90+ |
+| Accessibility | _ | _ | 90+ |
+| Best Practices | _ | _ | 90+ |
+| SEO | _ | _ | 90+ |
+
+**LCP Element:** Page heading text

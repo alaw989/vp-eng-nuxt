@@ -1,0 +1,11 @@
+{
+  "analysis_date": "2026-02-06",
+  "build_output": ".output/",
+  "total_build_size": "64MB",
+  "server_bundle_size": "47.2MB (18.8MB gzip)",
+  "client_js_total": "~608KB",
+  "client_js_gzipped_estimate": "~150-180KB",
+  "largest_client_chunk": "16KB",
+  "chunk_size_warning_limit": "500KB",
+  "status": "PASS - Bundle sizes are acceptable"
+}

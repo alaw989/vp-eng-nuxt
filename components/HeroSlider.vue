@@ -44,9 +44,15 @@
               height="1080"
               :modifiers="{ quality: 85 }"
             />
+            <!-- Subtle gradient overlay on image for warmth -->
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 mix-blend-multiply" />
           </div>
-          <!-- Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
+          <!-- Overlay with enhanced gradient -->
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary-dark/70 to-black/80" />
+          <!-- Additional gradient for depth -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <!-- Animated gradient shimmer -->
+          <div class="absolute inset-0 opacity-30 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
         </div>
       </Transition>
 
@@ -60,17 +66,17 @@
             :key="currentSlideData.id"
             class="container text-center text-white"
           >
-            <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 text-shadow-lg slide-content-item whitespace-pre-line">
+            <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 slide-content-item whitespace-pre-line bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
               {{ currentSlideData.title }}
             </h1>
-            <p class="text-xl md:text-2xl mb-8 text-shadow max-w-3xl mx-auto slide-content-item">
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto slide-content-item text-white/90 drop-shadow-lg">
               {{ currentSlideData.description }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center slide-content-item">
               <NuxtLink
                 v-if="currentSlideData.primaryLink"
                 :to="currentSlideData.primaryLink"
-                class="px-8 py-4 bg-white text-primary-dark rounded-lg font-semibold hover:bg-neutral-100 transition-colors shadow-lg hover:shadow-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
+                class="px-8 py-4 bg-gradient-to-r from-secondary to-secondary-dark text-white rounded-lg font-semibold hover:from-secondary-dark hover:to-secondary transition-all shadow-lg hover:shadow-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
               >
                 {{ currentSlideData.primaryText || 'Learn More' }}
               </NuxtLink>
@@ -494,5 +500,19 @@ onUnmounted(() => {
 button:focus-visible {
   outline: 2px solid white;
   outline-offset: 2px;
+}
+
+/* Shimmer animation for gradient overlay */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 8s ease-in-out infinite;
 }
 </style>

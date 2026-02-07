@@ -216,7 +216,7 @@
         viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]">
         <ProjectCard
-          v-for="project in paginatedProjects"
+          v-for="(project, index) in paginatedProjects"
           :key="project.slug"
           :title="project.title"
           :slug="project.slug"
@@ -226,6 +226,7 @@
           :location="project.location"
           :year="project.year"
           :view-mode="viewMode"
+          :priority="index === 0"
         />
       </div>
       <div v-else class="text-center py-16">

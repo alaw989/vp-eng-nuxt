@@ -137,7 +137,7 @@
     </AppSection>
 
     <!-- Client Logos Section -->
-    <ClientLogos
+    <LazyClientLogos
       :clients="clientLogos"
       title="Trusted by Industry Leaders"
       subtitle="Proud to serve prestigious clients across Tampa Bay and Florida"
@@ -156,15 +156,18 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <TestimonialCard
-          v-for="testimonial in testimonials"
-          :key="testimonial.author"
-          :quote="testimonial.quote"
-          :author="testimonial.author"
-          :company="testimonial.company"
-          :role="testimonial.role"
+      <!-- Testimonials Slider - Single row, carousel style -->
+      <div class="max-w-6xl mx-auto px-4">
+        <LazyTestimonialsSlider
+          v-if="testimonials.length > 0"
+          :testimonials="testimonials"
+          :items-per-slide="3"
         />
+        <!-- Fallback if no testimonials -->
+        <div v-else class="text-center py-12">
+          <Icon name="mdi:comment-quote-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+          <p class="text-neutral-500">Testimonials coming soon.</p>
+        </div>
       </div>
     </AppSection>
 
@@ -243,7 +246,7 @@ const services = computed(() => {
     title: s.title?.rendered || 'Service',
     slug: s.slug || 'service',
     description: s.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Professional structural engineering services',
-    icon: s.acf?.icon || 'mdi:cog',
+    icon: s.custom_fields?.service_icon || 'mdi:cog',
   }))
 })
 
@@ -268,10 +271,10 @@ const carouselSlides = computed(() => {
     title: p.title?.rendered || 'Project',
     slug: p.slug || 'project',
     description: p.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Structural engineering project',
-    category: p.acf?.category || 'Project',
-    location: p.acf?.location || 'Tampa Bay',
-    year: p.acf?.year || new Date().getFullYear().toString(),
-    icon: projectIcons[p.acf?.category as string] || 'mdi:office-building',
+    category: p.custom_fields?.project_category || 'Project',
+    location: p.custom_fields?.project_location || 'Tampa Bay',
+    year: p.custom_fields?.project_year || new Date().getFullYear().toString(),
+    icon: projectIcons[p.custom_fields?.project_category as string] || 'mdi:office-building',
   }))
 })
 
@@ -358,10 +361,10 @@ const testimonialsData = computed(() => (testimonialsResponse.value as any)?.dat
 const testimonials = computed(() => {
   if (!testimonialsData.value || !Array.isArray(testimonialsData.value)) return []
   return testimonialsData.value.slice(0, 6).map((t: any) => ({
-    quote: t.acf?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '') || 'Great service!',
-    author: t.title?.rendered || 'Client',
-    company: t.acf?.company || '',
-    role: t.acf?.role || '',
+    quote: t.custom_fields?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '') || 'Great service!',
+    author: t.custom_fields?.testimonial_client_name || t.title?.rendered || 'Client',
+    company: t.custom_fields?.testimonial_company || '',
+    role: t.custom_fields?.testimonial_role || '',
   }))
 })
 </script>
