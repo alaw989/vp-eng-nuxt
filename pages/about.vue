@@ -174,10 +174,19 @@
     <!-- Service Area -->
     <AppSection bg-color="white" animate-on-scroll>
       <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Interactive Map -->
         <div class="order-2 md:order-1">
-          <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-            <Icon name="mdi:map-marker-radius" class="w-40 h-40 text-primary/30" />
-          </div>
+          <ClientOnly>
+            <TampaBayMap :service-areas="serviceAreas" />
+            <template #fallback>
+              <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                <div class="text-center">
+                  <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                  <p class="text-neutral-600">Loading map...</p>
+                </div>
+              </div>
+            </template>
+          </ClientOnly>
         </div>
         <div class="order-1 md:order-2">
           <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-6">
