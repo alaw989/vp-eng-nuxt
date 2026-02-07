@@ -79,17 +79,39 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| A11Y-01 through A11Y-09 | Phase 17 | Pending |
-| MICRO-01 through MICRO-06 | Phase 18 | Pending |
-| TRANS-01 through TRANS-06 | Phase 19 | Pending |
-| MICRO-07 through MICRO-10 | Phase 20 | Pending |
-| FIX-01, FIX-02 | Phase 21 | Pending |
+| A11Y-01 | Phase 17 | Pending |
+| A11Y-02 | Phase 17 | Pending |
+| A11Y-03 | Phase 17 | Pending |
+| A11Y-04 | Phase 17 | Pending |
+| A11Y-05 | Phase 17 | Pending |
+| A11Y-06 | Phase 17 | Pending |
+| A11Y-07 | Phase 17 | Pending |
+| A11Y-08 | Phase 17 | Pending |
+| A11Y-09 | Phase 17 | Pending |
+| MICRO-01 | Phase 18 | Pending |
+| MICRO-02 | Phase 18 | Pending |
+| MICRO-03 | Phase 18 | Pending |
+| MICRO-04 | Phase 18 | Pending |
+| MICRO-05 | Phase 18 | Pending |
+| MICRO-06 | Phase 18 | Pending |
+| TRANS-01 | Phase 19 | Pending |
+| TRANS-02 | Phase 19 | Pending |
+| TRANS-03 | Phase 19 | Pending |
+| TRANS-04 | Phase 19 | Pending |
+| TRANS-05 | Phase 19 | Pending |
+| TRANS-06 | Phase 19 | Pending |
+| MICRO-07 | Phase 20 | Pending |
+| MICRO-08 | Phase 20 | Pending |
+| MICRO-09 | Phase 20 | Pending |
+| MICRO-10 | Phase 20 | Pending |
+| FIX-01 | Phase 21 | Pending |
+| FIX-02 | Phase 21 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 27 total
 - Mapped to phases: 27
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-07*
-*Last updated: 2026-02-07 after v1.2 requirements definition*
+*Last updated: 2026-02-07 after v1.2 roadmap creation*
