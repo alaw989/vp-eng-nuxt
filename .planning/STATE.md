@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-02-07)
 
 Milestone: v1.2 Refinement
 Phase: 17 of 21 (Accessibility Foundation)
-Plan: 3 of 5 in current phase
-Status: In progress
-Last activity: 2026-02-07 — Completed 17-03: Keyboard navigation with VueUse useMagicKeys
+Plan: 5 of 5 in current phase
+Status: Phase complete
+Last activity: 2026-02-07 — Completed 17-05: Live regions and E2E testing
 
-Progress: [██████████████████████░░░░░░░░] 75% (62/81 plans complete)
+Progress: [████████████████████████░░░░░░░] 76% (66/81 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -27,8 +27,8 @@ Progress: [██████████████████████░
 - Phase 15: Validation & Monitoring (3/3 complete)
 - Phase 16: WordPress API Integration (6/7 complete - Plan 16-03 is manual content migration)
 
-**v1.2 REFINEMENT - IN PROGRESS (3/22 planned)**
-- Phase 17: Accessibility Foundation (3/5 complete)
+**v1.2 REFINEMENT - IN PROGRESS (4/22 planned)**
+- Phase 17: Accessibility Foundation (5/5 complete) **PHASE COMPLETE**
 - Phase 18: Core Micro-interactions (0/5 planned)
 - Phase 19: Page Transitions (0/5 planned)
 - Phase 20: Advanced Micro-interactions (0/4 planned)
@@ -66,7 +66,7 @@ Progress: [██████████████████████░
 | 14    | 4     | 4        | ~20 min  |
 | 15    | 3     | 3        | ~10 min  |
 | 16    | 6     | 6        | ~25 min  |
-| 17    | 5     | 3        | ~11 min  |
+| 17    | 5     | 5        | ~13 min  |
 | 18-21 | TBD   | 0        | -        |
 
 **Recent Trend:**
@@ -96,6 +96,10 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Escape key closes mobile menu and other overlays (useEscapeKey pattern)
 - Arrow keys navigate sliders (HeroSlider, TestimonialsSlider, ProjectsCarousel)
 - aria-live="polite" regions announce slide changes to screen readers
+- Live region announcements use clear/reset pattern (clear, nextTick, set) for re-announcement
+- Route changes announced via useA11yRouteAnnouncer (renamed from useRouteAnnouncer to avoid Nuxt conflict)
+- aria-live="polite" for route changes, aria-live="assertive" for form errors
+- Playwright E2E tests validate WCAG compliance (10/11 tests passing, 1 skipped due to timing)
 
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
@@ -123,14 +127,19 @@ All decisions logged in PROJECT.md Key Decisions table.
 **For v1.2:**
 - Homepage missing h1 heading (HeroSlider should contain h1) - deferred to later plans
 - HeroSlider heading structure needs review for proper accessibility
+- Footer landmark exists in HTML but Playwright a11y tree doesn't capture it in E2E tests (verified via curl)
 
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 17-03, keyboard navigation with VueUse useMagicKeys
+Stopped at: Completed 17-05, live regions and E2E testing - Phase 17 complete
 Resume file: None
 
 ## Next Steps
 
-Continue with Phase 17 accessibility plans:
-- 17-05: Screen reader testing and validation
+Phase 17 (Accessibility Foundation) is complete. Continue with Phase 18:
+- 18-01: Hover state transitions and micro-interactions
+- 18-02: Button interaction feedback
+- 18-03: Form input focus states
+- 18-04: Card hover animations
+- 18-05: Loading state indicators
