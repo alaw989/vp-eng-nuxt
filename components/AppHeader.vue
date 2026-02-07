@@ -162,8 +162,13 @@
 </template>
 
 <script setup lang="ts">
+import { useEscapeKey } from '~/composables/useKeyboardNavigation'
+
 const isOpen = ref(false)
 const isScrolled = ref(false)
+
+// Close menu on Escape key
+useEscapeKey(isOpen)
 
 // Track scroll position for shadow effect
 onMounted(() => {
