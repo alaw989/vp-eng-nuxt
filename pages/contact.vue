@@ -43,6 +43,8 @@
                   type="text"
                   required
                   aria-required="true"
+                  @blur="validateField('firstName', form.firstName)"
+                  @input="touched.firstName && validateField('firstName', form.firstName)"
                   :aria-invalid="errors.firstName ? 'true' : 'false'"
                   :aria-describedby="errors.firstName ? 'firstName-error' : undefined"
                   class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
@@ -63,6 +65,8 @@
                   type="text"
                   required
                   aria-required="true"
+                  @blur="validateField('lastName', form.lastName)"
+                  @input="touched.lastName && validateField('lastName', form.lastName)"
                   :aria-invalid="errors.lastName ? 'true' : 'false'"
                   :aria-describedby="errors.lastName ? 'lastName-error' : undefined"
                   class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
@@ -85,6 +89,8 @@
                 type="email"
                 required
                 aria-required="true"
+                @blur="validateField('email', form.email)"
+                @input="touched.email && validateField('email', form.email)"
                 :aria-invalid="errors.email ? 'true' : 'false'"
                 :aria-describedby="errors.email ? 'email-error' : undefined"
                 class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
@@ -104,9 +110,17 @@
                 id="phone"
                 v-model="form.phone"
                 type="tel"
-                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
+                @blur="validateField('phone', form.phone)"
+                @input="touched.phone && validateField('phone', form.phone)"
+                :aria-invalid="errors.phone ? 'true' : 'false'"
+                :aria-describedby="errors.phone ? 'phone-error' : undefined"
+                class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
+                :class="errors.phone ? 'border-red-500' : 'border-neutral-300'"
                 placeholder="(813) 555-1234"
               />
+              <p v-if="errors.phone" id="phone-error" class="mt-1 text-sm text-red-600" role="alert">
+                {{ errors.phone }}
+              </p>
             </div>
 
             <!-- Honeypot field for spam protection (hidden from users) -->
@@ -157,6 +171,8 @@
                 v-model="form.message"
                 required
                 aria-required="true"
+                @blur="validateField('message', form.message)"
+                @input="touched.message && validateField('message', form.message)"
                 :aria-invalid="errors.message ? 'true' : 'false'"
                 :aria-describedby="errors.message ? 'message-error' : undefined"
                 rows="5"
@@ -333,6 +349,9 @@
         </div>
       </div>
     </AppSection>
+
+    <!-- ARIA live region for screen reader announcements -->
+    <div id="sr-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   </div>
 </template>
 
@@ -381,13 +400,6 @@ interface FormData {
   website: string
 }
 
-interface FormErrors {
-  firstName?: string
-  lastName?: string
-  email?: string
-  message?: string
-}
-
 const form = reactive<FormData>({
   firstName: '',
   lastName: '',
@@ -398,65 +410,45 @@ const form = reactive<FormData>({
   website: '' // Honeypot field
 })
 
-const errors = reactive<FormErrors>({})
 const isSubmitting = ref(false)
 const submitMessage = ref('')
 const submitSuccess = ref(false)
 
-const validateEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
-
-const validateForm = (): boolean => {
-  // Clear previous errors
-  (Object.keys(errors) as Array<keyof FormErrors>).forEach(key => delete errors[key])
-
-  let isValid = true
-
-  // Validate first name
-  if (!form.firstName.trim()) {
-    errors.firstName = 'First name is required'
-    isValid = false
-  } else if (form.firstName.trim().length < 2) {
-    errors.firstName = 'First name must be at least 2 characters'
-    isValid = false
+// Import useFormValidation composable
+const { errors, touched, validateField, validateForm, clearErrors } = useFormValidation<FormData>({
+  firstName: (value: string) => {
+    if (!value.trim()) return 'First name is required'
+    if (value.trim().length < 2) return 'First name must be at least 2 characters'
+    return null
+  },
+  lastName: (value: string) => {
+    if (!value.trim()) return 'Last name is required'
+    if (value.trim().length < 2) return 'Last name must be at least 2 characters'
+    return null
+  },
+  email: (value: string) => {
+    if (!value.trim()) return 'Email is required'
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(value)) return 'Please enter a valid email address'
+    return null
+  },
+  phone: (value: string) => {
+    if (value && !/^\d{10,}$/.test(value.replace(/\D/g, ''))) {
+      return 'Please enter a valid phone number'
+    }
+    return null
+  },
+  message: (value: string) => {
+    if (!value.trim()) return 'Message is required'
+    if (value.trim().length < 10) return 'Message must be at least 10 characters'
+    return null
   }
-
-  // Validate last name
-  if (!form.lastName.trim()) {
-    errors.lastName = 'Last name is required'
-    isValid = false
-  } else if (form.lastName.trim().length < 2) {
-    errors.lastName = 'Last name must be at least 2 characters'
-    isValid = false
-  }
-
-  // Validate email
-  if (!form.email.trim()) {
-    errors.email = 'Email is required'
-    isValid = false
-  } else if (!validateEmail(form.email)) {
-    errors.email = 'Please enter a valid email address'
-    isValid = false
-  }
-
-  // Validate message
-  if (!form.message.trim()) {
-    errors.message = 'Message is required'
-    isValid = false
-  } else if (form.message.trim().length < 10) {
-    errors.message = 'Message must be at least 10 characters'
-    isValid = false
-  }
-
-  return isValid
-}
+})
 
 const handleSubmit = async () => {
   submitMessage.value = ''
 
-  if (!validateForm()) {
+  if (!validateForm(form)) {
     submitMessage.value = 'Please fix the errors above and try again.'
     submitSuccess.value = false
     return
@@ -496,6 +488,9 @@ const handleSubmit = async () => {
       form.service = ''
       form.message = ''
       form.website = ''
+
+      // Clear errors on success
+      clearErrors()
 
       // Clear success message after 5 seconds
       setTimeout(() => {
