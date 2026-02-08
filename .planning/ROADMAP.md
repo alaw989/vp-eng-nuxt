@@ -145,20 +145,24 @@ Plans:
 **Depends on**: Phase 18
 **Requirements**: TRANS-01 through TRANS-06 (6 requirements)
 **Success Criteria** (what must be TRUE):
-  1. Page transitions are smooth (150-300ms cross-fade)
+  1. Page transitions are smooth (150ms cross-fade)
   2. Transitions respect `prefers-reduced-motion` OS setting
   3. Layout transitions work smoothly during navigation
   4. Route changes are announced to screen readers
   5. Directional transitions (slide based on route depth) work appropriately
   6. Custom transitions exist for pages where appropriate
-**Plans**: TBD
+**Plans**: 5 plans
+
+**Wave Structure:**
+- Wave 1 (parallel): 19-01 (global config), 19-02 (reduced motion)
+- Wave 2 (sequential): 19-03 (layout transitions), 19-04 (verification), 19-05 (directional)
 
 Plans:
-- [ ] 19-01: Global page transition configuration
-- [ ] 19-02: Reduced motion support
-- [ ] 19-03: Layout transition optimization
-- [ ] 19-04: Screen reader route announcements
-- [ ] 19-05: Directional transitions
+- [ ] 19-01-PLAN.md — Update page/layout transitions to 150ms cross-fade, create usePageTransition composable
+- [ ] 19-02-PLAN.md — Update reduced motion CSS to 150ms linear transitions (no transforms)
+- [ ] 19-03-PLAN.md — Verify layout transitions work smoothly with NuxtLayout wrapper
+- [ ] 19-04-PLAN.md — Verify screen reader route announcements (TRANS-04 already satisfied)
+- [ ] 19-05-PLAN.md — Implement directional transitions for projects/services detail navigation
 
 #### Phase 20: Advanced Micro-interactions
 **Goal**: Engaging scroll-triggered and animated interactions
