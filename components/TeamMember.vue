@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-white rounded-xl overflow-hidden border border-neutral-200 hover:border-primary hover:shadow-xl transition-all duration-300">
+  <div class="group bg-white rounded-xl overflow-hidden border border-neutral-200 hover:border-primary hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
     <!-- Photo -->
     <div class="aspect-[4/5] overflow-hidden bg-neutral-100">
       <NuxtImg
         v-if="photo"
         :src="photo"
         :alt="`${name}, ${title}${bio ? ' - VP Associates team member' : ''}`"
-        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         format="webp"
         quality="85"
         :loading="priority ? 'eager' : 'lazy'"
