@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- Hero Slider -->
-    <HeroSlider />
+    <!-- Hero Static -->
+    <HeroStatic />
 
     <!-- About Intro Section -->
     <AppSection bg-color="white" animate-on-scroll>

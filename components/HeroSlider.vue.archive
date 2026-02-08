@@ -1,3 +1,11 @@
+<!--
+ARCHIVED 2026-02-07: Replaced by HeroStatic per competitive research
+This 9-slide carousel component was replaced with a static hero based on:
+- Conversion data: 84% of carousel clicks happen on slide 1
+- Industry analysis: 5/7 top engineering firms use static heroes
+- User experience: Auto-rotation annoys users and reduces engagement
+Research: .planning/phases/22-hero-modernization/22-RESEARCH.md
+-->
 <template>
   <section
     ref="sliderRef"
