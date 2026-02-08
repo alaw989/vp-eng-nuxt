@@ -8,7 +8,7 @@ A modernization rebuild of vp-associates.com using Nuxt 3 headless architecture 
 
 - ✅ **v1.0 Website Modernization** - Phases 1-10 (shipped 2026-02-06) - [See archive](.planning/milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Performance Optimization & WordPress API Integration** - Phases 11-16 (shipped 2026-02-07) - [See archive](.planning/milestones/v1.1-ROADMAP.md)
-- 🚧 **v1.2 Refinement** - Phases 17-21 (in progress)
+- 🚧 **v1.2 Refinement** - Phases 17-22 (in progress)
 
 ## Phases
 
@@ -90,7 +90,7 @@ A modernization rebuild of vp-associates.com using Nuxt 3 headless architecture 
 
 ### 🚧 v1.2 Refinement (In Progress)
 
-**Milestone Goal:** VP Associates website has polished UX with smooth page transitions, responsive micro-interactions, full WCAG 2.1 AA accessibility, and all known technical issues resolved.
+**Milestone Goal:** VP Associates website has polished UX with smooth page transitions, responsive micro-interactions, full WCAG 2.1 AA accessibility, all known technical issues resolved, and modernized hero section.
 
 #### Phase 17: Accessibility Foundation
 **Goal**: WCAG 2.1 AA compliance with full keyboard navigation and screen reader support
@@ -186,10 +186,34 @@ Plans:
 - [ ] 21-01: Hero image aspect ratio and dimensions
 - [ ] 21-02: Bundle deduplication and chunk optimization
 
+#### Phase 22: Hero Modernization
+**Goal**: Modernize hero section based on competitive research of top engineering company websites
+**Depends on**: Phase 21
+**Requirements**: HERO-01 through HERO-05 (5 requirements)
+**Success Criteria** (what must be TRUE):
+  1. Hero visual design reflects modern engineering industry standards (typography, layout, imagery)
+  2. Hero messaging/copy communicates VP Associates' value proposition clearly
+  3. Hero interactions are polished (smooth transitions, engaging animations)
+  4. Hero performs well on mobile devices (responsive, fast loading)
+  5. Hero accessibility is maintained (WCAG 2.1 AA compliance preserved)
+**Plans**: 5 plans
+
+**Wave Structure:**
+- Wave 1 (parallel): 22-01 (static hero implementation), 22-02 (messaging refinement)
+- Wave 2 (parallel): 22-03 (image optimization + parallax), 22-04 (animations)
+- Wave 3 (sequential): 22-05 (testing + verification)
+
+Plans:
+- [ ] 22-01-PLAN.md — Create static hero component replacing 9-slide carousel
+- [ ] 22-02-PLAN.md — Refine messaging and copy based on competitive research
+- [ ] 22-03-PLAN.md — Optimize background imagery and implement subtle parallax
+- [ ] 22-04-PLAN.md — Add polished entrance animations and hover effects
+- [ ] 22-05-PLAN.md — Comprehensive testing across devices, browsers, accessibility standards
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 17 → 18 → 19 → 20 → 21
+Phases execute in numeric order: 17 → 18 → 19 → 20 → 21 → 22
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -209,10 +233,11 @@ Phases execute in numeric order: 17 → 18 → 19 → 20 → 21
 | 14. Code Optimization | v1.1 | 4/4 | Complete | 2026-02-06 |
 | 15. Validation & Monitoring | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 16. WordPress API Integration | v1.1 | 6/7 | Complete | 2026-02-07 |
-| 17. Accessibility Foundation | v1.2 | 0/5 | Not started | - |
+| 17. Accessibility Foundation | v1.2 | 5/5 | Complete | 2026-02-07 |
 | 18. Core Micro-interactions | v1.2 | 0/5 | Not started | - |
 | 19. Page Transitions | v1.2 | 0/5 | Not started | - |
 | 20. Advanced Micro-interactions | v1.2 | 0/4 | Not started | - |
 | 21. Known Issue Fixes | v1.2 | 0/2 | Not started | - |
+| 22. Hero Modernization | v1.2 | 0/5 | Not started | - |
 
-**Overall Progress:** 59/81 plans complete (73%) - Plan 16-03 is manual content migration by user
+**Overall Progress:** 64/86 plans complete (74%) - Plan 16-03 is manual content migration by user
