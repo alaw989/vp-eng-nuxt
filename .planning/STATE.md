@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-02-07)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 19-01 complete - 150ms cross-fade page transitions implemented
+**Current focus:** Phase 19 complete - Page transitions with directional navigation for projects and services
 
 ## Current Position
 
 Milestone: v1.2 Refinement
 Phase: 19 of 22 (Page Transitions)
-Plan: 1 of 5 in current phase
-Status: In progress
-Last activity: 2026-02-08 — Completed 19-01: Page Transition Configuration
+Plan: 5 of 5 in current phase
+Status: Phase complete
+Last activity: 2026-02-08 — Completed 19-05: Directional transitions for list/detail navigation
 
-Progress: [███████████████████████████░░░░] 88% (75/86 plans complete)
+Progress: [███████████████████████████░░░░] 88% (79/86 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -27,10 +27,10 @@ Progress: [███████████████████████
 - Phase 15: Validation & Monitoring (3/3 complete)
 - Phase 16: WordPress API Integration (6/7 complete - Plan 16-03 is manual content migration)
 
-**v1.2 REFINEMENT - IN PROGRESS (16/22 planned)**
+**v1.2 REFINEMENT - IN PROGRESS (20/22 planned)**
 - Phase 17: Accessibility Foundation (5/5 complete) **PHASE COMPLETE**
 - Phase 18: Core Micro-interactions (5/5 complete) **PHASE COMPLETE**
-- Phase 19: Page Transitions (1/5 complete)
+- Phase 19: Page Transitions (5/5 complete) **PHASE COMPLETE**
 - Phase 20: Advanced Micro-interactions (0/4 planned)
 - Phase 21: Known Issue Fixes (0/2 planned)
 - Phase 22: Hero Modernization (5/5 complete) **PHASE COMPLETE**
@@ -70,12 +70,12 @@ Progress: [███████████████████████
 | 17    | 5     | 5        | ~13 min  |
 | 18    | 5     | 5        | ~10 min  |
 | 22    | 5     | 5        | ~10 min  |
-| 19    | 5     | 1        | ~2 min   |
+| 19    | 5     | 5        | ~5 min   |
 | 19-21 | TBD   | 0        | -        |
 
 **Recent Trend:**
 - Last milestone: v1.1 complete (Plan 16-03 is manual)
-- Trend: Phase 19-01 complete - 150ms cross-fade page transitions implemented with usePageTransition composable
+- Trend: Phase 19 complete - Page transitions with directional navigation for projects and services list/detail pages
 
 *Updated: 2026-02-08*
 
@@ -137,6 +137,9 @@ All decisions logged in PROJECT.md Key Decisions table.
 - 150ms page transitions with ease-in-out easing for snappy, responsive navigation feel
 - Pure cross-fade transitions (no translateY/scale transforms) for simpler, more elegant navigation
 - usePageTransition composable provides centralized transition configuration (prefersReducedMotion, transitionDuration, transitionEasing)
+- Directional transitions for projects and services: slide-left (forward), slide-right (back)
+- Global middleware with .global suffix dynamically assigns transition names based on route pairs
+- Routes not in explicit pairs default to standard cross-fade (page transition)
 
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
@@ -176,23 +179,18 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 19-01 with 150ms cross-fade page transitions
+Stopped at: Completed 19-05 with directional transitions for projects and services
 Resume file: None
 
 ## Next Steps
 
-Phase 19 (Page Transitions) in progress:
+Phase 19 complete - all page transition features implemented:
 - 19-01: Page Transition Configuration COMPLETE (150ms cross-fade, no transforms)
-- 19-02: Reduced motion CSS refinement (already partially implemented)
-- 19-03 through 19-05: Additional page transition enhancements
-
-Remaining Phase 19 plans:
-- 19-02: Reduced motion CSS refinement
-- 19-03: Directional transitions for detail pages
-- 19-04: Layout transition optimization
-- 19-05: Screen reader route announcements (already implemented in Phase 17)
+- 19-02: Reduced motion CSS refinement COMPLETE
+- 19-03: Directional transitions for detail pages COMPLETE
+- 19-04: Layout transition optimization COMPLETE
+- 19-05: Directional transitions with middleware COMPLETE
 
 Continue with v1.2 refinement phases:
-- Phase 19: Page Transitions (4/5 remaining)
-- Phase 20: Advanced Micro-interactions (4 plans)
-- Phase 21: Known Issue Fixes (2 plans)
+- Phase 20: Advanced Micro-interactions (4 plans remaining)
+- Phase 21: Known Issue Fixes (2 plans remaining)
