@@ -1,39 +1,47 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <!-- PWA Manifest -->
-    <NuxtPwaAssets />
-    <!-- Page loading progress bar -->
-    <PageLoadingBar />
+  <NuxtLayout>
+    <div class="min-h-screen flex flex-col">
+      <!-- PWA Manifest -->
+      <NuxtPwaAssets />
+      <!-- Page loading progress bar -->
+      <PageLoadingBar />
 
-    <!-- Skip to main content link for accessibility -->
-    <a
-      href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:font-semibold"
-    >
-      Skip to main content
-    </a>
+      <!-- Skip to main content link for accessibility -->
+      <a
+        href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:font-semibold"
+      >
+        Skip to main content
+      </a>
 
-    <AppHeader role="banner" />
-    <main ref="mainContentRef" id="main-content" class="flex-1" role="main">
-      <slot />
-    </main>
-    <AppFooter role="contentinfo" />
-    <LazyBackToTop />
+      <AppHeader role="banner" />
+      <main ref="mainContentRef" id="main-content" class="flex-1" role="main">
+        <slot />
+      </main>
+      <AppFooter role="contentinfo" />
+      <LazyBackToTop />
 
-    <!-- PWA Components -->
-    <LazyPwaReloadPrompt />
+      <!-- PWA Components -->
+      <LazyPwaReloadPrompt />
 
-    <!-- Live region for screen reader announcements -->
-    <div
-      aria-live="polite"
-      aria-atomic="true"
-      class="sr-only"
-    >
-      {{ a11yAnnouncement }}
+      <!-- Live region for screen reader announcements -->
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        class="sr-only"
+      >
+        {{ a11yAnnouncement }}
+      </div>
     </div>
-  </div>
+  </NuxtLayout>
 </template>
 
+/*
+ * Layout transitions use 150ms cross-fade (see assets/css/main.css)
+ * Layout transitions run when navigating between pages with different layouts.
+ * This site uses default.vue and landing.vue layouts.
+ * Both layouts must wrap <slot /> with <NuxtLayout> for transitions to work.
+ */
 <script setup lang="ts">
 import { useA11yRouteAnnouncer, useAnnouncer } from '~/composables/useA11y'
 
