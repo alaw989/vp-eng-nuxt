@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-02-07)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 22 complete - ready for v1.2 refinement phases
+**Current focus:** Phase 18-05 complete - focus indicators verified and enhanced
 
 ## Current Position
 
 Milestone: v1.2 Refinement
-Phase: 22 of 22 (Hero Modernization)
+Phase: 18 of 22 (Core Micro-interactions)
 Plan: 5 of 5 in current phase
-Status: Phase complete - user approved, all hero tasks complete with testing and verification
-Last activity: 2026-02-08 — Completed 22-05: Testing and verification with user approval
+Status: Phase complete - all focus indicators verified with WCAG AAA contrast
+Last activity: 2026-02-08 — Completed 18-05: Focus indicators verified and footer links enhanced
 
-Progress: [████████████████████████████░░░] 89% (72/81 plans complete)
+Progress: [████████████████████████████░░░] 90% (73/81 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -27,9 +27,9 @@ Progress: [███████████████████████
 - Phase 15: Validation & Monitoring (3/3 complete)
 - Phase 16: WordPress API Integration (6/7 complete - Plan 16-03 is manual content migration)
 
-**v1.2 REFINEMENT - IN PROGRESS (9/22 planned)**
+**v1.2 REFINEMENT - IN PROGRESS (14/22 planned)**
 - Phase 17: Accessibility Foundation (5/5 complete) **PHASE COMPLETE**
-- Phase 18: Core Micro-interactions (0/5 planned)
+- Phase 18: Core Micro-interactions (5/5 complete) **PHASE COMPLETE**
 - Phase 19: Page Transitions (0/5 planned)
 - Phase 20: Advanced Micro-interactions (0/4 planned)
 - Phase 21: Known Issue Fixes (0/2 planned)
@@ -68,12 +68,13 @@ Progress: [███████████████████████
 | 15    | 3     | 3        | ~10 min  |
 | 16    | 6     | 6        | ~25 min  |
 | 17    | 5     | 5        | ~13 min  |
+| 18    | 5     | 5        | ~7 min   |
 | 22    | 5     | 5        | ~10 min  |
-| 18-21 | TBD   | 0        | -        |
+| 19-21 | TBD   | 0        | -        |
 
 **Recent Trend:**
 - Last milestone: v1.1 complete (Plan 16-03 is manual)
-- Trend: Phase 22 complete with hero fully tested and verified
+- Trend: Phase 18 complete with focus indicators verified
 
 *Updated: 2026-02-08*
 
@@ -116,6 +117,9 @@ All decisions logged in PROJECT.md Key Decisions table.
 - 300ms micro-interaction duration for consistent hover state timing
 - Group hover pattern enables coordinated parent-child hover states
 - Reduced-motion support preserves color feedback while disabling transforms
+- Focus-visible indicators on all interactive elements with WCAG AAA contrast (8.2:1)
+- Dark footer uses white focus rings (ring-white with ring-offset-neutral-900)
+- All focus indicators have adequate hit targets (44x44px minimum)
 
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
@@ -155,28 +159,19 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 22-05 with testing and verification complete
+Stopped at: Completed 18-05 with focus indicators verified and enhanced
 Resume file: None
 
 ## Next Steps
 
-Phase 22 (Hero Modernization) COMPLETE - user approved:
-- 18 E2E tests created and passing (hero content, accessibility, responsive, animations)
-- Lighthouse audit: Accessibility 93/100, Best Practices 100/100, SEO 100/100
-- Verification document confirms all success criteria met (HERO-01 through HERO-05)
-- User approved: "approved" - Phase 22 closed
-- Staggered entrance animations (headline 0.2s, subheadline 0.4s, CTA 0.6s)
-- Shimmer gradient animation for visual interest
-- CTA hover effects: lift effect, shadow increase, arrow icon slide
-- Full reduced-motion support (disables transforms, preserves colors)
-- Responsive imagery with sizes prop for mobile/desktop optimization
-- Subtle parallax effect with reduced-motion accessibility support
-- WebP format, eager loading, high fetchpriority for fast LCP
-- Explicit dimensions preventing CLS
-- Descriptive alt text for accessibility
+Phase 18 (Core Micro-interactions) COMPLETE:
+- Focus indicators verified across all components
+- Footer links enhanced with white focus rings for dark background
+- WCAG AAA contrast achieved (8.2:1 for primary color on white)
+- All interactive elements have adequate hit targets (44x44px minimum)
+- Focus indicators appear on keyboard navigation, not on mouse click
 
 Continue with v1.2 refinement phases:
-- Phase 18: Core Micro-interactions (5 plans)
 - Phase 19: Page Transitions (5 plans)
 - Phase 20: Advanced Micro-interactions (4 plans)
 - Phase 21: Known Issue Fixes (2 plans)
