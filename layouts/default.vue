@@ -1,6 +1,5 @@
 <template>
-  <NuxtLayout>
-    <div class="min-h-screen flex flex-col">
+  <div class="min-h-screen flex flex-col">
       <!-- PWA Manifest -->
       <NuxtPwaAssets />
       <!-- Page loading progress bar -->
@@ -33,7 +32,6 @@
         {{ a11yAnnouncement }}
       </div>
     </div>
-  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -48,6 +46,9 @@ import { useA11yRouteAnnouncer, useAnnouncer } from '~/composables/useA11y'
 const mainContentRef = ref<HTMLElement | null>(null)
 const route = useRoute()
 
+// Expose message for template (must be declared before useA11yRouteAnnouncer)
+const { message: a11yAnnouncement } = useAnnouncer()
+
 // Focus main content on route change for screen reader accessibility
 watch(() => route.path, async () => {
   await nextTick()
@@ -59,7 +60,4 @@ watch(() => route.path, async () => {
 
 // This will automatically announce route changes
 useA11yRouteAnnouncer()
-
-// Expose message for template
-const { message: a11yAnnouncement } = useAnnouncer()
 </script>

@@ -11,7 +11,7 @@
  */
 
 import { usePreferredReducedMotion } from '@vueuse/core'
-import type { ComputedRef, Ref } from 'vue'
+import type { ComputedRef } from 'vue'
 
 export function usePageTransition() {
   // Detect OS-level reduced motion preference (returns ComputedRef<ReducedMotionType>)
