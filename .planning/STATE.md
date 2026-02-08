@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-02-07)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 17 - Accessibility Foundation
+**Current focus:** Phase 22 - Hero Modernization
 
 ## Current Position
 
 Milestone: v1.2 Refinement
-Phase: 17 of 21 (Accessibility Foundation)
-Plan: 5 of 5 in current phase
-Status: Phase complete
-Last activity: 2026-02-07 — Completed 17-05: Live regions and E2E testing
+Phase: 22 of 22 (Hero Modernization)
+Plan: 1 of 1 in current phase
+Status: Plan complete, awaiting user verification
+Last activity: 2026-02-07 — Completed 22-01: Static hero with construction imagery and entrance animations
 
-Progress: [████████████████████████░░░░░░░] 76% (66/81 plans complete)
+Progress: [██████████████████████████░░░░░░] 77% (67/81 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -27,12 +27,13 @@ Progress: [███████████████████████
 - Phase 15: Validation & Monitoring (3/3 complete)
 - Phase 16: WordPress API Integration (6/7 complete - Plan 16-03 is manual content migration)
 
-**v1.2 REFINEMENT - IN PROGRESS (4/22 planned)**
+**v1.2 REFINEMENT - IN PROGRESS (5/22 planned)**
 - Phase 17: Accessibility Foundation (5/5 complete) **PHASE COMPLETE**
 - Phase 18: Core Micro-interactions (0/5 planned)
 - Phase 19: Page Transitions (0/5 planned)
 - Phase 20: Advanced Micro-interactions (0/4 planned)
 - Phase 21: Known Issue Fixes (0/2 planned)
+- Phase 22: Hero Modernization (1/1 complete) **PHASE COMPLETE**
 
 ## Performance Metrics
 
@@ -67,11 +68,12 @@ Progress: [███████████████████████
 | 15    | 3     | 3        | ~10 min  |
 | 16    | 6     | 6        | ~25 min  |
 | 17    | 5     | 5        | ~13 min  |
+| 22    | 1     | 1        | ~20 min  |
 | 18-21 | TBD   | 0        | -        |
 
 **Recent Trend:**
 - Last milestone: v1.1 complete (Plan 16-03 is manual)
-- Trend: Starting v1.2 refinement work
+- Trend: Hero modernization complete with construction-focused imagery and entrance animations
 
 *Updated: 2026-02-07*
 
@@ -101,6 +103,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 - aria-live="polite" for route changes, aria-live="assertive" for form errors
 - Playwright E2E tests validate WCAG compliance (10/11 tests passing, 1 skipped due to timing)
 
+**v1.2 Key Decisions (continued):**
+- Static hero pattern replaces 9-slide carousel (industry standard 2026, 5/7 top firms use static heroes)
+- Construction-focused background imagery (yellow-crane-1920w.jpg) for engineering context
+- Staggered entrance animations: headline (0.2s), subheadline (0.4s), CTA (0.6s) with fade-in-up effect
+- CSS-based animations over JavaScript for better performance and reduced-motion support
+
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
 - Measurement-driven approach: baseline before optimization
@@ -125,21 +133,22 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Plan 16-03 is manual: User to migrate content to WordPress CPTs via admin interface (not blocking v1.2)
 
 **For v1.2:**
-- Homepage missing h1 heading (HeroSlider should contain h1) - deferred to later plans
-- HeroSlider heading structure needs review for proper accessibility
+- Homepage h1 heading now present in HeroStatic component (resolved)
 - Footer landmark exists in HTML but Playwright a11y tree doesn't capture it in E2E tests (verified via curl)
+- None - HeroStatic component complete and awaiting user verification
 
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 17-05, live regions and E2E testing - Phase 17 complete
+Stopped at: Completed 22-01, static hero with construction imagery and entrance animations
 Resume file: None
 
 ## Next Steps
 
-Phase 17 (Accessibility Foundation) is complete. Continue with Phase 18:
-- 18-01: Hover state transitions and micro-interactions
-- 18-02: Button interaction feedback
-- 18-03: Form input focus states
-- 18-04: Card hover animations
-- 18-05: Loading state indicators
+Phase 22 (Hero Modernization) plan 22-01 is complete, awaiting user verification.
+
+Continue with v1.2 refinement phases:
+- Phase 18: Core Micro-interactions (5 plans)
+- Phase 19: Page Transitions (5 plans)
+- Phase 20: Advanced Micro-interactions (4 plans)
+- Phase 21: Known Issue Fixes (2 plans)
