@@ -12,10 +12,10 @@ See: .planning/PROJECT.md (updated 2026-02-07)
 Milestone: v1.2 Refinement
 Phase: 22 of 22 (Hero Modernization)
 Plan: 1 of 1 in current phase
-Status: Plan complete, awaiting user verification
-Last activity: 2026-02-07 — Completed 22-01: Static hero with construction imagery and entrance animations
+Status: Phase complete - user approved with "approved. that image is pretty bad ass"
+Last activity: 2026-02-07 — Completed 22-01: Static hero with crane-building background and entrance animations
 
-Progress: [██████████████████████████░░░░░░] 77% (67/81 plans complete)
+Progress: [██████████████████████████░░░░░░] 78% (68/81 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -105,7 +105,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 
 **v1.2 Key Decisions (continued):**
 - Static hero pattern replaces 9-slide carousel (industry standard 2026, 5/7 top firms use static heroes)
-- Construction-focused background imagery (yellow-crane-1920w.jpg) for engineering context
+- Construction-focused background imagery (crane-building-1920w.jpg) for engineering context (user approved)
 - Staggered entrance animations: headline (0.2s), subheadline (0.4s), CTA (0.6s) with fade-in-up effect
 - CSS-based animations over JavaScript for better performance and reduced-motion support
 
@@ -135,17 +135,17 @@ All decisions logged in PROJECT.md Key Decisions table.
 **For v1.2:**
 - Homepage h1 heading now present in HeroStatic component (resolved)
 - Footer landmark exists in HTML but Playwright a11y tree doesn't capture it in E2E tests (verified via curl)
-- None - HeroStatic component complete and awaiting user verification
+- None - Phase 22 complete with user approval
 
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 22-01, static hero with construction imagery and entrance animations
+Stopped at: Completed 22-01 with user approval
 Resume file: None
 
 ## Next Steps
 
-Phase 22 (Hero Modernization) plan 22-01 is complete, awaiting user verification.
+Phase 22 (Hero Modernization) complete with user approval.
 
 Continue with v1.2 refinement phases:
 - Phase 18: Core Micro-interactions (5 plans)
