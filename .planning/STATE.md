@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-02-07)
 
 Milestone: v1.2 Refinement
 Phase: 22 of 22 (Hero Modernization)
-Plan: 2 of 2 in current phase
-Status: Phase complete - user approved both hero visual (22-01) and messaging (22-02) variants
-Last activity: 2026-02-07 — Completed 22-02: Hero messaging refinement with user approval on "Trusted by Tampa Bay Since 1990"
+Plan: 3 of 3 in current phase
+Status: Phase complete - hero fully optimized with responsive imagery, parallax, and accessibility
+Last activity: 2026-02-08 — Completed 22-03: Hero image optimization with responsive sizes prop
 
-Progress: [██████████████████████████░░░░░░] 79% (69/81 plans complete)
+Progress: [██████████████████████████░░░░░░] 80% (70/81 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -27,13 +27,13 @@ Progress: [███████████████████████
 - Phase 15: Validation & Monitoring (3/3 complete)
 - Phase 16: WordPress API Integration (6/7 complete - Plan 16-03 is manual content migration)
 
-**v1.2 REFINEMENT - IN PROGRESS (6/22 planned)**
+**v1.2 REFINEMENT - IN PROGRESS (7/22 planned)**
 - Phase 17: Accessibility Foundation (5/5 complete) **PHASE COMPLETE**
 - Phase 18: Core Micro-interactions (0/5 planned)
 - Phase 19: Page Transitions (0/5 planned)
 - Phase 20: Advanced Micro-interactions (0/4 planned)
 - Phase 21: Known Issue Fixes (0/2 planned)
-- Phase 22: Hero Modernization (2/2 complete) **PHASE COMPLETE**
+- Phase 22: Hero Modernization (3/3 complete) **PHASE COMPLETE**
 
 ## Performance Metrics
 
@@ -68,12 +68,12 @@ Progress: [███████████████████████
 | 15    | 3     | 3        | ~10 min  |
 | 16    | 6     | 6        | ~25 min  |
 | 17    | 5     | 5        | ~13 min  |
-| 22    | 2     | 2        | ~15 min  |
+| 22    | 3     | 3        | ~12 min  |
 | 18-21 | TBD   | 0        | -        |
 
 **Recent Trend:**
 - Last milestone: v1.1 complete (Plan 16-03 is manual)
-- Trend: Phase 22 complete with authority-focused messaging "Trusted by Tampa Bay Since 1990" approved
+- Trend: Phase 22 complete with hero fully optimized (responsive imagery, parallax, accessibility)
 
 *Updated: 2026-02-07*
 
@@ -111,6 +111,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Hero messaging approved: "Trusted by Tampa Bay Since 1990" with "Let's Talk" CTA (Variant A - Authority focus)
 - Query param override (?heroVariant=) enables testing variants without code changes
 - Four headline variants implemented based on competitive research (authority, outcome, local, capability)
+- Responsive sizes prop tells browser which image to load: 100vw mobile, 80vw tablet, 1920px desktop
 
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
@@ -138,17 +139,22 @@ All decisions logged in PROJECT.md Key Decisions table.
 **For v1.2:**
 - Homepage h1 heading now present in HeroStatic component (resolved)
 - Footer landmark exists in HTML but Playwright a11y tree doesn't capture it in E2E tests (verified via curl)
-- None - Phase 22 complete with user approval on both visual and messaging variants
+- None - Phase 22 complete with hero fully optimized
 
 ## Session Continuity
 
-Last session: 2026-02-07
-Stopped at: Completed 22-02 with user approval on "Trusted by Tampa Bay Since 1990"
+Last session: 2026-02-08
+Stopped at: Completed 22-03 with hero image optimization complete
 Resume file: None
 
 ## Next Steps
 
-Phase 22 (Hero Modernization) complete with user approval on both visual (crane-building background) and messaging (authority-focused headline).
+Phase 22 (Hero Modernization) complete with hero fully optimized:
+- Responsive imagery with sizes prop for mobile/desktop optimization
+- Subtle parallax effect with reduced-motion accessibility support
+- WebP format, eager loading, high fetchpriority for fast LCP
+- Explicit dimensions preventing CLS
+- Descriptive alt text for accessibility
 
 Continue with v1.2 refinement phases:
 - Phase 18: Core Micro-interactions (5 plans)
