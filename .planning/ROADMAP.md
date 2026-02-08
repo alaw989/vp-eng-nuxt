@@ -127,14 +127,18 @@ Plans:
   4. Form fields show real-time validation feedback (visual + ARIA)
   5. Loading states display skeleton screens for async content
   6. Focus indicators are visible on all focusable elements
-**Plans**: TBD
+**Plans**: 5 plans
+
+**Wave Structure:**
+- Wave 1 (parallel): 18-01 (buttons/links + global reduced motion), 18-02 (cards), 18-05 (focus indicators)
+- Wave 2 (sequential): 18-03 (form validation), 18-04 (loading states)
 
 Plans:
-- [ ] 18-01: Button and link hover states
-- [ ] 18-02: Card hover effects
-- [ ] 18-03: Form validation feedback
-- [ ] 18-04: Loading states and skeleton screens
-- [ ] 18-05: Focus indicator enhancement
+- [x] 18-01-PLAN.md — Update all button and link hover states with consistent 300ms timing, add global reduced motion support
+- [x] 18-02-PLAN.md — Add hover lift effects (-translate-y-1) to ProjectCard, ServiceCard, TeamMember, TestimonialCard
+- [x] 18-03-PLAN.md — Implement real-time form validation with blur/change handlers, create useFormValidation composable
+- [x] 18-04-PLAN.md — Add skeleton loading states to projects and services index pages
+- [x] 18-05-PLAN.md — Verify and document focus indicators across all interactive elements
 
 #### Phase 19: Page Transitions
 **Goal**: Smooth navigation with accessibility-aware page transitions
@@ -234,10 +238,10 @@ Phases execute in numeric order: 17 → 18 → 19 → 20 → 21 → 22
 | 15. Validation & Monitoring | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 16. WordPress API Integration | v1.1 | 6/7 | Complete | 2026-02-07 |
 | 17. Accessibility Foundation | v1.2 | 5/5 | Complete | 2026-02-07 |
-| 18. Core Micro-interactions | v1.2 | 0/5 | Not started | - |
+| 18. Core Micro-interactions | v1.2 | 5/5 | Complete | 2026-02-08 |
 | 19. Page Transitions | v1.2 | 0/5 | Not started | - |
 | 20. Advanced Micro-interactions | v1.2 | 0/4 | Not started | - |
 | 21. Known Issue Fixes | v1.2 | 0/2 | Not started | - |
 | 22. Hero Modernization | v1.2 | 5/5 | Complete | 2026-02-08 |
 
-**Overall Progress:** 69/86 plans complete (80%) - Plan 16-03 is manual content migration by user
+**Overall Progress:** 74/86 plans complete (86%) - Plan 16-03 is manual content migration by user
