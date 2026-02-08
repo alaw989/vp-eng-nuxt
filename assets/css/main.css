@@ -189,6 +189,14 @@
     transform: none !important;
   }
 
+  /* Disable slide transforms in reduced motion mode */
+  .slide-left-enter-from,
+  .slide-left-leave-to,
+  .slide-right-enter-from,
+  .slide-right-leave-to {
+    transform: none !important;
+  }
+
   /* Disable transforms on hover effects but preserve color feedback */
   .hover\:-translate-y-0\.5:hover,
   .hover\:-translate-y-1:hover,
