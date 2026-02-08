@@ -129,7 +129,7 @@
             <button
               @click="setViewMode('grid')"
               :class="[
-                'p-2 rounded-md transition-all duration-200',
+                'p-2 rounded-md transition-all duration-300',
                 viewMode === 'grid' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
               ]"
               aria-label="Grid view"
@@ -140,7 +140,7 @@
             <button
               @click="setViewMode('list')"
               :class="[
-                'p-2 rounded-md transition-all duration-200',
+                'p-2 rounded-md transition-all duration-300',
                 viewMode === 'list' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
               ]"
               aria-label="List view"
@@ -158,7 +158,7 @@
             @click="goToPage(currentPage - 1)"
             :disabled="currentPage === 1"
             :class="[
-              'px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center gap-1',
+              'px-4 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-1',
               currentPage === 1
                 ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
                 : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
@@ -177,7 +177,7 @@
                 v-else
                 @click="goToPage(page as number)"
                 :class="[
-                  'w-10 h-10 rounded-lg font-semibold transition-all duration-200',
+                  'w-10 h-10 rounded-lg font-semibold transition-all duration-300',
                   currentPage === page
                     ? 'bg-primary text-white'
                     : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
@@ -195,7 +195,7 @@
             @click="goToPage(currentPage + 1)"
             :disabled="currentPage === totalPages"
             :class="[
-              'px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center gap-1',
+              'px-4 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-1',
               currentPage === totalPages
                 ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
                 : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
@@ -330,7 +330,7 @@
         </p>
         <NuxtLink
           to="/contact"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           Contact Us
           <Icon name="mdi:arrow-right" class="w-5 h-5" />

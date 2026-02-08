@@ -127,7 +127,7 @@
           <p class="text-neutral-600 mb-4">Unable to load team information. Please try again later.</p>
           <button
             @click="refreshTeam"
-            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Retry
           </button>
@@ -217,7 +217,7 @@
         </p>
         <NuxtLink
           to="/contact"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           Contact Us Today
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -245,7 +245,7 @@ useJsonld({
   '@type': 'Organization',
   name: 'VP Associates',
   url: 'https://vp-associates.com',
-  logo: 'https://vp-associates.com/logo.png',
+  logo: 'https://vp-associates.com/wp-content/uploads/2018/06/vplogowhite.png',
   description: 'Structural engineering firm serving Tampa Bay for over 30 years',
   address: {
     '@type': 'PostalAddress',

@@ -18,7 +18,7 @@
           </p>
           <NuxtLink
             to="/about"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
           >
             Learn More About Us
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -91,7 +91,7 @@
       <div class="text-center mt-12">
         <NuxtLink
           to="/services"
-          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors"
+          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
         >
           View All Services
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -128,7 +128,7 @@
       <div class="text-center">
         <NuxtLink
           to="/projects"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark transition-colors"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
         >
           View All Projects
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -183,13 +183,13 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <NuxtLink
             to="/contact"
-            class="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
+            class="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Contact Us
           </NuxtLink>
           <NuxtLink
             to="tel:+18135551234"
-            class="px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark transition-colors inline-flex items-center justify-center gap-2"
+            class="px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:phone" class="w-5 h-5" />
             (813) 555-1234

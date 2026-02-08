@@ -2,7 +2,7 @@
   <NuxtLink
     :to="`/projects/${slug}`"
     :class="[
-      'group overflow-hidden rounded-xl bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+      'group overflow-hidden rounded-xl bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
       viewMode === 'list' ? 'flex flex-col md:flex-row' : 'block'
     ]"
     :aria-label="`View project: ${title}${category ? ` - ${category}` : ''}${location ? ` in ${location}` : ''}`"

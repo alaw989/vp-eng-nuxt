@@ -151,6 +151,39 @@
   transform: translateY(-10px);
 }
 
+/* Standard micro-interaction duration: 300ms (per Phase 22) */
+
+/* Reduced motion support - preserve color feedback, disable transforms */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable transforms but preserve color feedback */
+  .hover\:-translate-y-0\.5:hover,
+  .hover\:-translate-y-1:hover,
+  .group-hover\:-translate-y-1:hover,
+  .group-hover\:scale-105:hover,
+  .group-hover\:scale-110:hover {
+    transform: none !important;
+  }
+
+  /* Keep color transitions for reduced motion users */
+  .hover\:bg-primary-dark:hover,
+  .hover\:text-primary:hover,
+  .hover\:text-white:hover,
+  .hover\:bg-secondary-dark:hover,
+  .hover\:bg-neutral-100:hover,
+  .hover\:text-primary-dark:hover {
+    transition: background-color 300ms ease, color 300ms ease !important;
+  }
+}
+
 /* Print styles for better page printing */
 @media print {
   /* Hide elements that shouldn't be printed */

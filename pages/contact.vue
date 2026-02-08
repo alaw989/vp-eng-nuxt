@@ -172,7 +172,7 @@
             <button
               type="submit"
               :disabled="isSubmitting"
-              class="w-full px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+              class="w-full px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
             >
               <Icon v-if="isSubmitting" name="mdi:loading" class="w-5 h-5 animate-spin" />
               <span>{{ isSubmitting ? 'Sending...' : 'Send Message' }}</span>
@@ -225,7 +225,7 @@
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Phone</div>
-                  <a href="tel:+18135551234" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-200">
+                  <a href="tel:+18135551234" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1">
                     (813) 555-1234
                   </a>
                 </div>
@@ -237,7 +237,7 @@
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Email</div>
-                  <a href="mailto:info@vp-associates.com" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-200">
+                  <a href="mailto:info@vp-associates.com" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1">
                     info@vp-associates.com
                   </a>
                 </div>
@@ -273,7 +273,7 @@
                 href="https://www.openstreetmap.org/?mlat=27.9525&amp;mlon=-82.4550#map=16/27.9525/-82.4550"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-dark transition-colors font-medium"
+                class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-dark transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1"
               >
                 <Icon name="mdi:open-in-new" class="w-4 h-4" />
                 Open in larger map
@@ -290,7 +290,7 @@
             <p class="text-neutral-600 text-sm mb-3">
               For urgent structural issues or inspection needs, call us directly.
             </p>
-            <a href="tel:+18135551234" class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700 transition-colors">
+            <a href="tel:+18135551234" class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2 rounded px-1">
               <Icon name="mdi:phone" class="w-4 h-4" />
               (813) 555-1234
             </a>

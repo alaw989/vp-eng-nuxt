@@ -8,9 +8,9 @@
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center" aria-label="VP Associates Home">
           <img
-            src="/images/logo.png"
+            src="/images/vp-logo.png"
             alt="VP & Associates, Inc. Logo"
-            class="h-12 w-auto"
+            class="h-12 w-auto logo-black"
             width="180"
             height="50"
           />
@@ -21,42 +21,42 @@
           <NuxtLink
             to="/"
             :aria-current="route.path === '/' ? 'page' : undefined"
-            class="text-neutral-700 hover:text-primary transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
           >
             Home
           </NuxtLink>
           <NuxtLink
             to="/about"
             :aria-current="route.path === '/about' ? 'page' : undefined"
-            class="text-neutral-700 hover:text-primary transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
           >
             About
           </NuxtLink>
           <NuxtLink
             to="/services"
             :aria-current="route.path.startsWith('/services') ? 'page' : undefined"
-            class="text-neutral-700 hover:text-primary transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
           >
             Services
           </NuxtLink>
           <NuxtLink
             to="/projects"
             :aria-current="route.path.startsWith('/projects') ? 'page' : undefined"
-            class="text-neutral-700 hover:text-primary transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
           >
             Projects
           </NuxtLink>
           <NuxtLink
             to="/careers"
             :aria-current="route.path === '/careers' ? 'page' : undefined"
-            class="text-neutral-700 hover:text-primary transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
           >
             Careers
           </NuxtLink>
           <NuxtLink
             to="/search"
             :aria-current="route.path === '/search' ? 'page' : undefined"
-            class="text-neutral-700 hover:text-primary transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1 flex items-center justify-center"
             aria-label="Search"
           >
             <Icon name="mdi:magnify" class="w-5 h-5" />
@@ -65,7 +65,7 @@
           <NuxtLink
             to="/contact"
             :aria-current="route.path === '/contact' ? 'page' : undefined"
-            class="px-5 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="px-5 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Contact
           </NuxtLink>
@@ -155,7 +155,7 @@
             to="/contact"
             @click="isOpen = false"
             :aria-current="route.path === '/contact' ? 'page' : undefined"
-            class="block px-4 py-3 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors font-medium text-center focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="block px-4 py-3 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors duration-300 font-medium text-center focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Contact
           </NuxtLink>
@@ -193,3 +193,9 @@ watch(() => route.path, () => {
   isOpen.value = false
 })
 </script>
+
+<style scoped>
+.logo-black {
+  filter: brightness(0) saturate(100%);
+}
+</style>

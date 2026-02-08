@@ -23,7 +23,7 @@
         <p class="text-neutral-600 mb-6">The position you're looking for doesn't exist or has been filled.</p>
         <NuxtLink
           to="/careers"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           View All Positions
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -38,10 +38,10 @@
         <div class="container text-white">
           <div class="max-w-4xl">
             <div class="flex flex-wrap items-center gap-3 mb-4">
-              <span v-if="position.department" class="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold hover:bg-white/30 transition-colors duration-200">
+              <span v-if="position.department" class="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold hover:bg-white/30 transition-colors duration-300">
                 {{ position.department }}
               </span>
-              <span class="px-3 py-1 bg-secondary rounded-full text-sm font-semibold hover:bg-secondary/80 transition-colors duration-200">
+              <span class="px-3 py-1 bg-secondary rounded-full text-sm font-semibold hover:bg-secondary/80 transition-colors duration-300">
                 {{ position.type }}
               </span>
             </div>
@@ -165,7 +165,7 @@
                 </p>
                 <NuxtLink
                   to="/contact"
-                  class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+                  class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                 >
                   Apply Now
                   <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -243,7 +243,7 @@
             </div>
             <NuxtLink
               :to="`/careers/${relatedPosition.slug}`"
-              class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all duration-200"
+              class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all duration-300"
             >
               View Details
               <Icon name="mdi:arrow-right" class="w-4 h-4" />
