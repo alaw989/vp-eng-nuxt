@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-white rounded-xl p-8 border border-neutral-200 shadow-lg border-t-4 border-t-primary">
+  <div class="relative bg-white rounded-xl p-8 border border-neutral-200 shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-t-primary">
     <!-- Decorative Quote Mark -->
     <div class="absolute top-4 left-4 text-primary/10 pointer-events-none" aria-hidden="true">
       <Icon name="mdi:format-quote-open" class="w-16 h-16" aria-hidden="true" />
