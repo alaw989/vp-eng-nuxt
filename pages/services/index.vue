@@ -49,7 +49,13 @@
         </p>
       </div>
 
-      <div v-if="filteredServices.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Loading State -->
+      <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 gap-8" aria-hidden="true">
+        <ServiceCardSkeleton v-for="i in 6" :key="`skeleton-${i}`" />
+      </div>
+
+      <!-- Services Grid -->
+      <div v-else-if="filteredServices.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
           v-for="service in filteredServices"
           :key="service.slug"
@@ -87,6 +93,8 @@
           </NuxtLink>
         </div>
       </div>
+
+      <!-- Empty State -->
       <div v-else class="text-center py-16">
         <Icon name="mdi:folder-open-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
         <p class="text-xl text-neutral-500">No services found in this category.</p>
@@ -249,6 +257,15 @@
 // })
 
 const route = useRoute()
+
+// Simulate initial loading state for skeleton display
+const pending = ref(true)
+onMounted(() => {
+  // Simulate data fetching delay to show skeleton
+  setTimeout(() => {
+    pending.value = false
+  }, 800)
+})
 
 interface ServiceCategory {
   id: string
