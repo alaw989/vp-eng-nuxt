@@ -67,10 +67,12 @@
 
 <script setup lang="ts">
 import { useWindowScroll } from '@vueuse/core'
+import { useRoute } from 'vue-router'
 
 interface HeroProps {
-  headline?: string
-  subheadline?: string
+  variant?: 'authority' | 'outcome' | 'local' | 'capability'
+  headline?: string  // Override variant headline
+  subheadline?: string  // Override variant subheadline
   ctaText?: string
   ctaLink?: string
   backgroundImage?: string
@@ -78,15 +80,51 @@ interface HeroProps {
   showCta?: boolean
 }
 
+const defaultCopy = {
+  authority: {
+    headline: "Trusted by Tampa Bay Since 1990",
+    subheadline: "Over 30 years of structural engineering excellence"
+  },
+  outcome: {
+    headline: "Structures That Stand the Test of Time",
+    subheadline: "Precision structural engineering for Tampa Bay and beyond"
+  },
+  local: {
+    headline: "Tampa Bay's Structural Engineers",
+    subheadline: "Comprehensive structural design, inspection, and detailing"
+  },
+  capability: {
+    headline: "Precision Structural Engineering",
+    subheadline: "Licensed professionals delivering quality since 1990"
+  }
+}
+
 const props = withDefaults(defineProps<HeroProps>(), {
-  headline: 'Trusted by Tampa Bay Since 1990',
-  subheadline: 'Comprehensive structural engineering services standing the test of time',
+  variant: 'authority',
+  headline: '',
+  subheadline: '',
   ctaText: "Let's Talk",
   ctaLink: '/contact',
   backgroundImage: '/images/hero/crane-building-1920w.jpg',
   backgroundAlt: 'Construction crane against modern building facade showcasing structural engineering expertise',
   showCta: true
 })
+
+// Query param override for testing variants without code changes
+const route = useRoute()
+const queryVariant = route.query.heroVariant as string
+
+// Determine which variant to use (query param > prop variant > default)
+const activeVariant = computed(() => {
+  if (queryVariant && ['authority', 'outcome', 'local', 'capability'].includes(queryVariant)) {
+    return queryVariant as 'authority' | 'outcome' | 'local' | 'capability'
+  }
+  return props.variant
+})
+
+// Use override headline/subheadline if provided, otherwise use variant defaults
+const headline = computed(() => props.headline || defaultCopy[activeVariant.value].headline)
+const subheadline = computed(() => props.subheadline || defaultCopy[activeVariant.value].subheadline)
 
 // Parallax motion using VueUse (respect prefers-reduced-motion)
 const { y: scrollY } = useWindowScroll()
