@@ -14,8 +14,8 @@ import { usePreferredReducedMotion } from '@vueuse/core'
 import type { ComputedRef, Ref } from 'vue'
 
 export function usePageTransition() {
-  // Detect OS-level reduced motion preference
-  const prefersReducedMotion: Ref<boolean> = usePreferredReducedMotion()
+  // Detect OS-level reduced motion preference (returns ComputedRef<ReducedMotionType>)
+  const prefersReducedMotion = usePreferredReducedMotion()
 
   // Fixed transition duration per user requirement (150ms for snappy feel)
   const transitionDuration: ComputedRef<string> = computed(() => '150ms')
