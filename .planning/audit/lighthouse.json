@@ -1,8 +1,8 @@
 {
   "latest": {
-    "timestamp": "2026-02-08T05:52:47.143Z",
+    "timestamp": "2026-02-08T22:13:23.668Z",
     "scores": {
-      "performance": 26,
+      "performance": 28.000000000000004,
       "accessibility": 93,
       "best-practices": 96,
       "seo": 100
@@ -247,6 +247,15 @@
       "timestamp": "2026-02-08T05:52:47.143Z",
       "scores": {
         "performance": 26,
+        "accessibility": 93,
+        "best-practices": 96,
+        "seo": 100
+      }
+    },
+    {
+      "timestamp": "2026-02-08T22:13:23.668Z",
+      "scores": {
+        "performance": 28.000000000000004,
         "accessibility": 93,
         "best-practices": 96,
         "seo": 100
