@@ -106,28 +106,26 @@
   box-shadow: 0 0 0 4px rgb(30 64 175);
 }
 
-/* Page transition styles - Enhanced with scale and fade */
+/* Page transition styles - 150ms cross-fade per Phase 19-01 */
 .page-enter-active {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 150ms ease-in-out;
 }
 
 .page-leave-active {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 150ms ease-in-out;
 }
 
 .page-enter-from {
   opacity: 0;
-  transform: translateY(20px) scale(0.98);
 }
 
 .page-leave-to {
   opacity: 0;
-  transform: translateY(-10px) scale(0.98);
 }
 
 .layout-enter-active,
 .layout-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 150ms ease-in-out;
 }
 
 .layout-enter-from,
@@ -135,36 +133,33 @@
   opacity: 0;
 }
 
-/* Smooth fade transition for route changes */
-.page-transition-enter-active,
-.page-transition-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.page-transition-enter-from {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.page-transition-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
 /* Standard micro-interaction duration: 300ms (per Phase 22) */
 
-/* Reduced motion support - preserve color feedback, disable transforms */
+/* Reduced motion support: 150ms linear transitions (no transforms)
+ * Test by enabling "Reduce motion" in OS accessibility settings:
+ * - macOS: System Preferences > Accessibility > Display > Reduce motion
+ * - Windows: Settings > Ease of Access > Display > Show animations
+ * - Linux: GNOME Settings > Universal Access > Reduce Animation
+ * Or force in DevTools: Rendering > Emulate CSS media feature > prefers-reduced-motion: reduce
+ */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  /* Page/layout transitions: 150ms linear (no transforms, maintains continuity) */
+  .page-enter-active,
+  .page-leave-active,
+  .layout-enter-active,
+  .layout-leave-active {
+    transition: opacity 150ms linear !important;
   }
 
-  /* Disable transforms but preserve color feedback */
+  /* Prevent transforms on transition states */
+  .page-enter-from,
+  .page-leave-to,
+  .layout-enter-from,
+  .layout-leave-to {
+    transform: none !important;
+  }
+
+  /* Disable transforms on hover effects but preserve color feedback */
   .hover\:-translate-y-0\.5:hover,
   .hover\:-translate-y-1:hover,
   .group-hover\:-translate-y-1:hover,
@@ -173,7 +168,7 @@
     transform: none !important;
   }
 
-  /* Keep color transitions for reduced motion users */
+  /* Keep color transitions for reduced motion users (visual feedback preserved) */
   .hover\:bg-primary-dark:hover,
   .hover\:text-primary:hover,
   .hover\:text-white:hover,
@@ -181,6 +176,15 @@
   .hover\:bg-neutral-100:hover,
   .hover\:text-primary-dark:hover {
     transition: background-color 300ms ease, color 300ms ease !important;
+  }
+
+  /* Disable scroll animations and reduce other animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }
 
