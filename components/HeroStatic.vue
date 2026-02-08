@@ -83,8 +83,8 @@ const props = withDefaults(defineProps<HeroProps>(), {
   subheadline: 'Comprehensive structural engineering services standing the test of time',
   ctaText: "Let's Talk",
   ctaLink: '/contact',
-  backgroundImage: '/images/hero/yellow-crane-1920w.jpg',
-  backgroundAlt: 'Yellow construction crane against blue sky representing structural engineering expertise',
+  backgroundImage: '/images/hero/crane-building-1920w.jpg',
+  backgroundAlt: 'Construction crane against modern building facade showcasing structural engineering expertise',
   showCta: true
 })
 
