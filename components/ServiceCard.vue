@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
     :to="`/services/${slug}`"
-    class="group block p-8 bg-white rounded-xl border border-neutral-200 hover:border-primary hover:shadow-xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    class="group block p-8 bg-white rounded-xl border border-neutral-200 hover:border-primary hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     :aria-label="`Learn more about ${title} services`"
   >
     <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
