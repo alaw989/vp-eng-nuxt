@@ -25,6 +25,7 @@
         width="1920"
         height="1080"
         :modifiers="{ quality: 85 }"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
       />
       <!-- Subtle gradient overlay on image for warmth -->
       <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 mix-blend-multiply" />
@@ -55,9 +56,10 @@
         >
           <NuxtLink
             :to="ctaLink"
-            class="px-8 py-4 bg-gradient-to-r from-secondary to-secondary-dark text-white rounded-lg font-semibold hover:from-secondary-dark hover:to-secondary transition-all shadow-lg hover:shadow-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
+            class="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-secondary to-secondary-dark text-white rounded-lg font-semibold hover:from-secondary-dark hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
           >
             {{ ctaText }}
+            <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </NuxtLink>
         </div>
       </div>
@@ -221,6 +223,22 @@ a:focus-visible {
     opacity: 1;
     transform: translateY(0);
     animation: none;
+  }
+}
+
+/* Respect prefers-reduced-motion for CTA hover effects */
+@media (prefers-reduced-motion: reduce) {
+  a[class*="group"] {
+    transition: background-color 300ms ease, box-shadow 300ms ease;
+  }
+
+  a[class*="group"]:hover {
+    transform: none !important;
+  }
+
+  a[class*="group"] .icon,
+  a[class*="group"] svg {
+    transition: none !important;
   }
 }
 </style>
