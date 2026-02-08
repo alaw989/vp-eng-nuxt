@@ -211,7 +211,16 @@
 
     <!-- Projects Grid -->
     <AppSection bg-color="white" animate-on-scroll>
-      <div v-if="paginatedProjects.length > 0" :id="'projects-grid'" :class="[
+      <!-- Loading State -->
+      <div v-if="pending" :class="[
+        'grid gap-6',
+        viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
+      ]" aria-hidden="true">
+        <ProjectCardSkeleton v-for="i in 6" :key="`skeleton-${i}`" />
+      </div>
+
+      <!-- Projects Grid -->
+      <div v-else-if="paginatedProjects.length > 0" :id="'projects-grid'" :class="[
         'grid gap-6 transition-all duration-300',
         viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]">
@@ -229,6 +238,8 @@
           :priority="index === 0"
         />
       </div>
+
+      <!-- Empty State -->
       <div v-else class="text-center py-16">
         <Icon name="mdi:folder-open-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
         <p class="text-xl text-neutral-500">No projects found in this category.</p>
@@ -350,6 +361,15 @@ usePageMeta({
 })
 
 const route = useRoute()
+
+// Simulate initial loading state for skeleton display
+const pending = ref(true)
+onMounted(() => {
+  // Simulate data fetching delay to show skeleton
+  setTimeout(() => {
+    pending.value = false
+  }, 800)
+})
 
 interface Category {
   id: string
