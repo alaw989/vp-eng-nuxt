@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-02-07)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 18-02 complete - card hover effects with lift and group-hover patterns
+**Current focus:** Phase 18-04 complete - skeleton loading screens with layout matching
 
 ## Current Position
 
 Milestone: v1.2 Refinement
 Phase: 18 of 22 (Core Micro-interactions)
-Plan: 2 of 5 in current phase
-Status: Plan complete - all card components have subtle lift effects with 300ms timing
-Last activity: 2026-02-08 — Completed 18-02: Card hover effects with group-hover patterns
+Plan: 4 of 5 in current phase
+Status: Plan complete - skeleton loading states implemented with aria-hidden accessibility
+Last activity: 2026-02-08 — Completed 18-04: Skeleton loading screens for projects and services
 
-Progress: [██████████████████████████░░░░░] 89% (73/81 plans complete)
+Progress: [███████████████████████████░░░░] 90% (76/81 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -27,9 +27,9 @@ Progress: [███████████████████████
 - Phase 15: Validation & Monitoring (3/3 complete)
 - Phase 16: WordPress API Integration (6/7 complete - Plan 16-03 is manual content migration)
 
-**v1.2 REFINEMENT - IN PROGRESS (11/22 planned)**
+**v1.2 REFINEMENT - IN PROGRESS (14/22 planned)**
 - Phase 17: Accessibility Foundation (5/5 complete) **PHASE COMPLETE**
-- Phase 18: Core Micro-interactions (2/5 complete)
+- Phase 18: Core Micro-interactions (4/5 complete)
 - Phase 19: Page Transitions (0/5 planned)
 - Phase 20: Advanced Micro-interactions (0/4 planned)
 - Phase 21: Known Issue Fixes (0/2 planned)
@@ -68,13 +68,13 @@ Progress: [███████████████████████
 | 15    | 3     | 3        | ~10 min  |
 | 16    | 6     | 6        | ~25 min  |
 | 17    | 5     | 5        | ~13 min  |
-| 18    | 5     | 1        | ~8 min   |
+| 18    | 5     | 4        | ~10 min  |
 | 22    | 5     | 5        | ~10 min  |
 | 19-21 | TBD   | 0        | -        |
 
 **Recent Trend:**
 - Last milestone: v1.1 complete (Plan 16-03 is manual)
-- Trend: Phase 18 Plan 01 complete with button/link hover states standardized
+- Trend: Phase 18 Plan 04 complete with skeleton loading states implemented
 
 *Updated: 2026-02-08*
 
@@ -105,6 +105,10 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Playwright E2E tests validate WCAG compliance (10/11 tests passing, 1 skipped due to timing)
 
 **v1.2 Key Decisions (continued):**
+- Skeleton loading screens marked with aria-hidden="true" to prevent screen reader announcements
+- Skeleton layouts match content layouts exactly (aspect ratios, borders, padding) to prevent CLS
+- Simulated pending state (800ms delay) for static data pages until WordPress API integration
+- v-if="pending" pattern shows skeleton, v-else-if shows content, v-else shows empty state
 - Static hero pattern replaces 9-slide carousel (industry standard 2026, 5/7 top firms use static heroes)
 - Construction-focused background imagery (crane-building-1920w.jpg) for engineering context (user approved)
 - Staggered entrance animations: headline (0.2s), subheadline (0.4s), CTA (0.6s) with fade-in-up effect
@@ -161,14 +165,14 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 18-01 with button and link hover states
+Stopped at: Completed 18-04 with skeleton loading screens
 Resume file: None
 
 ## Next Steps
 
 Continue Phase 18 (Core Micro-interactions):
 - 18-01: Button and link hover states (COMPLETE)
-- 18-02: Card hover states (NEXT)
+- 18-02: Card hover states (COMPLETE)
 - 18-03: Form input interactions
-- 18-04: Image hover states
-- 18-05: Focus indicators
+- 18-04: Skeleton loading states (COMPLETE)
+- 18-05: Focus indicators (NEXT)
