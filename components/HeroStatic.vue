@@ -40,18 +40,18 @@
     <!-- Hero Content -->
     <div class="relative z-10 h-full flex items-center justify-center">
       <div class="container text-center text-white">
-        <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
+        <h1 class="hero-animate-headline text-5xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
           {{ headline }}
         </h1>
         <p
           v-if="subheadline"
-          class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90 drop-shadow-lg"
+          class="hero-animate-subheadline text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90 drop-shadow-lg"
         >
           {{ subheadline }}
         </p>
         <div
           v-if="showCta && ctaText"
-          class="flex flex-col sm:flex-row gap-4 justify-center"
+          class="hero-animate-cta flex flex-col sm:flex-row gap-4 justify-center"
         >
           <NuxtLink
             :to="ctaLink"
@@ -83,8 +83,8 @@ const props = withDefaults(defineProps<HeroProps>(), {
   subheadline: 'Comprehensive structural engineering services standing the test of time',
   ctaText: "Let's Talk",
   ctaLink: '/contact',
-  backgroundImage: '/images/hero/toronto-marina-1920w.jpg',
-  backgroundAlt: 'Waterfront development with scenic city skyline views',
+  backgroundImage: '/images/hero/yellow-crane-1920w.jpg',
+  backgroundAlt: 'Yellow construction crane against blue sky representing structural engineering expertise',
   showCta: true
 })
 
@@ -145,6 +145,43 @@ a:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-shimmer {
+    animation: none;
+  }
+}
+
+/* Entrance animations for hero content */
+.hero-animate-headline {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.7s ease-out 0.2s forwards;
+}
+
+.hero-animate-subheadline {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.7s ease-out 0.4s forwards;
+}
+
+.hero-animate-cta {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.7s ease-out 0.6s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect prefers-reduced-motion for entrance animations */
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate-headline,
+  .hero-animate-subheadline,
+  .hero-animate-cta {
+    opacity: 1;
+    transform: translateY(0);
     animation: none;
   }
 }
