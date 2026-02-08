@@ -352,6 +352,11 @@
 </template>
 
 <script setup lang="ts">
+// Route meta for screen reader announcements
+definePageMeta({
+  title: 'Projects'
+})
+
 // SEO Meta Tags
 usePageMeta({
   title: 'Projects',
@@ -362,13 +367,19 @@ usePageMeta({
 
 const route = useRoute()
 
-// Simulate initial loading state for skeleton display
-const pending = ref(true)
-onMounted(() => {
-  // Simulate data fetching delay to show skeleton
-  setTimeout(() => {
-    pending.value = false
-  }, 800)
+// Fetch projects from WordPress API
+const { data: projectsResponse, pending } = await useFetch('/api/projects', {
+  query: {
+    _nocache: route.query.nocache ? '1' : undefined
+  }
+})
+
+const projectsData = computed(() => {
+  const response = projectsResponse.value as any
+  console.log('[Projects Page] API response:', response)
+  console.log('[Projects Page] response?.data:', response?.data)
+  console.log('[Projects Page] Is array?:', Array.isArray(response?.data))
+  return response?.data || []
 })
 
 interface Category {
@@ -402,109 +413,35 @@ const categories: Category[] = [
   { id: 'Institutional', name: 'Institutional' }
 ]
 
-const projects: Project[] = [
-  {
-    title: 'Tampa Marina Complex',
-    slug: 'tampa-marina-complex',
-    description: 'Complete structural design for a 50-slip marina with restaurant and retail spaces',
-    category: 'Marine',
-    location: 'Tampa, FL',
-    year: 2024,
-    image: '/images/project-1.jpg'
-  },
-  {
-    title: 'Downtown Office Tower',
-    slug: 'downtown-office-tower',
-    description: 'Structural steel design for 12-story commercial office building',
-    category: 'Commercial',
-    location: 'Tampa, FL',
-    year: 2023,
-    image: '/images/project-2.jpg'
-  },
-  {
-    title: 'Coastal Seawall System',
-    slug: 'coastal-seawall-system',
-    description: 'Engineered seawall protection system for luxury waterfront property',
-    category: 'Marine',
-    location: 'Clearwater, FL',
-    year: 2024,
-    image: '/images/project-3.jpg'
-  },
-  {
-    title: 'Luxury Residential Estate',
-    slug: 'luxury-residential-estate',
-    description: 'Complete structural design for 8,000 sq ft waterfront residence with pool',
-    category: 'Residential',
-    location: 'St. Petersburg, FL',
-    year: 2024,
-    image: '/images/project-4.jpg'
-  },
-  {
-    title: 'Industrial Warehouse Complex',
-    slug: 'industrial-warehouse-complex',
-    description: 'Pre-engineered metal building structure with 40,000 sq ft warehouse',
-    category: 'Industrial',
-    location: 'Brandon, FL',
-    year: 2023,
-    image: '/images/project-5.jpg'
-  },
-  {
-    title: 'School Classroom Wing',
-    slug: 'school-classroom-wing',
-    description: 'Masonry and steel design for new 2-story classroom addition',
-    category: 'Institutional',
-    location: 'Lakeland, FL',
-    year: 2023
-  },
-  {
-    title: 'Waterfront Restaurant',
-    slug: 'waterfront-restaurant',
-    description: 'Structural design for elevated restaurant with deck over water',
-    category: 'Commercial',
-    location: 'Tampa, FL',
-    year: 2024
-  },
-  {
-    title: 'Boat Storage Facility',
-    slug: 'boat-storage-facility',
-    description: 'Pre-engineered metal building for dry stack boat storage',
-    category: 'Marine',
-    location: 'Clearwater, FL',
-    year: 2023
-  },
-  {
-    title: 'Multi-Family Housing',
-    slug: 'multi-family-housing',
-    description: 'Structural design for 4-story wood frame apartment complex',
-    category: 'Residential',
-    location: 'Tampa, FL',
-    year: 2023
-  },
-  {
-    title: 'Manufacturing Plant Addition',
-    slug: 'manufacturing-plant-addition',
-    description: 'Steel frame expansion for heavy manufacturing facility',
-    category: 'Industrial',
-    location: 'Sarasota, FL',
-    year: 2024
-  },
-  {
-    title: 'Community Center',
-    slug: 'community-center',
-    description: 'Masonry and steel design for 15,000 sq ft community facility',
-    category: 'Institutional',
-    location: 'Bradenton, FL',
-    year: 2023
-  },
-  {
-    title: 'Retail Shopping Center',
-    slug: 'retail-shopping-center',
-    description: 'Structural design for strip mall with 6 retail spaces',
-    category: 'Commercial',
-    location: 'Brandon, FL',
-    year: 2024
+// Transform WordPress API data to Project interface
+const projects = computed<Project[]>(() => {
+  if (!projectsData.value || !Array.isArray(projectsData.value)) {
+    console.warn('[Projects Page] No projects data found, projectsData:', projectsData.value)
+    return []
   }
-]
+
+  return projectsData.value.map((p: any) => {
+    // Get title from rendered or raw
+    const title = p.title?.rendered || p.title || 'Project'
+    // Get excerpt and strip HTML
+    const description = p.excerpt?.rendered?.replace(/<[^>]*>/g, '') || ''
+    // Get custom fields
+    const customFields = p.custom_fields || {}
+    // Get featured image from WordPress media
+    const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
+    const imageUrl = featuredMedia?.source_url || featuredMedia?.media_details?.sizes?.medium?.source_url || ''
+
+    return {
+      title,
+      slug: p.slug || '',
+      description,
+      category: customFields.project_category || '',
+      location: customFields.project_location || '',
+      year: parseInt(customFields.project_year || '0'),
+      image: imageUrl || undefined,
+    }
+  })
+})
 
 // Initialize filters from URL query params
 const filters = reactive<Filters>({
@@ -524,13 +461,13 @@ const currentPage = ref(Number(route.query.page) || 1)
 
 // Get unique locations for filter dropdown
 const uniqueLocations = computed(() => {
-  const locations = new Set(projects.map(p => p.location))
+  const locations = new Set<string>(projects.value.map(p => p.location))
   return Array.from(locations).sort()
 })
 
 // Get unique years for filter dropdown (descending)
 const uniqueYears = computed(() => {
-  const years = new Set(projects.map(p => p.year.toString()))
+  const years = new Set<string>(projects.value.map(p => p.year.toString()))
   return Array.from(years).sort((a, b) => parseInt(b) - parseInt(a))
 })
 
@@ -651,21 +588,21 @@ function sortProjects(projectsList: Project[]): Project[] {
 
 // Filter and sort projects
 const filteredProjects = computed(() => {
-  let results = projects
+  let results = projects.value || []
 
   // Filter by category
   if (filters.category !== 'all') {
-    results = results.filter(p => p.category === filters.category)
+    results = results.filter((p: Project) => p.category === filters.category)
   }
 
   // Filter by location
   if (filters.location) {
-    results = results.filter(p => p.location === filters.location)
+    results = results.filter((p: Project) => p.location === filters.location)
   }
 
   // Filter by year
   if (filters.year) {
-    results = results.filter(p => p.year.toString() === filters.year)
+    results = results.filter((p: Project) => p.year.toString() === filters.year)
   }
 
   // Sort the results

@@ -356,6 +356,11 @@
 </template>
 
 <script setup lang="ts">
+// Route meta for screen reader announcements
+definePageMeta({
+  title: 'Contact'
+})
+
 // Breadcrumbs for SEO and navigation
 const contactBreadcrumbs = [
   { title: 'Contact' }

@@ -15,7 +15,7 @@
     <!-- Category Filter Section -->
     <AppSection bg-color="neutral-50" padding="md">
       <div class="container">
-        <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
+        <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
           <button
             v-for="category in serviceCategories"
             :key="category.id"
@@ -247,24 +247,32 @@
 </template>
 
 <script setup lang="ts">
+// Route meta for screen reader announcements
+definePageMeta({
+  title: 'Services'
+})
+
 // SEO Meta Tags
-// usePageMeta disabled temporarily to debug redirect issue
-// usePageMeta({
-//   title: 'Services',
-//   description: 'VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.',
-//   keywords: 'structural steel design, concrete design, masonry design, wood design, foundation design, seawall design, steel detailing, Tampa Bay engineering',
-//   ogImage: 'https://vp-associates.com/images/og-services.jpg',
-// })
+usePageMeta({
+  title: 'Services',
+  description: 'VP Associates provides comprehensive structural engineering services including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing in Tampa Bay.',
+  keywords: 'structural steel design, concrete design, masonry design, wood design, foundation design, seawall design, steel detailing, Tampa Bay engineering',
+  ogImage: 'https://vp-associates.com/images/og-services.jpg',
+})
 
 const route = useRoute()
 
-// Simulate initial loading state for skeleton display
-const pending = ref(true)
-onMounted(() => {
-  // Simulate data fetching delay to show skeleton
-  setTimeout(() => {
-    pending.value = false
-  }, 800)
+// Fetch services from WordPress API
+const { data: servicesResponse, pending } = await useFetch('/api/services', {
+  query: { _nocache: route.query.nocache ? '1' : undefined }
+})
+
+const servicesData = computed(() => {
+  const response = servicesResponse.value as any
+  console.log('[Services Page] API response:', response)
+  console.log('[Services Page] response?.data:', response?.data)
+  console.log('[Services Page] Is array?:', Array.isArray(response?.data))
+  return response?.data || []
 })
 
 interface ServiceCategory {
@@ -307,152 +315,36 @@ function getServiceCategory(slug: string): string | null {
   return categoryMap[slug] || null
 }
 
-const allServices: Service[] = [
-  {
-    title: 'Structural Steel Design',
-    slug: 'structural-steel-design',
-    standard: 'AISC Certified',
-    description: 'Complete structural steel design for commercial, industrial, and marine projects. From moment frames to braced frames, we deliver efficient steel solutions.',
-    icon: 'mdi:beam',
-    capabilities: [
-      'Moment frame design',
-      'Braced frame systems',
-      'Steel connection design',
-      'Metal building systems',
-      'Industrial platforms and mezzanines',
-      'Seismic load analysis'
-    ]
-  },
-  {
-    title: 'Concrete Design',
-    slug: 'concrete-design',
-    standard: 'ACI Certified',
-    description: 'Reinforced concrete design for foundations, slabs, beams, columns, and shear walls. Expertise in both cast-in-place and precast concrete systems.',
-    icon: 'mdi:cube-outline',
-    capabilities: [
-      'Foundation systems',
-      'Flat plate and flat slab design',
-      'Beam and column design',
-      'Shear wall systems',
-      'Precast concrete systems',
-      'Post-tensioned concrete'
-    ]
-  },
-  {
-    title: 'Masonry Design',
-    slug: 'masonry-design',
-    standard: 'ACI 530 Compliant',
-    description: 'Structural masonry design for load-bearing walls, partitions, and veneers. Both concrete masonry and clay masonry systems.',
-    icon: 'mdi:wall',
-    capabilities: [
-      'Load-bearing masonry walls',
-      'Masonry shear walls',
-      'Reinforced masonry design',
-      'Masonry veneer systems',
-      'Fire wall design',
-      'Masonry restoration'
-    ]
-  },
-  {
-    title: 'Wood Design',
-    slug: 'wood-design',
-    standard: 'NDS Standards',
-    description: 'Light wood frame design for residential and light commercial projects. Engineered lumber systems and traditional sawn lumber.',
-    icon: 'mdi:tree',
-    capabilities: [
-      'Light frame construction',
-      'Floor and roof truss design',
-      'Glulam and PSL beams',
-      'Cross-laminated timber',
-      'Wood shear walls',
-      'Deck and balcony design'
-    ]
-  },
-  {
-    title: 'Foundation Design',
-    slug: 'foundation-design',
-    description: 'Comprehensive foundation engineering for all structure types. Deep foundations including piles and drilled shafts, shallow foundations, and mat foundations.',
-    icon: 'mdi:home-floor-0',
-    capabilities: [
-      'Shallow foundations',
-      'Deep foundation systems',
-      'Pile foundation design',
-      'Drilled shafts',
-      'Mat foundations',
-      'Foundation retrofit and repair'
-    ]
-  },
-  {
-    title: 'Seawall Design',
-    slug: 'seawall-design',
-    description: 'Coastal protection structures including seawalls, bulkheads, and retaining walls. Expertise in Florida coastal construction requirements.',
-    icon: 'mdi:waves',
-    capabilities: [
-      'Concrete seawalls',
-      'Steel sheet pile walls',
-      'Vinyl sheet pile bulkheads',
-      'Revetment design',
-      'Coastal erosion control',
-      'Seawall repair and retrofit'
-    ]
-  },
-  {
-    title: 'Steel Connection Design',
-    slug: 'steel-connection-design',
-    description: 'Detailed steel connection design and shop drawing preparation. Standard and custom connections for all steel projects.',
-    icon: 'mdi:vector-arrange-above',
-    capabilities: [
-      'Moment connections',
-      'Shear connections',
-      'Bracing connections',
-      'Base plate design',
-      'Custom fabrications',
-      'Shop drawing preparation'
-    ]
-  },
-  {
-    title: 'CAD & 3D Modeling',
-    slug: 'cad-3d-modeling',
-    description: 'Advanced CAD and BIM modeling services for coordination and fabrication. Building information modeling for clash detection and integration.',
-    icon: 'mdi:cube-scan',
-    capabilities: [
-      'AutoCAD drafting',
-      'Revit BIM modeling',
-      '3D structural models',
-      'Clash detection coordination',
-      'Shop drawing production',
-      'As-built documentation'
-    ]
-  },
-  {
-    title: 'Inspection Services',
-    slug: 'inspection-services',
-    description: 'Professional structural inspection services for new construction, existing buildings, and forensic investigations.',
-    icon: 'mdi:magnify-scan',
-    capabilities: [
-      'Foundation inspections',
-      'Framing inspections',
-      'Steel erection observation',
-      'Concrete inspection',
-      'Structural assessments',
-      'Forensic investigations'
-    ]
-  },
-  {
-    title: 'Steel Detailing',
-    slug: 'steel-detailing',
-    description: 'Professional steel detailing using SDS2 and BIM software. Complete fabrication and erection drawings for steel fabricators.',
-    icon: 'mdi:pencil-ruler',
-    capabilities: [
-      'SDS2 detailing',
-      'BIM steel modeling',
-      'Erection drawings',
-      'Fabrication drawings',
-      'Connection calculations',
-      'Material takeoffs and bills'
-    ]
+// Transform WordPress API data to Service interface
+const allServices = computed<Service[]>(() => {
+  if (!servicesData.value || !Array.isArray(servicesData.value)) {
+    console.warn('[Services Page] No services data found, servicesData:', servicesData.value)
+    return []
   }
-]
+
+  return servicesData.value.map((s: any) => {
+    // Get title from rendered or raw
+    const title = s.title?.rendered || s.title || 'Service'
+    // Get excerpt and strip HTML
+    const excerpt = s.excerpt?.rendered?.replace(/<[^>]*>/g, '') || ''
+    // Get custom fields
+    const customFields = s.custom_fields || {}
+
+    // Parse content to extract capabilities (list items)
+    const content = s.content?.rendered || ''
+    const capabilitiesMatch = content.match(/<li[^>]*>(.*?)<\/li>/g)
+    const capabilities = capabilitiesMatch?.map((li: string) => li.replace(/<[^>]*>/g, '').trim()) || []
+
+    return {
+      title,
+      slug: s.slug || '',
+      standard: customFields.service_standard || '',
+      description: excerpt || '',
+      icon: customFields.service_icon || 'mdi:cog',
+      capabilities: capabilities.length > 0 ? capabilities : undefined,
+    }
+  })
+})
 
 // Filter state with URL initialization
 const activeCategory = ref((route.query.category as string) || 'all')
@@ -480,8 +372,9 @@ function setCategory(categoryId: string) {
 
 // Filtered services computed property
 const filteredServices = computed(() => {
-  if (activeCategory.value === 'all') return allServices
-  return allServices.filter(service =>
+  const services = allServices.value || []
+  if (activeCategory.value === 'all') return services
+  return services.filter(service =>
     getServiceCategory(service.slug) === activeCategory.value
   )
 })

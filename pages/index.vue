@@ -25,9 +25,19 @@
           </NuxtLink>
         </div>
         <div class="relative">
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center">
-            <Icon name="mdi:office-building" class="w-32 h-32 text-primary/30" />
-          </div>
+          <picture class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl block">
+            <source srcset="/images/hero/tampa-bay-sundown-640w.webp 640w, /images/hero/tampa-bay-sundown-1280w.webp 1280w, /images/hero/tampa-bay-sundown-1920w.webp 1920w" type="image/webp" sizes="(max-width: 768px) 640px, (max-width: 1024px) 1280px, 1920px">
+            <img
+              src="/images/hero/tampa-bay-sundown-1920w.jpg"
+              srcset="/images/hero/tampa-bay-sundown-640w.jpg 640w, /images/hero/tampa-bay-sundown-1280w.jpg 1280w, /images/hero/tampa-bay-sundown-1920w.jpg 1920w"
+              sizes="(max-width: 768px) 640px, (max-width: 1024px) 1280px, 1920px"
+              alt="Tampa Bay skyline at sunset - VP Associates serves the Tampa Bay area with over 30 years of structural engineering expertise"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="1920"
+              height="1080"
+            >
+          </picture>
           <!-- Floating Stats Card -->
           <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-6 max-w-xs">
             <div class="flex items-center gap-3 mb-2">
@@ -201,6 +211,11 @@
 </template>
 
 <script setup lang="ts">
+// Route meta for screen reader announcements
+definePageMeta({
+  title: 'Home'
+})
+
 // SEO Meta Tags
 usePageMeta({
   title: 'VP Associates - Structural Engineering Services Tampa Bay',

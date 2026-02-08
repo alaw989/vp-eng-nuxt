@@ -177,7 +177,7 @@
         <!-- Interactive Map -->
         <div class="order-2 md:order-1">
           <ClientOnly>
-            <TampaBayMap :service-areas="serviceAreas" />
+            <LazyTampaBayMap :service-areas="serviceAreas" />
             <template #fallback>
               <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
                 <div class="text-center">
@@ -228,6 +228,11 @@
 </template>
 
 <script setup lang="ts">
+// Route meta for screen reader announcements
+definePageMeta({
+  title: 'About'
+})
+
 // Breadcrumbs for SEO and navigation
 const aboutBreadcrumbs = [
   { title: 'About' }

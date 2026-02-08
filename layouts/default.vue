@@ -36,13 +36,13 @@
   </NuxtLayout>
 </template>
 
+<script setup lang="ts">
 /*
  * Layout transitions use 150ms cross-fade (see assets/css/main.css)
  * Layout transitions run when navigating between pages with different layouts.
  * This site uses default.vue and landing.vue layouts.
  * Both layouts must wrap <slot /> with <NuxtLayout> for transitions to work.
  */
-<script setup lang="ts">
 import { useA11yRouteAnnouncer, useAnnouncer } from '~/composables/useA11y'
 
 const mainContentRef = ref<HTMLElement | null>(null)
