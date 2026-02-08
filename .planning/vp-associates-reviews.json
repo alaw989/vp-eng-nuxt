@@ -1,0 +1,183 @@
+{
+  "business": {
+    "name": "V P & Associates Inc",
+    "address": "6399, 202 S 22nd St #209, Tampa, FL 33605",
+    "phone": "(813) 247-3835",
+    "website": "https://www.vp-associates.com/",
+    "category": "Structural Engineers"
+  },
+  "summary": {
+    "total_reviews": 15,
+    "overall_rating": 3.9,
+    "rating_distribution": {
+      "5_stars": 11,
+      "4_stars": 0,
+      "3_stars": 0,
+      "2_stars": 0,
+      "1_star": 4
+    }
+  },
+  "platforms": [
+    {
+      "platform": "Google Maps",
+      "url": "https://www.google.com/maps/place/V+P+%26+Associates+Inc/@27.947791,-82.4368069,17z/data=!4m8!3m7!1s0x88c2c4fe5141b569:0x5422074a6bbf560b!8m2!3d27.947791!4d-82.434232!9m1!1b1!16s%2Fg%2F1tc_9gbr",
+      "total_reviews": 7,
+      "average_rating": 3.3,
+      "reviews": [
+        {
+          "reviewer": "Benjamin Conte",
+          "rating": 1,
+          "text": "if you want your engineering work to be sent overseas to India or Vietnam and still miss your deadlines these are the folks to help you do it! 2 overworked and mediocre engineering techs and one beady eyed delusional owner will happily sign your contract, cash your advance check and then put your job on the back burner till the lawyers get dollar signs in their eyes. be warned, work with better people! and if one of the engineering techs reads this, get better jobs!",
+          "date": "10 years ago",
+          "source": "Google Maps"
+        },
+        {
+          "reviewer": "S Ashworth",
+          "rating": 5,
+          "text": "Awesome company! Hard working, honest and a very experienced engineer.",
+          "date": "6 years ago",
+          "source": "Google Maps"
+        },
+        {
+          "reviewer": "ALEXZIA BRANDON",
+          "rating": 1,
+          "text": "bad experiences with a moron owner",
+          "date": "7 years ago",
+          "source": "Google Maps"
+        },
+        {
+          "reviewer": "Thomas Megani",
+          "rating": 5,
+          "text": "Great to work with!",
+          "date": "a year ago",
+          "source": "Google Maps"
+        },
+        {
+          "reviewer": "Ibrahem abdul hakam",
+          "rating": 5,
+          "text": "Great expertise",
+          "date": "6 years ago",
+          "source": "Google Maps"
+        },
+        {
+          "reviewer": "Salem Ahma",
+          "rating": 1,
+          "text": "The owner is very stupid engineer. The owner thinks that he the smartest person on the planet. Very unprofessional.",
+          "date": "8 years ago",
+          "source": "Google Maps",
+          "note": "Translated from Vietnamese"
+        },
+        {
+          "reviewer": "Darla Thompson-Casteel",
+          "rating": 5,
+          "text": null,
+          "date": "8 years ago",
+          "source": "Google Maps",
+          "note": "Rating only, no text review"
+        }
+      ]
+    },
+    {
+      "platform": "Yelp",
+      "url": "https://www.yelp.com/biz/vp-and-associates-tampa",
+      "total_reviews": 0,
+      "average_rating": null,
+      "reviews": [],
+      "note": "Business listing exists but no reviews yet. Page shows 'You could be the first review for VP and Associates'"
+    },
+    {
+      "platform": "Birdeye",
+      "url": "https://reviews.birdeye.com/v-p-associates-inc-156234527369729",
+      "total_reviews": 15,
+      "average_rating": 3.9,
+      "rating_breakdown": {
+        "5_stars": 11,
+        "4_stars": 0,
+        "3_stars": 0,
+        "2_stars": 0,
+        "1_star": 4
+      },
+      "reviews": [
+        {
+          "reviewer": "John W.",
+          "rating": 5,
+          "text": "Great people to work with and very professional. Everyone is extremely responsive. I would use these engineers again.",
+          "date": "6 years ago",
+          "source": "Yellow Pages (via Birdeye)"
+        },
+        {
+          "reviewer": "Alexzia B.",
+          "rating": 1,
+          "text": "bad engineer, owner thinks he the best but reality does not seem like that. He always promise but never keep his promises.",
+          "date": "7 years ago",
+          "source": "Yellow Pages (via Birdeye)"
+        },
+        {
+          "reviewer": "Anonymous",
+          "rating": 5,
+          "text": "Great to work with!",
+          "date": "Mar 20, 2024",
+          "source": "Google (via Birdeye)",
+          "note": "Highest rated review on Birdeye"
+        },
+        {
+          "reviewer": "ALEXZIA BRANDON",
+          "rating": 1,
+          "text": "bad experiences with a moron owner",
+          "date": "Feb 3, 2019",
+          "source": "Google (via Birdeye)",
+          "note": "Lowest rated review on Birdeye"
+        }
+      ],
+      "source_breakdown": {
+        "Google": 13,
+        "Yellow Pages": 2,
+        "Birdeye": 0
+      }
+    },
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/VPASSOCIATES-119801084738623/",
+      "total_reviews": null,
+      "average_rating": null,
+      "reviews": [],
+      "note": "Facebook page exists at 'V.P.ASSOCIATES' but requires login to view reviews. Alternative page at: https://www.facebook.com/VP-Associates-Inc-288339164872340"
+    },
+    {
+      "platform": "Houzz",
+      "url": null,
+      "total_reviews": 0,
+      "average_rating": null,
+      "reviews": [],
+      "note": "No profile found on Houzz platform"
+    }
+  ],
+  "sentiment_analysis": {
+    "positive_reviews": 11,
+    "negative_reviews": 4,
+    "neutral_reviews": 0,
+    "common_positive_themes": [
+      "Professional",
+      "Responsive",
+      "Great to work with",
+      "Experienced",
+      "Honest"
+    ],
+    "common_negative_themes": [
+      "Owner behavior/attitude",
+      "Missed deadlines",
+      "Unprofessional",
+      "Broken promises",
+      "Work sent overseas"
+    ]
+  },
+  "data_collection_date": "2026-02-07",
+  "notes": [
+    "Google Maps shows 7 reviews directly on their platform",
+    "Birdeye aggregates reviews from multiple sources (Google, Yellow Pages) showing 15 total reviews",
+    "Yelp has a business listing with 0 reviews",
+    "Facebook page exists but content requires login to access",
+    "No presence found on Houzz",
+    "Rating discrepancy: Google Maps shows 3.3/5 with 7 reviews, while Birdeye shows 3.9/5 with 15 reviews (aggregating from multiple sources)"
+  ]
+}

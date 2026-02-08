@@ -87,8 +87,18 @@ export default defineEventHandler(async (event) => {
       timeout: 10000,
     })
 
+    // Debug: log response structure
+    console.log('[API /services] WordPress response type:', Array.isArray(response) ? 'array' : typeof response)
+    console.log('[API /services] Response length:', Array.isArray(response) ? response.length : 'N/A')
+    if (Array.isArray(response) && response.length > 0) {
+      console.log('[API /services] First item keys:', Object.keys(response[0]))
+      console.log('[API /services] First item has custom_fields:', 'custom_fields' in response[0])
+      console.log('[API /services] First item custom_fields:', (response[0] as any).custom_fields)
+    }
+
     // If API returns empty array or 404, use static fallback
     if (!response || (Array.isArray(response) && response.length === 0)) {
+      console.log('[API /services] Using fallback - empty or invalid response')
       return {
         success: true,
         data: staticServices,
