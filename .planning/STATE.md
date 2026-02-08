@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-02-07)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 18-04 complete - skeleton loading screens with layout matching
+**Current focus:** Phase 18-03 complete - real-time form validation with ARIA announcements
 
 ## Current Position
 
 Milestone: v1.2 Refinement
 Phase: 18 of 22 (Core Micro-interactions)
-Plan: 4 of 5 in current phase
-Status: Plan complete - skeleton loading states implemented with aria-hidden accessibility
-Last activity: 2026-02-08 — Completed 18-04: Skeleton loading screens for projects and services
+Plan: 3 of 5 in current phase
+Status: Plan complete - real-time form validation with blur/input triggers
+Last activity: 2026-02-08 — Completed 18-03: Real-time form validation
 
-Progress: [███████████████████████████░░░░] 90% (76/81 plans complete)
+Progress: [██████████████████████████░░░░░] 90% (77/81 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -27,9 +27,9 @@ Progress: [███████████████████████
 - Phase 15: Validation & Monitoring (3/3 complete)
 - Phase 16: WordPress API Integration (6/7 complete - Plan 16-03 is manual content migration)
 
-**v1.2 REFINEMENT - IN PROGRESS (14/22 planned)**
+**v1.2 REFINEMENT - IN PROGRESS (15/22 planned)**
 - Phase 17: Accessibility Foundation (5/5 complete) **PHASE COMPLETE**
-- Phase 18: Core Micro-interactions (4/5 complete)
+- Phase 18: Core Micro-interactions (5/5 complete) **PHASE COMPLETE**
 - Phase 19: Page Transitions (0/5 planned)
 - Phase 20: Advanced Micro-interactions (0/4 planned)
 - Phase 21: Known Issue Fixes (0/2 planned)
@@ -105,6 +105,10 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Playwright E2E tests validate WCAG compliance (10/11 tests passing, 1 skipped due to timing)
 
 **v1.2 Key Decisions (continued):**
+- Hand-rolled form validation over Yup/Zod per research recommendation
+- Real-time form validation: blur for first interaction, input for re-validation after errors
+- Touched tracking prevents premature validation while typing
+- ARIA live region with aria-live="polite" announces form errors to screen readers
 - Skeleton loading screens marked with aria-hidden="true" to prevent screen reader announcements
 - Skeleton layouts match content layouts exactly (aspect ratios, borders, padding) to prevent CLS
 - Simulated pending state (800ms delay) for static data pages until WordPress API integration
@@ -165,14 +169,14 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-08
-Stopped at: Completed 18-04 with skeleton loading screens
+Stopped at: Completed 18-03 with real-time form validation
 Resume file: None
 
 ## Next Steps
 
-Continue Phase 18 (Core Micro-interactions):
+Phase 18 (Core Micro-interactions) is complete. Ready for Phase 19 (Page Transitions):
 - 18-01: Button and link hover states (COMPLETE)
 - 18-02: Card hover states (COMPLETE)
-- 18-03: Form input interactions
+- 18-03: Form input interactions (COMPLETE)
 - 18-04: Skeleton loading states (COMPLETE)
-- 18-05: Focus indicators (NEXT)
+- 18-05: Focus indicators (COMPLETE)
