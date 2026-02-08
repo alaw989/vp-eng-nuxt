@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-neutral-100">
+  <div class="bg-white rounded-xl overflow-hidden border border-neutral-200">
     <!-- Image placeholder -->
     <div class="aspect-[4/3] bg-neutral-200 animate-pulse"></div>
 
@@ -18,7 +18,7 @@
       </div>
 
       <!-- Metadata -->
-      <div class="flex items-center gap-4 pt-4 border-t border-neutral-100">
+      <div class="flex items-center gap-4 pt-4 border-t border-neutral-200">
         <div class="h-4 w-24 bg-neutral-200 rounded animate-pulse"></div>
         <div class="h-4 w-16 bg-neutral-200 rounded animate-pulse"></div>
       </div>

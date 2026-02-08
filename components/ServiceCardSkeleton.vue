@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl p-8 shadow-sm border border-neutral-100">
+  <div class="bg-white rounded-xl p-8 border border-neutral-200">
     <!-- Icon placeholder -->
     <div class="w-16 h-16 bg-primary/10 rounded-xl animate-pulse mb-6"></div>
 

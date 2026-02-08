@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-neutral-200" aria-hidden="true">
+  <div class="bg-white rounded-xl overflow-hidden border border-neutral-200" aria-hidden="true">
     <!-- Photo placeholder -->
-    <div class="aspect-[3/4] bg-neutral-200 animate-pulse"></div>
+    <div class="aspect-[4/5] bg-neutral-200 animate-pulse"></div>
 
     <!-- Content -->
     <div class="p-6 space-y-3">
@@ -18,7 +18,7 @@
       </div>
 
       <!-- Contact info placeholder -->
-      <div class="flex items-center gap-2 pt-3 border-t border-neutral-100">
+      <div class="flex items-center gap-2 pt-3 border-t border-neutral-200">
         <div class="h-4 w-4 bg-neutral-200 rounded animate-pulse"></div>
         <div class="h-4 bg-neutral-200 rounded animate-pulse w-1/2"></div>
       </div>
