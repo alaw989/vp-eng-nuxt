@@ -327,7 +327,7 @@
       </div>
 
       <div class="max-w-5xl mx-auto">
-        <ServiceAreaMap />
+        <LazyServiceAreaMap />
       </div>
     </AppSection>
 
