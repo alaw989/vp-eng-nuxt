@@ -192,11 +192,14 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Hero images have explicit dimensions preventing Cumulative Layout Shift
   2. Duplicate chunks eliminated from bundle (verified via bundle analysis)
-**Plans**: TBD
+**Plans**: 2 plans
+
+**Wave Structure:**
+- Wave 1 (parallel): 21-01 (hero image fix), 21-02 (bundle deduplication)
 
 Plans:
-- [ ] 21-01: Hero image aspect ratio and dimensions
-- [ ] 21-02: Bundle deduplication and chunk optimization
+- [ ] 21-01-PLAN.md — Remove conflicting width/height from hero NuxtImg, rely on container dimensions for CLS prevention
+- [ ] 21-02-PLAN.md — Lazy-load ServiceAreaMap, configure manualChunks to split Leaflet into vendor-leaflet chunk
 
 #### Phase 22: Hero Modernization
 **Goal**: Modernize hero section based on competitive research of top engineering company websites
