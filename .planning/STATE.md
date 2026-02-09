@@ -145,6 +145,11 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Capitalized page titles (Home, About, Projects, Services, Contact) for consistent announcements
 - NuxtLayout wrapper pattern for layout transitions: Layouts must wrap slot with <NuxtLayout> for transitions to work
 - Layout transition infrastructure in place even though only default.vue is currently used (future-proofing)
+- useScrollReveal options pattern: { threshold, once, rootMargin, staggerChildren }
+- Stagger delay formula: 100ms base + 80ms per item index for visual separation
+- 600ms ease-out for stagger item transitions matches section scroll-reveal timing
+- Stagger animation pattern: .stagger-children container + .stagger-item children
+- Reduced motion pattern: preserve opacity feedback (300ms linear), disable all transforms
 
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
@@ -184,7 +189,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-09
-Stopped at: Completed 20-02-PLAN.md (StatCounter reduced motion verified)
+Stopped at: Completed 20-01-PLAN.md (Enhanced scroll animations with SUMMARY.md created)
 Resume file: None
 
 ## Next Steps
