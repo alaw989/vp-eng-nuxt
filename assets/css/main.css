@@ -82,6 +82,18 @@
   .focus-visible-ring {
     @apply focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none;
   }
+
+  /* Stagger animation utilities for scroll-triggered child animations */
+  .stagger-children .stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 600ms ease-out, transform 600ms ease-out;
+  }
+
+  .stagger-children.visible .stagger-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* High contrast focus indicators for keyboard navigation (WCAG AA) */
@@ -214,6 +226,16 @@
   .hover\:bg-neutral-100:hover,
   .hover\:text-primary-dark:hover {
     transition: background-color 300ms ease, color 300ms ease !important;
+  }
+
+  /* Stagger animation reduced motion: instant opacity, no transforms */
+  .stagger-children .stagger-item {
+    transition: opacity 300ms linear !important;
+    transform: none !important;
+  }
+
+  .stagger-children.visible .stagger-item {
+    transform: none !important;
   }
 
   /* Disable scroll animations and reduce other animations */
