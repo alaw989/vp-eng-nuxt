@@ -173,13 +173,17 @@ Plans:
   2. Stats counter animates (count-up) when visible
   3. Service filter changes layout smoothly (FLIP technique)
   4. Testimonial carousel transitions are smooth
-**Plans**: TBD
+**Plans**: 4 plans
+
+**Wave Structure:**
+- Wave 1 (parallel): 20-01 (scroll-triggered animations), 20-02 (stats counter)
+- Wave 2 (parallel): 20-03 (filter FLIP animations), 20-04 (carousel polish)
 
 Plans:
-- [ ] 20-01: Scroll-triggered animations
-- [ ] 20-02: Stats counter animation
-- [ ] 20-03: Service filter animations
-- [ ] 20-04: Testimonial carousel polish
+- [ ] 20-01-PLAN.md — Enhanced scroll-triggered animations with once, rootMargin, stagger options, and reduced-motion support
+- [ ] 20-02-PLAN.md — Add reduced-motion support to StatCounter (instant display for motion-sensitive users)
+- [ ] 20-03-PLAN.md — Implement FLIP technique for smooth service/project filter layout transitions
+- [ ] 20-04-PLAN.md — Polish testimonial carousel with 300ms transitions, card fade-in, and reduced-motion support
 
 #### Phase 21: Known Issue Fixes
 **Goal**: Resolve remaining technical debt and CLS issues
