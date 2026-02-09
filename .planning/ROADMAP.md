@@ -8,7 +8,7 @@ A modernization rebuild of vp-associates.com using Nuxt 3 headless architecture 
 
 - ✅ **v1.0 Website Modernization** - Phases 1-10 (shipped 2026-02-06) - [See archive](.planning/milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Performance Optimization & WordPress API Integration** - Phases 11-16 (shipped 2026-02-07) - [See archive](.planning/milestones/v1.1-ROADMAP.md)
-- 🚧 **v1.2 Refinement** - Phases 17-22 (in progress)
+- 🚧 **v1.2 Refinement** - Phases 17-23 (in progress)
 
 ## Phases
 
@@ -225,6 +225,24 @@ Plans:
 - [x] 22-04-PLAN.md — Add polished entrance animations and hover effects
 - [x] 22-05-PLAN.md — Comprehensive testing across devices, browsers, accessibility standards
 
+#### Phase 23: Tech Debt Cleanup
+**Goal**: Address non-blocking tech debt from milestone audit
+**Depends on**: Phase 22
+**Gap Closure**: Closes tech debt from v1.2-MILESTONE-AUDIT.md
+**Success Criteria** (what must be TRUE):
+  1. usePageTransition composable is either consumed by CSS variables or removed
+  2. Phase 17 has VERIFICATION.md documenting accessibility compliance
+  3. Pre-commit Lighthouse hook has appropriate threshold for test environment
+**Plans**: 3 plans
+
+**Wave Structure:**
+- Wave 1 (parallel): 23-01 (usePageTransition), 23-02 (verification doc), 23-03 (Lighthouse threshold)
+
+Plans:
+- [ ] 23-01-PLAN.md — Wire usePageTransition to CSS custom properties or remove if unnecessary
+- [ ] 23-02-PLAN.md — Create Phase 17 VERIFICATION.md documenting accessibility compliance
+- [ ] 23-03-PLAN.md — Adjust Lighthouse pre-commit threshold for test environment limitations
+
 ## Progress
 
 **Execution Order:**
@@ -254,5 +272,6 @@ Phases execute in numeric order: 17 → 18 → 19 → 20 → 21 → 22
 | 20. Advanced Micro-interactions | v1.2 | 4/4 | Complete | 2026-02-09 |
 | 21. Known Issue Fixes | v1.2 | 2/2 | Complete | 2026-02-09 |
 | 22. Hero Modernization | v1.2 | 5/5 | Complete | 2026-02-08 |
+| 23. Tech Debt Cleanup | v1.2 | 0/3 | Pending | - |
 
-**Overall Progress:** 86/86 plans complete (100%) - Plan 16-03 is manual content migration by user
+**Overall Progress:** 86/89 plans complete (97%) - Plan 16-03 is manual content migration by user

@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-02-07)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 21 COMPLETE - Known issue fixes implemented (hero CLS, bundle deduplication)
+**Current focus:** Phase 23 (Tech Debt Cleanup) - Address non-blocking tech debt from milestone audit
 
 ## Current Position
 
 Milestone: v1.2 Refinement
-Phase: 21 of 22 (Known Issue Fixes)
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-02-09 — Completed Phase 21: Hero CLS fix + Leaflet lazy loading
+Phase: 23 of 23 (Tech Debt Cleanup)
+Plan: 0 of 3 in current phase
+Status: Planning
+Last activity: 2026-02-09 — Created Phase 23 from audit tech debt items
 
-Progress: [████████████████████████████████] 100% (86/86 plans complete)
+Progress: [███████████████████████████████░] 97% (86/89 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -34,6 +34,7 @@ Progress: [███████████████████████
 - Phase 20: Advanced Micro-interactions (4/4 complete) **PHASE COMPLETE**
 - Phase 21: Known Issue Fixes (2/2 complete) **PHASE COMPLETE**
 - Phase 22: Hero Modernization (5/5 complete) **PHASE COMPLETE**
+- Phase 23: Tech Debt Cleanup (0/3 pending) **PLANNING**
 
 ## Performance Metrics
 
@@ -197,13 +198,11 @@ Resume file: None
 
 ## Next Steps
 
-Phase 21 COMPLETE:
-- 21-01: Hero image CLS fix COMPLETE (width/height removed, container dimensions prevent CLS)
-- 21-02: Leaflet lazy loading COMPLETE (LazyServiceAreaMap + vendor-leaflet chunk)
-
-**v1.2 REFINEMENT MILESTONE COMPLETE!**
-All 22 phases finished. Ready for milestone audit.
+Phase 23 PENDING (Tech Debt Cleanup):
+- 23-01: Wire or remove usePageTransition composable
+- 23-02: Create Phase 17 VERIFICATION.md
+- 23-03: Adjust Lighthouse pre-commit threshold
 
 Continue with:
-- `/gsd:audit-milestone` — verify requirements, cross-phase integration, E2E flows
-- `/gsd:complete-milestone` — archive and prepare for next version
+- `/gsd:plan-phase 23` — create detailed plans for tech debt cleanup
+- `/gsd:execute-phase 23` — execute after planning
