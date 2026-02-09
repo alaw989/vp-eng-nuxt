@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { useScrollReveal } from '~/composables/useScrollReveal'
+import { usePreferredReducedMotion } from '@vueuse/core'
 
 interface Props {
   value: number
@@ -33,9 +34,10 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const counterRef = ref<HTMLElement>()
-const { target, isVisible } = useScrollReveal(0.1)
+const { target, isVisible } = useScrollReveal({ threshold: 0.1 })
 const animatedValue = ref(0)
 const hasAnimated = ref(false)
+const prefersReducedMotion = usePreferredReducedMotion()
 
 const displayValue = computed(() => {
   return props.prefix + animatedValue.value.toFixed(props.decimals)
@@ -52,11 +54,16 @@ const formattedValue = computed(() => {
 })
 
 const animate = () => {
-  if (hasAnimated.value) return
+  if (hasAnimated.value || prefersReducedMotion.value) {
+    if (prefersReducedMotion.value) {
+      animatedValue.value = props.value // Instant display for reduced-motion users
+    }
+    return
+  }
 
   hasAnimated.value = true
   const startTime = performance.now()
-  const startValue = 0
+  const startValue = animatedValue.value
   const endValue = props.value
 
   const updateCounter = (currentTime: number) => {
@@ -99,5 +106,12 @@ watch(isVisible, (visible) => {
 .stat-item.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-item {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+  }
 }
 </style>

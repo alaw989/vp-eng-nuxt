@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const sectionRef = ref<HTMLElement>()
-const { target, isVisible } = useScrollReveal(0.15)
+const { target, isVisible } = useScrollReveal({ threshold: 0.15 })
 
 // Sync target with sectionRef for scroll animation
 watchEffect(() => {
