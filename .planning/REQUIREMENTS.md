@@ -36,10 +36,10 @@ Requirements for the refinement milestone. Each maps to roadmap phases.
 - [ ] **MICRO-04**: Form validation feedback (real-time visual + ARIA)
 - [ ] **MICRO-05**: Loading states (skeleton screens for async content)
 - [ ] **MICRO-06**: Focus indicators visible (high contrast focus rings)
-- [ ] **MICRO-07**: Scroll-triggered animations (Intersection Observer)
-- [ ] **MICRO-08**: Stats counter animation (count-up when in viewport)
-- [ ] **MICRO-09**: Service filter animations (smooth layout changes)
-- [ ] **MICRO-10**: Testimonial carousel interactions (smooth transitions)
+- [x] **MICRO-07**: Scroll-triggered animations (Intersection Observer)
+- [x] **MICRO-08**: Stats counter animation (count-up when in viewport)
+- [x] **MICRO-09**: Service filter animations (smooth layout changes)
+- [x] **MICRO-10**: Testimonial carousel interactions (smooth transitions)
 
 ### Known Issue Fixes
 
@@ -100,10 +100,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRANS-04 | Phase 19 | Pending |
 | TRANS-05 | Phase 19 | Pending |
 | TRANS-06 | Phase 19 | Pending |
-| MICRO-07 | Phase 20 | Pending |
-| MICRO-08 | Phase 20 | Pending |
-| MICRO-09 | Phase 20 | Pending |
-| MICRO-10 | Phase 20 | Pending |
+| MICRO-07 | Phase 20 | Complete |
+| MICRO-08 | Phase 20 | Complete |
+| MICRO-09 | Phase 20 | Complete |
+| MICRO-10 | Phase 20 | Complete |
 | FIX-01 | Phase 21 | Pending |
 | FIX-02 | Phase 21 | Pending |
 

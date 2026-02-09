@@ -180,10 +180,10 @@ Plans:
 - Wave 2 (parallel): 20-03 (filter FLIP animations), 20-04 (carousel polish)
 
 Plans:
-- [ ] 20-01-PLAN.md — Enhanced scroll-triggered animations with once, rootMargin, stagger options, and reduced-motion support
-- [ ] 20-02-PLAN.md — Add reduced-motion support to StatCounter (instant display for motion-sensitive users)
-- [ ] 20-03-PLAN.md — Implement FLIP technique for smooth service/project filter layout transitions
-- [ ] 20-04-PLAN.md — Polish testimonial carousel with 300ms transitions, card fade-in, and reduced-motion support
+- [x] 20-01-PLAN.md — Enhanced scroll-triggered animations with once, rootMargin, stagger options, and reduced-motion support
+- [x] 20-02-PLAN.md — Add reduced-motion support to StatCounter (instant display for motion-sensitive users)
+- [x] 20-03-PLAN.md — Implement FLIP technique for smooth service/project filter layout transitions
+- [x] 20-04-PLAN.md — Polish testimonial carousel with 300ms transitions, card fade-in, and reduced-motion support
 
 #### Phase 21: Known Issue Fixes
 **Goal**: Resolve remaining technical debt and CLS issues
@@ -248,8 +248,8 @@ Phases execute in numeric order: 17 → 18 → 19 → 20 → 21 → 22
 | 17. Accessibility Foundation | v1.2 | 5/5 | Complete | 2026-02-07 |
 | 18. Core Micro-interactions | v1.2 | 5/5 | Complete | 2026-02-08 |
 | 19. Page Transitions | v1.2 | 5/5 | Complete | 2026-02-08 |
-| 20. Advanced Micro-interactions | v1.2 | 0/4 | Not started | - |
+| 20. Advanced Micro-interactions | v1.2 | 4/4 | Complete | 2026-02-09 |
 | 21. Known Issue Fixes | v1.2 | 0/2 | Not started | - |
 | 22. Hero Modernization | v1.2 | 5/5 | Complete | 2026-02-08 |
 
-**Overall Progress:** 79/86 plans complete (92%) - Plan 16-03 is manual content migration by user
+**Overall Progress:** 84/86 plans complete (98%) - Plan 16-03 is manual content migration by user
