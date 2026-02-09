@@ -198,8 +198,8 @@ Plans:
 - Wave 1 (parallel): 21-01 (hero image fix), 21-02 (bundle deduplication)
 
 Plans:
-- [ ] 21-01-PLAN.md — Remove conflicting width/height from hero NuxtImg, rely on container dimensions for CLS prevention
-- [ ] 21-02-PLAN.md — Lazy-load ServiceAreaMap, configure manualChunks to split Leaflet into vendor-leaflet chunk
+- [x] 21-01-PLAN.md — Remove conflicting width/height from hero NuxtImg, rely on container dimensions for CLS prevention
+- [x] 21-02-PLAN.md — Lazy-load ServiceAreaMap, configure manualChunks to split Leaflet into vendor-leaflet chunk
 
 #### Phase 22: Hero Modernization
 **Goal**: Modernize hero section based on competitive research of top engineering company websites
@@ -252,7 +252,7 @@ Phases execute in numeric order: 17 → 18 → 19 → 20 → 21 → 22
 | 18. Core Micro-interactions | v1.2 | 5/5 | Complete | 2026-02-08 |
 | 19. Page Transitions | v1.2 | 5/5 | Complete | 2026-02-08 |
 | 20. Advanced Micro-interactions | v1.2 | 4/4 | Complete | 2026-02-09 |
-| 21. Known Issue Fixes | v1.2 | 0/2 | Not started | - |
+| 21. Known Issue Fixes | v1.2 | 2/2 | Complete | 2026-02-09 |
 | 22. Hero Modernization | v1.2 | 5/5 | Complete | 2026-02-08 |
 
-**Overall Progress:** 84/86 plans complete (98%) - Plan 16-03 is manual content migration by user
+**Overall Progress:** 86/86 plans complete (100%) - Plan 16-03 is manual content migration by user

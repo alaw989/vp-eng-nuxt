@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-02-07)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 20 COMPLETE - All advanced micro-interactions implemented
+**Current focus:** Phase 21 COMPLETE - Known issue fixes implemented (hero CLS, bundle deduplication)
 
 ## Current Position
 
 Milestone: v1.2 Refinement
-Phase: 20 of 22 (Advanced Micro-interactions)
-Plan: 4 of 4 in current phase
+Phase: 21 of 22 (Known Issue Fixes)
+Plan: 2 of 2 in current phase
 Status: Phase complete
-Last activity: 2026-02-09 — Completed 20-04: TestimonialsSlider polish with 300ms transitions
+Last activity: 2026-02-09 — Completed Phase 21: Hero CLS fix + Leaflet lazy loading
 
-Progress: [█████████████████████████████░░] 98% (84/86 plans complete)
+Progress: [████████████████████████████████] 100% (86/86 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -32,7 +32,7 @@ Progress: [███████████████████████
 - Phase 18: Core Micro-interactions (5/5 complete) **PHASE COMPLETE**
 - Phase 19: Page Transitions (5/5 complete) **PHASE COMPLETE**
 - Phase 20: Advanced Micro-interactions (4/4 complete) **PHASE COMPLETE**
-- Phase 21: Known Issue Fixes (0/2 planned)
+- Phase 21: Known Issue Fixes (2/2 complete) **PHASE COMPLETE**
 - Phase 22: Hero Modernization (5/5 complete) **PHASE COMPLETE**
 
 ## Performance Metrics
@@ -72,11 +72,11 @@ Progress: [███████████████████████
 | 22    | 5     | 5        | ~10 min  |
 | 19    | 5     | 5        | ~5 min   |
 | 20    | 4     | 4        | ~5 min   |
-| 21    | 2     | 0        | -        |
+| 21    | 2     | 2        | ~3 min   |
 
 **Recent Trend:**
-- Last milestone: Phase 20 complete (all advanced micro-interactions implemented)
-- Trend: Ready for Phase 21 - Known Issue Fixes
+- Last milestone: Phase 21 complete (hero CLS fix, Leaflet lazy loading)
+- Trend: v1.2 Refinement COMPLETE - All 22 phases finished!
 
 *Updated: 2026-02-09*
 
@@ -192,17 +192,18 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-09
-Stopped at: Completed 20-04-PLAN.md (TestimonialsSlider polish with SUMMARY.md created)
+Stopped at: Completed Phase 21 (Known Issue Fixes)
 Resume file: None
 
 ## Next Steps
 
-Phase 20 COMPLETE:
-- 20-01: useScrollReveal enhancements COMPLETE
-- 20-02: StatCounter reduced motion COMPLETE (verified existing implementation)
-- 20-03: FLIP filter transitions COMPLETE (user verified)
-- 20-04: TestimonialsSlider polish COMPLETE (user verified)
+Phase 21 COMPLETE:
+- 21-01: Hero image CLS fix COMPLETE (width/height removed, container dimensions prevent CLS)
+- 21-02: Leaflet lazy loading COMPLETE (LazyServiceAreaMap + vendor-leaflet chunk)
 
-Continue with v1.2 refinement phases:
-- Phase 20: Advanced Micro-interactions (4/4 complete) **PHASE COMPLETE**
-- Phase 21: Known Issue Fixes (0/2 planned) - NEXT
+**v1.2 REFINEMENT MILESTONE COMPLETE!**
+All 22 phases finished. Ready for milestone audit.
+
+Continue with:
+- `/gsd:audit-milestone` — verify requirements, cross-phase integration, E2E flows
+- `/gsd:complete-milestone` — archive and prepare for next version
