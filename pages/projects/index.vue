@@ -220,7 +220,7 @@
       </div>
 
       <!-- Projects Grid -->
-      <div v-else-if="paginatedProjects.length > 0" :id="'projects-grid'" :class="[
+      <div ref="projectsContainer" v-else-if="paginatedProjects.length > 0" :id="'projects-grid'" :class="[
         'grid gap-6 transition-all duration-300',
         viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]">
@@ -352,10 +352,15 @@
 </template>
 
 <script setup lang="ts">
+import { useFilterTransition } from '~/composables/useFilterTransition'
+
 // Route meta for screen reader announcements
 definePageMeta({
   title: 'Projects'
 })
+
+// FLIP animation for filter transitions
+const { containerRef: projectsContainer, animateFilter } = useFilterTransition()
 
 // SEO Meta Tags
 usePageMeta({
@@ -614,6 +619,11 @@ const paginatedProjects = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage
   const end = start + itemsPerPage
   return filteredProjects.value.slice(start, end)
+})
+
+// Trigger FLIP animation when paginated projects change
+watch(paginatedProjects, async (newProjects) => {
+  await animateFilter(newProjects)
 })
 
 // Total pages

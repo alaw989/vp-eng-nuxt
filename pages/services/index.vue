@@ -55,7 +55,7 @@
       </div>
 
       <!-- Services Grid -->
-      <div v-else-if="filteredServices.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div ref="servicesContainer" v-else-if="filteredServices.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
           v-for="service in filteredServices"
           :key="service.slug"
@@ -247,10 +247,15 @@
 </template>
 
 <script setup lang="ts">
+import { useFilterTransition } from '~/composables/useFilterTransition'
+
 // Route meta for screen reader announcements
 definePageMeta({
   title: 'Services'
 })
+
+// FLIP animation for filter transitions
+const { containerRef: servicesContainer, animateFilter } = useFilterTransition()
 
 // SEO Meta Tags
 usePageMeta({
@@ -377,6 +382,11 @@ const filteredServices = computed(() => {
   return services.filter(service =>
     getServiceCategory(service.slug) === activeCategory.value
   )
+})
+
+// Trigger FLIP animation when filtered services change
+watch(filteredServices, async (newServices) => {
+  await animateFilter(newServices)
 })
 
 // ItemList Schema for services listing (must be after allServices is defined)
