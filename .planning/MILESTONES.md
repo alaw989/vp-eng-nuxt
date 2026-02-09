@@ -1,5 +1,36 @@
 # Project Milestones: VP Associates Website Modernization
 
+## v1.2 Refinement (Shipped: 2026-02-09)
+
+**Delivered:** Polished UX with WCAG 2.1 AA accessibility, smooth page transitions, responsive micro-interactions, modernized static hero, and all known issues resolved.
+
+**Phases completed:** 17-23 (29 plans total)
+
+**Key accomplishments:**
+
+- WCAG 2.1 AA accessibility with @nuxt/a11y, keyboard navigation, focus management, and screen reader support
+- 150ms page transitions with directional slide effects and reduced motion support
+- Micro-interactions: 300ms hover states, card lifts, skeleton loading, scroll-triggered animations
+- Modernized static hero replacing 9-slide carousel with construction-focused imagery
+- Real-time form validation with ARIA live regions
+- Bundle optimization: Leaflet lazy-loaded into vendor chunk, dead code removed
+- 28 E2E tests passing, Lighthouse accessibility 93/100
+
+**Stats:**
+
+- 7 phases, 29 plans complete
+- ~8,800 net new lines of code
+- 3 days from start to ship (Feb 7-9, 2026)
+- 81 commits in milestone
+
+**Git range:** `v1.1` → `9315310`
+
+**What's next:** Visual consistency improvements, additional polish, or new features
+
+---
+
+*See .planning/milestones/v1.2-ROADMAP.md for full milestone details*
+
 ## v1.1 Performance Optimization & WordPress API Integration (Shipped: 2026-02-07)
 
 **Delivered:** Performance optimizations achieving measurement-driven improvements and WordPress headless architecture with live API integration.

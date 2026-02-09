@@ -2,18 +2,18 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-07)
+See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Phase 23 (Tech Debt Cleanup) - Address non-blocking tech debt from milestone audit
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Milestone: v1.2 Refinement
-Phase: 23 of 23 (Tech Debt Cleanup)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-02-09 — Completed 23-03-PLAN.md (Lighthouse performance threshold)
+Milestone: v1.2 Refinement — COMPLETE
+Phase: All 23 phases complete
+Plan: All 89 plans complete
+Status: Ready for next milestone
+Last activity: 2026-02-09 — v1.2 milestone archived
 
 Progress: [████████████████████████████████] 100% (89/89 plans complete)
 
@@ -199,12 +199,7 @@ Resume file: None
 
 ## Next Steps
 
-Phase 23 COMPLETE (Tech Debt Cleanup):
-- [x] 23-01: Remove usePageTransition composable - COMPLETE
-- [x] 23-02: Create Phase 17 VERIFICATION.md - COMPLETE
-- [x] 23-03: Adjust Lighthouse pre-commit threshold - COMPLETE
-
-v1.2 MILESTONE COMPLETE - All 23 phases finished!
+v1.2 MILESTONE ARCHIVED - Tagged v1.2
 
 Continue with:
-- `/gsd:complete-milestone` — archive and prepare for next milestone
+- `/gsd:new-milestone` — start next milestone (questioning → research → requirements → roadmap)
