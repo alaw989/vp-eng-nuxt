@@ -166,9 +166,20 @@ export default defineNuxtConfig({
 
   // Build configuration for bundle optimization
   vite: {
-    // Optimize chunk size warning limit
     build: {
       chunkSizeWarningLimit: 500,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              // Split Leaflet into its own chunk (loaded lazily with ServiceAreaMap)
+              if (id.includes('leaflet')) {
+                return 'vendor-leaflet'
+              }
+            }
+          }
+        }
+      }
     },
   },
 
