@@ -5,7 +5,7 @@
       'section',
       bgColorClass,
       paddingClass,
-      { 'scroll-reveal': animateOnScroll, visible: isVisible }
+      { 'scroll-reveal': animateOnScroll, visible: isVisible, 'stagger-children': staggerChildren }
     ]"
   >
     <div :class="containerClass">
@@ -22,17 +22,24 @@ interface Props {
   container?: boolean | 'narrow' | 'wide'
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl'
   animateOnScroll?: boolean
+  staggerChildren?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   bgColor: 'white',
   container: true,
   padding: 'lg',
-  animateOnScroll: false
+  animateOnScroll: false,
+  staggerChildren: false
 })
 
 const sectionRef = ref<HTMLElement>()
-const { target, isVisible } = useScrollReveal({ threshold: 0.15 })
+const { target, isVisible, hasRevealed } = useScrollReveal({
+  threshold: 0.15,
+  once: true,
+  rootMargin: '-50px',
+  staggerChildren: props.staggerChildren
+})
 
 // Sync target with sectionRef for scroll animation
 watchEffect(() => {
@@ -83,5 +90,18 @@ const paddingClass = computed(() => {
 .section.scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Reduced motion support for scroll animations */
+@media (prefers-reduced-motion: reduce) {
+  .section.scroll-reveal {
+    transition: opacity 300ms linear;
+    transform: none !important;
+  }
+
+  .section.scroll-reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
 }
 </style>
