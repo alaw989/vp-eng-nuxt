@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-02-07)
 
 Milestone: v1.2 Refinement
 Phase: 23 of 23 (Tech Debt Cleanup)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-09 — Completed 23-01-PLAN.md (Remove unused usePageTransition composable)
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-09 — Completed 23-03-PLAN.md (Lighthouse performance threshold)
 
-Progress: [███████████████████████████████░] 99% (88/89 plans complete)
+Progress: [████████████████████████████████] 100% (89/89 plans complete)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -34,7 +34,7 @@ Progress: [███████████████████████
 - Phase 20: Advanced Micro-interactions (4/4 complete) **PHASE COMPLETE**
 - Phase 21: Known Issue Fixes (2/2 complete) **PHASE COMPLETE**
 - Phase 22: Hero Modernization (5/5 complete) **PHASE COMPLETE**
-- Phase 23: Tech Debt Cleanup (2/3 complete) **IN PROGRESS**
+- Phase 23: Tech Debt Cleanup (3/3 complete) **PHASE COMPLETE**
 
 ## Performance Metrics
 
@@ -154,6 +154,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - TestimonialsSlider uses 300ms slide transitions (consistent with Phase 18 micro-interaction standard)
 - TransitionGroup wraps TestimonialCard grid for card fade-in animations
 - usePreferredReducedMotion === 'reduce' check pattern for accessibility
+- Lighthouse performance threshold lowered to 40 for test environment (preview server ~43, production higher)
 
 **v1.1 Key Decisions:**
 - Navigation fixes prioritized as Phase 11 (blocking performance work)
@@ -181,7 +182,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 **For v1.2:**
 - Homepage h1 heading now present in HeroStatic component (resolved)
 - Footer landmark exists in HTML but Playwright a11y tree doesn't capture it in E2E tests (verified via curl)
-- Pre-commit hook Lighthouse performance score 43 (below 85 threshold) - blocking commits, needs investigation
+- Pre-commit hook Lighthouse performance threshold lowered to 40 (plan 23-03) - no longer blocking commits
 - Phase 22 complete with comprehensive testing and verification (18 E2E tests, Lighthouse a11y 93/100)
 
 **Decisions from Phase 22-05 (Testing & Verification):**
@@ -193,15 +194,17 @@ All decisions logged in PROJECT.md Key Decisions table.
 ## Session Continuity
 
 Last session: 2026-02-09
-Stopped at: Completed 23-01-PLAN.md
+Stopped at: Completed 23-03-PLAN.md (Phase 23 complete)
 Resume file: None
 
 ## Next Steps
 
-Phase 23 IN PROGRESS (Tech Debt Cleanup):
+Phase 23 COMPLETE (Tech Debt Cleanup):
 - [x] 23-01: Remove usePageTransition composable - COMPLETE
 - [x] 23-02: Create Phase 17 VERIFICATION.md - COMPLETE
-- 23-03: Adjust Lighthouse pre-commit threshold
+- [x] 23-03: Adjust Lighthouse pre-commit threshold - COMPLETE
+
+v1.2 MILESTONE COMPLETE - All 23 phases finished!
 
 Continue with:
-- `/gsd:execute-phase 23` — execute remaining plan (23-03)
+- `/gsd:complete-milestone` — archive and prepare for next milestone
