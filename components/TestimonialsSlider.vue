@@ -8,7 +8,8 @@
     <div class="overflow-hidden">
       <div
         ref="trackRef"
-        class="flex transition-transform duration-500 ease-out"
+        class="flex"
+        :class="prefersReducedMotion === 'reduce' ? '' : 'transition-transform duration-300 ease-out'"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
       >
         <!-- Slides -->
@@ -17,7 +18,7 @@
           :key="slideIndex"
           class="w-full flex-shrink-0 px-1"
         >
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <TransitionGroup name="card-fade" tag="div" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TestimonialCard
               v-for="testimonial in slide"
               :key="testimonial.quote + testimonial.author"
@@ -27,7 +28,7 @@
               :role="testimonial.role"
               :avatar="testimonial.avatar"
             />
-          </div>
+          </TransitionGroup>
         </div>
       </div>
     </div>
@@ -80,6 +81,8 @@
 </template>
 
 <script setup lang="ts">
+import { usePreferredReducedMotion } from '@vueuse/core'
+
 interface Testimonial {
   quote: string
   author: string
@@ -96,6 +99,9 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   itemsPerSlide: 3
 })
+
+// Reduced motion detection
+const prefersReducedMotion = usePreferredReducedMotion()
 
 // Determine items per slide based on breakpoint
 const getItemsPerSlide = () => {
@@ -203,5 +209,25 @@ section:focus {
 section:focus-visible {
   outline: 2px solid rgb(30 64 175);
   outline-offset: 2px;
+}
+
+/* Card fade-in animation */
+.card-fade-enter-active {
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.card-fade-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .card-fade-enter-active {
+    transition: opacity 150ms linear;
+  }
+  .card-fade-enter-from {
+    transform: none;
+  }
 }
 </style>
