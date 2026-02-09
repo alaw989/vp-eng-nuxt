@@ -11,6 +11,9 @@
         transform: `translateY(${parallaxOffset}px)`
       } : {}"
     >
+      <!-- NOTE: width/height intentionally omitted - parent container (h-[80vh] min-h-[600px]) prevents CLS.
+           Adding width/height would cause Lighthouse "incorrect aspect ratio" warning since
+           actual image (1920x1441) differs from any declared dimensions. -->
       <NuxtImg
         :src="backgroundImage"
         :alt="backgroundAlt"
@@ -22,8 +25,6 @@
         format="webp"
         loading="eager"
         fetchpriority="high"
-        width="1920"
-        height="1080"
         :modifiers="{ quality: 85 }"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
       />
