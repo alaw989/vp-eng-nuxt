@@ -29,7 +29,10 @@ VP Associates has a fast, modern, SEO-optimized website that's easy to maintain 
 
 ### Active
 
-*All v1.0-v1.2 requirements complete. Ready for next milestone.*
+**v1.3 CMS Control Expansion** — Header navigation and footer content managed via WordPress
+
+- [ ] **Header Navigation** — Navigation links fetched from WordPress menu API
+- [ ] **Footer Content** — Footer links, contact info, and social links from WordPress
 
 ### v1.2 Validated (Complete)
 
@@ -61,6 +64,18 @@ VP Associates has a fast, modern, SEO-optimized website that's easy to maintain 
 - **New features beyond live site** — Current scope is parity with vp-associates.com unless specific gaps identified
 - **Brand redesign** — Preserving existing brand identity, modernizing technical implementation only
 - **Advanced performance** — Edge deployment, islands architecture, Partytown deferred to future milestones
+
+## Current Milestone: v1.3 CMS Control Expansion
+
+**Goal:** Enable content editors to manage header navigation and footer content through WordPress without code changes.
+
+**Target features:**
+- Header navigation from WordPress menu API
+- Footer links/content from WordPress (social links, quick links, contact info)
+
+**Why this matters:** Extends the headless philosophy — WordPress manages all content, Nuxt renders it. Future nav/footer changes won't require deployments.
+
+---
 
 ## Current State (v1.2 Complete)
 
@@ -148,4 +163,4 @@ No urgency or deadline. Methodical section-by-section improvement. Each section 
 - **v1.0:** Website modernization with full section polish. All 10 phases executed (55 plans complete).
 
 ---
-*Last updated: 2026-02-09 after v1.2 milestone completion*
+*Last updated: 2026-02-10 after v1.3 milestone started*

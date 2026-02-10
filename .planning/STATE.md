@@ -2,20 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-09)
+See: .planning/PROJECT.md (updated 2026-02-10)
 
 **Core value:** VP Associates has a fast, modern, SEO-optimized website that's easy to maintain and incrementally improve through methodical, section-by-section refinement.
-**Current focus:** Planning next milestone
+**Current focus:** v1.3 CMS Control Expansion
 
 ## Current Position
 
-Milestone: v1.2 Refinement — COMPLETE
-Phase: All 23 phases complete
-Plan: All 89 plans complete
-Status: Ready for next milestone
-Last activity: 2026-02-09 — v1.2 milestone archived
+Milestone: v1.3 CMS Control Expansion
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-10 — Milestone v1.3 started
 
-Progress: [████████████████████████████████] 100% (89/89 plans complete)
+Progress: [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 0% (new milestone)
 
 **v1.0 WEBSITE MODERNIZATION - COMPLETE (55/55 plans) - Shipped 2026-02-06**
 
@@ -199,7 +199,9 @@ Resume file: None
 
 ## Next Steps
 
-v1.2 MILESTONE ARCHIVED - Tagged v1.2
+v1.3 CMS CONTROL EXPANSION - Defining requirements
 
 Continue with:
-- `/gsd:new-milestone` — start next milestone (questioning → research → requirements → roadmap)
+- Define requirements for header navigation and footer content
+- Create roadmap with phases
+- `/gsd:plan-phase [N]` to start execution
