@@ -29,7 +29,11 @@ VP Associates has a fast, modern, SEO-optimized website that's easy to maintain 
 
 ### Active
 
-*All v1.0-v1.2 requirements complete. Ready for next milestone.*
+**v1.4 Content Parity Audit** — Systematically verify all text content from vp-associates.com is present on the new Nuxt site.
+
+- [ ] **Homepage content parity** — All headlines, value propositions, CTAs match live site
+- [ ] **Service page content parity** — All service descriptions fully migrated
+- [ ] **Project case study content parity** — All project descriptions and outcomes present
 
 ### v1.2 Validated (Complete)
 
@@ -61,6 +65,17 @@ VP Associates has a fast, modern, SEO-optimized website that's easy to maintain 
 - **New features beyond live site** — Current scope is parity with vp-associates.com unless specific gaps identified
 - **Brand redesign** — Preserving existing brand identity, modernizing technical implementation only
 - **Advanced performance** — Edge deployment, islands architecture, Partytown deferred to future milestones
+
+## Current Milestone: v1.4 Content Parity Audit
+
+**Goal:** Systematically verify all text content from the live WordPress site (vp-associates.com) is present on the new Nuxt site, fixing any gaps immediately.
+
+**Target areas:**
+- Homepage text (headlines, value propositions, CTAs)
+- Service page descriptions (all services)
+- Project case study content (descriptions, outcomes)
+
+**Approach:** Audit page-by-page, comparing live site content to new site, fixing gaps directly.
 
 ## Current State (v1.2 Complete)
 
@@ -148,4 +163,4 @@ No urgency or deadline. Methodical section-by-section improvement. Each section 
 - **v1.0:** Website modernization with full section polish. All 10 phases executed (55 plans complete).
 
 ---
-*Last updated: 2026-02-10 after v1.3 scope reconsidered (deferred)*
+*Last updated: 2026-02-11 after v1.4 Content Parity Audit milestone started*
