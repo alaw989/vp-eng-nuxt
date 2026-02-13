@@ -118,13 +118,15 @@ export default defineNuxtConfig({
     // Trailing slash normalization (WordPress used trailing slashes, Nuxt does not)
     // Note: Removed /services/, /careers/, /contact/ redirects as they were causing infinite loops
     // The NuxtLink component handles navigation without trailing slashes naturally
-    '/contact/': { redirect: { to: '/contact', statusCode: 301 } },
+    // '/contact/': { redirect: { to: '/contact', statusCode: 301 } }, // DISABLED - conflicts with page route
   },
 
   // Image optimization configuration
   image: {
     quality: 80,
-    format: ['webp', 'avif', 'jpg'],
+    // Note: Removed 'avif' from format list as it can cause srcset parsing issues
+    // in some browsers when IPX generates fallback URLs
+    format: ['webp', 'jpg'],
     screens: {
       xs: 320,
       sm: 640,
@@ -133,6 +135,9 @@ export default defineNuxtConfig({
       xl: 1280,
       xxl: 1536,
     },
+    // Ensure proper provider and densities configuration
+    provider: 'ipx',
+    densities: [1, 2],
   },
 
   // Nitro server configuration for deployment
@@ -146,7 +151,7 @@ export default defineNuxtConfig({
       '/services': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
       '/projects': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
       '/careers': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
-      '/contact': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
+      // '/contact': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } }, // DISABLED - conflicts with page route in Nuxt 4 compat
       '/search': { prerender: true, headers: { 'Cache-Control': 'public, max-age=1800' } },
       '/sitemap': { prerender: true, headers: { 'Cache-Control': 'public, max-age=86400' } },
       '/sitemap.xml': { prerender: true, headers: { 'Cache-Control': 'public, max-age=86400' } },

@@ -426,10 +426,10 @@ const projects = computed<Project[]>(() => {
   }
 
   return projectsData.value.map((p: any) => {
-    // Get title from rendered or raw
-    const title = p.title?.rendered || p.title || 'Project'
-    // Get excerpt and strip HTML
-    const description = p.excerpt?.rendered?.replace(/<[^>]*>/g, '') || ''
+    // Get title from rendered or raw, decode HTML entities
+    const title = decodeHtmlEntities(p.title?.rendered || p.title) || 'Project'
+    // Get excerpt, strip HTML, and decode HTML entities
+    const description = decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || ''
     // Get custom fields
     const customFields = p.custom_fields || {}
     // Get featured image from WordPress media
@@ -440,8 +440,8 @@ const projects = computed<Project[]>(() => {
       title,
       slug: p.slug || '',
       description,
-      category: customFields.project_category || '',
-      location: customFields.project_location || '',
+      category: decodeHtmlEntities(customFields.project_category) || '',
+      location: decodeHtmlEntities(customFields.project_location) || '',
       year: parseInt(customFields.project_year || '0'),
       image: imageUrl || undefined,
     }

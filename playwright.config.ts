@@ -32,11 +32,10 @@ export default defineConfig({
     },
   ],
 
-  // Don't auto-start server - assume it's already running or tests will handle it
-  // webServer: {
-  //   command: 'npm run build && npm run preview',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  //   timeout: 120000,
-  // },
+  webServer: {
+    command: 'npm run preview',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120000,
+  },
 });

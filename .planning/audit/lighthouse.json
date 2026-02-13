@@ -1,68 +1,14 @@
 {
   "latest": {
-    "timestamp": "2026-02-09T18:44:04.518Z",
+    "timestamp": "2026-02-11T18:57:18.816Z",
     "scores": {
-      "performance": 93,
-      "accessibility": 93,
-      "best-practices": 92,
+      "performance": 51,
+      "accessibility": 97,
+      "best-practices": 100,
       "seo": 100
     }
   },
   "history": [
-    {
-      "timestamp": "2026-02-08T01:48:06.762Z",
-      "scores": {
-        "performance": 26,
-        "accessibility": 93,
-        "best-practices": 100,
-        "seo": 100
-      }
-    },
-    {
-      "timestamp": "2026-02-08T01:50:32.668Z",
-      "scores": {
-        "performance": 28.999999999999996,
-        "accessibility": 93,
-        "best-practices": 100,
-        "seo": 100
-      }
-    },
-    {
-      "timestamp": "2026-02-08T01:55:14.703Z",
-      "scores": {
-        "performance": 28.999999999999996,
-        "accessibility": 93,
-        "best-practices": 100,
-        "seo": 100
-      }
-    },
-    {
-      "timestamp": "2026-02-08T02:21:03.936Z",
-      "scores": {
-        "performance": 40,
-        "accessibility": 93,
-        "best-practices": 100,
-        "seo": 100
-      }
-    },
-    {
-      "timestamp": "2026-02-08T02:30:00.976Z",
-      "scores": {
-        "performance": 38,
-        "accessibility": 93,
-        "best-practices": 100,
-        "seo": 100
-      }
-    },
-    {
-      "timestamp": "2026-02-08T02:47:36.181Z",
-      "scores": {
-        "performance": 0,
-        "accessibility": 0,
-        "best-practices": 0,
-        "seo": 0
-      }
-    },
     {
       "timestamp": "2026-02-08T02:53:33.539Z",
       "scores": {
@@ -276,6 +222,60 @@
         "performance": 93,
         "accessibility": 93,
         "best-practices": 92,
+        "seo": 100
+      }
+    },
+    {
+      "timestamp": "2026-02-09T21:03:50.297Z",
+      "scores": {
+        "performance": 41,
+        "accessibility": 93,
+        "best-practices": 96,
+        "seo": 100
+      }
+    },
+    {
+      "timestamp": "2026-02-10T15:11:29.279Z",
+      "scores": {
+        "performance": 93,
+        "accessibility": 93,
+        "best-practices": 92,
+        "seo": 100
+      }
+    },
+    {
+      "timestamp": "2026-02-10T15:21:17.087Z",
+      "scores": {
+        "performance": 93,
+        "accessibility": 93,
+        "best-practices": 92,
+        "seo": 100
+      }
+    },
+    {
+      "timestamp": "2026-02-10T16:20:24.646Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "best-practices": 0,
+        "seo": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-11T16:01:58.194Z",
+      "scores": {
+        "performance": 31,
+        "accessibility": 97,
+        "best-practices": 96,
+        "seo": 100
+      }
+    },
+    {
+      "timestamp": "2026-02-11T18:57:18.816Z",
+      "scores": {
+        "performance": 51,
+        "accessibility": 97,
+        "best-practices": 100,
         "seo": 100
       }
     }

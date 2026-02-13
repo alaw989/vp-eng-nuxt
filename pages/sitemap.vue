@@ -234,10 +234,22 @@ const resources = [
 
 // Fetch services and projects
 const servicesResult = await useInternalServices()
-const services = computed(() => servicesResult.services || [])
+const services = computed(() => {
+  const rawServices = servicesResult.services || []
+  return rawServices.map((s: any) => ({
+    ...s,
+    title: { rendered: decodeHtmlEntities(s.title?.rendered) || 'Service' },
+  }))
+})
 const pending = ref(false)
 
 const projectsResult = await useInternalProjects()
-const projects = computed(() => projectsResult.projects || [])
+const projects = computed(() => {
+  const rawProjects = projectsResult.projects || []
+  return rawProjects.map((p: any) => ({
+    ...p,
+    title: { rendered: decodeHtmlEntities(p.title?.rendered) || 'Project' },
+  }))
+})
 const projectsPending = ref(false)
 </script>

@@ -82,7 +82,26 @@ const animate = () => {
   requestAnimationFrame(updateCounter)
 }
 
-// Sync target with counterRef
+// Ensure ref is properly bound on mount
+onMounted(() => {
+  if (counterRef.value) {
+    target.value = counterRef.value
+  }
+
+  // Fallback: if element is already in view but animation hasn't started,
+  // trigger it after a short delay. This handles edge cases where
+  // IntersectionObserver may not fire due to hydration timing.
+  setTimeout(() => {
+    if (!hasAnimated.value && counterRef.value) {
+      const rect = counterRef.value.getBoundingClientRect()
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        animate()
+      }
+    }
+  }, 500)
+})
+
+// Sync target with counterRef for reactive updates
 watchEffect(() => {
   target.value = counterRef.value
 })

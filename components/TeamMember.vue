@@ -11,9 +11,8 @@
         quality="85"
         :loading="priority ? 'eager' : 'lazy'"
         :fetchpriority="priority ? 'high' : 'auto'"
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        width="800"
-        height="1000"
+        :width="400"
+        :height="500"
         :placeholder="!priority"
       />
       <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20" aria-hidden="true">

@@ -276,9 +276,9 @@ const teamData = computed(() => (teamResponse.value as any)?.data || [])
 const leadership = computed(() => {
   if (!teamData.value || !Array.isArray(teamData.value)) return []
   return teamData.value.slice(0, 4).map((member: any) => ({
-    name: member.title?.rendered || 'Team Member',
-    title: member.custom_fields?.title || ['Team']?.[0] || 'Team',
-    bio: member.custom_fields?.bio?.[0] || 'Professional structural engineer',
+    name: decodeHtmlEntities(member.title?.rendered) || 'Team Member',
+    title: decodeHtmlEntities(member.custom_fields?.title || ['Team']?.[0]) || 'Team',
+    bio: decodeHtmlEntities(member.custom_fields?.bio?.[0]) || 'Professional structural engineer',
     email: member.custom_fields?.email?.[0] || 'info@vp-associates.com',
     phone: member.custom_fields?.phone?.[0] || '+18135551234',
     photo: member.custom_fields?.photo?.[0] || '/images/team/team-1-800w.webp',

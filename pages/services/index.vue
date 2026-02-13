@@ -328,22 +328,22 @@ const allServices = computed<Service[]>(() => {
   }
 
   return servicesData.value.map((s: any) => {
-    // Get title from rendered or raw
-    const title = s.title?.rendered || s.title || 'Service'
-    // Get excerpt and strip HTML
-    const excerpt = s.excerpt?.rendered?.replace(/<[^>]*>/g, '') || ''
+    // Get title from rendered or raw, decode HTML entities
+    const title = decodeHtmlEntities(s.title?.rendered || s.title) || 'Service'
+    // Get excerpt, strip HTML, and decode HTML entities
+    const excerpt = decodeHtmlEntities(s.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || ''
     // Get custom fields
     const customFields = s.custom_fields || {}
 
-    // Parse content to extract capabilities (list items)
+    // Parse content to extract capabilities (list items), decode HTML entities
     const content = s.content?.rendered || ''
     const capabilitiesMatch = content.match(/<li[^>]*>(.*?)<\/li>/g)
-    const capabilities = capabilitiesMatch?.map((li: string) => li.replace(/<[^>]*>/g, '').trim()) || []
+    const capabilities = capabilitiesMatch?.map((li: string) => decodeHtmlEntities(li.replace(/<[^>]*>/g, '').trim())) || []
 
     return {
       title,
       slug: s.slug || '',
-      standard: customFields.service_standard || '',
+      standard: decodeHtmlEntities(customFields.service_standard) || '',
       description: excerpt || '',
       icon: customFields.service_icon || 'mdi:cog',
       capabilities: capabilities.length > 0 ? capabilities : undefined,

@@ -18,7 +18,7 @@
           </p>
           <NuxtLink
             to="/about"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Learn More About Us
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -101,7 +101,7 @@
       <div class="text-center mt-12">
         <NuxtLink
           to="/services"
-          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
+          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           View All Services
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -138,7 +138,7 @@
       <div class="text-center">
         <NuxtLink
           to="/projects"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           View All Projects
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -166,18 +166,30 @@
         </p>
       </div>
 
-      <!-- Testimonials Slider - Single row, carousel style -->
+      <!-- Testimonials Slider - ClientOnly to prevent SSR/client responsive mismatch -->
       <div class="max-w-6xl mx-auto px-4">
-        <LazyTestimonialsSlider
-          v-if="testimonials.length > 0"
-          :testimonials="testimonials"
-          :items-per-slide="3"
-        />
-        <!-- Fallback if no testimonials -->
-        <div v-else class="text-center py-12">
-          <Icon name="mdi:comment-quote-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
-          <p class="text-neutral-500">Testimonials coming soon.</p>
-        </div>
+        <ClientOnly>
+          <LazyTestimonialsSlider
+            v-if="testimonials.length > 0"
+            :testimonials="testimonials"
+            :items-per-slide="3"
+          />
+          <!-- Fallback if no testimonials -->
+          <div v-else class="text-center py-12">
+            <Icon name="mdi:comment-quote-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+            <p class="text-neutral-500">Testimonials coming soon.</p>
+          </div>
+          <template #fallback>
+            <!-- SSR placeholder matching mobile layout to minimize CLS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div v-for="i in 3" :key="i" class="bg-white rounded-xl p-8 border border-neutral-200 shadow-lg animate-pulse">
+                <div class="h-4 bg-neutral-200 rounded w-3/4 mb-4"></div>
+                <div class="h-4 bg-neutral-200 rounded w-full mb-4"></div>
+                <div class="h-4 bg-neutral-200 rounded w-1/2"></div>
+              </div>
+            </div>
+          </template>
+        </ClientOnly>
       </div>
     </AppSection>
 
@@ -258,9 +270,9 @@ const servicesData = computed(() => (servicesResponse.value as any)?.data || [])
 const services = computed(() => {
   if (!servicesData.value || !Array.isArray(servicesData.value)) return []
   return servicesData.value.slice(0, 3).map((s: any) => ({
-    title: s.title?.rendered || 'Service',
+    title: decodeHtmlEntities(s.title?.rendered) || 'Service',
     slug: s.slug || 'service',
-    description: s.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Professional structural engineering services',
+    description: decodeHtmlEntities(s.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || 'Professional structural engineering services',
     icon: s.custom_fields?.service_icon || 'mdi:cog',
   }))
 })
@@ -283,9 +295,9 @@ const carouselSlides = computed(() => {
   if (!projectsData.value || !Array.isArray(projectsData.value)) return []
   return projectsData.value.slice(0, 5).map((p: any, index: number) => ({
     id: index + 1,
-    title: p.title?.rendered || 'Project',
+    title: decodeHtmlEntities(p.title?.rendered) || 'Project',
     slug: p.slug || 'project',
-    description: p.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Structural engineering project',
+    description: decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || 'Structural engineering project',
     category: p.custom_fields?.project_category || 'Project',
     location: p.custom_fields?.project_location || 'Tampa Bay',
     year: p.custom_fields?.project_year || new Date().getFullYear().toString(),
@@ -376,10 +388,10 @@ const testimonialsData = computed(() => (testimonialsResponse.value as any)?.dat
 const testimonials = computed(() => {
   if (!testimonialsData.value || !Array.isArray(testimonialsData.value)) return []
   return testimonialsData.value.slice(0, 6).map((t: any) => ({
-    quote: t.custom_fields?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '') || 'Great service!',
-    author: t.custom_fields?.testimonial_client_name || t.title?.rendered || 'Client',
-    company: t.custom_fields?.testimonial_company || '',
-    role: t.custom_fields?.testimonial_role || '',
+    quote: decodeHtmlEntities(t.custom_fields?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '')) || 'Great service!',
+    author: decodeHtmlEntities(t.custom_fields?.testimonial_client_name || t.title?.rendered) || 'Client',
+    company: decodeHtmlEntities(t.custom_fields?.testimonial_company) || '',
+    role: decodeHtmlEntities(t.custom_fields?.testimonial_role) || '',
   }))
 })
 </script>

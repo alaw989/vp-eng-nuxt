@@ -20,9 +20,8 @@
         format="webp"
         :loading="priority ? 'eager' : 'lazy'"
         :fetchpriority="priority ? 'high' : 'auto'"
-        :sizes="viewMode === 'list' ? '(max-width: 768px) 100vw, 33vw' : '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw'"
-        :width="viewMode === 'list' ? 600 : 800"
-        :height="viewMode === 'list' ? 400 : 600"
+        :width="800"
+        :height="600"
         :placeholder="!priority"
       />
       <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20" aria-hidden="true">

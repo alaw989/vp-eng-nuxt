@@ -24,28 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import L, { type LatLngExpression } from 'leaflet'
-
-// Fix for default marker icons in Leaflet with webpack/vite
-const iconRetinaUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png'
-const iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png'
-const shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
-
-const defaultIcon = L.icon({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-})
-
-L.Marker.prototype.options.icon = defaultIcon
+// Leaflet is imported dynamically in onMounted to avoid SSR issues
+// (Leaflet requires window which doesn't exist on the server)
 
 interface ServiceLocation {
   name: string
-  position: LatLngExpression
+  position: [number, number]
   description: string
   isMainOffice?: boolean
 }
@@ -95,14 +79,35 @@ const serviceLocations: ServiceLocation[] = [
 ]
 
 const mapContainer = ref<HTMLDivElement>()
-let map: L.Map | null = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let map: any = null
 
-onMounted(() => {
+onMounted(async () => {
   if (!mapContainer.value) return
+
+  // Dynamically import Leaflet only on client-side
+  const L = await import('leaflet')
+
+  // Fix for default marker icons in Leaflet with webpack/vite
+  const iconRetinaUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png'
+  const iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png'
+  const shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
+
+  const defaultIcon = L.icon({
+    iconRetinaUrl,
+    iconUrl,
+    shadowUrl,
+    iconSize: [25, 41] as [number, number],
+    iconAnchor: [12, 41] as [number, number],
+    popupAnchor: [1, -34] as [number, number],
+    shadowSize: [41, 41] as [number, number]
+  })
+
+  L.Marker.prototype.options.icon = defaultIcon
 
   // Initialize the map centered on Tampa Bay
   map = L.map(mapContainer.value, {
-    center: [27.85, -82.6] as LatLngExpression,
+    center: [27.85, -82.6] as [number, number],
     zoom: 9,
     scrollWheelZoom: false,
     keyboard: true
@@ -124,23 +129,23 @@ onMounted(() => {
   const mainOfficeIcon = L.divIcon({
     className: 'custom-marker main-office-marker',
     html: `<div class="marker-pin main-office-pin" aria-label="Main Office in Tampa"></div>`,
-    iconSize: [30, 42],
-    iconAnchor: [15, 42]
+    iconSize: [30, 42] as [number, number],
+    iconAnchor: [15, 42] as [number, number]
   })
 
   const serviceAreaIcon = L.divIcon({
     className: 'custom-marker service-area-marker',
     html: `<div class="marker-pin service-area-pin" aria-label="Service area location"></div>`,
-    iconSize: [24, 34],
-    iconAnchor: [12, 34]
+    iconSize: [24, 34] as [number, number],
+    iconAnchor: [12, 34] as [number, number]
   })
 
   // Collect markers for fitBounds
-  const markers: L.Marker[] = []
+  const markers: any[] = []
 
   // Add markers for each location
   serviceLocations.forEach((location) => {
-    const marker = L.marker(location.position, {
+    const marker = L.marker(location.position as [number, number], {
       icon: location.isMainOffice ? mainOfficeIcon : serviceAreaIcon
     })
 
@@ -170,7 +175,7 @@ onMounted(() => {
 
   // Add a circle showing approximate service area coverage
   if (map) {
-    L.circle([27.85, -82.6] as LatLngExpression, {
+    L.circle([27.85, -82.6] as [number, number], {
       color: '#3b82f6',
       fillColor: '#3b82f6',
       fillOpacity: 0.1,
@@ -187,7 +192,7 @@ onMounted(() => {
   }
 })
 
-onBeforeUnmount(() => {
+onBeforeUnmount(async () => {
   if (map) {
     map.remove()
     map = null

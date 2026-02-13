@@ -15,11 +15,10 @@
         :alt="`${projectName} - Project Image 1`"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         format="webp"
-        sizes="100vw"
-        width="1920"
-        height="1080"
         loading="eager"
         fetchpriority="high"
+        :width="1920"
+        :height="1080"
         placeholder
       />
       <div
@@ -61,9 +60,8 @@
           class="w-full h-full object-cover"
           format="webp"
           loading="lazy"
-          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-          width="400"
-          height="225"
+          :width="400"
+          :height="225"
           placeholder
         />
       </div>
@@ -144,9 +142,8 @@
                 :alt="`${projectName} - Project Image ${currentImageIndex + 1}`"
                 class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
                 format="webp"
-                sizes="100vw"
-                width="1920"
-                height="1080"
+                :width="1920"
+                :height="1080"
                 placeholder
               />
             </Transition>
@@ -179,8 +176,8 @@
                 :alt="`Thumbnail ${index + 1}`"
                 class="w-full h-full object-cover"
                 format="webp"
-                width="48"
-                height="48"
+                :width="48"
+                :height="48"
                 loading="lazy"
               />
             </button>

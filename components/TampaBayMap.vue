@@ -6,8 +6,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
+// Leaflet is imported dynamically in onMounted to avoid SSR issues
 
 interface Props {
   serviceAreas?: string[]
@@ -16,8 +15,10 @@ interface Props {
 const props = defineProps<Props>()
 
 const mapContainer = ref<HTMLElement>()
-let map: L.Map | null = null
-let markers: L.Marker[] = []
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let map: any = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let markers: any[] = []
 
 const locationCoordinates: Record<string, { lat: number; lng: number }> = {
   'Tampa': { lat: 27.9506, lng: -82.4572 },
@@ -32,19 +33,23 @@ const locationCoordinates: Record<string, { lat: number; lng: number }> = {
   'Pinellas County': { lat: 27.8438, lng: -82.7007 }
 }
 
-// Custom icon using site colors
-const createCustomIcon = () => {
-  return L.divIcon({
-    className: 'custom-marker',
-    html: `<div class="marker-pin" aria-hidden="true"></div>`,
-    iconSize: [30, 42],
-    iconAnchor: [15, 42],
-    popupAnchor: [0, -42]
-  })
-}
-
-onMounted(() => {
+onMounted(async () => {
   if (!mapContainer.value || typeof window === 'undefined') return
+
+  // Dynamically import Leaflet only on client-side
+  const L = await import('leaflet')
+  await import('leaflet/dist/leaflet.css')
+
+  // Custom icon using site colors
+  const createCustomIcon = () => {
+    return L.divIcon({
+      className: 'custom-marker',
+      html: `<div class="marker-pin" aria-hidden="true"></div>`,
+      iconSize: [30, 42] as [number, number],
+      iconAnchor: [15, 42] as [number, number],
+      popupAnchor: [0, -42] as [number, number]
+    })
+  }
 
   // Initialize map centered on Tampa Bay
   map = L.map(mapContainer.value, {
@@ -54,7 +59,7 @@ onMounted(() => {
     doubleClickZoom: true,
     touchZoom: true,
     keyboard: true
-  } as L.MapOptions)
+  })
 
   // Add OpenStreetMap tiles
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

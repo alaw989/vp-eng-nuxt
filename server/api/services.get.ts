@@ -6,6 +6,48 @@
  */
 const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
 
+/**
+ * Decode HTML entities to prevent hydration mismatches.
+ * WordPress API returns encoded entities like &#038; which must be
+ * decoded on the server to match client-side rendering.
+ */
+function decodeHtmlEntities(text: string | undefined | null): string {
+  if (!text) return ''
+  const entities: Record<string, string> = {
+    '&#038;': '&',
+    '&amp;': '&',
+    '&#8217;': "'",
+    '&#8216;': "'",
+    '&#8220;': '"',
+    '&#8221;': '"',
+    '&#8211;': '–',
+    '&#8212;': '—',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#039;': "'",
+    '&nbsp;': ' ',
+    '&#160;': ' ',
+  }
+  let decoded = text
+  for (const [entity, char] of Object.entries(entities)) {
+    decoded = decoded.replace(new RegExp(entity, 'g'), char)
+  }
+  return decoded
+}
+
+/**
+ * Recursively decode HTML entities in WordPress response objects.
+ */
+function decodeServiceData(service: any): any {
+  return {
+    ...service,
+    title: service.title ? { ...service.title, rendered: decodeHtmlEntities(service.title.rendered) } : service.title,
+    excerpt: service.excerpt ? { ...service.excerpt, rendered: decodeHtmlEntities(service.excerpt.rendered) } : service.excerpt,
+    content: service.content ? { ...service.content, rendered: decodeHtmlEntities(service.content.rendered) } : service.content,
+  }
+}
+
 // Cache for services (30 minutes)
 const servicesStorage = useStorage('services')
 const CACHE_KEY = 'services_data'
@@ -106,15 +148,20 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    // Cache the response
+    // Decode HTML entities to prevent hydration mismatches
+    const decodedResponse = Array.isArray(response)
+      ? response.map(decodeServiceData)
+      : response
+
+    // Cache the decoded response
     await servicesStorage.setItem(CACHE_KEY, {
-      data: response,
+      data: decodedResponse,
       timestamp: Date.now(),
     })
 
     return {
       success: true,
-      data: response,
+      data: decodedResponse,
     }
   } catch (error: any) {
     // Return static fallback on any error

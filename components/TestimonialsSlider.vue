@@ -36,7 +36,7 @@
     <!-- Navigation Arrows -->
     <template v-if="slides.length > 1">
       <button
-        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:shadow-xl transition-all text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         aria-label="Previous testimonials"
         :disabled="currentIndex === 0"
         @click="previousSlide"
@@ -44,7 +44,7 @@
         <Icon name="mdi:chevron-left" class="w-6 h-6" />
       </button>
       <button
-        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:shadow-xl transition-all text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         aria-label="Next testimonials"
         :disabled="currentIndex === slides.length - 1"
         @click="nextSlide"
@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePreferredReducedMotion } from '@vueuse/core'
+import { usePreferredReducedMotion, useWindowSize } from '@vueuse/core'
 
 interface Testimonial {
   quote: string
@@ -103,23 +103,30 @@ const props = withDefaults(defineProps<Props>(), {
 // Reduced motion detection
 const prefersReducedMotion = usePreferredReducedMotion()
 
-// Determine items per slide based on breakpoint
-const getItemsPerSlide = () => {
-  if (typeof window === 'undefined') return props.itemsPerSlide
+// Use reactive window size for SSR-safe responsive behavior
+// useWindowSize returns Infinity during SSR, which matches desktop breakpoint
+const { width: windowWidth } = useWindowSize()
 
-  const width = window.innerWidth
-  if (width < 768) return 1 // mobile
-  if (width < 1024) return 2 // tablet
-  return props.itemsPerSlide // desktop
-}
+// Computed items per slide - SSR-safe and reactive
+const itemsPerSlide = computed(() => {
+  // During SSR or initial hydration, windowWidth is Infinity
+  // This ensures SSR and client render the same initial state (desktop layout)
+  if (windowWidth.value === Infinity || windowWidth.value >= 1024) {
+    return props.itemsPerSlide // desktop: 3
+  }
+  if (windowWidth.value >= 768) {
+    return 2 // tablet
+  }
+  return 1 // mobile
+})
 
-// Chunk testimonials into slides
+// Chunk testimonials into slides - now reactive to itemsPerSlide changes
 const slides = computed(() => {
-  const itemsPerSlide = getItemsPerSlide()
+  const perSlide = itemsPerSlide.value
   const chunks: Testimonial[][] = []
 
-  for (let i = 0; i < props.testimonials.length; i += itemsPerSlide) {
-    chunks.push(props.testimonials.slice(i, i + itemsPerSlide))
+  for (let i = 0; i < props.testimonials.length; i += perSlide) {
+    chunks.push(props.testimonials.slice(i, i + perSlide))
   }
 
   return chunks.length > 0 ? chunks : [[]]
@@ -166,24 +173,24 @@ const handleKeydown = (e: KeyboardEvent) => {
   }
 }
 
-// Handle window resize to recalculate slides
-const handleResize = () => {
-  const newIndex = Math.min(currentIndex.value, slides.value.length - 1)
-  currentIndex.value = newIndex
-}
+// Watch for slide count changes and adjust current index if needed
+// This handles viewport changes reactively via useWindowSize
+watch(slides, (newSlides) => {
+  if (currentIndex.value >= newSlides.length) {
+    currentIndex.value = Math.max(0, newSlides.length - 1)
+  }
+})
 
 onMounted(() => {
   if (sliderRef.value) {
     sliderRef.value.addEventListener('keydown', handleKeydown)
   }
-  window.addEventListener('resize', handleResize)
 })
 
 onUnmounted(() => {
   if (sliderRef.value) {
     sliderRef.value.removeEventListener('keydown', handleKeydown)
   }
-  window.removeEventListener('resize', handleResize)
 })
 </script>
 

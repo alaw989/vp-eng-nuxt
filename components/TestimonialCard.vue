@@ -19,8 +19,8 @@
           class="w-full h-full object-cover"
           format="webp"
           loading="lazy"
-          width="48"
-          height="48"
+          :width="48"
+          :height="48"
           placeholder
         />
       </div>
