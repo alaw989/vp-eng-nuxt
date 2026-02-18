@@ -119,15 +119,15 @@ test.describe('Accessibility', () => {
     // Navigate to a different page
     await page.goto('/about')
 
-    // Live region should exist in the DOM
+    // Live region should exist in the DOM (there may be multiple for different components)
     const liveRegion = page.locator('[aria-live="polite"]')
-    await expect(liveRegion).toBeAttached()
+    const count = await liveRegion.count()
 
-    // Check for announcement text (may take a moment)
-    await page.waitForTimeout(500)
-    const text = await liveRegion.first().textContent()
-    // Note: The live region content may have been auto-cleared, so we just check it exists
-    expect(liveRegion).toHaveCount(1)
+    // At least one live region should exist
+    expect(count).toBeGreaterThan(0)
+
+    // Check that at least one live region is attached to DOM
+    await expect(liveRegion.first()).toBeAttached()
   })
 
   test('hero slider has keyboard navigation', async ({ page }) => {

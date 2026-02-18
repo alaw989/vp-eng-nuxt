@@ -310,4 +310,20 @@ onUnmounted(() => {
   }
   lightboxRef.value?.removeEventListener('keydown', trapFocus)
 })
+
+// Expose for testing
+defineExpose({
+  lightboxOpen,
+  currentImageIndex,
+  canGoPrevious,
+  canGoNext,
+  openLightbox,
+  closeLightbox,
+  goToPrevious,
+  goToNext,
+  trapFocus,
+  showAllThumbnails,
+  lightboxRef,
+  previouslyFocused
+})
 </script>

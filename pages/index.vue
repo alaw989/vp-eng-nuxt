@@ -292,6 +292,70 @@ const projectIcons: Record<string, string> = {
   'Institutional': 'mdi:school',
 }
 
+// Project image mapping - using hero images as fallbacks
+const projectImageMap: Record<string, string> = {
+  'steel-connect': '/images/hero/construction-steel-beams-1920w.jpg',
+  'crane-lift': '/images/hero/crane-building-1920w.jpg',
+  'cad-drawing': '/images/hero/construction-structural-1920w.jpg',
+  'shallowdeepfoundationdesign10': '/images/hero/construction-concrete-1920w.jpg',
+  'lowrise': '/images/hero/construction-building-frame-1920w.jpg',
+  'inspection-services': '/images/hero/construction-site-1920w.jpg',
+  'shopdrawing': '/images/hero/construction-steel-structure-1920w.jpg',
+}
+
+// Helper function to find matching image by title/category (fallback only)
+const findProjectImage = (title: string, category: string): string => {
+  const titleLower = title.toLowerCase()
+  const categoryLower = category.toLowerCase()
+
+  // Try category-based matching
+  if (categoryLower.includes('marine') || titleLower.includes('marine')) {
+    return projectImageMap['crane-lift'] || '/images/hero/crane-building-1920w.jpg'
+  }
+  if (categoryLower.includes('commercial') || titleLower.includes('commercial')) {
+    return projectImageMap['steel-connect'] || '/images/hero/construction-steel-beams-1920w.jpg'
+  }
+  if (categoryLower.includes('residential') || titleLower.includes('residential')) {
+    return projectImageMap['lowrise'] || '/images/hero/construction-building-frame-1920w.jpg'
+  }
+  if (categoryLower.includes('structural') || titleLower.includes('steel') || titleLower.includes('steel connection')) {
+    return projectImageMap['steel-connect'] || '/images/hero/construction-steel-beams-1920w.jpg'
+  }
+  if (categoryLower.includes('foundation') || titleLower.includes('foundation')) {
+    return projectImageMap['shallowdeepfoundationdesign10'] || '/images/hero/construction-concrete-1920w.jpg'
+  }
+  if (categoryLower.includes('inspection') || titleLower.includes('inspection')) {
+    return projectImageMap['inspection-services'] || '/images/hero/construction-site-1920w.jpg'
+  }
+  if (categoryLower.includes('detailing') || titleLower.includes('shop') || titleLower.includes('drawing')) {
+    return projectImageMap['cad-drawing'] || '/images/hero/construction-structural-1920w.jpg'
+  }
+
+  // Fallback to first available image
+  return projectImageMap['steel-connect'] || '/images/hero/construction-steel-beams-1920w.jpg'
+}
+
+// Helper function to get project image from API data or fallback
+const getProjectImage = (project: any): string => {
+  // First try: images array from API
+  if (project.images && Array.isArray(project.images) && project.images.length > 0) {
+    return project.images[0].url || project.images[0] || '/images/hero/construction-steel-beams-1920w.jpg'
+  }
+
+  // Second try: featured media from _embedded
+  const featuredMedia = project._embedded?.['wp:featuredmedia']?.[0]
+  if (featuredMedia) {
+    return featuredMedia.source_url ||
+           featuredMedia.media_details?.sizes?.large?.source_url ||
+           featuredMedia.media_details?.sizes?.full?.source_url ||
+           featuredMedia.media_details?.sizes?.medium?.source_url ||
+           '/images/hero/construction-steel-beams-1920w.jpg'
+  }
+
+  // Fallback to category-based image matching
+  return findProjectImage(project.title?.rendered || '', project.custom_fields?.project_category || '')
+}
+
 // Transform projects data for carousel display
 const carouselSlides = computed(() => {
   if (!projectsData.value || !Array.isArray(projectsData.value)) return []
@@ -304,61 +368,33 @@ const carouselSlides = computed(() => {
     location: p.custom_fields?.project_location || 'Tampa Bay',
     year: p.custom_fields?.project_year || new Date().getFullYear().toString(),
     icon: projectIcons[p.custom_fields?.project_category as string] || 'mdi:office-building',
+    image: getProjectImage(p), // Use actual project image from API
   }))
 })
 
-// Project image mapping - using hero images as fallbacks
-const projectImageMap: Record<string, string> = {
-  'steel-connect': '/images/hero/construction-steel-beams-1920w.jpg',
-  'crane-lift': '/images/hero/crane-building-1920w.jpg',
-  'cad-drawing': '/images/hero/construction-structural-1920w.jpg',
-  'shallowdeepfoundationdesign10': '/images/hero/construction-concrete-1920w.jpg',
-  'lowrise': '/images/hero/construction-building-frame-1920w.jpg',
-  'inspection-services': '/images/hero/construction-site-1920w.jpg',
-  'shopdrawing': '/images/hero/construction-steel-structure-1920w.jpg',
-}
-
-// Helper function to find matching image by title/category
-const findProjectImage = (title: string, category: string): string | undefined => {
-  const titleLower = title.toLowerCase()
-  const categoryLower = category.toLowerCase()
-
-  // Try exact filename match first
-  for (const [key, path] of Object.entries(projectImageMap)) {
-    if (titleLower.includes(key) || titleLower === key) {
-      return path
-    }
-  }
-
-  // Try category-based matching
-  if (categoryLower.includes('marine') || titleLower.includes('marine')) {
-    return projectImageMap['crane-lift']
-  }
-  if (categoryLower.includes('commercial') || titleLower.includes('commercial')) {
-    return projectImageMap['steel-connect']
-  }
-  if (categoryLower.includes('residential') || titleLower.includes('residential')) {
-    return projectImageMap['lowrise']
-  }
-  if (categoryLower.includes('structural') || titleLower.includes('steel') || titleLower.includes('steel connection')) {
-    return projectImageMap['steel-connect']
-  }
-  if (categoryLower.includes('foundation') || titleLower.includes('foundation')) {
-    return projectImageMap['shallowdeepfoundationdesign10']
-  }
-  if (categoryLower.includes('inspection') || titleLower.includes('inspection')) {
-    return projectImageMap['inspection-services']
-  }
-  if (categoryLower.includes('detailing') || titleLower.includes('shop') || titleLower.includes('drawing')) {
-    return projectImageMap['cad-drawing']
-  }
-
-  // Fallback to first available image
-  return projectImageMap['steel-connect']
-}
-
-// Featured projects (first 3 for grid display)
+// Featured projects - prioritizes WP marked featured, then falls back to first 3
 const featuredProjects = computed(() => {
+  if (!projectsData.value || !Array.isArray(projectsData.value)) return []
+
+  // First, try to get projects marked as featured in WordPress
+  const wpFeatured = projectsData.value
+    .filter((p: any) => p.custom_fields?.project_featured === '1' || p.custom_fields?.project_featured === true)
+    .slice(0, 3)
+
+  // If we have WP featured projects, use those
+  if (wpFeatured.length > 0) {
+    return wpFeatured.map((p: any) => ({
+      title: decodeHtmlEntities(p.title?.rendered) || 'Project',
+      slug: p.slug || 'project',
+      description: decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || 'Structural engineering project',
+      category: p.custom_fields?.project_category || 'Project',
+      location: p.custom_fields?.project_location || 'Tampa Bay',
+      year: p.custom_fields?.project_year || new Date().getFullYear().toString(),
+      image: getProjectImage(p),
+    }))
+  }
+
+  // Otherwise, use carousel slides (first 3 projects) with fallback images
   return carouselSlides.value.slice(0, 3).map((slide: any) => ({
     title: slide.title,
     slug: slide.slug,
@@ -366,7 +402,7 @@ const featuredProjects = computed(() => {
     category: slide.category,
     location: slide.location,
     year: slide.year,
-    image: findProjectImage(slide.title, slide.category),
+    image: slide.image || findProjectImage(slide.title, slide.category),
   }))
 })
 

@@ -63,6 +63,14 @@ onUnmounted(() => {
     clearInterval(intervalId)
   }
 })
+
+// Expose for testing
+defineExpose({
+  isLoading,
+  progress,
+  startLoading,
+  finishLoading
+})
 </script>
 
 <style scoped>

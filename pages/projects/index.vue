@@ -432,18 +432,44 @@ const projects = computed<Project[]>(() => {
     const description = decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || ''
     // Get custom fields
     const customFields = p.custom_fields || {}
+    const category = decodeHtmlEntities(customFields.project_category) || ''
+
     // Get featured image from WordPress media
     const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
-    const imageUrl = featuredMedia?.source_url || featuredMedia?.media_details?.sizes?.medium?.source_url || ''
+    let imageUrl = featuredMedia?.source_url ||
+                   featuredMedia?.media_details?.sizes?.large?.source_url ||
+                   featuredMedia?.media_details?.sizes?.medium?.source_url ||
+                   featuredMedia?.media_details?.sizes?.full?.source_url ||
+                   ''
+
+    // If no featured image, use category-based fallback image
+    if (!imageUrl) {
+      const categoryLower = category.toLowerCase()
+      const titleLower = title.toLowerCase()
+
+      if (categoryLower.includes('marine') || titleLower.includes('marine')) {
+        imageUrl = '/images/hero/crane-building-1920w.jpg'
+      } else if (categoryLower.includes('commercial') || titleLower.includes('commercial')) {
+        imageUrl = '/images/hero/construction-steel-beams-1920w.jpg'
+      } else if (categoryLower.includes('residential') || titleLower.includes('residential')) {
+        imageUrl = '/images/hero/construction-building-frame-1920w.jpg'
+      } else if (categoryLower.includes('industrial') || titleLower.includes('industrial')) {
+        imageUrl = '/images/hero/construction-steel-beams-1920w.jpg'
+      } else if (categoryLower.includes('institutional')) {
+        imageUrl = '/images/hero/construction-concrete-1920w.jpg'
+      } else {
+        imageUrl = '/images/hero/construction-structural-1920w.jpg'
+      }
+    }
 
     return {
       title,
       slug: p.slug || '',
       description,
-      category: decodeHtmlEntities(customFields.project_category) || '',
+      category,
       location: decodeHtmlEntities(customFields.project_location) || '',
       year: parseInt(customFields.project_year || '0'),
-      image: imageUrl || undefined,
+      image: imageUrl,
     }
   })
 })

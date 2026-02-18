@@ -192,6 +192,12 @@ const route = useRoute()
 watch(() => route.path, () => {
   isOpen.value = false
 })
+
+// Expose for testing
+defineExpose({
+  isOpen,
+  isScrolled
+})
 </script>
 
 <style scoped>

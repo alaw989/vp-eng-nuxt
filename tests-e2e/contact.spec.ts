@@ -42,8 +42,9 @@ test.describe('Contact Page', () => {
   });
 
   test('has contact information', async ({ page }) => {
-    // Check for email in footer or page content
-    await expect(page.getByText(/@/)).toBeVisible();
+    // Check for email in footer or page content - use first() since there may be multiple
+    const emailLink = page.getByText(/@/).first();
+    await expect(emailLink).toBeVisible();
   });
 
   test('has form or submit capability', async ({ page }) => {

@@ -9,10 +9,14 @@
   },
   "exclude": [
     "tests-e2e/**",
+    "tests/**",
     "test-results/**",
     "playwright-report/**",
     "dist/**",
     ".output/**",
-    "node_modules/**"
+    "node_modules/**",
+    "components/__tests__/**",
+    "composables/__tests__/**",
+    "utils/__tests__/**"
   ]
 }

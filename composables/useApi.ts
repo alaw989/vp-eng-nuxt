@@ -322,5 +322,5 @@ export function getFeaturedImage(post: WPService | WPProject | WPTeamMember | WP
  */
 export function getFeaturedImageAlt(post: WPService | WPProject | WPTeamMember | WPTestimonial): string {
   const media = post._embedded?.['wp:featuredmedia']?.[0]
-  return media?.alt_text || post.title.rendered || ''
+  return media?.alt_text || post.title?.rendered || ''
 }

@@ -25,11 +25,11 @@
           <div class="aspect-[4/3] bg-neutral-100 relative overflow-hidden">
             <!-- Thumbnail or placeholder -->
             <div
-              v-if="pdf.thumbnail"
+              v-if="pdf.thumbnail || pdf.preview"
               class="w-full h-full"
             >
               <NuxtImg
-                :src="pdf.thumbnail"
+                :src="pdf.thumbnail || pdf.preview"
                 :alt="pdf.title || `Document ${index + 1}`"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
@@ -267,6 +267,7 @@ interface PdfDocument {
   size?: string
   pages?: number
   thumbnail?: string
+  preview?: string  // WordPress API returns 'preview' for PDF thumbnails
 }
 
 interface Props {
@@ -407,6 +408,25 @@ onUnmounted(() => {
     document.body.style.overflow = ''
   }
   window.removeEventListener('resize', updateIframeSize)
+})
+
+// Expose for testing
+defineExpose({
+  openPdf,
+  closeViewer,
+  zoomIn,
+  zoomOut,
+  scale,
+  viewerOpen,
+  currentPdf,
+  currentIndex,
+  loading,
+  updateIframeSize,
+  iframeWidth,
+  iframeHeight,
+  containerRef,
+  previouslyFocused,
+  closeButtonRef
 })
 </script>
 

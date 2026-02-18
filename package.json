@@ -19,7 +19,13 @@
     "optimize:team": "tsx scripts/optimize-team-photos.ts",
     "lighthouse": "lhci autorun",
     "lighthouse:collect": "lhci collect --url=http://localhost:3000",
-    "test:lighthouse": "npm run build && npm run preview & npm run lighthouse:collect && pkill -f preview"
+    "test:lighthouse": "npm run build && npm run preview & npm run lighthouse:collect && pkill -f preview",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:unit:ui": "vitest --ui",
+    "test:unit:coverage": "vitest run --coverage",
+    "test:all": "npm run test:unit && npm run test:e2e"
   },
   "dependencies": {
     "@types/leaflet": "^1.9.21",
@@ -37,6 +43,7 @@
     "@nuxt/a11y": "^1.0.0-alpha.1",
     "@nuxt/icon": "^1.0.0",
     "@nuxt/image": "^2.0.0",
+    "@nuxt/test-utils": "^4.0.0",
     "@nuxtjs/critters": "^0.9.0",
     "@nuxtjs/sitemap": "^7.6.0",
     "@nuxtjs/tailwindcss": "^6.12.1",
@@ -45,17 +52,24 @@
     "@types/cheerio": "^0.22.35",
     "@types/node": "^25.2.0",
     "@vite-pwa/nuxt": "^1.1.0",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/ui": "^4.0.18",
+    "@vue/test-utils": "^2.4.6",
     "@vueuse/nuxt": "^12.0.1",
     "cheerio": "^1.2.0",
     "chrome-launcher": "^1.2.1",
     "express": "^5.2.1",
+    "happy-dom": "^20.6.2",
     "husky": "^9.1.7",
+    "jsdom": "^28.1.0",
     "lighthouse": "^13.0.1",
     "odiff-bin": "^4.3.2",
     "open": "^11.0.0",
     "playwright": "^1.58.1",
     "tsx": "^4.21.0",
     "typescript": "^5.7.3",
+    "unplugin-auto-import": "^21.0.0",
+    "vitest": "^4.0.18",
     "vue-tsc": "^2.2.0"
   }
 }

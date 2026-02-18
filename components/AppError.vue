@@ -134,6 +134,11 @@ const refreshPage = () => {
   }
 }
 
+// Expose for testing
+defineExpose({
+  refreshPage
+})
+
 // Set page meta
 useHead({
   title: `Error ${props.error?.statusCode || ''} | VP Associates`,

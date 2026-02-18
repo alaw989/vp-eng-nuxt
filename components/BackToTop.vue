@@ -69,4 +69,12 @@ onMounted(() => {
     window.removeEventListener('scroll', handleScroll)
   })
 })
+
+// Expose for testing
+defineExpose({
+  isVisible,
+  scrollProgress,
+  circumference,
+  dashOffset
+})
 </script>

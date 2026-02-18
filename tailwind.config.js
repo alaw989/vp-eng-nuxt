@@ -16,9 +16,9 @@ export default {
           dark: '#02244f'
         },
         secondary: {
-          DEFAULT: '#4ADE80',    // Happy bright green - growth & vitality
-          light: '#86EFAC',
-          dark: '#22C55E'
+          DEFAULT: '#2A6F5F',    // Muted teal - professional & subtle accent
+          light: '#3D8278',
+          dark: '#1F4F52'
         },
         alert: {
           DEFAULT: '#DC2626',    // Red - only for errors/warnings
