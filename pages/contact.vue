@@ -1,23 +1,13 @@
 <template>
   <div>
-    <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-neutral-200">
-      <div class="container py-4">
-        <AppBreadcrumbs :breadcrumbs="contactBreadcrumbs" />
-      </div>
-    </div>
-
-    <!-- Page Header -->
-    <AppSection bg-color="primary-dark" padding="lg">
-      <div class="container text-center text-white">
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
-          Contact Us
-        </h1>
-        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-          Get in touch with our team of experienced structural engineers
-        </p>
-      </div>
-    </AppSection>
+    <!-- Page Banner -->
+    <PageBanner
+      headline="Contact Us"
+      subheadline="Get in touch with our team of experienced structural engineers"
+      background-image="/images/hero/construction-concrete-1920w.jpg"
+      background-alt="Concrete construction site showing professional engineering work"
+      aria-label="Contact page banner"
+    />
 
     <!-- Contact Form & Info -->
     <AppSection bg-color="white" animate-on-scroll>

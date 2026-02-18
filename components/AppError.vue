@@ -3,13 +3,13 @@
     <div class="max-w-2xl w-full text-center">
       <!-- Error Icon -->
       <div class="mb-8">
-        <div class="inline-flex items-center justify-center w-32 h-32 bg-secondary/10 rounded-full">
-          <Icon name="mdi:alert-octagon-outline" class="w-16 h-16 text-secondary" />
+        <div class="inline-flex items-center justify-center w-32 h-32 bg-alert/10 rounded-full">
+          <Icon name="mdi:alert-octagon-outline" class="w-16 h-16 text-alert" />
         </div>
       </div>
 
       <!-- Error Code -->
-      <h1 class="text-6xl md:text-7xl font-display font-bold text-secondary mb-4">
+      <h1 class="text-6xl md:text-7xl font-display font-bold text-alert mb-4">
         {{ error?.statusCode || 'Error' }}
       </h1>
 

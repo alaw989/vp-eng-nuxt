@@ -6,7 +6,7 @@
     <!-- Error state -->
     <div v-else-if="error || !project" class="min-h-screen flex items-center justify-center">
       <div class="text-center">
-        <Icon name="mdi:alert-circle" class="w-16 h-16 text-secondary mx-auto mb-4" />
+        <Icon name="mdi:alert-circle" class="w-16 h-16 text-alert mx-auto mb-4" />
         <h1 class="text-2xl font-bold text-neutral-900 mb-2">Project Not Found</h1>
         <p class="text-neutral-600 mb-6">The project you're looking for doesn't exist or has been removed.</p>
         <NuxtLink
@@ -60,13 +60,51 @@
         </div>
       </AppSection>
 
-      <!-- Project Image Gallery -->
+      <!-- Project Image Gallery & Documents -->
       <AppSection bg-color="neutral-100" padding="md">
         <div class="container">
-          <LazyProjectGallery
-            :images="projectImages"
-            :project-name="project.title.rendered || 'Project'"
-          />
+          <!-- Tab Navigation (only show if both images and PDFs exist) -->
+          <div v-if="projectImages.length > 0 && projectPdfs.length > 0" class="flex justify-center mb-8">
+            <div class="inline-flex bg-white rounded-lg p-1 shadow-sm">
+              <button
+                class="px-6 py-2.5 rounded-md font-medium transition-all duration-200 flex items-center gap-2"
+                :class="activeTab === 'images' ? 'bg-primary text-white shadow-sm' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'"
+                @click="activeTab = 'images'"
+              >
+                <Icon name="mdi:image-multiple" class="w-5 h-5" />
+                Photos
+                <span class="ml-1 px-2 py-0.5 rounded-full text-xs"
+                  :class="activeTab === 'images' ? 'bg-white/20' : 'bg-neutral-200 text-neutral-600'">
+                  {{ projectImages.length }}
+                </span>
+              </button>
+              <button
+                class="px-6 py-2.5 rounded-md font-medium transition-all duration-200 flex items-center gap-2"
+                :class="activeTab === 'documents' ? 'bg-primary text-white shadow-sm' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'"
+                @click="activeTab = 'documents'"
+              >
+                <Icon name="mdi:file-pdf-box" class="w-5 h-5" />
+                Documents
+                <span class="ml-1 px-2 py-0.5 rounded-full text-xs"
+                  :class="activeTab === 'documents' ? 'bg-white/20' : 'bg-neutral-200 text-neutral-600'">
+                  {{ projectPdfs.length }}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Images Tab -->
+          <div v-show="activeTab === 'images'">
+            <LazyProjectGallery
+              :images="projectImages"
+              :project-name="project.title.rendered || 'Project'"
+            />
+          </div>
+
+          <!-- Documents Tab -->
+          <div v-show="activeTab === 'documents'">
+            <LazyPdfViewer :pdfs="projectPdfs" />
+          </div>
         </div>
       </AppSection>
 
@@ -229,6 +267,9 @@
 const route = useRoute()
 const slug = String((route.params as any).slug || '')
 
+// Active tab for gallery/documents (defaults to images, or documents if no images)
+const activeTab = ref<'images' | 'documents'>('images')
+
 // Fetch project data - API returns { success: true, data: {...} } with static fallback built-in
 const { data: apiResponse, pending, error } = await useFetch(`/api/projects/${slug}`)
 
@@ -247,8 +288,7 @@ const staticProjects: Record<string, any> = {
       year: '2024',
       squareFootage: '45,000 sq ft',
       services_provided: ['Structural Steel Design', 'Foundation Design', 'Seawall Design', 'Inspection Services']
-    },
-    images: ['/images/projects/steel-connect-1920w.webp', '/images/projects/shallowdeepfoundationdesign10-1920w.webp']
+    }
   },
   'downtown-office-tower': {
     title: { rendered: 'Downtown Office Tower' },
@@ -260,8 +300,7 @@ const staticProjects: Record<string, any> = {
       year: '2023',
       squareFootage: '180,000 sq ft',
       services_provided: ['Structural Steel Design', 'Steel Connection Design', 'Foundation Design', 'CAD & 3D Modeling']
-    },
-    images: ['/images/projects/lowrise-1920w.webp', '/images/projects/steel-connect-1920w.webp']
+    }
   },
   'coastal-seawall-system': {
     title: { rendered: 'Coastal Seawall System' },
@@ -272,8 +311,7 @@ const staticProjects: Record<string, any> = {
       location: 'Clearwater, FL',
       year: '2024',
       services_provided: ['Seawall Design', 'Foundation Design', 'Inspection Services']
-    },
-    images: ['/images/projects/shallowdeepfoundationdesign10-1920w.webp', '/images/projects/inspection-services-1920w.webp']
+    }
   },
   'luxury-residential-estate': {
     title: { rendered: 'Luxury Residential Estate' },
@@ -285,8 +323,7 @@ const staticProjects: Record<string, any> = {
       year: '2024',
       squareFootage: '8,000 sq ft',
       services_provided: ['Wood Design', 'Concrete Design', 'Foundation Design']
-    },
-    images: ['/images/projects/lowrise-1920w.webp', '/images/projects/cad-drawing-1920w.webp']
+    }
   },
   'industrial-warehouse-complex': {
     title: { rendered: 'Industrial Warehouse Complex' },
@@ -298,8 +335,7 @@ const staticProjects: Record<string, any> = {
       year: '2023',
       squareFootage: '40,000 sq ft',
       services_provided: ['Structural Steel Design', 'Foundation Design', 'Steel Connection Design']
-    },
-    images: ['/images/projects/steel-connect-1920w.webp', '/images/projects/crane-lift-1920w.webp', '/images/projects/shopdrawing-1920w.webp']
+    }
   },
   'school-classroom-wing': {
     title: { rendered: 'School Classroom Wing' },
@@ -311,8 +347,7 @@ const staticProjects: Record<string, any> = {
       year: '2023',
       squareFootage: '15,000 sq ft',
       services_provided: ['Masonry Design', 'Structural Steel Design', 'Foundation Design']
-    },
-    images: ['/images/projects/cad-drawing-1920w.webp', '/images/projects/lowrise-1920w.webp']
+    }
   }
 }
 
@@ -336,54 +371,35 @@ const servicesProvided = computed(() => project.value?.custom_fields?.services_p
   'Design Services',
   'Code Compliance'
 ])
-// Project image mapping from Phase 3 migration
-// Maps project slugs to their available images in /images/projects/
-const projectImageMap: Record<string, string[]> = {
-  'tampa-marina-complex': [
-    '/images/projects/steel-connect-1920w.webp',
-    '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
-  ],
-  'downtown-office-tower': [
-    '/images/projects/lowrise-1920w.webp',
-    '/images/projects/steel-connect-1920w.webp',
-  ],
-  'coastal-seawall-system': [
-    '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
-    '/images/projects/inspection-services-1920w.webp',
-  ],
-  'luxury-residential-estate': [
-    '/images/projects/lowrise-1920w.webp',
-    '/images/projects/cad-drawing-1920w.webp',
-  ],
-  'industrial-warehouse-complex': [
-    '/images/projects/steel-connect-1920w.webp',
-    '/images/projects/crane-lift-1920w.webp',
-    '/images/projects/shopdrawing-1920w.webp',
-  ],
-  'school-classroom-wing': [
-    '/images/projects/cad-drawing-1920w.webp',
-    '/images/projects/lowrise-1920w.webp',
-  ],
-}
-
+// Project images - fetched from WordPress API
 const projectImages = computed(() => {
-  // First check if API provides images
   const apiImages = project.value?.images
   if (apiImages && Array.isArray(apiImages) && apiImages.length > 0) {
     return apiImages
   }
 
-  // Fallback to mapped images from Phase 3 migration
-  const mappedImages = projectImageMap[slug]
-  if (mappedImages && mappedImages.length > 0) {
-    return mappedImages
-  }
-
-  // Log warning for missing mapping and return empty array (gallery will show placeholder)
+  // Log warning for missing images and return empty array (gallery will show placeholder)
   if (process.dev) {
     console.warn(`No project images found for slug: ${slug}`)
   }
   return []
+})
+
+// Project PDFs - fetched from WordPress API
+const projectPdfs = computed(() => {
+  const apiPdfs = project.value?.pdfs
+  if (apiPdfs && Array.isArray(apiPdfs) && apiPdfs.length > 0) {
+    return apiPdfs
+  }
+
+  return []
+})
+
+// Auto-select documents tab if no images but PDFs exist
+watchEffect(() => {
+  if (projectImages.value.length === 0 && projectPdfs.value.length > 0) {
+    activeTab.value = 'documents'
+  }
 })
 // All available projects for related projects (from static data - would come from API in production)
 const allProjectsData = [

@@ -155,7 +155,7 @@
 
       <!-- Error State -->
       <div v-else-if="searchError" class="text-center py-12">
-        <Icon name="mdi:alert-circle-outline" class="w-16 h-16 text-secondary mx-auto mb-4" />
+        <Icon name="mdi:alert-circle-outline" class="w-16 h-16 text-alert mx-auto mb-4" />
         <h2 class="text-2xl font-bold text-neutral-900 mb-2">Search Error</h2>
         <p class="text-neutral-600 mb-6">{{ searchError }}</p>
         <button

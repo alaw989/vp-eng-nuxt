@@ -162,6 +162,8 @@
 </template>
 
 <script setup lang="ts">
+import { decodeHtmlEntities } from '~/utils/html'
+
 // SEO Meta Tags
 usePageMeta({
   title: 'Site Map',

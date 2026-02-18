@@ -1,54 +1,41 @@
 <template>
   <div>
-    <!-- Breadcrumbs -->
-    <div class="bg-white border-b border-neutral-200">
-      <div class="container py-4">
-        <AppBreadcrumbs :breadcrumbs="aboutBreadcrumbs" />
-      </div>
-    </div>
+    <!-- Page Banner -->
+    <PageBanner
+      headline="About VP Associates"
+      subheadline="Tampa Bay's trusted structural engineering firm for over 30 years"
+      background-image="/images/hero/construction-steel-structure-1920w.jpg"
+      background-alt="Steel structure construction showcasing engineering excellence"
+      aria-label="About page banner"
+    />
 
-    <!-- Page Header -->
-    <AppSection bg-color="primary-dark" padding="lg">
-      <div class="container text-center text-white">
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
-          About VP Associates
-        </h1>
-        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-          Tampa Bay's trusted structural engineering firm for over 30 years
-        </p>
-      </div>
-    </AppSection>
-
-    <!-- Company History -->
-    <AppSection bg-color="white" animate-on-scroll>
+    <!-- Company Overview -->
+    <AppSection bg-color="white" animate-on-scroll border elevation>
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-6">
-            Our History
+            What We Do
           </h2>
           <p class="text-lg text-neutral-600 mb-4">
-            Founded in 1991, VP Associates has grown from a small consulting firm to one of Tampa Bay's most respected structural engineering practices. Our founder, a licensed Florida engineer with decades of experience, established the company on the principles of integrity, technical excellence, and client service.
-          </p>
-          <p class="text-lg text-neutral-600 mb-4">
-            Throughout our 30+ year history, we've contributed to shaping the Tampa Bay skyline through innovative structural solutions for commercial developments, residential communities, marine facilities, and critical infrastructure projects.
+            <strong>VP & Associates, Inc.</strong> provides a full range of structural engineering, steel detailing services and inspection services. With over 30 years of experience, our engineers and steel detailers have knowledge and demonstrated mastery in all facets of structural engineering and steel detailing including, but not limited to, developing plans and specifications for construction of new and existing buildings/tanks, as well as providing inspection services.
           </p>
           <p class="text-lg text-neutral-600 mb-6">
-            We combine deep technical expertise with practical construction knowledge to deliver designs that are not only code-compliant and safe, but also buildable and cost-effective.
+            We provide services to corporate industrial contractors, commercial architects, and steel fabricators utilizing the most current 3-D computer analysis systems available, ACAD drafting, SDS2 steel detailing, and coordinating available research materials. Our engineers and detailers have initiated, engineered, and completed countless multi-faceted design and construction projects which have met goals to reduce construction cost and time.
           </p>
           <div class="flex items-center gap-4">
             <div class="text-center group cursor-default">
               <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">30+</div>
-              <div class="text-sm text-neutral-600">Years in Business</div>
+              <div class="text-sm text-neutral-600">Years Experience</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
             <div class="text-center group cursor-default">
-              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">500+</div>
-              <div class="text-sm text-neutral-600">Projects Completed</div>
+              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">3-D</div>
+              <div class="text-sm text-neutral-600">Computer Analysis</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
             <div class="text-center group cursor-default">
-              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">100%</div>
-              <div class="text-sm text-neutral-600">Code Compliance</div>
+              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">SDS2</div>
+              <div class="text-sm text-neutral-600">Steel Detailing</div>
             </div>
           </div>
         </div>
@@ -61,7 +48,7 @@
     </AppSection>
 
     <!-- Mission & Values -->
-    <AppSection bg-color="neutral-50" animate-on-scroll>
+    <AppSection bg-color="secondary/5" animate-on-scroll elevation>
       <div class="text-center mb-16">
         <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
           Our Mission & Values
@@ -105,7 +92,7 @@
     </AppSection>
 
     <!-- Leadership Team -->
-    <AppSection bg-color="white" animate-on-scroll>
+    <AppSection bg-color="neutral-100" animate-on-scroll elevation>
       <div class="text-center mb-16">
         <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
           Our Leadership Team
@@ -123,7 +110,7 @@
 
         <!-- Error state -->
         <div v-else-if="teamError" class="col-span-full text-center py-8">
-          <Icon name="mdi:alert-circle-outline" class="w-12 h-12 text-secondary mx-auto mb-4" />
+          <Icon name="mdi:alert-circle-outline" class="w-12 h-12 text-alert mx-auto mb-4" />
           <p class="text-neutral-600 mb-4">Unable to load team information. Please try again later.</p>
           <button
             @click="refreshTeam"
@@ -151,7 +138,7 @@
     </AppSection>
 
     <!-- Certifications & Affiliations -->
-    <AppSection bg-color="neutral-100" animate-on-scroll>
+    <AppSection bg-color="neutral-50" animate-on-scroll border>
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-4">
           Certifications & Affiliations
@@ -172,7 +159,7 @@
     </AppSection>
 
     <!-- Service Area -->
-    <AppSection bg-color="white" animate-on-scroll>
+    <AppSection bg-color="secondary/10" animate-on-scroll elevation>
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <!-- Interactive Map -->
         <div class="order-2 md:order-1">
@@ -228,6 +215,8 @@
 </template>
 
 <script setup lang="ts">
+import { decodeHtmlEntities } from '~/utils/html'
+
 // Route meta for screen reader announcements
 definePageMeta({
   title: 'About'

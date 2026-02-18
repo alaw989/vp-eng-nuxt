@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background - Navy blue matching primary color -->
+  <rect width="512" height="512" fill="#033379" rx="80"/>
+
+  <!-- VP Monogram - White -->
+  <g fill="#ffffff" transform="translate(106, 156)">
+    <!-- V -->
+    <path d="M 48 36 L 150 300 L 252 36 L 195 36 L 150 200 L 105 36 Z"/>
+
+    <!-- P -->
+    <path d="M 228 36 L 228 300 L 290 300 L 290 228 L 344 228 C 406 228 436 196 436 154 C 436 112 406 36 344 36 Z M 290 84 L 344 84 C 374 84 382 92 382 114 C 382 136 374 144 344 144 L 290 144 Z"/>
+  </g>
+</svg>

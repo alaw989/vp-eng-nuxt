@@ -5,7 +5,7 @@
     :class="{ visible: isVisible }"
   >
     <div class="text-5xl md:text-6xl font-display font-bold text-white mb-2">
-      {{ Math.round(animatedValue) }}<span v-if="suffix">{{ suffix }}</span>
+      {{ displayNumber }}<span v-if="suffix">{{ suffix }}</span>
     </div>
     <div class="text-lg md:text-xl text-neutral-300">
       {{ label }}
@@ -14,8 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { useScrollReveal } from '~/composables/useScrollReveal'
-import { usePreferredReducedMotion } from '@vueuse/core'
+import { useIntersectionObserver } from '@vueuse/core'
 
 interface Props {
   value: number
@@ -23,94 +22,77 @@ interface Props {
   suffix?: string
   prefix?: string
   duration?: number
-  decimals?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   suffix: '',
   prefix: '',
-  duration: 2000,
-  decimals: 0
+  duration: 2000
 })
 
 const counterRef = ref<HTMLElement>()
-const { target, isVisible } = useScrollReveal({ threshold: 0.1 })
+const isVisible = ref(false)
 const animatedValue = ref(0)
 const hasAnimated = ref(false)
-const prefersReducedMotion = usePreferredReducedMotion()
 
-const displayValue = computed(() => {
-  return props.prefix + animatedValue.value.toFixed(props.decimals)
-})
-
-// Format large numbers with commas
-const formattedValue = computed(() => {
-  if (animatedValue.value >= 1000000) {
-    return (animatedValue.value / 1000000).toFixed(1) + 'M'
-  } else if (animatedValue.value >= 1000) {
-    return (animatedValue.value / 1000).toFixed(1) + 'K'
-  }
-  return animatedValue.value.toFixed(props.decimals)
-})
-
-const animate = () => {
-  if (hasAnimated.value || prefersReducedMotion.value) {
-    if (prefersReducedMotion.value) {
-      animatedValue.value = props.value // Instant display for reduced-motion users
+// Use IntersectionObserver directly from VueUse
+const { stop } = useIntersectionObserver(
+  counterRef,
+  ([entry]) => {
+    if (entry?.isIntersecting && !hasAnimated.value) {
+      isVisible.value = true
+      startAnimation()
+      stop() // Only animate once
     }
-    return
-  }
+  },
+  { threshold: 0.1 }
+)
+
+// Display number with commas for thousands
+const displayNumber = computed(() => {
+  return Math.round(animatedValue.value).toLocaleString()
+})
+
+const startAnimation = () => {
+  if (hasAnimated.value) return
 
   hasAnimated.value = true
-  const startTime = performance.now()
-  const startValue = animatedValue.value
+  const startValue = 0
   const endValue = props.value
+  const startTime = performance.now()
 
-  const updateCounter = (currentTime: number) => {
+  const animate = (currentTime: number) => {
     const elapsed = currentTime - startTime
     const progress = Math.min(elapsed / props.duration, 1)
 
-    // Easing function for smooth animation (ease-out quart)
+    // Ease out quart
     const easeOut = 1 - Math.pow(1 - progress, 4)
     animatedValue.value = startValue + (endValue - startValue) * easeOut
 
     if (progress < 1) {
-      requestAnimationFrame(updateCounter)
+      requestAnimationFrame(animate)
+    } else {
+      animatedValue.value = endValue // Ensure final value
     }
   }
 
-  requestAnimationFrame(updateCounter)
+  requestAnimationFrame(animate)
 }
 
-// Ensure ref is properly bound on mount
+// Fallback for elements already in view on mount
 onMounted(() => {
-  if (counterRef.value) {
-    target.value = counterRef.value
-  }
-
-  // Fallback: if element is already in view but animation hasn't started,
-  // trigger it after a short delay. This handles edge cases where
-  // IntersectionObserver may not fire due to hydration timing.
+  // Check if element is already visible after a short delay
   setTimeout(() => {
     if (!hasAnimated.value && counterRef.value) {
       const rect = counterRef.value.getBoundingClientRect()
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        animate()
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0
+
+      if (isInView) {
+        isVisible.value = true
+        startAnimation()
       }
     }
-  }, 500)
-})
-
-// Sync target with counterRef for reactive updates
-watchEffect(() => {
-  target.value = counterRef.value
-})
-
-// Start animation when visible
-watch(isVisible, (visible) => {
-  if (visible && !hasAnimated.value) {
-    animate()
-  }
+  }, 300)
 })
 </script>
 

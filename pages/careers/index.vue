@@ -1,16 +1,13 @@
 <template>
   <div>
-    <!-- Page Header -->
-    <AppSection bg-color="primary-dark" padding="lg">
-      <div class="container text-center text-white">
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
-          Join Our Team
-        </h1>
-        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-          Build your career with a leading structural engineering firm in Tampa Bay
-        </p>
-      </div>
-    </AppSection>
+    <!-- Page Banner -->
+    <PageBanner
+      headline="Join Our Team"
+      subheadline="Build your career with a leading structural engineering firm in Tampa Bay"
+      background-image="/images/hero/construction-site-1920w.jpg"
+      background-alt="Active construction site showcasing engineering career opportunities"
+      aria-label="Careers page banner"
+    />
 
     <!-- Why Work With Us -->
     <AppSection bg-color="white" animate-on-scroll>

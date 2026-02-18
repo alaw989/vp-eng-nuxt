@@ -11,14 +11,19 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#033379',    // Existing brand blue
+          DEFAULT: '#033379',    // Navy blue - trust & expertise
           light: '#0a4da8',
           dark: '#02244f'
         },
         secondary: {
-          DEFAULT: '#BE0000',    // Existing brand red
-          light: '#e60000',
-          dark: '#8a0000'
+          DEFAULT: '#4ADE80',    // Happy bright green - growth & vitality
+          light: '#86EFAC',
+          dark: '#22C55E'
+        },
+        alert: {
+          DEFAULT: '#DC2626',    // Red - only for errors/warnings
+          light: '#EF4444',
+          dark: '#B91C1C'
         },
         neutral: {
           50: '#f9fafb',
@@ -31,6 +36,10 @@ export default {
           700: '#374151',
           800: '#1f2937',
           900: '#111827'
+        },
+        pattern: {
+          dots: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.08\'%3E%3Ccircle cx=\'2\' cy=\'2\' r=\'1\'/%3E%3Ccircle cx=\'12\' cy=\'12\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E")',
+          grid: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M0 0h40v1H0z\'/%3E%3Cpath d=\'M0 0h1v40H0z\'/%3E%3C/g%3E%3C/svg%3E")'
         }
       },
       fontFamily: {

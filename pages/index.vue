@@ -77,7 +77,7 @@
     </AppSection>
 
     <!-- Services Section -->
-    <AppSection bg-color="neutral-50" animate-on-scroll>
+    <AppSection bg-color="neutral-50-pattern" animate-on-scroll elevation corner-accent="secondary">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
           Our Services
@@ -110,7 +110,7 @@
     </AppSection>
 
     <!-- Featured Projects Grid -->
-    <AppSection bg-color="white" animate-on-scroll>
+    <AppSection bg-color="white" animate-on-scroll elevation>
       <div class="text-center mb-12">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
           Featured Projects
@@ -156,7 +156,7 @@
     />
 
     <!-- Testimonials Section -->
-    <AppSection bg-color="neutral-100" animate-on-scroll>
+    <AppSection bg-color="neutral-100-pattern" animate-on-scroll elevation corner-accent="primary">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
           What Our Clients Say
@@ -223,6 +223,8 @@
 </template>
 
 <script setup lang="ts">
+import { decodeHtmlEntities } from '~/utils/html'
+
 // Route meta for screen reader announcements
 definePageMeta({
   title: 'Home'
@@ -305,15 +307,15 @@ const carouselSlides = computed(() => {
   }))
 })
 
-// Project image mapping from image-mapping.json
+// Project image mapping - using hero images as fallbacks
 const projectImageMap: Record<string, string> = {
-  'steel-connect': '/images/projects/steel-connect-1280w.webp',
-  'crane-lift': '/images/projects/crane-lift-1280w.webp',
-  'cad-drawing': '/images/projects/cad-drawing-1280w.webp',
-  'shallowdeepfoundationdesign10': '/images/projects/shallowdeepfoundationdesign10-1280w.webp',
-  'lowrise': '/images/projects/lowrise-1280w.webp',
-  'inspection-services': '/images/projects/inspection-services-1280w.webp',
-  'shopdrawing': '/images/projects/shopdrawing-1280w.webp',
+  'steel-connect': '/images/hero/construction-steel-beams-1920w.jpg',
+  'crane-lift': '/images/hero/crane-building-1920w.jpg',
+  'cad-drawing': '/images/hero/construction-structural-1920w.jpg',
+  'shallowdeepfoundationdesign10': '/images/hero/construction-concrete-1920w.jpg',
+  'lowrise': '/images/hero/construction-building-frame-1920w.jpg',
+  'inspection-services': '/images/hero/construction-site-1920w.jpg',
+  'shopdrawing': '/images/hero/construction-steel-structure-1920w.jpg',
 }
 
 // Helper function to find matching image by title/category

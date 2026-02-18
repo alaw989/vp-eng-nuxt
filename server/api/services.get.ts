@@ -4,37 +4,9 @@
  * Fetches services from WordPress REST API with fallback to static data
  * Includes server-side caching for performance
  */
-const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
+import { decodeHtmlEntities } from '~/utils/html'
 
-/**
- * Decode HTML entities to prevent hydration mismatches.
- * WordPress API returns encoded entities like &#038; which must be
- * decoded on the server to match client-side rendering.
- */
-function decodeHtmlEntities(text: string | undefined | null): string {
-  if (!text) return ''
-  const entities: Record<string, string> = {
-    '&#038;': '&',
-    '&amp;': '&',
-    '&#8217;': "'",
-    '&#8216;': "'",
-    '&#8220;': '"',
-    '&#8221;': '"',
-    '&#8211;': '–',
-    '&#8212;': '—',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&#039;': "'",
-    '&nbsp;': ' ',
-    '&#160;': ' ',
-  }
-  let decoded = text
-  for (const [entity, char] of Object.entries(entities)) {
-    decoded = decoded.replace(new RegExp(entity, 'g'), char)
-  }
-  return decoded
-}
+const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
 
 /**
  * Recursively decode HTML entities in WordPress response objects.

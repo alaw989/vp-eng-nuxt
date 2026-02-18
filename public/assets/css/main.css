@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-neutral-800 bg-white antialiased;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Animation utilities */
+  .fade-in {
+    @apply opacity-0 transition-opacity duration-700;
+  }
+
+  .fade-in.visible {
+    @apply opacity-100;
+  }
+
+  .slide-up {
+    @apply opacity-0 translate-y-8 transition-all duration-700;
+  }
+
+  .slide-up.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Section wrapper */
+  .section {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Container */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  /* Text shadow for better readability over images */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  /* Focus visible utility for better keyboard navigation */
+  .focus-visible-ring {
+    @apply focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none;
+  }
+
+  /* Stagger animation utilities for scroll-triggered child animations */
+  .stagger-children .stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 600ms ease-out, transform 600ms ease-out;
+  }
+
+  .stagger-children.visible .stagger-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* High contrast focus indicators for keyboard navigation (WCAG AA) */
+*,
+*::before,
+*::after {
+  &:focus-visible {
+    outline: 2px solid rgb(30 64 175); /* primary color - high contrast */
+    outline-offset: 2px;
+  }
+}
+
+/* Don't show focus ring on mouse click */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ensure skip link focus is very visible */
+.focus\:not-sr-only:focus {
+  outline: 3px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgb(30 64 175);
+}
+
+/* Page transition styles - 150ms cross-fade per Phase 19-01 */
+.page-enter-active {
+  transition: opacity 150ms ease-in-out;
+}
+
+.page-leave-active {
+  transition: opacity 150ms ease-in-out;
+}
+
+.page-enter-from {
+  opacity: 0;
+}
+
+.page-leave-to {
+  opacity: 0;
+}
+
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 150ms ease-in-out;
+}
+
+.layout-enter-from,
+.layout-leave-to {
+  opacity: 0;
+}
+
+/* Directional slide transitions for list/detail navigation (150ms) */
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+/* Slide left (forward: list -> detail) */
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* Slide right (back: detail -> list) */
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+/* Standard micro-interaction duration: 300ms (per Phase 22) */
+
+/* Reduced motion support: 150ms linear transitions (no transforms)
+ * Test by enabling "Reduce motion" in OS accessibility settings:
+ * - macOS: System Preferences > Accessibility > Display > Reduce motion
+ * - Windows: Settings > Ease of Access > Display > Show animations
+ * - Linux: GNOME Settings > Universal Access > Reduce Animation
+ * Or force in DevTools: Rendering > Emulate CSS media feature > prefers-reduced-motion: reduce
+ */
+@media (prefers-reduced-motion: reduce) {
+  /* Page/layout transitions: 150ms linear (no transforms, maintains continuity) */
+  .page-enter-active,
+  .page-leave-active,
+  .layout-enter-active,
+  .layout-leave-active {
+    transition: opacity 150ms linear !important;
+  }
+
+  /* Prevent transforms on transition states */
+  .page-enter-from,
+  .page-leave-to,
+  .layout-enter-from,
+  .layout-leave-to {
+    transform: none !important;
+  }
+
+  /* Disable slide transforms in reduced motion mode */
+  .slide-left-enter-from,
+  .slide-left-leave-to,
+  .slide-right-enter-from,
+  .slide-right-leave-to {
+    transform: none !important;
+  }
+
+  /* Disable transforms on hover effects but preserve color feedback */
+  .hover\:-translate-y-0\.5:hover,
+  .hover\:-translate-y-1:hover,
+  .group-hover\:-translate-y-1:hover,
+  .group-hover\:scale-105:hover,
+  .group-hover\:scale-110:hover {
+    transform: none !important;
+  }
+
+  /* Keep color transitions for reduced motion users (visual feedback preserved) */
+  .hover\:bg-primary-dark:hover,
+  .hover\:text-primary:hover,
+  .hover\:text-white:hover,
+  .hover\:bg-secondary-dark:hover,
+  .hover\:bg-neutral-100:hover,
+  .hover\:text-primary-dark:hover {
+    transition: background-color 300ms ease, color 300ms ease !important;
+  }
+
+  /* Stagger animation reduced motion: instant opacity, no transforms */
+  .stagger-children .stagger-item {
+    transition: opacity 300ms linear !important;
+    transform: none !important;
+  }
+
+  .stagger-children.visible .stagger-item {
+    transform: none !important;
+  }
+
+  /* Disable scroll animations and reduce other animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles for better page printing */
+@media print {
+  /* Hide elements that shouldn't be printed */
+  header,
+  footer,
+  .back-to-top,
+  .page-loading-bar,
+  .social-share,
+  button:not([type="submit"]),
+  [role="navigation"],
+  [aria-label*="menu"],
+  [aria-label*="navigation"] {
+    display: none !important;
+  }
+
+  /* Ensure content is readable */
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  /* Ensure links are readable */
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+
+  /* Add page break before major sections */
+  .section {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure images don't overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+    page-break-inside: avoid;
+  }
+
+  /* Improve heading print quality */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    color: #000;
+  }
+
+  /* Add URL to printed page */
+  @page {
+    margin: 1.5cm;
+  }
+
+  /* Print footer with URL */
+  body::after {
+    content: "Source: VP Associates - https://vp-associates.com";
+    display: block;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 2em;
+    border-top: 1px solid #ccc;
+    padding-top: 0.5em;
+  }
+}

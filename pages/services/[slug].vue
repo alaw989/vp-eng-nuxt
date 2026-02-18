@@ -6,7 +6,7 @@
     <!-- Error state -->
     <div v-else-if="error || !service" class="min-h-screen flex items-center justify-center">
       <div class="text-center">
-        <Icon name="mdi:alert-circle" class="w-16 h-16 text-secondary mx-auto mb-4" />
+        <Icon name="mdi:alert-circle" class="w-16 h-16 text-alert mx-auto mb-4" />
         <h1 class="text-2xl font-bold text-neutral-900 mb-2">Service Not Found</h1>
         <p class="text-neutral-600 mb-6">The service you're looking for doesn't exist or has been removed.</p>
         <NuxtLink
@@ -21,53 +21,27 @@
 
     <!-- Service content -->
     <template v-else>
-      <!-- Breadcrumbs -->
+      <!-- Page Header Banner -->
+      <PageBanner
+        :headline="service?.title?.rendered || 'Service'"
+        :subheadline="serviceDescription"
+        :background-image="serviceHeroImage"
+        :background-alt="`${service?.title?.rendered || 'Service'} hero image`"
+        aria-label="Service page banner"
+      />
+
+      <!-- Breadcrumbs with Service Info -->
       <div class="bg-white border-b border-neutral-200">
-        <div class="container py-4">
-          <AppBreadcrumbs :breadcrumbs="serviceBreadcrumbs" />
-        </div>
-      </div>
-
-      <!-- Page Header -->
-      <AppSection bg-color="primary-dark" padding="lg" class="relative overflow-hidden">
-        <!-- Background Image -->
-        <div class="absolute inset-0">
-          <NuxtImg
-            :src="serviceHeroImage"
-            :alt="`${service?.title?.rendered || 'Service'} hero image`"
-            class="w-full h-full object-cover"
-            format="webp"
-            loading="eager"
-            width="1920"
-            height="600"
-          />
-          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
-        </div>
-
-        <div class="container text-white relative z-10">
-          <NuxtLink
-            to="/services"
-            class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
-          >
-            <Icon name="mdi:arrow-left" class="w-5 h-5" />
-            Back to Services
-          </NuxtLink>
-          <div class="flex items-center gap-4 mb-6">
-            <div v-if="serviceIcon" class="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <Icon :name="serviceIcon" class="w-8 h-8" />
-            </div>
-            <div>
-              <div v-if="serviceStandard" class="text-secondary font-semibold mb-1">{{ serviceStandard }}</div>
-              <h1 class="text-4xl md:text-5xl font-display font-bold">
-                {{ service.title.rendered }}
-              </h1>
+        <div class="container py-3">
+          <div class="flex items-center justify-between">
+            <AppBreadcrumbs :breadcrumbs="serviceBreadcrumbs" />
+            <div v-if="serviceIcon" class="flex items-center gap-2 text-sm text-neutral-500">
+              <Icon :name="serviceIcon" class="w-5 h-5 text-primary" />
+              <span v-if="serviceStandard">{{ serviceStandard }}</span>
             </div>
           </div>
-          <p class="text-xl opacity-90 max-w-3xl">
-            {{ serviceDescription }}
-          </p>
         </div>
-      </AppSection>
+      </div>
 
       <!-- Service Overview -->
       <AppSection bg-color="white" animate-on-scroll>
@@ -459,7 +433,17 @@ const serviceHeroImages: Record<string, string> = {
 
 const heroFallback = '/images/hero/home-header-1920w.webp'
 
+// Featured image from WordPress API or fallback to hardcoded mapping
 const serviceHeroImage = computed(() => {
+  // Try to get featured image from WordPress API _embedded data
+  const featuredMedia = service.value?._embedded?.['wp:featuredmedia']?.[0]
+  if (featuredMedia) {
+    // Try to get a large size, fallback to full or source URL
+    return featuredMedia.media_details?.sizes?.large?.source_url ||
+           featuredMedia.media_details?.sizes?.full?.source_url ||
+           featuredMedia.source_url
+  }
+  // Fallback to hardcoded mapping
   return serviceHeroImages[slug] || heroFallback
 })
 

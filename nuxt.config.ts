@@ -46,6 +46,8 @@ export default defineNuxtConfig({
         { name: 'description', content: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.' },
       ],
       link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'canonical', href: 'https://vp-associates.com' },
         { rel: 'alternate', type: 'application/rss+xml', title: 'VP Associates RSS Feed', href: 'https://vp-associates.com/rss.xml' },
 
@@ -239,7 +241,7 @@ export default defineNuxtConfig({
       start_url: '/',
       icons: [
         {
-          src: '/images/icon.svg',
+          src: '/favicon.svg',
           sizes: '192x192 512x512',
           type: 'image/svg+xml',
           purpose: 'any maskable'

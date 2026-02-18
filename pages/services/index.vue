@@ -1,16 +1,13 @@
 <template>
   <div>
-    <!-- Page Header -->
-    <AppSection bg-color="primary-dark" padding="lg">
-      <div class="container text-center text-white">
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
-          Our Services
-        </h1>
-        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-          Comprehensive structural engineering solutions for projects of all sizes
-        </p>
-      </div>
-    </AppSection>
+    <!-- Page Banner -->
+    <PageBanner
+      headline="Our Services"
+      subheadline="Comprehensive structural engineering solutions for projects of all sizes"
+      background-image="/images/hero/construction-steel-beams-1920w.jpg"
+      background-alt="Steel beams construction showcasing structural engineering capabilities"
+      aria-label="Services page banner"
+    />
 
     <!-- Category Filter Section -->
     <AppSection bg-color="neutral-50" padding="md">
@@ -248,6 +245,7 @@
 
 <script setup lang="ts">
 import { useFilterTransition } from '~/composables/useFilterTransition'
+import { decodeHtmlEntities } from '~/utils/html'
 
 // Route meta for screen reader announcements
 definePageMeta({
