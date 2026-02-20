@@ -24,7 +24,9 @@
           </p>
           <div class="flex items-center gap-4">
             <div class="text-center group cursor-default">
-              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">30+</div>
+              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">
+                <span ref="yearsCounter">0</span>+
+              </div>
               <div class="text-sm text-neutral-600">Years Experience</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
@@ -40,8 +42,24 @@
           </div>
         </div>
         <div class="relative">
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center">
-            <Icon name="mdi:office-building-marker" class="w-40 h-40 text-primary/30" />
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl relative">
+            <img
+              src="/images/hero/construction-steel-beams-1920w.jpg"
+              alt="Steel construction project showcasing VP Associates engineering work"
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+            <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-secondary/20 mix-blend-multiply" />
+          </div>
+          <!-- Floating badge -->
+          <div class="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-4 flex items-center gap-3 animate-bounce-slow">
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+              <Icon name="mdi:award" class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <div class="font-bold text-neutral-900">Licensed</div>
+              <div class="text-sm text-neutral-600">Florida PE</div>
+            </div>
           </div>
         </div>
       </div>
@@ -299,8 +317,76 @@ const serviceAreas = [
   'Pinellas County'
 ]
 
+// Counter animation for "30+ Years"
+const yearsCounter = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  // Animate the years counter from 0 to 30
+  if (yearsCounter.value) {
+    const duration = 2000 // 2 seconds
+    const target = 30
+    const startTime = Date.now()
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      // Easing function for smooth animation
+      const easeOut = 1 - Math.pow(1 - progress, 3)
+      const current = Math.floor(easeOut * target)
+
+      if (yearsCounter.value) {
+        yearsCounter.value.textContent = current.toString()
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      } else {
+        if (yearsCounter.value) {
+          yearsCounter.value.textContent = target.toString()
+        }
+      }
+    }
+
+    // Start animation when section is visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animate()
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.5 }
+    )
+
+    observer.observe(yearsCounter.value)
+  }
+})
+
 // Refresh team data
 async function refreshTeam() {
   await navigateTo({ path: '/about', query: { refresh: Date.now().toString() } })
 }
 </script>
+
+<style scoped>
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bounce-slow {
+    animation: none;
+  }
+}
+</style>

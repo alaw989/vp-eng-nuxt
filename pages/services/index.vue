@@ -10,7 +10,7 @@
     />
 
     <!-- Category Filter Section -->
-    <AppSection bg-color="neutral-50" padding="md">
+    <AppSection bg-color="neutral-100" padding="md">
       <div class="container">
         <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
           <button
@@ -56,38 +56,43 @@
         <div
           v-for="service in filteredServices"
           :key="service.slug"
-          class="bg-white rounded-xl p-8 border-2 border-neutral-200 hover:border-primary hover:shadow-xl transition-all duration-300"
+          class="group relative bg-white rounded-2xl p-8 border-2 border-neutral-100 hover:border-primary/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
         >
-          <div class="flex items-start gap-4 mb-4">
-            <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-              <Icon :name="service.icon" class="w-7 h-7 text-primary" />
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-neutral-900 mb-2">
-                {{ service.title }}
-              </h3>
-              <div v-if="service.standard" class="text-sm font-semibold text-primary mb-2">
-                {{ service.standard }}
+          <!-- Hover glow effect -->
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <div class="relative z-10">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
+                <Icon :name="service.icon" class="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">
+                  {{ service.title }}
+                </h3>
+                <div v-if="service.standard" class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/10 rounded-full">
+                  {{ service.standard }}
+                </div>
               </div>
             </div>
+            <p class="text-neutral-600 mb-4">
+              {{ service.description }}
+            </p>
+            <ul v-if="service.capabilities" class="space-y-2 mb-4">
+              <li v-for="cap in service.capabilities" :key="cap" class="flex items-start gap-2 text-neutral-700">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
+                <span class="text-sm">{{ cap }}</span>
+              </li>
+            </ul>
+            <NuxtLink
+              v-if="service.slug"
+              :to="`/services/${service.slug}`"
+              class="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-dark transition-colors group-hover:gap-3"
+            >
+              Learn More
+              <Icon name="mdi:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </NuxtLink>
           </div>
-          <p class="text-neutral-600 mb-4">
-            {{ service.description }}
-          </p>
-          <ul v-if="service.capabilities" class="space-y-2 mb-4">
-            <li v-for="cap in service.capabilities" :key="cap" class="flex items-start gap-2 text-neutral-700">
-              <Icon name="mdi:check-circle" class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-              <span class="text-sm">{{ cap }}</span>
-            </li>
-          </ul>
-          <NuxtLink
-            v-if="service.slug"
-            :to="`/services/${service.slug}`"
-            class="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-dark transition-colors"
-          >
-            Learn More
-            <Icon name="mdi:arrow-right" class="w-4 h-4" />
-          </NuxtLink>
         </div>
       </div>
 
@@ -99,9 +104,9 @@
     </AppSection>
 
     <!-- Why Choose Us -->
-    <AppSection bg-color="neutral-50" animate-on-scroll>
+    <AppSection bg-color="neutral-50" animate-on-scroll elevation>
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+        <h2 class="text-4xl md:text-4xl font-display font-bold text-neutral-900 mb-4">
           Why Choose VP Associates?
         </h2>
         <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
@@ -110,8 +115,8 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center">
-          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
             <Icon name="mdi:clock-fast" class="w-10 h-10 text-primary" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Fast Turnaround</h3>
@@ -120,8 +125,8 @@
           </p>
         </div>
 
-        <div class="text-center">
-          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
             <Icon name="mdi:file-document-check" class="w-10 h-10 text-primary" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Code Compliance</h3>
@@ -130,8 +135,8 @@
           </p>
         </div>
 
-        <div class="text-center">
-          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
             <Icon name="mdi:account-group" class="w-10 h-10 text-primary" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Experienced Team</h3>
@@ -140,8 +145,8 @@
           </p>
         </div>
 
-        <div class="text-center">
-          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
             <Icon name="mdi:tools" class="w-10 h-10 text-primary" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Buildable Designs</h3>
@@ -150,8 +155,8 @@
           </p>
         </div>
 
-        <div class="text-center">
-          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
             <Icon name="mdi:calculator" class="w-10 h-10 text-primary" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Cost Effective</h3>
@@ -160,8 +165,8 @@
           </p>
         </div>
 
-        <div class="text-center">
-          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="text-center group">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
             <Icon name="mdi:phone-in-talk" class="w-10 h-10 text-primary" />
           </div>
           <h3 class="text-xl font-bold text-neutral-900 mb-3">Responsive Service</h3>
@@ -173,7 +178,7 @@
     </AppSection>
 
     <!-- Process Section -->
-    <AppSection bg-color="white" animate-on-scroll>
+    <AppSection bg-color="secondary/5" animate-on-scroll elevation>
       <div class="text-center mb-16">
         <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
           Our Process
@@ -183,31 +188,39 @@
         </p>
       </div>
 
-      <div class="grid md:grid-cols-4 gap-8">
-        <div class="relative">
-          <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4">1</div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2">Consultation</h3>
+      <div class="grid md:grid-cols-4 gap-8 relative">
+        <!-- Progress line background -->
+        <div class="hidden md:block absolute top-6 left-[12%] right-[12%] h-1 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20 rounded-full" />
+
+        <div class="relative group">
+          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
+            1
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Consultation</h3>
           <p class="text-neutral-600 text-sm">Initial project review and scope discussion</p>
-          <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
         </div>
 
-        <div class="relative">
-          <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4">2</div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2">Design</h3>
+        <div class="relative group">
+          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
+            2
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Design</h3>
           <p class="text-neutral-600 text-sm">Structural analysis and calculation preparation</p>
-          <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
         </div>
 
-        <div class="relative">
-          <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4">3</div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2">Review</h3>
+        <div class="relative group">
+          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
+            3
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Review</h3>
           <p class="text-neutral-600 text-sm">Plan preparation and permitting support</p>
-          <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
         </div>
 
-        <div>
-          <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4">4</div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2">Support</h3>
+        <div class="relative group">
+          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
+            4
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Support</h3>
           <p class="text-neutral-600 text-sm">Construction administration and field services</p>
         </div>
       </div>

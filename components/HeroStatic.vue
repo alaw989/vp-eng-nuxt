@@ -57,7 +57,8 @@
         >
           <NuxtLink
             :to="ctaLink"
-            class="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-secondary to-secondary-dark text-white rounded-lg font-semibold hover:from-secondary-dark hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
+            class="group inline-flex items-center gap-2 px-8 py-4 text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
+            style="background: linear-gradient(to right, #4ADE80, #22C55E);"
           >
             {{ ctaText }}
             <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" />

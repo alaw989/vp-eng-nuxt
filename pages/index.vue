@@ -110,20 +110,20 @@
     </AppSection>
 
     <!-- Featured Projects Grid -->
-    <AppSection bg-color="white" animate-on-scroll elevation>
+    <AppSection bg-color="neutral" animate-on-scroll elevation stagger-children>
       <div class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
+        <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">
           Featured Projects
         </h2>
-        <p class="text-xl text-neutral-600 max-w-2xl mx-auto">
+        <p class="text-xl text-neutral-300 max-w-2xl mx-auto">
           Explore our portfolio of successful engineering projects across Tampa Bay
         </p>
       </div>
 
-      <!-- Projects Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Projects Grid with staggered animation -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 stagger-children">
         <ProjectCard
-          v-for="project in featuredProjects"
+          v-for="(project, index) in featuredProjects"
           :key="project.slug"
           :title="project.title"
           :slug="project.slug"
@@ -132,16 +132,19 @@
           :location="project.location"
           :year="project.year"
           :image="project.image"
+          :dark-mode="true"
+          class="stagger-item"
+          :style="{ animationDelay: `${index * 100}ms` }"
         />
       </div>
 
       <div class="text-center">
         <NuxtLink
           to="/projects"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
         >
           View All Projects
-          <Icon name="mdi:arrow-right" class="w-5 h-5" />
+          <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" />
         </NuxtLink>
       </div>
     </AppSection>

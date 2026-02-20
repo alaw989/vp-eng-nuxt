@@ -2,7 +2,10 @@
   <NuxtLink
     :to="`/projects/${slug}`"
     :class="[
-      'group overflow-hidden rounded-xl bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+      'group overflow-hidden rounded-xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+      darkMode
+        ? 'bg-neutral-800/80 border border-neutral-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-1 backdrop-blur-sm'
+        : 'bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl hover:-translate-y-1',
       viewMode === 'list' ? 'flex flex-col md:flex-row' : 'block'
     ]"
     :aria-label="`View project: ${title}${category ? ` - ${category}` : ''}${location ? ` in ${location}` : ''}`"
@@ -34,18 +37,32 @@
       'flex flex-col',
       viewMode === 'list' ? 'p-6 md:w-2/3' : 'p-6'
     ]">
-      <div v-if="category" class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/10 rounded-full mb-3 self-start">
+      <div v-if="category" :class="[
+        'inline-block px-3 py-1 text-xs font-semibold rounded-full mb-3 self-start',
+        darkMode
+          ? 'text-primary-light bg-primary/20'
+          : 'text-primary bg-primary/10'
+      ]">
         {{ category }}
       </div>
-      <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">
+      <h3 :class="[
+        'text-xl font-bold mb-2 group-hover:text-primary transition-colors',
+        darkMode ? 'text-white' : 'text-neutral-900'
+      ]">
         {{ title }}
       </h3>
-      <p v-if="description" class="text-neutral-600 text-sm mb-4 line-clamp-2">
+      <p v-if="description" :class="[
+        'text-sm mb-4 line-clamp-2',
+        darkMode ? 'text-neutral-400' : 'text-neutral-600'
+      ]">
         {{ description }}
       </p>
 
       <!-- Project Meta -->
-      <div v-if="location || year" class="flex items-center gap-4 text-sm text-neutral-500 mt-auto">
+      <div v-if="location || year" :class="[
+        'flex items-center gap-4 text-sm mt-auto',
+        darkMode ? 'text-neutral-500' : 'text-neutral-500'
+      ]">
         <span v-if="location" class="flex items-center gap-1">
           <Icon name="mdi:map-marker" class="w-4 h-4" aria-hidden="true" />
           {{ location }}
@@ -71,12 +88,14 @@ interface Props {
   location?: string
   year?: number | string
   viewMode?: ViewMode
-  priority?: boolean  // New prop for LCP optimization
+  priority?: boolean
+  darkMode?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   viewMode: 'grid',
-  priority: false
+  priority: false,
+  darkMode: false
 })
 </script>
 
