@@ -240,6 +240,8 @@
 </template>
 
 <script setup lang="ts">
+import { decodeHtmlEntities } from '~/utils/html'
+
 const route = useRoute()
 const slug = String((route.params as any).slug || '')
 
@@ -478,47 +480,39 @@ const serviceBreadcrumbs = computed(() => [
   { title: service.value?.title?.rendered || 'Service' }
 ])
 
-// Related projects (static data for now)
-const relatedProjects = ref([
-  {
-    title: 'Tampa Marina Complex',
-    slug: 'tampa-marina-complex',
-    description: 'Complete structural design for a 50-slip marina',
-    category: 'Marine',
-    location: 'Tampa, FL',
-    year: 2024
-  },
-  {
-    title: 'Downtown Office Tower',
-    slug: 'downtown-office-tower',
-    description: 'Structural steel design for 12-story office building',
-    category: 'Commercial',
-    location: 'Tampa, FL',
-    year: 2023
-  },
-  {
-    title: 'Coastal Seawall System',
-    slug: 'coastal-seawall-system',
-    description: 'Engineered seawall protection system',
-    category: 'Marine',
-    location: 'Clearwater, FL',
-    year: 2024
-  }
-])
+// Fetch projects from WordPress API for related projects section
+const { data: projectsResponse } = await useFetch('/api/projects')
 
-// All services list for related services lookup
-const allServicesList = [
-  { title: 'Structural Steel Design', slug: 'structural-steel-design', icon: 'mdi:beam', description: 'AISC certified steel design' },
-  { title: 'Concrete Design', slug: 'concrete-design', icon: 'mdi:cube-outline', description: 'ACI certified concrete design' },
-  { title: 'Masonry Design', slug: 'masonry-design', icon: 'mdi:wall', description: 'ACI 530 compliant masonry design' },
-  { title: 'Wood Design', slug: 'wood-design', icon: 'mdi:tree', description: 'NDS standards for wood construction' },
-  { title: 'Foundation Design', slug: 'foundation-design', icon: 'mdi:home-floor-0', description: 'Deep and shallow foundations' },
-  { title: 'Seawall Design', slug: 'seawall-design', icon: 'mdi:waves', description: 'Coastal protection structures' },
-  { title: 'Steel Connection Design', slug: 'steel-connection-design', icon: 'mdi:vector-arrange-above', description: 'Detailed steel connection design' },
-  { title: 'CAD & 3D Modeling', slug: 'cad-3d-modeling', icon: 'mdi:cube-scan', description: 'Advanced CAD and BIM modeling' },
-  { title: 'Inspection Services', slug: 'inspection-services', icon: 'mdi:magnify-scan', description: 'Professional structural inspection' },
-  { title: 'Steel Detailing', slug: 'steel-detailing', icon: 'mdi:pencil-ruler', description: 'Professional steel detailing' }
-]
+// Transform projects data for related projects lookup
+const allProjects = computed(() => {
+  const response = projectsResponse.value as any
+  if (!response?.data || !Array.isArray(response.data)) return []
+
+  return response.data.map((p: any) => ({
+    title: decodeHtmlEntities(p.title?.rendered) || 'Project',
+    slug: p.slug || 'project',
+    description: decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || 'Structural engineering project',
+    category: decodeHtmlEntities(p.custom_fields?.project_category) || 'Project',
+    location: decodeHtmlEntities(p.custom_fields?.project_location) || 'Tampa Bay',
+    year: p.custom_fields?.project_year || new Date().getFullYear().toString(),
+    // Get image from API
+    image: (() => {
+      // Try images array first
+      if (p.images && Array.isArray(p.images) && p.images.length > 0) {
+        return p.images[0].url || p.images[0]
+      }
+      // Try featured media from _embedded
+      const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
+      if (featuredMedia) {
+        return featuredMedia.source_url ||
+               featuredMedia.media_details?.sizes?.large?.source_url ||
+               featuredMedia.media_details?.sizes?.full?.source_url ||
+               '/images/hero/construction-steel-beams-1920w.jpg'
+      }
+      return '/images/hero/construction-steel-beams-1920w.jpg'
+    })()
+  }))
+})
 
 // Service-to-category mapping function
 function getServiceCategory(serviceSlug: string): string | null {
@@ -536,6 +530,55 @@ function getServiceCategory(serviceSlug: string): string | null {
   }
   return categoryMap[serviceSlug] || null
 }
+
+// Related projects computed - fetches from API and filters by matching category
+const relatedProjects = computed(() => {
+  const currentCategory = getServiceCategory(slug)
+  if (!currentCategory || !allProjects.value.length) return []
+
+  // Map service category to project category keywords
+  const categoryKeywords: Record<string, string[]> = {
+    'structural': ['structural', 'steel', 'concrete', 'masonry', 'wood', 'foundation'],
+    'design': ['design', 'detailing', 'cad', 'modeling', 'connection', 'steel'],
+    'inspection': ['inspection'],
+    'marine': ['marine', 'seawall', 'coastal', 'waterfront']
+  }
+
+  const keywords = categoryKeywords[currentCategory] || []
+
+  // Filter projects by category keyword match
+  const matchingProjects = allProjects.value.filter((project: any) => {
+    const categoryLower = project.category.toLowerCase()
+    const titleLower = project.title.toLowerCase()
+    return keywords.some(keyword =>
+      categoryLower.includes(keyword) || titleLower.includes(keyword)
+    )
+  })
+
+  // Return up to 3 related projects
+  return matchingProjects.slice(0, 3).map((p: any) => ({
+    title: p.title,
+    slug: p.slug,
+    description: p.description,
+    category: p.category,
+    location: p.location,
+    year: p.year
+  }))
+})
+
+// All services list for related services lookup
+const allServicesList = [
+  { title: 'Structural Steel Design', slug: 'structural-steel-design', icon: 'mdi:beam', description: 'AISC certified steel design' },
+  { title: 'Concrete Design', slug: 'concrete-design', icon: 'mdi:cube-outline', description: 'ACI certified concrete design' },
+  { title: 'Masonry Design', slug: 'masonry-design', icon: 'mdi:wall', description: 'ACI 530 compliant masonry design' },
+  { title: 'Wood Design', slug: 'wood-design', icon: 'mdi:tree', description: 'NDS standards for wood construction' },
+  { title: 'Foundation Design', slug: 'foundation-design', icon: 'mdi:home-floor-0', description: 'Deep and shallow foundations' },
+  { title: 'Seawall Design', slug: 'seawall-design', icon: 'mdi:waves', description: 'Coastal protection structures' },
+  { title: 'Steel Connection Design', slug: 'steel-connection-design', icon: 'mdi:vector-arrange-above', description: 'Detailed steel connection design' },
+  { title: 'CAD & 3D Modeling', slug: 'cad-3d-modeling', icon: 'mdi:cube-scan', description: 'Advanced CAD and BIM modeling' },
+  { title: 'Inspection Services', slug: 'inspection-services', icon: 'mdi:magnify-scan', description: 'Professional structural inspection' },
+  { title: 'Steel Detailing', slug: 'steel-detailing', icon: 'mdi:pencil-ruler', description: 'Professional steel detailing' }
+]
 
 // Related services computed - filters by same category, excludes current
 const relatedServices = computed(() => {
