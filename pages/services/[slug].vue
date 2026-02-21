@@ -52,7 +52,7 @@
                 About This Service
               </h2>
             </div>
-            <div class="prose prose-lg max-w-none text-neutral-600" v-html="service.content.rendered"></div>
+            <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="service.content.rendered"></div>
             <div class="mt-6 pt-6 border-t border-neutral-200 social-share">
               <LazySocialShare
                 :title="service.title.rendered"

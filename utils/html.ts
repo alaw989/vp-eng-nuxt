@@ -4,6 +4,14 @@
  */
 
 /**
+ * Strip HTML tags from a string.
+ */
+export function stripHtml(text: string | undefined | null): string {
+  if (!text) return ''
+  return text.replace(/<[^>]*>/g, '').trim()
+}
+
+/**
  * Decode HTML entities to prevent hydration mismatches.
  * WordPress API returns encoded entities like &#038; which must be
  * decoded to match client-side rendering.

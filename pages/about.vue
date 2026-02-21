@@ -233,7 +233,7 @@
 </template>
 
 <script setup lang="ts">
-import { decodeHtmlEntities } from '~/utils/html'
+import { decodeHtmlEntities, stripHtml } from '~/utils/html'
 
 // Route meta for screen reader announcements
 definePageMeta({
@@ -282,15 +282,24 @@ const teamData = computed(() => (teamResponse.value as any)?.data || [])
 // Transform team data for display
 const leadership = computed(() => {
   if (!teamData.value || !Array.isArray(teamData.value)) return []
-  return teamData.value.slice(0, 4).map((member: any) => ({
-    name: decodeHtmlEntities(member.title?.rendered) || 'Team Member',
-    title: decodeHtmlEntities(member.custom_fields?.title || ['Team']?.[0]) || 'Team',
-    bio: decodeHtmlEntities(member.custom_fields?.bio?.[0]) || 'Professional structural engineer',
-    email: member.custom_fields?.email?.[0] || 'info@vp-associates.com',
-    phone: member.custom_fields?.phone?.[0] || '+18135551234',
-    photo: member.custom_fields?.photo?.[0] || '/images/team/team-1-800w.webp',
-    linkedin: member.custom_fields?.linkedin?.[0] || '',
-  }))
+  return teamData.value.slice(0, 4).map((member: any) => {
+    // Featured image from _embedded
+    const featuredImageUrl = member._embedded?.['wp:featuredmedia']?.[0]?.source_url
+    const photo = featuredImageUrl || '/images/team/team-1-800w.webp'
+
+    // Custom fields (returned as strings, not arrays)
+    const customFields = member.custom_fields || {}
+
+    return {
+      name: decodeHtmlEntities(member.title?.rendered) || 'Team Member',
+      title: customFields.team_job_title || 'Team',
+      bio: decodeHtmlEntities(stripHtml(member.excerpt?.rendered)) || 'Professional structural engineer',
+      email: customFields.team_email || 'info@vp-associates.com',
+      phone: customFields.team_phone || '',
+      photo,
+      linkedin: customFields.team_linkedin || '',
+    }
+  })
 })
 
 const certifications = [
