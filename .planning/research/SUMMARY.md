@@ -1,503 +1,260 @@
-# v1.2 Refinement Research Summary
+# cPanel Migration Research Summary
 
-**Date:** 2026-02-07
+**Project:** VP Associates Nuxt 3 Static Migration
+**Domain:** Static Site Deployment / cPanel Hosting
+**Researched:** 2026-02-23
 **Confidence:** HIGH
-**Milestone:** v1.2 Refinement - UX Polish, Page Transitions, Micro-interactions, Accessibility
-
----
 
 ## Executive Summary
 
-The v1.2 Refinement Milestone focuses on **polishing an existing high-performing Nuxt 3 website** with page transitions, micro-interactions, and accessibility improvements. Key finding: The existing codebase is **well-architected for refinement** with minimal restructuring needed. Only **2 new packages** are recommended (1 runtime, 1 dev dependency), keeping the total bundle impact under 20KB.
-
-**Critical insight:** The biggest risk in refinement work is **undoing v1.1 performance optimizations** with well-intentioned but poorly implemented UX enhancements. The research emphasizes a **"CSS-first, progressive enhancement" approach**: use built-in Nuxt/Vue capabilities before adding libraries, respect `prefers-reduced-motion`, and maintain 90+ Lighthouse Performance scores.
-
-**Professional services UX context:** This is a structural engineering firm website, not a consumer app. UX should emphasize **trust and competence over flashiness**. Animations must be subtle (150-300ms), accessibility is non-negotiable (WCAG 2.1 AA), and performance cannot be compromised.
-
----
-
-## Stack Additions
-
-### Recommended Packages (2 total)
-
-| Package | Version | Type | Purpose | Bundle Impact |
-|---------|---------|------|---------|---------------|
-| **@formkit/auto-animate** | ^0.9.0 | Runtime | Layout animations (list filtering, reordering) | ~15KB |
-| **@nuxtjs/a11y** | ^2.1.0 | Dev dependency | Automated accessibility testing (axe-core) | 0KB (dev-only) |
-
-### Leveraging Existing Stack
-
-**No new packages needed for:**
-- **Page transitions** — Nuxt 3 built-in transitions already configured in `nuxt.config.ts`
-- **Micro-interactions** — Tailwind CSS 6.12 hover/focus/active states already available
-- **Scroll animations** — `@vueuse/nuxt@12.0.1` already installed with `useIntersectionObserver`
-- **Focus management** — VueUse provides `useFocusTrap`, `useKeyboard` (already installed)
-- **Image optimization** — `@nuxt/image` already handles hero dimensions with `fit="cover"`
-
-### Installation
-
-```bash
-# Page transitions & layout animations
-npm install @formkit/auto-animate
-
-# Accessibility testing (dev-only)
-npm install -D @nuxtjs/a11y
-```
-
-### Configuration Changes
-
-```typescript
-// nuxt.config.ts
-export default defineNuxtConfig({
-  modules: [
-    // ... existing modules
-    '@formkit/auto-animate',
-    '@nuxtjs/a11y',
-  ],
-  a11y: {
-    dev: true,
-    inspect: true,
-    global: {
-      respectPrefersReducedMotion: true,
-    },
-  },
-})
-```
-
----
-
-## Key Features
-
-### Table Stakes (Must-Have for v1.2)
-
-**Page Transitions:**
-- Smooth page transitions using Nuxt built-ins (150-300ms cross-fade)
-- `prefers-reduced-motion` support (disable animations when OS setting enabled)
-- Layout transitions for smooth navigation
-- Route change announcements for screen readers
-
-**Micro-interactions:**
-- Button hover states (color + subtle transform, 150-200ms)
-- Link hover states (underline or color shift)
-- Card hover effects (subtle lift on ProjectCard/ServiceCard)
-- Form validation feedback (real-time visual + ARIA)
-- Loading states (skeleton screens for async content)
-- Focus indicators (high contrast focus rings, 2px minimum)
-
-**Accessibility (WCAG 2.1 AA):**
-- Skip links ("Skip to main content")
-- ARIA labels on all interactive elements
-- Full keyboard navigation (Tab, Enter, Escape, Arrow keys)
-- Color contrast audit (4.5:1 for text, 3:1 for large text)
-- Alt text audit (meaningful descriptions)
-- Focus management (logical tab order, focus returns after modal closes)
-- Semantic HTML (proper headings, landmarks)
-
-**Visual Consistency:**
-- Spacing design tokens (consistent spacing scale)
-- Typography system (heading hierarchy)
-- Button variants (primary, secondary, ghost)
-- Form styling (consistent inputs, labels, errors)
-- Card component (unified styling)
-
-**Known Issue Fixes:**
-- Hero image dimensions (aspect ratio, prevent CLS)
-- Duplicate chunks (bundle analysis, deduplication)
-
-### Differentiators (Should-Have for Enhanced Experience)
-
-- Scroll-triggered animations (Intersection Observer, GPU-accelerated)
-- Stats counter animation (count-up when in viewport)
-- Service filter animations (FLIP technique for smooth layout changes)
-- Testimonial carousel interactions (smooth transitions, pause on hover)
-- Project gallery micro-interactions (hover previews, subtle zoom)
-- Back-to-top button with progress (shows scroll percentage)
-- Breadcrumbs with micro-interactions (collapse on mobile, hover previews)
-
-### Anti-Features (Explicitly NOT Build)
-
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| **GSAP/heavy animation libraries** | 100KB+ bundle, performance regression | CSS transitions, Vue built-ins |
-| **Full page overhaul transitions** | Disorienting, blocks interaction | Subtle cross-fade (300ms max) |
-| **Parallax scrolling** | Performance killer, CLS issues | Static backgrounds with subtle depth |
-| **Auto-playing carousels** | WCAG violation, motion sensitivity | Manual controls with pause |
-| **Popups/modals on entry** | Annoying, blocks content, SEO penalty | Inline call-to-actions |
-| **Infinite scroll** | Performance issues, no footer access | Pagination with "Load More" button |
-| **Motion without reduced-motion check** | Vestibular disorders, motion sickness | Always check media query |
-| **Color-only state indicators** | Color blindness accessibility issue | Icons + color + text labels |
-| **Placeholder-only form labels** | Accessibility failure, poor UX | Explicit visible labels |
-| **Splash screens** | Blocks content, delays engagement | Fast loading, skeleton states |
+The VP Associates Nuxt 3 website currently runs as an SSR/SSG hybrid with Node.js server routes that proxy WordPress API calls, handle contact forms, generate RSS feeds, and provide search functionality. Migrating to cPanel shared hosting requires converting to a pure static deployment since **cPanel 110 does NOT support Node.js natively** on standard shared hosting plans. The recommended approach is a **two-phase migration**: first convert to SPA mode with client-side data fetching (quickest path), then optionally implement full static site generation with build-time pre-rendering for better SEO.
 
----
+The most critical finding is that **all server-side routes will become inaccessible**. The current `server/api/` directory contains Nitro event handlers that require a Node.js runtime—these must be replaced with either direct client-side API calls (for WordPress content), third-party SaaS services (for contact forms), or build-time generation (for RSS/sitemap). Research identifies Web3Forms (250 free submissions/month), Fuse.js for client-side search, and build-time RSS generation as viable replacements. The existing PWA caching configuration already handles WordPress API responses optimally for static deployments.
 
-## Architecture Approach
+Key risks include SEO degradation in pure SPA mode (mitigated by `nuxt generate` pre-rendering), contact form downtime during migration (mitigated by external form service), and potential image optimization failures with IPX provider (switch to static provider or pre-optimize images). The migration timeline is estimated at 1-2 weeks with proper testing.
 
-### Minimal Disruption Strategy
+## Key Findings
 
-The existing Nuxt 3 architecture requires **no structural changes** for refinement features. Enhancements should be implemented as **layered additions**:
+### Recommended Stack
 
-1. **Enhance existing CSS transitions** in `main.css` (no component changes)
-2. **Add composables** (`useA11y.ts`, `useMicroInteractions.ts`) for shared logic
-3. **Update components incrementally** with new utility classes
-4. **Add Tailwind utilities** for consistent patterns
+**From NUXT_STATIC.md:**
 
-### Recommended Architecture Patterns
+The recommended approach depends on SEO requirements and time constraints:
 
-**Pattern 1: Composable-First Logic**
-
-```typescript
-// composables/useA11y.ts (NEW)
-export function useA11y() {
-  const announce = (message: string, priority = 'polite') => {
-    // Screen reader announcement
-  }
+**Quick Path (1-2 days):** Pure SPA mode with `ssr: false` and client-side `useLazyFetch` for WordPress API calls. Simplest migration, works with any static host, but poorer SEO.
 
-  const trapFocus = (container: HTMLElement) => {
-    // Modal focus management
-  }
+**Optimal Path (3-5 days):** Full static site generation with `nuxt generate`, `nitro.prerender.crawlLinks: true`, and a `prerender:routes` hook to fetch all WordPress slugs at build time. Best SEO, truly static, requires CI/CD pipeline.
 
-  const prefersReducedMotion = computed(() => {
-    if (import.meta.client) {
-      return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    }
-    return false
-  }
+**Core technologies:**
+- **Nuxt 3 SPA mode** (`ssr: false`) — Client-side only rendering for simplest static hosting
+- **`useLazyFetch`** — Non-blocking client-side data fetching with pending/error states
+- **Nuxt Static Generation** (`nuxt generate`) — Build-time HTML pre-rendering for SEO-critical pages
+- **Runtime Config** — Public WordPress API URL exposure for client-side access
+- **PWA Module** — Already configured with NetworkFirst caching for WordPress API responses
 
-  return { announce, trapFocus, prefersReducedMotion }
-}
-```
+### cPanel Capabilities
 
-**Pattern 2: Utility-First Styling**
-
-```vue
-<!-- Use Tailwind utilities, avoid scoped <style> -->
-<button class="press-scale hover-lift focus-ring">
-  Click me
-</button>
-```
-
-**Pattern 3: Progressive Enhancement**
-
-```css
-/* Base: No animation */
-.button { transition: none; }
-
-/* Enhanced: With animation (if user prefers) */
-@media (prefers-reduced-motion: no-preference) {
-  .button { transition: transform 0.2s; }
-}
-```
+**From CPANEL_CAPABILITIES.md:**
 
-### Integration Points
+cPanel 110.0.88 supports static file hosting via Apache with PHP 8.1-8.3 available, but **no native Node.js runtime**. Key capabilities and constraints:
 
-**Existing components requiring enhancement:**
-- **AppHeader** — Add micro-interaction to logo hover, enhance menu transition
-- **ProjectCard** — Add `press-scale` utility, refine animation timing
-- **ServiceCard** — Same as ProjectCard
-- **TeamMember** — Add hover lift, focus ring
-- **Forms** — Proper labels, error announcements, keyboard navigation
-
-**New components needed:**
-- **TransitionWrapper.vue** — Reusable page transition with directional logic (optional)
-- **FocusTrap.vue** — Modal/dialog focus management utility
-- **KeyboardNav.vue** — Roving tabindex pattern for lists/grids
-
-**Components NOT requiring changes:**
-- **AppFooter** — Static content, adequate spacing
-- **ClientLogos** — Non-interactive, sufficient
-- **StatCounter** — Already has animation (likely)
-
----
-
-## Pitfalls to Avoid
-
-### Top 5 Critical Pitfalls
-
-**1. Page Transitions Causing White Flash/Blank Screen**
-
-*What goes wrong:* Adding `<NuxtPage>` transitions causes noticeable white flash during navigation.
-
-*Prevention:*
-- Use `mode="out-in"` to coordinate enter/leave timing
-- Keep transition duration short (200-300ms max)
-- Test on mobile (worse on slower devices)
-- Always test with production build, not dev mode
-
-**2. Animations Regressing Lighthouse Performance Scores**
-
-*What goes wrong:* Adding animations causes Lighthouse Performance to drop from 90+ to 70-80.
-
-*Prevention:*
-- **Only animate `transform` and `opacity`** (GPU-accelerated)
-- Avoid animating layout-triggering properties (width, height, top, left)
-- Test with Lighthouse after each animation addition
-- Keep animation duration under 300ms
-
-**3. Scroll Position Breaking with Page Transitions**
-
-*What goes wrong:* Navigating back to a page doesn't restore scroll position (user at top instead of where they scrolled).
-
-*Prevention:*
-```typescript
-// nuxt.config.ts
-router: {
-  options: {
-    scrollBehaviorType: 'smooth',
-  }
-}
-```
-
-**4. Accessibility Improvements Breaking Existing Features**
-
-*What goes wrong:* Adding ARIA attributes or keyboard navigation accidentally breaks dropdowns/modals/forms.
-
-*Prevention:*
-- Test with keyboard only (unplug mouse) before and after changes
-- Test with actual screen reader (NVDA on Windows, VoiceOver on Mac)
-- Don't add ARIA if semantic HTML works
-- Use `@nuxt/a11y` module for real-time feedback
-
-**5. Ignoring `prefers-reduced-motion`**
-
-*What goes wrong:* Users with motion sensitivity experience nausea/dizziness from animations.
-
-*Prevention:*
-```css
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-```
-
-### Performance Regression Prevention
-
-| Feature Added | Potential Regression | Detection Method |
-|--------------|---------------------|------------------|
-| Page transitions | LCP +300ms, white flash | Lighthouse, manual navigation testing |
-| CSS animations | TBT +200ms if poorly implemented | Lighthouse TBT score |
-| JS animation libraries | Bundle +100KB | `nuxi analyze` bundle size |
-| ARIA attributes | Can break features if wrong | Manual testing, screen reader |
-
----
-
-## Recommended Phase Structure
-
-### Phase 1: Accessibility Foundation (8-10 hours)
-
-**Why first:** Accessibility improvements are critical for some users but invisible to most. No performance cost, establishes patterns for other features.
-
-**Deliverables:**
-- Create `useA11y.ts` composable (2-3h)
-  - `announce()`, `trapFocus()`, `prefersReducedMotion` functions
-- Update existing components with a11y patterns (4-6h)
-  - AppHeader: Ensure keyboard navigation works
-  - ProjectCard/ServiceCard: Verify focus rings
-  - Add missing ARIA labels
-- Add keyboard handlers (2-3h)
-  - Enter/Space for button-like elements
-  - Escape for closing modals/dropdowns
-  - Arrow keys for list navigation
-
-**Success criteria:**
-- [ ] Keyboard-only navigation works (unplug mouse, complete user journey)
-- [ ] Screen reader testing passed (NVDA/VoiceOver)
-- [ ] Lighthouse Accessibility ≥ 90
-- [ ] All interactive elements labeled
-- [ ] No features broken by a11y changes
-
-**Risk:** Low (no visual changes, easy to test)
-
----
-
-### Phase 2: Micro-Interactions (6-8 hours)
-
-**Why second:** Builds on accessibility foundation (respects `prefers-reduced-motion`), immediate visual polish.
-
-**Deliverables:**
-- Create `useMicroInteractions.ts` composable (1-2h)
-  - Hover, press, focus patterns
-  - Reduced motion detection
-- Add Tailwind utilities (1h)
-  - `.hover-lift`, `.press-scale`, `.focus-ring-subtle`
-  - Reduced motion media query
-- Enhance existing components (4-6h)
-  - ProjectCard: Add press-scale, refine hover
-  - ServiceCard: Same
-  - Buttons: Add press-scale globally
-  - TeamMember: Add hover-lift
-
-**Success criteria:**
-- [ ] All hover states implemented
-- [ ] Press animations work (scale-95)
-- [ ] Focus indicators visible on all focusable elements
-- [ ] Animations respect `prefers-reduced-motion`
-- [ ] Lighthouse Performance ≥ 90 (no regression)
-
-**Risk:** Low (CSS-only, can be easily reverted)
-
----
-
-### Phase 3: Page Transitions (6-8 hours)
-
-**Why third:** Requires careful testing, more complex than micro-interactions. Builds on patterns from Phases 1-2.
-
-**Deliverables:**
-- Enhance global transition CSS (1-2h)
-  - Better easing functions
-  - Scroll position hooks
-  - Reduced motion support
-- Add per-page transitions (3-4h)
-  - Home → Pages: Slide-fade
-  - Projects → Project detail: Scale-fade
-  - Generic: Fade
-- Test scroll restoration (1-2h)
-  - Verify scroll position preserved on back navigation
-
-**Success criteria:**
-- [ ] Page transitions smooth (<400ms)
-- [ ] No white flash during navigation
-- [ ] Scroll position preserved on back navigation
-- [ ] Transitions respect `prefers-reduced-motion`
-- [ ] All existing features work with transitions
-
-**Risk:** Medium (can cause jank if not optimized)
-
----
-
-### Phase 4: Visual Consistency & Known Issues (4-6 hours)
-
-**Why fourth:** Polish phase, ties everything together visually. Fixes known issues from v1.1.
-
-**Deliverables:**
-- Add design tokens to Tailwind config (1-2h)
-  - Spacing, duration, easing tokens
-  - Semantic naming
-- Audit components for consistency (2-3h)
-  - Ensure all cards use `rounded-card`
-  - Ensure all buttons use `rounded-button`
-  - Check spacing scales
-- Fix hero image dimensions (1h)
-  - Add explicit width/height or aspect-ratio
-  - Use `fit="cover"` on NuxtImg
-- Fix duplicate chunks (1h)
-  - Configure `manualChunks` in vite config
-  - Run bundle analysis
-
-**Success criteria:**
-- [ ] Spacing follows design tokens
-- [ ] Typography hierarchy consistent
-- [ ] Component styling unified
-- [ ] Hero images don't cause CLS
-- [ ] Duplicate chunks eliminated
-- [ ] No visual bugs or inconsistencies
-
-**Risk:** Low (systematic, reversible)
-
----
-
-## Research Flags
-
-### Phases Requiring Deeper Research
-
-**Phase 3 (Page Transitions):**
-- Should we use Nuxt's built-in transitions or a library like `nuxt-page-transitions`?
-- Directional transitions based on route depth — worth the complexity?
-
-**Phase 4 (Bundle Optimization):**
-- Analyze current bundle with `npx nuxi analyze` before making changes
-- Determine optimal `manualChunks` strategy for vendor code
-
-### Phases with Well-Documented Patterns (Skip Research)
-
-**Phase 1 (Accessibility):**
-- WCAG 2.1 AA requirements are well-documented
-- Vue.js official accessibility guide provides clear patterns
-- No research needed — implement known best practices
-
-**Phase 2 (Micro-Interactions):**
-- Tailwind CSS utilities fully documented
-- CSS transition patterns are standard
-- No research needed — use existing stack
-
----
+**Supported:**
+- Static HTML/CSS/JS serving via Apache
+- SPA client-side routing via `.htaccess` mod_rewrite
+- Gzip compression and browser caching headers
+- PHP 8.1-8.3 via EasyApache 4
+- Free Let's Encrypt SSL certificates
+
+**NOT Supported:**
+- Nuxt SSR/SSG hybrid modes
+- Nuxt API routes (requires server-side JavaScript execution)
+- Server middleware
+- WebSocket connections
+- Runtime environment variables
+
+**Workarounds available:**
+- PHP proxy scripts for external API calls
+- PHP mail handlers or third-party form services
+- CGI binaries (limited, host-dependent)
+
+### Serverless Alternatives
+
+**From SERVERLESS_ALTERNATIVES.md:**
+
+Server-side features require replacement with third-party services:
+
+**Contact Form:**
+- **Web3Forms (recommended):** 250 free submissions/month, built-in spam protection, unlimited forms
+- **Formspree:** 50 free submissions/month, established service with integrations
+- **FormSubmit.co:** 1,000 submissions/hour, AJAX support
+- **Netlify Forms:** 100 free submissions/month (only if using Netlify hosting)
+
+**Search Functionality:**
+- **Fuse.js (recommended):** Fuzzy search library, ~24KB bundle, instant results, works offline
+- **Pagefind:** For very large sites (5k+ pages), more complex setup
+- **Lunr.js:** Build-time index generation, ~8KB bundle, less sophisticated matching
+
+**Rate Limiting & Spam Protection:**
+- **Cloudflare Turnstile (recommended):** Free, invisible CAPTCHA, no user friction
+- **Honeypot fields:** Zero-cost supplemental protection
+- **Form service built-in limits:** Service-level rate limiting included
+
+**RSS Generation:**
+- **Build-time generation:** Generate RSS during Nuxt build, static file output
+- **Third-party services:** RSS.app, FetchRSS (external dependency)
+
+### Critical Pitfalls
+
+**From MIGRATION_PITFALLS.md:**
+
+**Top 5 critical pitfalls with prevention strategies:**
+
+1. **Server API Routes Become Inaccessible** — All `server/api/*` and `server/routes/*` endpoints cease to function. Prevention: Catalog all routes before migration; replace WordPress API proxies with direct `useLazyFetch` calls; replace form handlers with external services; pre-render RSS/sitemap at build time.
+
+2. **Contact Form Submission Fails** — The `/api/contact.post.ts` route becomes inaccessible. Prevention: Replace with Web3Forms, Formspree, or similar service before deploying; consider Cloudflare Turnstile for spam protection.
+
+3. **Hydration Mismatches** — Server-fetched data no longer available causes Vue hydration warnings. Prevention: Use `useLazyFetch` with `server: false` for all data fetching; ensure loading states match between server and client; add `<ClientOnly>` wrappers where needed.
+
+4. **Image Optimization (IPX) Stops Working** — The `@nuxt/image` module with `provider: 'ipx'` requires server-side processing. Prevention: Pre-optimize images during build, switch to `provider: 'static'`, or use external service (Cloudinary, ImageKit).
+
+5. **useRequestHeaders() Returns Empty Object** — SSR-specific function returns `{}` in static mode, breaking authentication patterns. Prevention: Replace with `useCookie` for client-side cookie access; use `credentials: 'include'` for automatic cookie inclusion.
+
+## Implications for Roadmap
+
+Based on combined research, the migration should proceed in **four phases**:
+
+### Phase 1: Pre-Migration Audit
+
+**Rationale:** Server routes are the biggest migration blocker. Cataloging them first prevents unexpected breakage and allows parallel work on replacements.
+
+**Delivers:**
+- Complete inventory of all server routes and their consumers
+- List of components using `useRequestHeaders`, `useRequestURL`, `useStorage`
+- Data fetching pattern documentation
+- Migration checklist specific to codebase
+
+**Addresses:**
+- Critical Pitfall #1 (Server API Routes)
+- Critical Pitfall #2 (useRequestHeaders failures)
+- Critical Pitfall #3 (useRequestURL context loss)
+
+**Timeline:** 2-3 days
+
+### Phase 2: Configuration & Data Fetching Migration
+
+**Rationale:** Core architecture change from server-proxied to direct client-side API calls. Must be completed before static deployment attempt.
+
+**Delivers:**
+- Updated `nuxt.config.ts` with `ssr: false` or `nitro.preset: 'static'`
+- All components refactored from `/api/*` calls to direct WordPress API calls
+- `useLazyFetch` with `server: false` pattern established
+- `.htaccess` file for SPA routing on cPanel
+- Local build verification (`npm run build && npm run preview`)
+
+**Addresses:**
+- Server API proxy routes
+- Hydration mismatch prevention
+- SPA routing configuration
+- WordPress CORS verification
+
+**Timeline:** 3-5 days
+
+### Phase 3: Function Replacement
+
+**Rationale:** Server-side features (form, search, RSS) require external services or build-time generation. Independent of Phase 2, can be done in parallel.
+
+**Delivers:**
+- Contact form integrated with Web3Forms or Formspree
+- Cloudflare Turnstile implemented for spam protection
+- Client-side search with Fuse.js (or external service)
+- Build-time RSS generation configured
+- Image optimization resolved (pre-optimized or external service)
+- All `server/api/` files removed or replaced
+
+**Addresses:**
+- Critical Pitfall #5 (Contact Form)
+- Serverless Alternatives (form, search, RSS)
+- Critical Pitfall #8 (Image Optimization)
+
+**Timeline:** 3-4 days
+
+### Phase 4: Testing & cPanel Deployment
+
+**Rationale:** Final verification before production. Static deployment has unique failure modes that need thorough testing.
+
+**Delivers:**
+- All page transitions tested
+- PWA service worker verified
+- Form submission end-to-end tested
+- RSS feed accessibility verified
+- Sitemap validity confirmed
+- All images loading correctly
+- Search functionality verified
+- Console free of hydration warnings
+- Deployed to cPanel with `.htaccess`
+
+**Addresses:**
+- Critical Pitfall #9 (Hydration Mismatches)
+- Moderate Pitfall #14 (PWA registration issues)
+- "Looks Done But Isn't" verification
+
+**Timeline:** 2-3 days
+
+### Phase Ordering Rationale
+
+- **Phase 1 first**: Cannot fix what hasn't been identified. Server route inventory is foundational.
+- **Phase 2 before Phase 3**: Core architecture change enables parallel work on feature replacements. Data fetching pattern affects everything.
+- **Phase 2 and 3 can overlap**: Form/search replacements don't block core data fetching migration.
+- **Phase 4 last**: Testing reveals issues from all previous phases. Production deployment requires complete confidence.
+
+### Research Flags
+
+**Phases likely needing deeper research during planning:**
+
+- **Phase 3 (Image Optimization):** Current image sizes and optimization requirements unknown. May need to decide between pre-optimization pipeline vs. external service. Research: image inventory, current IPX usage patterns, performance requirements.
+
+- **Phase 4 (WordPress CORS):** Client-side direct API calls require CORS verification on WordPress server. Research: WordPress CORS configuration, authentication requirements, rate limits.
+
+**Phases with standard patterns (skip research-phase):**
+
+- **Phase 1:** Straightforward code audit. Grep patterns provided in research.
+- **Phase 2:** Nuxt static deployment is well-documented. Pattern established in NUXT_STATIC.md.
+- **Phase 3 (Form/Search):** Third-party services have clear integration guides. Web3Forms and Fuse.js are drop-in replacements.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| **Stack** | HIGH | Based on official Nuxt/Vue documentation, existing codebase analysis |
-| **Features** | HIGH | Professional services UX patterns well-documented, WCAG 2.1 AA clear |
-| **Architecture** | HIGH | Existing codebase analyzed, composable pattern established |
-| **Pitfalls** | HIGH | Based on official docs, real-world Nuxt issues, accessibility experts |
+| Nuxt Static Capabilities | HIGH | Based on official Nuxt 3 documentation |
+| cPanel Constraints | HIGH | cPanel 110 release notes and Apache capabilities well-documented |
+| Serverless Alternatives | MEDIUM | Pricing from web search may need verification; services are stable but free tiers can change |
+| Migration Pitfalls | HIGH | Based on official Nuxt docs and codebase analysis; patterns are well-established |
+| Cost Estimates | MEDIUM | Service pricing subject to change; verify before committing to paid tiers |
 
-**Overall Confidence:** HIGH
+**Overall confidence:** HIGH
 
-**Gaps to Address:**
-- Screen reader testing: Which screen readers to prioritize? (NVDA Windows, VoiceOver Mac, TalkBack Android)
-- Performance budget: What's acceptable bundle size increase? (Current baseline: 90+ Lighthouse)
+### Gaps to Address
 
----
+- **WordPress CORS Configuration:** Verify that `vp-associates.com` allows cross-origin requests from the static deployment domain. May need WordPress CORS plugin configuration.
 
-## Implementation Complexity
+- **Web3Forms Current Pricing:** Research relied on 2025 web search. Free tier (250 submissions/month) should be verified before implementation.
 
-| Feature | Lines of Code | Dev Time | Testing Time | Risk |
-|---------|--------------|-----------|--------------|------|
-| `useA11y.ts` composable | ~150 | 2-3h | 2-3h | Low |
-| `useMicroInteractions.ts` | ~80 | 1-2h | 1h | Low |
-| Tailwind utilities | ~40 | 1h | 1h | Low |
-| Update ProjectCard | ~20 | 1h | 1h | Low |
-| Update ServiceCard | ~20 | 1h | 1h | Low |
-| Update AppHeader | ~30 | 2h | 2h | Low |
-| Per-page transitions | ~100 | 3-4h | 3h | Medium |
-| Design tokens | ~50 | 2h | 1h | Low |
-| **Total** | ~490 | **13-16h** | **12-14h** | **Low-Medium** |
+- **FormSubmit AJAX Endpoint:** Low confidence in AJAX API documentation. Should test before committing to this option.
 
-**Total Estimated Time:** 25-30 hours
+- **Image Inventory:** Current image sizes and optimization requirements unknown. Audit needed to decide between pre-optimization vs. external service.
 
----
+- **Build Performance:** `nuxt generate` with WordPress API fetching at build time may be slow. Test with full content set before CI/CD setup.
 
 ## Sources
 
-### Stack Research
-- [Nuxt Transitions Documentation](https://nuxt.com/docs/3.x/getting-started/transitions) — HIGH confidence, official
-- [AutoAnimate Official Documentation](https://auto-animate.formkit.com/) — HIGH confidence, official
-- [@nuxtjs/a11y GitHub Repository](https://github.com/nuxt/a11y) — HIGH confidence, official
-- [VueUse useIntersectionObserver](https://vueuse.org/core/useintersectionobserver/) — HIGH confidence, official
+### Primary (HIGH confidence)
 
-### Feature Research
-- [WCAG 2.1 Guidelines](https://www.w3.org/TR/WCAG21/) — HIGH confidence, W3C standard
-- [Vue.js Accessibility Guide](https://vuejs.org/guide/best-practices/accessibility) — HIGH confidence, official
-- [Micro-Interactions That Actually Improve UX](https://altersquare.io/micro-interactions-that-actually-improve-user-experience-with-examples/) — HIGH confidence, comprehensive 2025 guide
-- [Tailwind CSS Hover, Focus, and Other States](https://tailwindcss.com/docs/hover-focus-and-other-states) — HIGH confidence, official
+- [Nuxt 3 Rendering Concepts](https://nuxt.com/docs/guide/concepts/rendering) — SSR vs SPA vs Static generation comparison
+- [Nuxt 3 Deployment Guide](https://nuxt.com/docs/getting-started/deployment) — Static hosting configuration
+- [Nuxt 3 Nitro Presets](https://nitro.unjs.io/deploy/providers) — Static preset configuration
+- [Nuxt 3 Prerendering](https://nuxt.com/docs/guide/concepts/rendering#prerendering) — Build-time route generation
+- [Nuxt 3 useFetch/useLazyFetch API](https://nuxt.com/docs/api/composables/use-fetch) — Client-side data fetching
+- [Nuxt 3 routeRules Configuration](https://nuxt.com/docs/api/nuxt-config#routerules) — Per-route rendering strategies
+- [Apache mod_rewrite Documentation](https://httpd.apache.org/docs/current/mod/mod_rewrite.html) — .htaccess SPA routing
+- [cPanel 110 Release Notes](https://docs.cpanel.net/release-notes/110-release-notes/) — Hosting capabilities verification
+- [Netlify Forms Documentation](https://docs.netlify.com/forms/) — Form-as-a-service reference
+- [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) — CAPTCHA alternative documentation
+- [Fuse.js GitHub Repository](https://github.com/krisk/Fuse) — Client-side search library
+- [Lunr.js Documentation](https://lunrjs.com/) — Build-time search index
 
-### Architecture Research
-- [Nuxt 3 Page Transitions](https://nuxt.com/docs/3.x/api/composables/use-page-transition) — HIGH confidence, official
-- [Vue 3 Transition Component](https://vuejs.org/guide/built-ins/transition.html) — HIGH confidence, official
-- [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/) — HIGH confidence, W3C
-- [Tailwind CSS Design Tokens Pattern](https://tailwindcss.com/blog/custom-configuration-reference) — HIGH confidence, official
+### Secondary (MEDIUM confidence)
 
-### Pitfalls Research
-- [Page Transition White Flash #32053](https://github.com/nuxt/nuxt/issues/32053) — MEDIUM confidence, active Nuxt issue
-- [web.dev - prefers-reduced-motion](https://web.dev/articles/prefers-reduced-motion) — HIGH confidence, official
-- [Layout Transition Scroll Position #28988](https://github.com/nuxt/nuxt/issues/28988) — MEDIUM confidence, active Nuxt issue
-- [MDN - CSS vs JS Animation Performance](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/CSS_JavaScript_animation_performance) — HIGH confidence
+- [Web3Forms](https://web3forms.com/) — Form service, pricing from web search
+- [Formspree](https://formspree.io/) — Form service, pricing from web search
+- [Pagefind Documentation](https://pagefind.app/) — Static search for large sites
+- VP Associates Nuxt 3 Codebase Analysis — Local codebase audit, HIGH confidence
 
-### Codebase Analysis (High Confidence)
-- `/home/deck/Sites/vp-eng-nuxt/nuxt.config.ts` — Verified existing configuration
-- `/home/deck/Sites/vp-eng-nuxt/assets/css/main.css` — Verified existing transition classes
-- `/home/deck/Sites/vp-eng-nuxt/components/AppHeader.vue` — Verified existing a11y patterns
-- `/home/deck/Sites/vp-eng-nuxt/components/ProjectCard.vue` — Verified existing interaction patterns
-- `/home/deck/Sites/vp-eng-nuxt/composables/useScrollReveal.ts` — Verified existing composable pattern
-- `/home/deck/Sites/vp-eng-nuxt/layouts/default.vue` — Verified semantic HTML structure
-- `/home/deck/Sites/vp-eng-nuxt/tailwind.config.js` — Verified existing design tokens
+### Tertiary (LOW confidence)
+
+- [FormSubmit.co](https://formsubmit.co/) — AJAX endpoint needs verification
+- Web search results for "Nuxt 3 static deployment pitfalls 2025" — General patterns, needs validation
+- Web search results for "static site form pricing 2026" — Pricing may be outdated
 
 ---
-
-*Research synthesized: 2026-02-07*
-*Next step: Requirements definition → Roadmap creation*
+*Research completed: 2026-02-23*
+*Ready for roadmap: yes*
