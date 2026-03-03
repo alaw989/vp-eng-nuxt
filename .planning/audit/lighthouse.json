@@ -1,23 +1,14 @@
 {
   "latest": {
-    "timestamp": "2026-02-11T18:57:18.816Z",
+    "timestamp": "2026-03-03T19:27:52.054Z",
     "scores": {
-      "performance": 51,
-      "accessibility": 97,
+      "performance": 46,
+      "accessibility": 100,
       "best-practices": 100,
-      "seo": 100
+      "seo": 69
     }
   },
   "history": [
-    {
-      "timestamp": "2026-02-08T02:53:33.539Z",
-      "scores": {
-        "performance": 28.999999999999996,
-        "accessibility": 93,
-        "best-practices": 100,
-        "seo": 100
-      }
-    },
     {
       "timestamp": "2026-02-08T02:57:28.132Z",
       "scores": {
@@ -277,6 +268,15 @@
         "accessibility": 97,
         "best-practices": 100,
         "seo": 100
+      }
+    },
+    {
+      "timestamp": "2026-03-03T19:27:52.054Z",
+      "scores": {
+        "performance": 46,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 69
       }
     }
   ],
