@@ -6,6 +6,24 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 500,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              // Split Leaflet into its own chunk (loaded lazily with ServiceAreaMap)
+              if (id.includes('leaflet')) {
+                return 'vendor-leaflet'
+              }
+            }
+          }
+        }
+      }
+    },
+  },
+
   modules: [
     '@nuxt/image',
     '@nuxtjs/tailwindcss',
@@ -168,25 +186,6 @@ export default defineNuxtConfig({
     experimental: {
       // Enable async context for better performance
       asyncContext: true,
-    },
-  },
-
-  // Build configuration for bundle optimization
-  vite: {
-    build: {
-      chunkSizeWarningLimit: 500,
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              // Split Leaflet into its own chunk (loaded lazily with ServiceAreaMap)
-              if (id.includes('leaflet')) {
-                return 'vendor-leaflet'
-              }
-            }
-          }
-        }
-      }
     },
   },
 
