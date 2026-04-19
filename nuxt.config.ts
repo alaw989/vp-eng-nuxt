@@ -31,14 +31,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     ['@nuxt/a11y', {
-      // Enable the module (default: true in dev mode)
-      enabled: true,
-      // Log violations to browser console
+      // Only enable in development - this module is a dev-only
+      // accessibility checker and should not run in production
+      enabled: process.env.NODE_ENV === 'development',
       logIssues: true,
-      // Configure axe-core
       axe: {
         runOptions: {
-          // WCAG 2.1 Level AA compliance
           runOnly: ['wcag21aa'],
         },
       },

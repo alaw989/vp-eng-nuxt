@@ -1,0 +1,71 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate static site
+        env:
+          NUXT_PUBLIC_SITE_URL: ${{ secrets.NUXT_PUBLIC_SITE_URL }}
+          NUXT_PUBLIC_WP_API_URL: ${{ secrets.NUXT_PUBLIC_WP_API_URL }}
+          WP_API_URL: ${{ secrets.WP_API_URL }}
+        run: npm run generate
+
+      - name: Verify build output
+        run: |
+          if [ ! -f ".output/public/index.html" ]; then
+            echo "ERROR: Build output missing"
+            exit 1
+          fi
+          echo "Build verified:"
+          du -sh .output/public/
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DROPLET_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy to droplet
+        run: |
+          rsync -avz --delete \
+            --delay-updates \
+            --chmod=D755,F644 \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            .output/public/ \
+            ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}:${{ secrets.DEPLOY_PATH }}/
+
+      - name: Verify deployment
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} \
+            "test -f ${{ secrets.DEPLOY_PATH }}/index.html && echo 'DEPLOY OK' || exit 1"
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
