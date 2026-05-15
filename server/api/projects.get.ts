@@ -4,7 +4,8 @@
  * Fetches projects from WordPress REST API with fallback to static data
  * Includes server-side caching for performance
  */
-const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
+const config = useRuntimeConfig()
+const WP_API_URL = config.wpApiUrl
 
 // Cache for projects (15 minutes - projects change more frequently)
 const projectsStorage = useStorage('projects')

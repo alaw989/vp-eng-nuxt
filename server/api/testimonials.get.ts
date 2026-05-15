@@ -4,7 +4,8 @@
  * Fetches testimonials from WordPress REST API with fallback to static data
  * Includes server-side caching for performance
  */
-const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
+const config = useRuntimeConfig()
+const WP_API_URL = config.wpApiUrl
 
 // Cache for testimonials (1 hour - testimonials change infrequently)
 const testimonialsStorage = useStorage('testimonials')

@@ -2,7 +2,7 @@
  * WordPress REST API Base Configuration
  * API endpoint for VP Associates WordPress backend
  */
-export const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
+export const WP_API_URL = useRuntimeConfig().public.wpApiUrl
 export const SITE_URL = 'https://vp-associates.com'
 
 /**

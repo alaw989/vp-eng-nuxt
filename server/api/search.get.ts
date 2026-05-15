@@ -91,7 +91,8 @@ export default defineEventHandler(async (event: H3Event) => {
     }
 
     // Fetch services from WordPress API
-    const servicesApiUrl = 'https://www.vp-associates.com/wp-json/wp/v2/services?per_page=100&_fields=id,slug,title,excerpt,services_meta'
+    const config = useRuntimeConfig()
+    const servicesApiUrl = `${config.wpApiUrl}/services?per_page=100&_fields=id,slug,title,excerpt,services_meta`
     let services: any[] = []
 
     try {
@@ -122,7 +123,7 @@ export default defineEventHandler(async (event: H3Event) => {
     }
 
     // Fetch projects from WordPress API
-    const projectsApiUrl = 'https://www.vp-associates.com/wp-json/wp/v2/projects?per_page=100&_fields=id,slug,title,excerpt,project_meta'
+    const projectsApiUrl = `${config.wpApiUrl}/projects?per_page=100&_fields=id,slug,title,excerpt,project_meta`
     let projects: any[] = []
 
     try {

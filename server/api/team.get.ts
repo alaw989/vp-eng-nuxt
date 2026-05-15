@@ -8,7 +8,8 @@ import { readFile, writeFile, mkdir } from 'fs/promises'
 import { existsSync } from 'fs'
 import { join } from 'path'
 
-const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
+const config = useRuntimeConfig()
+const WP_API_URL = config.wpApiUrl
 
 // Memory cache for team members (1 hour - team changes infrequently)
 const teamStorage = useStorage('team')

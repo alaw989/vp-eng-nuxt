@@ -4,7 +4,8 @@
  * Fetches a single project from WordPress REST API
  * Falls back to static data when WordPress API is unavailable
  */
-const WP_API_URL = 'https://www.vp-associates.com/wp-json/wp/v2'
+const config = useRuntimeConfig()
+const WP_API_URL = config.wpApiUrl
 
 // Static fallback data for projects
 const staticProjects: Record<string, any> = {
