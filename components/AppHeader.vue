@@ -53,6 +53,15 @@
           >
             Careers
           </NuxtLink>
+          <a
+            href="https://portal.vp-associates.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1 flex items-center gap-1"
+          >
+            Client Portal
+            <Icon name="mdi:open-in-new" class="w-4 h-4" />
+          </a>
           <NuxtLink
             to="/search"
             :aria-current="route.path === '/search' ? 'page' : undefined"
@@ -142,6 +151,16 @@
           >
             Careers
           </NuxtLink>
+          <a
+            href="https://portal.vp-associates.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            @click="isOpen = false"
+            class="block px-4 py-3 rounded-lg hover:bg-neutral-100 transition-colors text-neutral-700 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 flex items-center gap-2"
+          >
+            Client Portal
+            <Icon name="mdi:open-in-new" class="w-4 h-4" />
+          </a>
           <NuxtLink
             to="/search"
             @click="isOpen = false"
