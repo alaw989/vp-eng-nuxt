@@ -1,11 +1,11 @@
 {
   "latest": {
-    "timestamp": "2026-03-03T19:27:52.054Z",
+    "timestamp": "2026-05-15T02:29:40.407Z",
     "scores": {
-      "performance": 46,
-      "accessibility": 100,
+      "performance": 47,
+      "accessibility": 93,
       "best-practices": 100,
-      "seo": 69
+      "seo": 100
     }
   },
   "history": [
@@ -271,12 +271,12 @@
       }
     },
     {
-      "timestamp": "2026-03-03T19:27:52.054Z",
+      "timestamp": "2026-05-15T02:29:40.407Z",
       "scores": {
-        "performance": 46,
-        "accessibility": 100,
+        "performance": 47,
+        "accessibility": 93,
         "best-practices": 100,
-        "seo": 69
+        "seo": 100
       }
     }
   ],
