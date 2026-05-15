@@ -311,35 +311,13 @@ const projectImages = computed(() => {
   return []
 })
 
-// Project PDFs - fetch media URLs for each pdf_id/preview_id
-const projectPdfs = ref<any[]>([])
-
-watchEffect(async () => {
-  const cf = project.value?.custom_fields
-  if (!cf) return
-  const rawPdfs = cf.project_pdfs
-  if (!Array.isArray(rawPdfs) || rawPdfs.length === 0) return
-
-  const allIds = rawPdfs.flatMap((p: any) => [p.pdf_id, p.preview_id]).filter(Boolean)
-  if (allIds.length === 0) return
-
-  try {
-    const media = await $fetch<any[]>(`${config.public.wpApiUrl}/media`, {
-      query: { include: allIds.join(','), per_page: 100 },
-    })
-    const urlMap: Record<number, string> = {}
-    for (const m of (media || [])) {
-      urlMap[m.id] = m.source_url || ''
-    }
-
-    projectPdfs.value = rawPdfs.map((pdf: any) => ({
-      url: urlMap[pdf.pdf_id] || '',
-      title: pdf.title,
-      thumbnail: urlMap[pdf.preview_id] || '',
-    }))
-  } catch {
-    projectPdfs.value = []
+// Project PDFs - resolved URLs come from WordPress REST API via project_pdfs_resolved field
+const projectPdfs = computed(() => {
+  const resolved = (project.value as any)?.project_pdfs_resolved
+  if (Array.isArray(resolved) && resolved.length > 0) {
+    return resolved
   }
+  return []
 })
 
 // Auto-select documents tab if no images but PDFs exist
