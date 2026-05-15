@@ -311,14 +311,35 @@ const projectImages = computed(() => {
   return []
 })
 
-// Project PDFs - fetched from WordPress API
-const projectPdfs = computed(() => {
-  const apiPdfs = project.value?.pdfs
-  if (apiPdfs && Array.isArray(apiPdfs) && apiPdfs.length > 0) {
-    return apiPdfs
-  }
+// Project PDFs - fetch media URLs for each pdf_id/preview_id
+const projectPdfs = ref<any[]>([])
 
-  return []
+watchEffect(async () => {
+  const cf = project.value?.custom_fields
+  if (!cf) return
+  const rawPdfs = cf.project_pdfs
+  if (!Array.isArray(rawPdfs) || rawPdfs.length === 0) return
+
+  const allIds = rawPdfs.flatMap((p: any) => [p.pdf_id, p.preview_id]).filter(Boolean)
+  if (allIds.length === 0) return
+
+  try {
+    const media = await $fetch<any[]>(`${config.public.wpApiUrl}/media`, {
+      query: { include: allIds.join(','), per_page: 100 },
+    })
+    const urlMap: Record<number, string> = {}
+    for (const m of (media || [])) {
+      urlMap[m.id] = m.source_url || ''
+    }
+
+    projectPdfs.value = rawPdfs.map((pdf: any) => ({
+      url: urlMap[pdf.pdf_id] || '',
+      title: pdf.title,
+      thumbnail: urlMap[pdf.preview_id] || '',
+    }))
+  } catch {
+    projectPdfs.value = []
+  }
 })
 
 // Auto-select documents tab if no images but PDFs exist
