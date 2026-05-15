@@ -270,91 +270,17 @@ const slug = String((route.params as any).slug || '')
 // Active tab for gallery/documents (defaults to images, or documents if no images)
 const activeTab = ref<'images' | 'documents'>('images')
 
-// Fetch project data - API returns { success: true, data: {...} } with static fallback built-in
-const { data: apiResponse, pending, error } = await useFetch(`/api/projects/${slug}`)
-
-// Computed project data from API response
-const apiProject = computed(() => (apiResponse.value as any)?.data)
-
-// Static fallback data for when API is not available (redundant but kept as emergency fallback)
-const staticProjects: Record<string, any> = {
-  'tampa-marina-complex': {
-    title: { rendered: 'Tampa Marina Complex' },
-    excerpt: { rendered: '<p>Complete structural design for a 50-slip marina with restaurant and retail spaces</p>' },
-    content: { rendered: '<p>VP Associates provided complete structural engineering services for this premier marina development on the Tampa waterfront. The project features 50 boat slips, a two-story restaurant building, and retail spaces.</p><p>Our design addressed the unique challenges of marine construction, including wave loads, vessel impact, and corrosion protection. The structure utilizes concrete pile foundations, precast deck panels, and a steel-framed restaurant building.</p><p>The project also included design of seawall protection systems, dock infrastructure, and waterfront hardscape. Construction was completed in 2024 and has become a landmark destination on the Tampa waterfront.</p>' },
-    acf: {
-      category: 'Marine',
-      location: 'Tampa, FL',
-      year: '2024',
-      squareFootage: '45,000 sq ft',
-      services_provided: ['Structural Steel Design', 'Foundation Design', 'Seawall Design', 'Inspection Services']
-    }
-  },
-  'downtown-office-tower': {
-    title: { rendered: 'Downtown Office Tower' },
-    excerpt: { rendered: '<p>Structural steel design for 12-story commercial office building</p>' },
-    content: { rendered: '<p>This 12-story office tower in downtown Tampa features a sophisticated structural steel frame designed by VP Associates. The building provides Class A office space with floor plates optimized for flexibility and natural light.</p><p>Our structural design utilizes a moment frame system with composite steel beams and concrete-filled metal deck floors. The lateral system incorporates buckling-restrained braced frames (BRBF) to optimize the structural efficiency and maximize usable space.</p><p>The foundation system utilizes drilled shafts socketed into bedrock, designed to support the high column loads while minimizing settlement. The project was completed in 2023 and has achieved LEED Silver certification.</p>' },
-    acf: {
-      category: 'Commercial',
-      location: 'Tampa, FL',
-      year: '2023',
-      squareFootage: '180,000 sq ft',
-      services_provided: ['Structural Steel Design', 'Steel Connection Design', 'Foundation Design', 'CAD & 3D Modeling']
-    }
-  },
-  'coastal-seawall-system': {
-    title: { rendered: 'Coastal Seawall System' },
-    excerpt: { rendered: '<p>Engineered seawall protection system for luxury waterfront property</p>' },
-    content: { rendered: '<p>VP Associates designed a comprehensive seawall protection system for this luxury residential property in Clearwater. The project involved replacing an existing deteriorated seawall with a modern, engineered solution.</p><p>The new seawall design incorporates concrete sheet piles with a reinforced concrete cap and tie-back anchor system. The design addressed wave loads, hydrostatic pressures, and vessel impact requirements while maintaining aesthetic appeal.</p><p>Our design included integrated drainage features, a decorative wave wall on top, and corrosion protection for the marine environment. The project was completed in 2024 and provides decades of reliable protection for the property.</p>' },
-    acf: {
-      category: 'Marine',
-      location: 'Clearwater, FL',
-      year: '2024',
-      services_provided: ['Seawall Design', 'Foundation Design', 'Inspection Services']
-    }
-  },
-  'luxury-residential-estate': {
-    title: { rendered: 'Luxury Residential Estate' },
-    excerpt: { rendered: '<p>Complete structural design for 8,000 sq ft waterfront residence</p>' },
-    content: { rendered: '<p>This 8,000 square foot luxury waterfront residence features a complete structural design by VP Associates. The home includes expansive water views, multiple outdoor living spaces, and a pool structure.</p><p>The structural system utilizes concrete pile foundations to address the coastal soil conditions, with a combination of concrete and steel framing to support the architectural vision. The design incorporated long-span elements to create open, column-free spaces.</p><p>Special features included a cantilevered balcony system, a rooftop terrace, and integration with the pool structure. The project was completed in 2024 and showcases our residential design capabilities.</p>' },
-    acf: {
-      category: 'Residential',
-      location: 'St. Petersburg, FL',
-      year: '2024',
-      squareFootage: '8,000 sq ft',
-      services_provided: ['Wood Design', 'Concrete Design', 'Foundation Design']
-    }
-  },
-  'industrial-warehouse-complex': {
-    title: { rendered: 'Industrial Warehouse Complex' },
-    excerpt: { rendered: '<p>Pre-engineered metal building structure with 40,000 sq ft warehouse</p>' },
-    content: { rendered: '<p>VP Associates provided structural design for this 40,000 square foot industrial warehouse in Brandon. The facility features a pre-engineered metal building system optimized for storage and distribution operations.</p><p>Our design included the primary metal building structure as well as design of concrete foundations, tilt-wall office enclosures, and loading dock structures. The structural system accommodates heavy roof loads for HVAC equipment and solar panel installation.</p><p>The foundation design addressed the poor soil conditions with a ground improvement program and spread footings. The project was completed in 2023 and serves as a key distribution facility.</p>' },
-    acf: {
-      category: 'Industrial',
-      location: 'Brandon, FL',
-      year: '2023',
-      squareFootage: '40,000 sq ft',
-      services_provided: ['Structural Steel Design', 'Foundation Design', 'Steel Connection Design']
-    }
-  },
-  'school-classroom-wing': {
-    title: { rendered: 'School Classroom Wing' },
-    excerpt: { rendered: '<p>Masonry and steel design for new 2-story classroom addition</p>' },
-    content: { rendered: '<p>This new two-story classroom wing addition provides modern learning spaces for an existing school campus in Lakeland. VP Associates designed the complete structural system for the 15,000 square foot addition.</p><p>The structure utilizes concrete masonry bearing walls with a steel bar joist roof system. The design accommodates large window openings for natural light while meeting all educational facility code requirements including hurricane design criteria.</p><p>The foundation system uses shallow spread footings founded on competent soil. Our design included coordination with the existing building structure to ensure a seamless integration. The project was completed in 2023.</p>' },
-    acf: {
-      category: 'Institutional',
-      location: 'Lakeland, FL',
-      year: '2023',
-      squareFootage: '15,000 sq ft',
-      services_provided: ['Masonry Design', 'Structural Steel Design', 'Foundation Design']
-    }
+// Fetch project data directly from WordPress API (static build has no server API routes)
+const config = useRuntimeConfig()
+const { data: wpProjects, pending, error } = await useFetch(
+  `${config.public.wpApiUrl}/projects`,
+  {
+    query: { slug, _embed: 'true', per_page: 1 },
+    transform: (data: any[]) => data?.[0] || null,
   }
-}
+)
 
-// Computed project data (API or static fallback)
-const project = computed(() => {
-  return apiProject.value || staticProjects[slug]
-})
+const project = computed(() => wpProjects.value)
 
 // Project metadata
 const projectCategory = computed(() => project.value?.custom_fields?.category?.[0] || 'Project')

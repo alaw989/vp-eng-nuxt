@@ -245,11 +245,18 @@ import { decodeHtmlEntities } from '~/utils/html'
 const route = useRoute()
 const slug = String((route.params as any).slug || '')
 
-// Fetch service data - API returns { success: true, data: {...} } with static fallback built-in
-const { data: apiResponse, pending, error } = await useFetch(`/api/services/${slug}`)
+// Fetch service data directly from WordPress API (static build has no server API routes)
+const config = useRuntimeConfig()
+const { data: wpServices, pending, error } = await useFetch(
+  `${config.public.wpApiUrl}/services`,
+  {
+    query: { slug, _embed: 'true', per_page: 1 },
+    transform: (data: any[]) => data?.[0] || null,
+  }
+)
 
 // Computed service data from API response
-const apiService = computed(() => (apiResponse.value as any)?.data)
+const apiService = computed(() => (wpServices.value as any)?.data)
 
 // Static fallback data for when API is not available (redundant but kept as emergency fallback)
 const staticServices: Record<string, any> = {
@@ -451,7 +458,7 @@ const serviceHeroImage = computed(() => {
 
 // Computed service data (API or static fallback)
 const service = computed(() => {
-  return apiService.value || staticServices[slug]
+  return wpServices.value
 })
 
 // Service metadata
@@ -481,14 +488,16 @@ const serviceBreadcrumbs = computed(() => [
 ])
 
 // Fetch projects from WordPress API for related projects section
-const { data: projectsResponse } = await useFetch('/api/projects')
+const { data: projectsResponse } = await useFetch(`${config.public.wpApiUrl}/projects`, {
+  query: { per_page: 100, _fields: 'id,slug,title,excerpt,custom_fields' },
+})
 
 // Transform projects data for related projects lookup
 const allProjects = computed(() => {
-  const response = projectsResponse.value as any
-  if (!response?.data || !Array.isArray(response.data)) return []
+  const data = projectsResponse.value as any[] || []
+  if (!Array.isArray(data)) return []
 
-  return response.data.map((p: any) => ({
+  return data.map((p: any) => ({
     title: decodeHtmlEntities(p.title?.rendered) || 'Project',
     slug: p.slug || 'project',
     description: decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || 'Structural engineering project',
