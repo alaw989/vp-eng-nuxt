@@ -3,7 +3,7 @@
 // Falls back to static data when WordPress API is unavailable
 export default defineEventHandler(async (event) => {
   const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://vp-associates.com'
-  const wpApiUrl = process.env.NUXT_PUBLIC_WP_API_URL || 'https://www.vp-associates.com/wp-json/wp/v2'
+  const wpApiUrl = process.env.NUXT_PUBLIC_WP_API_URL || 'https://cms.vp-associates.com/wp-json/wp/v2'
 
   const urls: Array<{
     loc: string

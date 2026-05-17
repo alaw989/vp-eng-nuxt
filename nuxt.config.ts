@@ -212,12 +212,12 @@ export default defineNuxtConfig({
   // Runtime config for environment variables
   runtimeConfig: {
     // Private keys (server-side only)
-    wpApiUrl: process.env.WP_API_URL || 'https://www.vp-associates.com/wp-json/wp/v2',
+    wpApiUrl: process.env.WP_API_URL || 'https://cms.vp-associates.com/wp-json/wp/v2',
 
     // Public keys (exposed to client)
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://vp-associates.com',
-      wpApiUrl: process.env.NUXT_PUBLIC_WP_API_URL || 'https://www.vp-associates.com/wp-json/wp/v2',
+      wpApiUrl: process.env.NUXT_PUBLIC_WP_API_URL || 'https://cms.vp-associates.com/wp-json/wp/v2',
       // Google Analytics 4 Measurement ID (optional)
       // Set NUXT_PUBLIC_GA_MEASUREMENT_ID in .env to enable
       // Example: NUXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
@@ -289,7 +289,7 @@ export default defineNuxtConfig({
       runtimeCaching: [
         // Cache WordPress API responses with network-first strategy
         {
-          urlPattern: /^https:\/\/www\.vp-associates\.com\/wp-json\/wp\/v2\/.*/i,
+          urlPattern: /^https:\/\/cms\.vp-associates\.com\/wp-json\/wp\/v2\/.*/i,
           handler: 'NetworkFirst',
           options: {
             cacheName: 'wp-api-cache',
