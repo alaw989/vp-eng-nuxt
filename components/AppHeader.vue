@@ -54,7 +54,7 @@
             Careers
           </NuxtLink>
           <a
-            href="https://portal.vp-associates.com"
+            href="https://whiteboard.vp-associates.com"
             target="_blank"
             rel="noopener noreferrer"
             class="text-neutral-700 hover:text-primary transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg px-2 py-1 flex items-center gap-1"
@@ -152,7 +152,7 @@
             Careers
           </NuxtLink>
           <a
-            href="https://portal.vp-associates.com"
+            href="https://whiteboard.vp-associates.com"
             target="_blank"
             rel="noopener noreferrer"
             @click="isOpen = false"
