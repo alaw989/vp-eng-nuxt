@@ -283,7 +283,9 @@ const services = computed(() => {
 })
 
 // Fetch projects from API
-const { data: projectsResponse } = await useFetch('/api/projects')
+const { data: projectsResponse } = await useFetch('/api/projects', {
+  query: { per_page: 100 },
+})
 const projectsData = computed(() => (projectsResponse.value as any)?.data || [])
 
 // Icon mapping for project categories
@@ -340,19 +342,26 @@ const findProjectImage = (title: string, category: string): string => {
 
 // Helper function to get project image from API data or fallback
 const getProjectImage = (project: any): string => {
-  // First try: images array from API
+  // First try: PDF preview thumbnail (featured media is the PDF itself and _embed of it is forbidden)
+  const pdfPreview = project.project_pdfs_resolved?.[0]?.thumbnail
+  if (pdfPreview) {
+    return pdfPreview
+  }
+
+  // Second try: images array from API
   if (project.images && Array.isArray(project.images) && project.images.length > 0) {
     return project.images[0].url || project.images[0] || '/images/hero/construction-steel-beams-1920w.jpg'
   }
 
-  // Second try: featured media from _embedded
+  // Third try: featured media from _embedded (only when it's a real image)
   const featuredMedia = project._embedded?.['wp:featuredmedia']?.[0]
-  if (featuredMedia) {
-    return featuredMedia.source_url ||
-           featuredMedia.media_details?.sizes?.large?.source_url ||
-           featuredMedia.media_details?.sizes?.full?.source_url ||
-           featuredMedia.media_details?.sizes?.medium?.source_url ||
-           '/images/hero/construction-steel-beams-1920w.jpg'
+  const featuredUrl = featuredMedia?.source_url ||
+         featuredMedia?.media_details?.sizes?.large?.source_url ||
+         featuredMedia?.media_details?.sizes?.full?.source_url ||
+         featuredMedia?.media_details?.sizes?.medium?.source_url ||
+         ''
+  if (featuredUrl && !featuredUrl.toLowerCase().endsWith('.pdf')) {
+    return featuredUrl
   }
 
   // Fallback to category-based image matching
