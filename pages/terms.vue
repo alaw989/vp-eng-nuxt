@@ -154,7 +154,7 @@
               </p>
               <div class="space-y-2 text-neutral-700">
                 <p><strong>Email:</strong> info@vp-associates.com</p>
-                <p><strong>Phone:</strong> (813) 251-4141</p>
+                <p><strong>Phone:</strong> (813) 486-2079</p>
                 <p><strong>Address:</strong> 6202 Courtney Drive, Tampa, FL 33615</p>
               </div>
             </section>

@@ -101,7 +101,7 @@
                 <li><strong>Restriction:</strong> Request restriction of processing</li>
               </ul>
               <p class="text-neutral-700 mt-4">
-                To exercise these rights, please contact us at privacy@vp-associates.com or call us at (813) 251-4141.
+                To exercise these rights, please contact us at privacy@vp-associates.com or call us at (813) 486-2079.
               </p>
             </section>
 
@@ -134,7 +134,7 @@
               </p>
               <div class="space-y-2 text-neutral-700">
                 <p><strong>Email:</strong> privacy@vp-associates.com</p>
-                <p><strong>Phone:</strong> (813) 251-4141</p>
+                <p><strong>Phone:</strong> (813) 486-2079</p>
                 <p><strong>Address:</strong> 6202 Courtney Drive, Tampa, FL 33615</p>
               </div>
             </div>

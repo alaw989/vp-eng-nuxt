@@ -213,11 +213,11 @@
             Contact Us
           </NuxtLink>
           <NuxtLink
-            to="tel:+18135551234"
+            to="tel:+18134862079"
             class="px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:phone" class="w-5 h-5" />
-            (813) 555-1234
+            (813) 486-2079
           </NuxtLink>
         </div>
       </div>
@@ -249,7 +249,7 @@ useJsonld({
   name: 'VP Associates',
   description: 'Structural Engineering Services in Tampa Bay',
   url: 'https://vp-associates.com',
-  telephone: '+1-813-555-1234',
+  telephone: '+1-813-486-2079',
   email: 'info@vp-associates.com',
   address: {
     '@type': 'PostalAddress',
