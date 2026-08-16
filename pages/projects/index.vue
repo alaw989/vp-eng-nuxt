@@ -381,9 +381,6 @@ const { data: projectsResponse, pending } = await useFetch('/api/projects', {
 
 const projectsData = computed(() => {
   const response = projectsResponse.value as any
-  console.log('[Projects Page] API response:', response)
-  console.log('[Projects Page] response?.data:', response?.data)
-  console.log('[Projects Page] Is array?:', Array.isArray(response?.data))
   return response?.data || []
 })
 
@@ -436,11 +433,16 @@ const projects = computed<Project[]>(() => {
 
     // Get featured image from WordPress media
     const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
-    let imageUrl = featuredMedia?.source_url ||
-                   featuredMedia?.media_details?.sizes?.large?.source_url ||
-                   featuredMedia?.media_details?.sizes?.medium?.source_url ||
-                   featuredMedia?.media_details?.sizes?.full?.source_url ||
-                   ''
+    const featuredUrl = featuredMedia?.source_url ||
+                        featuredMedia?.media_details?.sizes?.large?.source_url ||
+                        featuredMedia?.media_details?.sizes?.medium?.source_url ||
+                        featuredMedia?.media_details?.sizes?.full?.source_url ||
+                        ''
+    const featuredIsImage = featuredUrl && !featuredUrl.toLowerCase().endsWith('.pdf')
+
+    // PDF preview thumbnails come from project_pdfs_resolved (featured media is the PDF itself and _embed of it is forbidden)
+    const pdfPreview = p.project_pdfs_resolved?.[0]?.thumbnail
+    let imageUrl = pdfPreview || (featuredIsImage ? featuredUrl : '')
 
     // If no featured image, use category-based fallback image
     if (!imageUrl) {
