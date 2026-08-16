@@ -247,84 +247,24 @@
     </AppSection>
 
     <!-- Stats Section -->
-    <AppSection bg-color="primary" padding="lg">
+    <AppSection bg-color="neutral-50" padding="lg">
       <div class="container">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-white text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">500+</div>
-            <div class="text-sm opacity-80">Projects Completed</div>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">30+</div>
-            <div class="text-sm opacity-80">Years Experience</div>
+            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">500+</div>
+            <div class="text-sm text-neutral-600">Projects Completed</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">100%</div>
-            <div class="text-sm opacity-80">Code Compliant</div>
+            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">30+</div>
+            <div class="text-sm text-neutral-600">Years Experience</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">10</div>
-            <div class="text-sm opacity-80">Florida Counties</div>
+            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">100%</div>
+            <div class="text-sm text-neutral-600">Code Compliant</div>
           </div>
-        </div>
-      </div>
-    </AppSection>
-
-    <!-- Featured Projects Highlights -->
-    <AppSection bg-color="white" animate-on-scroll>
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-          Featured Projects
-        </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-          Some of our most notable and challenging engineering achievements
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8 mb-12">
-        <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-gradient-to-br from-primary/20 to-primary-dark/20">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <Icon name="mdi:office-building" class="w-24 h-24 text-primary/40" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8">
-            <div class="text-white">
-              <div class="text-secondary font-semibold mb-2">Commercial</div>
-              <h3 class="text-2xl font-bold mb-2">Tampa Marina Complex</h3>
-              <p class="text-white/80 text-sm mb-4">Complete structural design for a 50-slip marina with restaurant and retail spaces</p>
-              <div class="flex items-center gap-4 text-sm text-white/70">
-                <span class="flex items-center gap-1">
-                  <Icon name="mdi:map-marker" class="w-4 h-4" />
-                  Tampa, FL
-                </span>
-                <span class="flex items-center gap-1">
-                  <Icon name="mdi:calendar" class="w-4 h-4" />
-                  2024
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-gradient-to-br from-secondary/20 to-secondary-dark/20">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <Icon name="mdi:waves" class="w-24 h-24 text-secondary/40" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8">
-            <div class="text-white">
-              <div class="text-secondary font-semibold mb-2">Marine</div>
-              <h3 class="text-2xl font-bold mb-2">Coastal Seawall System</h3>
-              <p class="text-white/80 text-sm mb-4">Engineered seawall protection system for luxury waterfront property</p>
-              <div class="flex items-center gap-4 text-sm text-white/70">
-                <span class="flex items-center gap-1">
-                  <Icon name="mdi:map-marker" class="w-4 h-4" />
-                  Clearwater, FL
-                </span>
-                <span class="flex items-center gap-1">
-                  <Icon name="mdi:calendar" class="w-4 h-4" />
-                  2024
-                </span>
-              </div>
-            </div>
+          <div>
+            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">10</div>
+            <div class="text-sm text-neutral-600">Florida Counties</div>
           </div>
         </div>
       </div>
