@@ -105,10 +105,10 @@ function reloadPage() {
               Phone
             </h3>
             <a
-              href="tel:+18132889880"
+              href="tel:+18134862079"
               class="text-primary hover:text-primary/80 transition-colors"
             >
-              (813) 288-9880
+              (813) 486-2079
             </a>
           </div>
           <div>

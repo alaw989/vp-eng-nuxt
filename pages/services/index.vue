@@ -244,11 +244,11 @@
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
           </NuxtLink>
           <a
-            href="tel:+18135551234"
+            href="tel:+18134862079"
             class="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:phone" class="w-5 h-5" />
-            (813) 555-1234
+            (813) 486-2079
           </a>
         </div>
       </div>

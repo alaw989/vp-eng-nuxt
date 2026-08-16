@@ -231,8 +231,8 @@
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Phone</div>
-                  <a href="tel:+18135551234" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1">
-                    (813) 555-1234
+                  <a href="tel:+18134862079" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1">
+                    (813) 486-2079
                   </a>
                 </div>
               </div>
@@ -296,9 +296,9 @@
             <p class="text-neutral-600 text-sm mb-3">
               For urgent structural issues or inspection needs, call us directly.
             </p>
-            <a href="tel:+18135551234" class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2 rounded px-1">
+            <a href="tel:+18134862079" class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2 rounded px-1">
               <Icon name="mdi:phone" class="w-4 h-4" />
-              (813) 555-1234
+              (813) 486-2079
             </a>
           </div>
         </div>
@@ -359,7 +359,7 @@ const contactBreadcrumbs = [
 // SEO Meta Tags
 usePageMeta({
   title: 'Contact Us',
-  description: 'Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 555-1234 or visit our office at 123 Main Street, Suite 100, Tampa, FL.',
+  description: 'Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 486-2079 or visit our office at 123 Main Street, Suite 100, Tampa, FL.',
   keywords: 'contact structural engineer, Tampa Bay engineering, VP Associates contact, engineering consultation',
 })
 
@@ -370,7 +370,7 @@ useJsonld({
   mainEntity: {
     '@type': 'LocalBusiness',
     name: 'VP Associates',
-    telephone: '+1-813-555-1234',
+    telephone: '+1-813-486-2079',
     email: 'info@vp-associates.com',
     address: {
       '@type': 'PostalAddress',

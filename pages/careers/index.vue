@@ -259,11 +259,11 @@
             Submit Resume
           </NuxtLink>
           <a
-            href="tel:+18135551234"
+            href="tel:+18134862079"
             class="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
           >
             <Icon name="mdi:phone" class="w-5 h-5" />
-            (813) 555-1234
+            (813) 486-2079
           </a>
         </div>
       </div>

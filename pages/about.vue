@@ -267,7 +267,7 @@ useJsonld({
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+1-813-555-1234',
+    telephone: '+1-813-486-2079',
     contactType: 'sales',
   },
   sameAs: [

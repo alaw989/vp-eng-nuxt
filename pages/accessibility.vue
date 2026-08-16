@@ -112,7 +112,7 @@
               </p>
               <div class="space-y-2 text-neutral-700">
                 <p><strong>Email:</strong> <a href="mailto:accessibility@vp-associates.com" class="text-primary hover:underline">accessibility@vp-associates.com</a></p>
-                <p><strong>Phone:</strong> (813) 251-4141</p>
+                <p><strong>Phone:</strong> (813) 486-2079</p>
                 <p><strong>Mail:</strong> VP Associates, 6202 Courtney Drive, Tampa, FL 33615</p>
               </div>
               <p class="text-neutral-700 mt-4">

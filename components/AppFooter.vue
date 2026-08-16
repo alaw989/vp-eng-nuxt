@@ -88,8 +88,8 @@
             </p>
             <p class="flex items-center gap-3">
               <Icon name="mdi:phone" class="w-5 h-5 flex-shrink-0" />
-              <a href="tel:+18135551234" class="hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
-                (813) 555-1234
+              <a href="tel:+18134862079" class="hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+                (813) 486-2079
               </a>
             </p>
             <p class="flex items-center gap-3">
