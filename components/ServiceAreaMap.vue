@@ -12,7 +12,7 @@
       <div class="legend-items">
         <div class="legend-item">
           <span class="legend-marker main-office"></span>
-          <span>Main Office (Tampa)</span>
+          <span>Home base (Tampa)</span>
         </div>
         <div class="legend-item">
           <span class="legend-marker service-area"></span>
@@ -36,9 +36,9 @@ interface ServiceLocation {
 
 const serviceLocations: ServiceLocation[] = [
   {
-    name: 'Tampa (Main Office)',
+    name: 'Tampa',
     position: [27.9506, -82.4572],
-    description: 'VP Associates Headquarters - 123 Main Street, Suite 100',
+    description: 'VP Associates is based in Tampa',
     isMainOffice: true
   },
   {
@@ -128,7 +128,7 @@ onMounted(async () => {
   // Custom icons for main office vs service areas
   const mainOfficeIcon = L.divIcon({
     className: 'custom-marker main-office-marker',
-    html: `<div class="marker-pin main-office-pin" aria-label="Main Office in Tampa"></div>`,
+    html: `<div class="marker-pin main-office-pin" aria-label="Home base in Tampa"></div>`,
     iconSize: [30, 42] as [number, number],
     iconAnchor: [15, 42] as [number, number]
   })

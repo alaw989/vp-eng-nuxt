@@ -6,11 +6,10 @@
         <div>
           <h3 class="text-xl font-display font-bold mb-4">VP Associates</h3>
           <p class="text-neutral-400 mb-4">
-            Providing structural engineering services to Tampa Bay and surrounding areas for over 30 years.
+            Structural engineering for Tampa Bay and beyond, backed by over 30 years of combined experience.
           </p>
           <p class="text-neutral-400 text-sm mb-6">
-            Licensed & Insured Florida Engineers<br>
-            FL License #PEC-0001234
+            Structural engineering &amp; steel detailing
           </p>
         </div>
 
@@ -98,10 +97,6 @@
                 info@vp-associates.com
               </a>
             </p>
-            <p class="flex items-center gap-3">
-              <Icon name="mdi:clock" class="w-5 h-5 flex-shrink-0" />
-              <span>Mon-Fri: 8:00 AM - 5:00 PM</span>
-            </p>
           </address>
         </div>
       </div>
@@ -116,13 +111,9 @@
             <NuxtLink to="/sitemap" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1" aria-label="Site Map">
               Site Map
             </NuxtLink>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/vp-&-associates-inc" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1" aria-label="LinkedIn">
               <Icon name="mdi:linkedin" class="w-5 h-5" />
               <span class="hidden sm:inline">LinkedIn</span>
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1" aria-label="Facebook">
-              <Icon name="mdi:facebook" class="w-5 h-5" />
-              <span class="hidden sm:inline">Facebook</span>
             </a>
           </div>
         </div>

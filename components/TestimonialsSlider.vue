@@ -27,6 +27,7 @@
               :company="testimonial.company"
               :role="testimonial.role"
               :avatar="testimonial.avatar"
+              :source="testimonial.source"
             />
           </TransitionGroup>
         </div>
@@ -89,6 +90,7 @@ interface Testimonial {
   company?: string
   role?: string
   avatar?: string
+  source?: string
 }
 
 interface Props {

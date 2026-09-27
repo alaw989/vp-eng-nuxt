@@ -192,4 +192,22 @@ describe('TestimonialCard Component', () => {
 
     expect(wrapper.html()).toContain('p-8')
   })
+
+  it('shows where the review was published', () => {
+    const wrapper = mount(TestimonialCard, {
+      props: { quote: 'Test', author: 'Author', source: 'Google Maps' },
+      global: { stubs: globalStubs }
+    })
+
+    expect(wrapper.text()).toContain('Review on Google Maps')
+  })
+
+  it('omits the source line when no source is given', () => {
+    const wrapper = mount(TestimonialCard, {
+      props: { quote: 'Test', author: 'Author' },
+      global: { stubs: globalStubs }
+    })
+
+    expect(wrapper.text()).not.toContain('Review on')
+  })
 })

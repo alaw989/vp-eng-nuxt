@@ -33,7 +33,7 @@
       </p>
 
       <!-- Contact Links -->
-      <div v-if="email || phone || linkedin" class="flex items-center gap-3 pt-3 border-t border-neutral-200">
+      <div v-if="email || telHref || linkedin" class="flex items-center gap-3 pt-3 border-t border-neutral-200">
         <a
           v-if="email"
           :href="`mailto:${email}`"
@@ -43,8 +43,8 @@
           <Icon name="mdi:email" class="w-5 h-5" />
         </a>
         <a
-          v-if="phone"
-          :href="`tel:${phone}`"
+          v-if="telHref"
+          :href="telHref"
           class="text-neutral-500 hover:text-primary transition-colors rounded-lg p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="`Call ${name}`"
         >
@@ -77,7 +77,13 @@ interface Props {
   priority?: boolean
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+// Only link a real 10-digit US number; CMS placeholders would make a dead call button
+const telHref = computed(() => {
+  const digits = (props.phone || '').replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '')
+  return digits.length === 10 ? `tel:+1${digits}` : ''
+})
 </script>
 
 <style scoped>

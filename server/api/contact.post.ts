@@ -90,7 +90,7 @@ export default defineEventHandler(async (event: H3Event): Promise<ContactSubmiss
       // Return success silently to not tip off bots
       return {
         success: true,
-        message: 'Thank you for your message! We\'ll get back to you within 24 hours.'
+        message: 'Thank you for your message! We\'ll be in touch soon.'
       }
     }
 
@@ -291,7 +291,7 @@ ${sanitized.message}
 
     return {
       success: true,
-      message: 'Thank you for your message! We\'ll get back to you within 24 hours.',
+      message: 'Thank you for your message! We\'ll be in touch soon.',
       submissionId
     }
   } catch (error) {

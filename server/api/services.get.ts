@@ -30,20 +30,20 @@ const CACHE_TTL = 30 * 60 * 1000 // 30 minutes
 const staticServices = [
   {
     title: { rendered: 'Structural Steel Design' },
-    excerpt: { rendered: '<p>AISC certified steel design for commercial and industrial projects</p>' },
+    excerpt: { rendered: '<p>Structural steel design to AISC 360 for commercial and industrial projects</p>' },
     slug: 'structural-steel-design',
     custom_fields: {
       service_icon: 'mdi:beam',
-      service_standard: 'AISC Certified',
+      service_standard: 'AISC 360',
     }
   },
   {
     title: { rendered: 'Concrete Design' },
-    excerpt: { rendered: '<p>ACI certified concrete design for foundations and structures</p>' },
+    excerpt: { rendered: '<p>Reinforced concrete design to ACI 318 for foundations and structures</p>' },
     slug: 'concrete-design',
     custom_fields: {
       service_icon: 'mdi:cube-outline',
-      service_standard: 'ACI Certified',
+      service_standard: 'ACI 318',
     }
   },
   {

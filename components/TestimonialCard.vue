@@ -38,6 +38,9 @@
         <div v-if="company" class="text-sm text-neutral-600">
           {{ company }}
         </div>
+        <div v-if="source" class="text-xs text-neutral-500">
+          Review on {{ source }}
+        </div>
       </div>
     </div>
   </div>
@@ -50,6 +53,7 @@ interface Props {
   company?: string
   role?: string
   avatar?: string
+  source?: string
 }
 
 defineProps<Props>()
