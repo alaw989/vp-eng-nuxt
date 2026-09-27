@@ -217,10 +217,9 @@
                   <Icon name="mdi:map-marker" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <div class="font-semibold text-neutral-900 mb-1">Office Address</div>
+                  <div class="font-semibold text-neutral-900 mb-1">Location</div>
                   <div class="text-neutral-600">
-                    123 Main Street, Suite 100<br>
-                    Tampa, FL 33602
+                    Based in Tampa, Florida
                   </div>
                 </div>
               </div>
@@ -264,28 +263,6 @@
             </div>
           </div>
 
-          <!-- Interactive Map -->
-          <div class="rounded-xl overflow-hidden border border-neutral-200 hover:shadow-md transition-shadow duration-300">
-            <iframe
-              title="VP Associates Office Location"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-82.4620,27.9450,-82.4480,27.9600&amp;layer=mapnik&amp;marker=27.9525,-82.4550"
-              class="w-full aspect-[4/3] border-0"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-            <div class="bg-white p-3 border-t border-neutral-200">
-              <a
-                href="https://www.openstreetmap.org/?mlat=27.9525&amp;mlon=-82.4550#map=16/27.9525/-82.4550"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-dark transition-colors duration-300 font-medium focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1"
-              >
-                <Icon name="mdi:open-in-new" class="w-4 h-4" />
-                Open in larger map
-              </a>
-            </div>
-          </div>
 
           <!-- Emergency Contact -->
           <div class="bg-red-50 border border-red-200 rounded-xl p-6 hover:shadow-md transition-all duration-300">
@@ -359,7 +336,7 @@ const contactBreadcrumbs = [
 // SEO Meta Tags
 usePageMeta({
   title: 'Contact Us',
-  description: 'Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 486-2079 or visit our office at 123 Main Street, Suite 100, Tampa, FL.',
+  description: 'Contact VP Associates for structural engineering services in Tampa Bay. Call (813) 486-2079 or send us a message.',
   keywords: 'contact structural engineer, Tampa Bay engineering, VP Associates contact, engineering consultation',
 })
 
@@ -374,10 +351,8 @@ useJsonld({
     email: 'info@vp-associates.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '123 Main Street, Suite 100',
       addressLocality: 'Tampa',
       addressRegion: 'FL',
-      postalCode: '33602',
       addressCountry: 'US',
     },
     openingHours: 'Mo-Fr 08:00-17:00',

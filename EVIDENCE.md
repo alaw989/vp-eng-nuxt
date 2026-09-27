@@ -10,7 +10,7 @@ Last reviewed: 2026-09-27.
 
 | Claim | Source | Confidence | Appears in |
 |---|---|---|---|
-| VP & Associates, Inc., Tampa, FL | Sunbiz filing P07000056163 (Florida profit corporation, filed 2007-05-09, Vuong Phan, President); public listings give 202 S 22nd St #209, Tampa, FL 33605 | High | Everywhere |
+| VP & Associates, Inc., based in Tampa, FL | Sunbiz filing P07000056163 (Florida profit corporation, filed 2007-05-09, Vuong Phan, President) | High | Everywhere. City only, with no street address: the owner likely works from home. Data-broker listings still show 202 S 22nd St #209, probably out of date |
 | Steel detailing since 2007 | CMS steel-detailing service text ("since 2007"); matches incorporation date | High | `pages/index.vue` stats, `pages/about.vue` banner, JSON-LD `foundingDate` |
 | "Over 30 years of (combined) experience" | The firm's own copy on its pre-rebuild site; LinkedIn company page says "over 30 years of collective experience". This is staff experience, not firm age | Medium | Hero, home intro, about, footer, meta descriptions |
 | PE registrations in FL, KY, MD, MI, PA, TN, VA | The firm's pre-rebuild WordPress site ("licensed in the states of Florida, Kentucky, Maryland, Michigan, Pennsylvania, Tennessee, and Virginia"). Its 2010 site (Wayback) lists FL PE #62111, KY #23945, MI #6201051076, TN #109693 | Medium: self-reported, current status not checked | `pages/about.vue` |
@@ -37,6 +37,7 @@ To restore one, get the evidence, add a row above, and narrow the pattern in
 | Client logos: Tampa General, Raymond James, Port Tampa Bay, Hillsborough County, City of Tampa, USF, Moffitt, TECO | No evidence any is a client | Which clients can be named publicly, with permission? |
 | Four job openings with salaries, a benefits list (401(k) match, dental, life insurance), a six-step hiring process | Invented. The CMS has no positions endpoint | Are you hiring? Which benefits are real? |
 | Six fallback testimonials (Michael Chen, Sarah Rodriguez, …) | Invented people | None. Don't restore |
+| Contact page "123 Main Street, Suite 100, Tampa, FL 33602" office address, map pin and "visit our office" | Placeholder address presented as a real office | Is there an address clients should use, such as a mailing address or PO box? Don't publish a home address |
 | Facebook link to facebook.com | No company Facebook page found | Is there one? |
 
 ## CMS content to fix (WordPress, not code)
@@ -51,4 +52,6 @@ These live in https://cms.vp-associates.com/wp-admin and can't be fixed from the
 
 ## Open questions
 
+- **Business hours** (Mon–Fri 8–5, shown on the contact page, footer and JSON-LD): unconfirmed.
+- **"Emergency?" box on the contact page:** it implies urgent-response availability. Does the firm offer that?
 - **Phone number.** Public listings and the pre-rebuild site show (813) 247-3835; the new site uses (813) 486-2079 (commit a698412). Confirm which is current.

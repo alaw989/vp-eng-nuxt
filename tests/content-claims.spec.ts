@@ -48,6 +48,8 @@ const unsupported: Array<[string, RegExp]> = [
   ['invented testimonials', /Michael Chen|Sarah Rodriguez|James Morrison|Jennifer Walsh|Robert Kim|Amanda Foster/],
   ['salaries', /\$\d{2},\d{3}/],
   ['benefits', /401\(k\)/],
+  // The firm has no public office; this placeholder address was shown as one
+  ['placeholder address', /123 Main Street|Suite 100/],
   // Placeholder license number and social links presented as real
   ['license number', /PEC-\d+/],
   ['placeholder social links', /href="https:\/\/(www\.)?(linkedin|facebook)\.com\/?"/],
