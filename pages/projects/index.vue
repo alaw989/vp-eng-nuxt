@@ -293,6 +293,7 @@
 
 <script setup lang="ts">
 import { useFilterTransition } from '~/composables/useFilterTransition'
+import { PROJECTS_PAGE_QUERY, projectCategories } from '~/utils/projects'
 
 // Route meta for screen reader announcements
 definePageMeta({
@@ -305,8 +306,8 @@ const { containerRef: projectsContainer, animateFilter } = useFilterTransition()
 // SEO Meta Tags
 usePageMeta({
   title: 'Projects',
-  description: 'Browse VP Associates\' portfolio of structural engineering projects across Tampa Bay including commercial, marine, residential, and industrial projects.',
-  keywords: 'structural engineering portfolio, engineering projects, Tampa Bay projects, commercial engineering, marine structures',
+  description: 'Browse VP Associates\' portfolio of structural engineering projects across Tampa Bay including commercial, industrial and bridge projects.',
+  keywords: 'structural engineering portfolio, engineering projects, Tampa Bay projects, commercial engineering, industrial structures, bridge engineering',
   ogImage: 'https://vp-associates.com/images/og-projects.jpg',
 })
 
@@ -315,6 +316,7 @@ const route = useRoute()
 // Fetch projects from WordPress API
 const { data: projectsResponse, pending } = await useFetch('/api/projects', {
   query: {
+    ...PROJECTS_PAGE_QUERY,
     _nocache: route.query.nocache ? '1' : undefined
   }
 })
@@ -346,14 +348,6 @@ interface Filters {
   sort: 'newest' | 'oldest' | 'az' | 'za'
 }
 
-const categories: Category[] = [
-  { id: 'all', name: 'All Projects' },
-  { id: 'Commercial', name: 'Commercial' },
-  { id: 'Marine', name: 'Marine' },
-  { id: 'Residential', name: 'Residential' },
-  { id: 'Industrial', name: 'Industrial' },
-  { id: 'Institutional', name: 'Institutional' }
-]
 
 // Transform WordPress API data to Project interface
 const projects = computed<Project[]>(() => {
@@ -432,6 +426,10 @@ const viewMode = ref<ViewMode>((route.query.view as ViewMode) === 'list' ? 'list
 const itemsPerPage = 9
 const currentPage = ref(Number(route.query.page) || 1)
 
+// Category chips come from the projects themselves, so they always match the
+// WordPress taxonomy and never offer a category with nothing in it.
+const categories = computed<Category[]>(() => projectCategories(projects.value))
+
 // Get unique locations for filter dropdown
 const uniqueLocations = computed(() => {
   const locations = new Set<string>(projects.value.map(p => p.location))
@@ -451,7 +449,7 @@ const hasActiveFilters = computed(() => {
 
 // Get category name by ID
 function getCategoryName(id: string): string {
-  const category = categories.find(c => c.id === id)
+  const category = categories.value.find(c => c.id === id)
   return category?.name || id
 }
 
