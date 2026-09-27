@@ -211,6 +211,23 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 })
 
+// jsdom has no IntersectionObserver; composables like useParallax construct one directly
+class IntersectionObserverStub {
+  readonly root = null
+  readonly rootMargin = ''
+  readonly thresholds: number[] = []
+  constructor(public callback: IntersectionObserverCallback) {}
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+  takeRecords = vi.fn(() => [])
+}
+Object.defineProperty(globalThis, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserverStub,
+})
+
 // Mock process.env
 global.process.env = {
   ...process.env,
