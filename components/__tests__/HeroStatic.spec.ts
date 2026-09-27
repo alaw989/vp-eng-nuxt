@@ -39,7 +39,7 @@ describe('HeroStatic Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('Trusted by Tampa Bay Since 1990')
+    expect(wrapper.html()).toContain('Structural Engineering &amp; Steel Detailing')
   })
 
   it('renders with outcome variant', () => {
@@ -76,7 +76,7 @@ describe('HeroStatic Component', () => {
     })
 
     expect(wrapper.html()).toContain('Custom Headline')
-    expect(wrapper.html()).not.toContain('Trusted by Tampa Bay Since 1990')
+    expect(wrapper.html()).not.toContain('Structural Engineering &amp; Steel Detailing')
   })
 
   it('overrides subheadline with custom prop', () => {

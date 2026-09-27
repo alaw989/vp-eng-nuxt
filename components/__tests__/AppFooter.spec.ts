@@ -19,13 +19,13 @@ describe('AppFooter Component', () => {
 
   it('renders company description mentioning Tampa Bay', () => {
     const wrapper = mount(AppFooter)
-    expect(wrapper.html()).toContain('structural engineering')
+    expect(wrapper.html()).toContain('Structural engineering')
     expect(wrapper.html()).toContain('Tampa Bay')
   })
 
-  it('renders license number format', () => {
+  it('does not show an unverified license number', () => {
     const wrapper = mount(AppFooter)
-    expect(wrapper.html()).toContain('FL License #')
+    expect(wrapper.html()).not.toMatch(/License #/)
   })
 
   it('renders quick links section', () => {
@@ -125,10 +125,11 @@ describe('AppFooter Component', () => {
     expect(wrapper.html()).toContain('All rights reserved')
   })
 
-  it('renders social media links', () => {
+  it('links to the company LinkedIn page, not a placeholder', () => {
     const wrapper = mount(AppFooter)
-    expect(wrapper.html()).toContain('linkedin')
-    expect(wrapper.html()).toContain('facebook')
+    const link = wrapper.find('a[aria-label="LinkedIn"]')
+    expect(link.attributes('href')).toBe('https://www.linkedin.com/company/vp-&-associates-inc')
+    expect(wrapper.find('a[aria-label="Facebook"]').exists()).toBe(false)
   })
 
   it('renders site map link', () => {

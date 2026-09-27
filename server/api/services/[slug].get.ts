@@ -13,11 +13,11 @@ const staticServices: Record<string, any> = {
     id: 1,
     title: { rendered: 'Structural Steel Design' },
     slug: 'structural-steel-design',
-    excerpt: { rendered: '<p>AISC certified steel design for commercial and industrial projects</p>' },
-    content: { rendered: '<p>Our structural steel design services cover a comprehensive range of steel construction needs. From moment frames to braced frames, we deliver efficient, code-compliant steel solutions that optimize material usage while ensuring structural integrity.</p><p>We specialize in steel connection design, metal building systems, industrial platforms, and seismic load analysis. Our team is AISC certified and stays current with the latest steel construction standards and technologies.</p>' },
+    excerpt: { rendered: '<p>Structural steel design to AISC 360 for commercial and industrial projects</p>' },
+    content: { rendered: '<p>Our structural steel design services cover a comprehensive range of steel construction needs. From moment frames to braced frames, we deliver efficient, code-compliant steel solutions that optimize material usage while ensuring structural integrity.</p><p>We specialize in steel connection design, metal building systems, industrial platforms, and seismic load analysis. We design to the current AISC Specification for Structural Steel Buildings.</p>' },
     acf: {
       icon: 'mdi:beam',
-      standard: 'AISC Certified',
+      standard: 'AISC 360',
       capabilities: [
         'Moment frame design',
         'Braced frame systems',
@@ -33,11 +33,11 @@ const staticServices: Record<string, any> = {
     id: 2,
     title: { rendered: 'Concrete Design' },
     slug: 'concrete-design',
-    excerpt: { rendered: '<p>ACI certified concrete design for foundations and structures</p>' },
+    excerpt: { rendered: '<p>Reinforced concrete design to ACI 318 for foundations and structures</p>' },
     content: { rendered: '<p>Our concrete design expertise encompasses all aspects of reinforced concrete construction. We provide comprehensive design services for foundations, slabs, beams, columns, and shear walls for projects of all sizes.</p><p>Our team is well-versed in both cast-in-place and precast concrete systems, including post-tensioned concrete applications. We follow ACI standards and deliver efficient, buildable concrete designs.</p>' },
     acf: {
       icon: 'mdi:cube-outline',
-      standard: 'ACI Certified',
+      standard: 'ACI 318',
       capabilities: [
         'Foundation systems',
         'Flat plate and flat slab design',

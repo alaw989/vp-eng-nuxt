@@ -3,7 +3,7 @@
     <!-- Page Banner -->
     <PageBanner
       headline="About VP Associates"
-      subheadline="Tampa Bay's trusted structural engineering firm for over 30 years"
+      subheadline="Structural engineering and steel detailing in Tampa since 2007"
       background-image="/images/hero/construction-steel-structure-1920w.jpg"
       background-alt="Steel structure construction showcasing engineering excellence"
       aria-label="About page banner"
@@ -27,7 +27,7 @@
               <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">
                 <span ref="yearsCounter">0</span>+
               </div>
-              <div class="text-sm text-neutral-600">Years Experience</div>
+              <div class="text-sm text-neutral-600">Years Combined Experience</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
             <div class="text-center group cursor-default">
@@ -54,7 +54,7 @@
           <!-- Floating badge -->
           <div class="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-4 flex items-center gap-3 animate-bounce-slow">
             <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-              <Icon name="mdi:award" class="w-6 h-6 text-primary" />
+              <Icon name="mdi:file-certificate-outline" class="w-6 h-6 text-primary" />
             </div>
             <div>
               <div class="font-bold text-neutral-900">Licensed</div>
@@ -155,22 +155,22 @@
       </div>
     </AppSection>
 
-    <!-- Certifications & Affiliations -->
+    <!-- PE Registrations -->
     <AppSection bg-color="neutral-50" animate-on-scroll border>
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-4">
-          Certifications & Affiliations
+          Professional Engineer Registrations
         </h2>
         <p class="text-xl text-neutral-600">
-          Professional credentials and industry memberships
+          Structural drawings and calculations signed and sealed in these states
         </p>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div v-for="cert in certifications" :key="cert" class="bg-white rounded-lg p-6 flex items-center justify-center shadow-md hover:shadow-lg hover:border-primary border border-transparent transition-all duration-300">
+        <div v-for="state in peRegistrations" :key="state" class="bg-white rounded-lg p-6 flex items-center justify-center shadow-md hover:shadow-lg hover:border-primary border border-transparent transition-all duration-300">
           <div class="text-center">
             <Icon name="mdi:certificate" class="w-12 h-12 text-primary mx-auto mb-2" />
-            <div class="font-semibold text-neutral-900 text-sm">{{ cert }}</div>
+            <div class="font-semibold text-neutral-900 text-sm">{{ state }}</div>
           </div>
         </div>
       </div>
@@ -248,7 +248,7 @@ const aboutBreadcrumbs = [
 // SEO Meta Tags
 usePageMeta({
   title: 'About VP Associates',
-  description: 'Learn about VP Associates, Tampa Bay\'s trusted structural engineering firm for over 30 years. Meet our team and discover our commitment to excellence.',
+  description: 'VP & Associates is a Tampa structural engineering and steel detailing firm with over 30 years of combined experience, registered in seven states.',
 })
 
 // Organization Schema
@@ -258,7 +258,8 @@ useJsonld({
   name: 'VP Associates',
   url: 'https://vp-associates.com',
   logo: 'https://vp-associates.com/wp-content/uploads/2018/06/vplogowhite.png',
-  description: 'Structural engineering firm serving Tampa Bay for over 30 years',
+  description: 'Structural engineering and steel detailing firm in Tampa, FL',
+  foundingDate: '2007',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tampa',
@@ -271,7 +272,7 @@ useJsonld({
     contactType: 'sales',
   },
   sameAs: [
-    'https://www.linkedin.com/company/vp-associates',
+    'https://www.linkedin.com/company/vp-&-associates-inc',
   ],
 })
 
@@ -302,15 +303,15 @@ const leadership = computed(() => {
   })
 })
 
-const certifications = [
-  'AISC Certification',
-  'ACI Membership',
-  'FL PE Licensed',
-  'NCSEA Member',
-  'ASCE Member',
-  'FES Member',
-  'OSHA Certified',
-  'ISO 9001:2015'
+// States listed on the firm's own pre-2026 site (see EVIDENCE.md)
+const peRegistrations = [
+  'Florida',
+  'Kentucky',
+  'Maryland',
+  'Michigan',
+  'Pennsylvania',
+  'Tennessee',
+  'Virginia'
 ]
 
 const serviceAreas = [

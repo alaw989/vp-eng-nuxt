@@ -13,7 +13,7 @@ describe('TeamMember Component', () => {
     bio: 'Experienced structural engineer with 15+ years in the industry.',
     photo: '/jane.jpg',
     email: 'jane@example.com',
-    phone: '555-1234',
+    phone: '(813) 555-0123',
     linkedin: 'https://linkedin.com/in/jane',
     priority: true
   }
@@ -97,11 +97,11 @@ describe('TeamMember Component', () => {
 
   it('renders phone link when provided', () => {
     const wrapper = mount(TeamMember, {
-      props: { name: 'Jane', title: 'Engineer', phone: '555-1234' },
+      props: { name: 'Jane', title: 'Engineer', phone: '(813) 555-0123' },
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('tel:555-1234')
+    expect(wrapper.html()).toContain('tel:+18135550123')
   })
 
   it('renders LinkedIn link when provided', () => {
@@ -133,9 +133,17 @@ describe('TeamMember Component', () => {
     expect(wrapper.html()).toContain('aria-label="Email Jane Smith"')
   })
 
+  it('omits the call link when the phone number is not a full US number', () => {
+    const wrapper = mount(TeamMember, {
+      props: { name: 'Jane', title: 'Engineer', phone: '234234233' },
+      global: { stubs: globalStubs }
+    })
+    expect(wrapper.find('a[href^="tel:"]').exists()).toBe(false)
+  })
+
   it('has correct phone aria-label', () => {
     const wrapper = mount(TeamMember, {
-      props: { name: 'Jane Smith', title: 'Engineer', phone: '555-1234' },
+      props: { name: 'Jane Smith', title: 'Engineer', phone: '(813) 555-0123' },
       global: { stubs: globalStubs }
     })
 
@@ -162,7 +170,7 @@ describe('TeamMember Component', () => {
 
   it('has phone icon', () => {
     const wrapper = mount(TeamMember, {
-      props: { name: 'Jane', title: 'Engineer', phone: '555-1234' },
+      props: { name: 'Jane', title: 'Engineer', phone: '(813) 555-0123' },
       global: { stubs: globalStubs }
     })
 

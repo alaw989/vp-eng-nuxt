@@ -86,8 +86,8 @@ interface HeroProps {
 
 const defaultCopy = {
   authority: {
-    headline: "Trusted by Tampa Bay Since 1990",
-    subheadline: "Over 30 years of structural engineering excellence"
+    headline: "Structural Engineering & Steel Detailing",
+    subheadline: "Tampa engineers and detailers with over 30 years of combined experience"
   },
   outcome: {
     headline: "Structures That Stand the Test of Time",
@@ -99,7 +99,7 @@ const defaultCopy = {
   },
   capability: {
     headline: "Precision Structural Engineering",
-    subheadline: "Licensed professionals delivering quality since 1990"
+    subheadline: "Licensed Florida engineers, signed and sealed calculations"
   }
 }
 

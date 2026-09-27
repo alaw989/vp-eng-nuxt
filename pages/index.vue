@@ -11,10 +11,10 @@
             Trusted Structural Engineers in Tampa Bay
           </h2>
           <p class="text-lg text-neutral-600 mb-6">
-            VP Associates has been providing exceptional structural engineering services to the Tampa Bay area for over 30 years. Our team of licensed engineers brings expertise, innovation, and dedication to every project.
+            VP &amp; Associates is a Tampa structural engineering and steel detailing firm. Our engineers and detailers bring over 30 years of combined experience to steel, concrete, masonry and wood structures.
           </p>
           <p class="text-lg text-neutral-600 mb-8">
-            From commercial developments to residential projects, we deliver comprehensive structural solutions that meet the highest standards of safety, efficiency, and code compliance.
+            We work for industrial contractors, commercial architects and steel fabricators, from foundation and seawall design to SDS2 steel detailing and inspections.
           </p>
           <NuxtLink
             to="/about"
@@ -31,7 +31,7 @@
               src="/images/hero/tampa-bay-sundown-1920w.jpg"
               srcset="/images/hero/tampa-bay-sundown-640w.jpg 640w, /images/hero/tampa-bay-sundown-1280w.jpg 1280w, /images/hero/tampa-bay-sundown-1920w.jpg 1920w"
               sizes="(max-width: 768px) 640px, (max-width: 1024px) 1280px, 1920px"
-              alt="Tampa Bay skyline at sunset - VP Associates serves the Tampa Bay area with over 30 years of structural engineering expertise"
+              alt="Tampa Bay skyline at sunset - VP Associates serves the Tampa Bay area with over 30 years of combined structural engineering experience"
               class="w-full h-full object-cover"
               loading="lazy"
               width="1920"
@@ -42,9 +42,9 @@
           <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-6 max-w-xs">
             <div class="flex items-center gap-3 mb-2">
               <Icon name="mdi:check-circle" class="w-6 h-6 text-secondary" />
-              <span class="font-semibold text-neutral-900">Licensed & Insured</span>
+              <span class="font-semibold text-neutral-900">Licensed Florida PE</span>
             </div>
-            <p class="text-sm text-neutral-600">Fully licensed Florida engineers with comprehensive coverage</p>
+            <p class="text-sm text-neutral-600">Signed and sealed structural drawings and calculations</p>
           </div>
         </div>
       </div>
@@ -52,27 +52,16 @@
 
     <!-- Statistics Section -->
     <AppSection bg-color="primary" padding="md">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <StatCounter
-          :value="500"
-          label="Projects Completed"
-          suffix="+"
-        />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
         <StatCounter
           :value="30"
-          label="Years Experience"
+          label="Years of Combined Experience"
           suffix="+"
         />
-        <StatCounter
-          :value="100"
-          label="Client Satisfaction"
-          suffix="%"
-        />
-        <StatCounter
-          :value="10"
-          label="Team Members"
-          suffix="+"
-        />
+        <div>
+          <div class="text-5xl md:text-6xl font-display font-bold text-white mb-2">2007</div>
+          <div class="text-lg md:text-xl text-neutral-300">Detailing Steel Since</div>
+        </div>
       </div>
     </AppSection>
 
@@ -148,15 +137,6 @@
         </NuxtLink>
       </div>
     </AppSection>
-
-    <!-- Client Logos Section -->
-    <LazyClientLogos
-      :clients="clientLogos"
-      title="Trusted by Industry Leaders"
-      subtitle="Proud to serve prestigious clients across Tampa Bay and Florida"
-      bg-color="neutral-50"
-      padding="md"
-    />
 
     <!-- Testimonials Section -->
     <AppSection bg-color="neutral-100-pattern" animate-on-scroll elevation corner-accent="primary">
@@ -237,7 +217,7 @@ definePageMeta({
 usePageMeta({
   title: 'VP Associates - Structural Engineering Services Tampa Bay',
   titleSuffix: false,
-  description: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of experience.',
+  description: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing. Over 30 years of combined experience.',
   keywords: 'structural engineering, Tampa Bay, steel design, concrete design, foundation design, seawall design, Florida engineer, VP Associates',
   ogImage: 'https://vp-associates.com/images/og-home.jpg',
 })
@@ -377,8 +357,8 @@ const carouselSlides = computed(() => {
     slug: p.slug || 'project',
     description: decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || 'Structural engineering project',
     category: p.custom_fields?.project_category || 'Project',
-    location: p.custom_fields?.project_location || 'Tampa Bay',
-    year: p.custom_fields?.project_year || new Date().getFullYear().toString(),
+    location: p.custom_fields?.project_location || '',
+    year: p.custom_fields?.project_year || '',
     icon: projectIcons[p.custom_fields?.project_category as string] || 'mdi:office-building',
     image: getProjectImage(p), // Use actual project image from API
   }))
@@ -400,8 +380,8 @@ const featuredProjects = computed(() => {
       slug: p.slug || 'project',
       description: decodeHtmlEntities(p.excerpt?.rendered?.replace(/<[^>]*>/g, '')) || 'Structural engineering project',
       category: p.custom_fields?.project_category || 'Project',
-      location: p.custom_fields?.project_location || 'Tampa Bay',
-      year: p.custom_fields?.project_year || new Date().getFullYear().toString(),
+      location: p.custom_fields?.project_location || '',
+      year: p.custom_fields?.project_year || '',
       image: getProjectImage(p),
     }))
   }
@@ -418,18 +398,6 @@ const featuredProjects = computed(() => {
   }))
 })
 
-// Client logos for trust indicators
-const clientLogos = [
-  { name: 'Tampa General', icon: 'mdi:hospital' },
-  { name: 'Raymond James', icon: 'mdi:office-building' },
-  { name: 'Port Tampa Bay', icon: 'mdi:ship' },
-  { name: 'Hillsborough County', icon: 'mdi:bank' },
-  { name: 'City of Tampa', icon: 'mdi:city' },
-  { name: 'USF', icon: 'mdi:school' },
-  { name: 'Moffitt Cancer Center', icon: 'mdi:medical-bag' },
-  { name: 'TECO', icon: 'mdi:lightning-bolt' },
-]
-
 // Fetch testimonials from API
 const { data: testimonialsResponse } = await useFetch('/api/testimonials')
 const testimonialsData = computed(() => (testimonialsResponse.value as any)?.data || [])
@@ -437,11 +405,15 @@ const testimonialsData = computed(() => (testimonialsResponse.value as any)?.dat
 // Transform testimonials data for display
 const testimonials = computed(() => {
   if (!testimonialsData.value || !Array.isArray(testimonialsData.value)) return []
-  return testimonialsData.value.slice(0, 6).map((t: any) => ({
-    quote: decodeHtmlEntities(t.custom_fields?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '')) || 'Great service!',
-    author: decodeHtmlEntities(t.custom_fields?.testimonial_client_name || t.title?.rendered) || 'Client',
-    company: decodeHtmlEntities(t.custom_fields?.testimonial_company) || '',
-    role: decodeHtmlEntities(t.custom_fields?.testimonial_role) || '',
-  }))
+  return testimonialsData.value
+    .map((t: any) => ({
+      quote: decodeHtmlEntities(t.custom_fields?.quote || t.content?.rendered?.replace(/<[^>]*>/g, '')),
+      author: decodeHtmlEntities(t.custom_fields?.testimonial_client_name || t.title?.rendered) || 'Client',
+      company: decodeHtmlEntities(t.custom_fields?.testimonial_company) || '',
+      role: decodeHtmlEntities(t.custom_fields?.testimonial_role) || '',
+      source: t.custom_fields?.testimonial_source || '',
+    }))
+    .filter((t: any) => t.quote)
+    .slice(0, 6)
 })
 </script>

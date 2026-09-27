@@ -246,29 +246,6 @@
       </div>
     </AppSection>
 
-    <!-- Stats Section -->
-    <AppSection bg-color="neutral-50" padding="lg">
-      <div class="container">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">500+</div>
-            <div class="text-sm text-neutral-600">Projects Completed</div>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">30+</div>
-            <div class="text-sm text-neutral-600">Years Experience</div>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">100%</div>
-            <div class="text-sm text-neutral-600">Code Compliant</div>
-          </div>
-          <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2 text-neutral-900">10</div>
-            <div class="text-sm text-neutral-600">Florida Counties</div>
-          </div>
-        </div>
-      </div>
-    </AppSection>
 
     <!-- CTA Section -->
     <AppSection bg-color="primary-dark" padding="xl">
