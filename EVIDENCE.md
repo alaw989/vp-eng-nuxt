@@ -41,6 +41,7 @@ To restore one, get the evidence, add a row above, and narrow the pattern in
 | Contact page "123 Main Street, Suite 100, Tampa, FL 33602" office address, map pin and "visit our office" | Placeholder address presented as a real office | Is there an address clients should use, such as a mailing address or PO box? Don't publish a home address |
 | Business hours (Mon–Fri 8–5) on the contact page, footer and JSON-LD | Never listed on the firm's earlier sites; the developer prefers not to list hours | None |
 | Contact page "Emergency?" box ("call us for urgent structural issues") | Implied urgent-response service that wasn't confirmed | Does the firm offer urgent inspections? |
+| "We'll get back to you within 24 hours" (contact page and form success message) | Response-time promise nobody committed to | None |
 | Facebook link to facebook.com | No company Facebook page found | Is there one? |
 
 ## CMS content to fix (WordPress, not code)

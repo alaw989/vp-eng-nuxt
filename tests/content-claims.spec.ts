@@ -53,6 +53,7 @@ const unsupported: Array<[string, RegExp]> = [
   // Hours and emergency availability were never confirmed by the client
   ['business hours', /openingHours|8:00 AM|Business Hours/],
   ['emergency service', /Emergency\?|urgent structural issues/],
+  ['response-time promise', /within 24 hours/i],
   // Placeholder license number and social links presented as real
   ['license number', /PEC-\d+/],
   ['placeholder social links', /href="https:\/\/(www\.)?(linkedin|facebook)\.com\/?"/],

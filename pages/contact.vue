@@ -18,7 +18,7 @@
             Send Us a Message
           </h2>
           <p class="text-lg text-neutral-600 mb-8">
-            Fill out the form below and we'll get back to you within 24 hours.
+            Tell us about your project and we'll be in touch.
           </p>
 
           <form @submit.prevent="handleSubmit" class="space-y-6">
