@@ -16,6 +16,7 @@ Last reviewed: 2026-09-27.
 | PE registrations in FL, KY, MD, MI, PA, TN, VA | The firm's pre-rebuild WordPress site ("licensed in the states of Florida, Kentucky, Maryland, Michigan, Pennsylvania, Tennessee, and Virginia"). Its 2010 site (Wayback) lists FL PE #62111, KY #23945, MI #6201051076, TN #109693 | Medium: self-reported, current status not checked | `pages/about.vue` |
 | Licensed Florida PE; signed and sealed drawings and calculations | 2010 site (FL PE #62111); pre-rebuild site describes sending "signed and sealed calculations" to fabricators | Medium | `pages/index.vue` card, hero `capability` variant |
 | SDS2 detailing, ACAD, 3-D analysis; clients are industrial contractors, commercial architects, steel fabricators | The firm's own pre-rebuild site copy | High | About, careers, home intro |
+| Phone (813) 486-2079 | Confirmed by the site developer, who knows the client personally, 2026-09-27. Public listings and the pre-rebuild site still show the old number, (813) 247-3835, which the client may want to update on Google, Yelp and Yellow Pages | High | Header, footer, contact, CTAs, JSON-LD |
 | Testimonials | CMS testimonials, each with `testimonial_source` (Google Maps, Yellow Pages, Birdeye), shown on the card | High | Homepage slider |
 
 ## Removed claims ([NEEDS INPUT] from the client)
@@ -54,4 +55,3 @@ These live in https://cms.vp-associates.com/wp-admin and can't be fixed from the
 
 - **Business hours** (Mon–Fri 8–5, shown on the contact page, footer and JSON-LD): unconfirmed.
 - **"Emergency?" box on the contact page:** it implies urgent-response availability. Does the firm offer that?
-- **Phone number.** Public listings and the pre-rebuild site show (813) 247-3835; the new site uses (813) 486-2079 (commit a698412). Confirm which is current.
