@@ -244,7 +244,6 @@ useJsonld({
   },
   areaServed: 'Tampa Bay Area',
   priceRange: '$$',
-  openingHours: 'Mo-Fr 08:00-17:00',
 })
 
 // Fetch services from API

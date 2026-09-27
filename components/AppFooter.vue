@@ -97,10 +97,6 @@
                 info@vp-associates.com
               </a>
             </p>
-            <p class="flex items-center gap-3">
-              <Icon name="mdi:clock" class="w-5 h-5 flex-shrink-0" />
-              <span>Mon-Fri: 8:00 AM - 5:00 PM</span>
-            </p>
           </address>
         </div>
       </div>

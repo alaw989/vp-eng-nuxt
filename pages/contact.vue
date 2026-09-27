@@ -247,36 +247,7 @@
                   </a>
                 </div>
               </div>
-
-              <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
-                  <Icon name="mdi:clock" class="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <div class="font-semibold text-neutral-900 mb-1">Business Hours</div>
-                  <div class="text-neutral-600">
-                    Monday - Friday: 8:00 AM - 5:00 PM<br>
-                    Saturday - Sunday: Closed
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-
-
-          <!-- Emergency Contact -->
-          <div class="bg-red-50 border border-red-200 rounded-xl p-6 hover:shadow-md transition-all duration-300">
-            <div class="flex items-center gap-3 mb-3">
-              <Icon name="mdi:alert-circle" class="w-6 h-6 text-red-600" />
-              <div class="font-bold text-neutral-900">Emergency?</div>
-            </div>
-            <p class="text-neutral-600 text-sm mb-3">
-              For urgent structural issues or inspection needs, call us directly.
-            </p>
-            <a href="tel:+18134862079" class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2 rounded px-1">
-              <Icon name="mdi:phone" class="w-4 h-4" />
-              (813) 486-2079
-            </a>
           </div>
         </div>
       </div>
@@ -355,7 +326,6 @@ useJsonld({
       addressRegion: 'FL',
       addressCountry: 'US',
     },
-    openingHours: 'Mo-Fr 08:00-17:00',
   },
 })
 

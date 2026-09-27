@@ -111,11 +111,9 @@ describe('AppFooter Component', () => {
     expect(wrapper.html()).toContain('info@vp-associates.com')
   })
 
-  it('renders business hours', () => {
+  it('does not list business hours', () => {
     const wrapper = mount(AppFooter)
-    expect(wrapper.html()).toContain('Mon-Fri')
-    expect(wrapper.html()).toContain('8:00 AM')
-    expect(wrapper.html()).toContain('5:00 PM')
+    expect(wrapper.html()).not.toContain('Mon-Fri')
   })
 
   it('renders current year in copyright', () => {

@@ -50,6 +50,9 @@ const unsupported: Array<[string, RegExp]> = [
   ['benefits', /401\(k\)/],
   // The firm has no public office; this placeholder address was shown as one
   ['placeholder address', /123 Main Street|Suite 100/],
+  // Hours and emergency availability were never confirmed by the client
+  ['business hours', /openingHours|8:00 AM|Business Hours/],
+  ['emergency service', /Emergency\?|urgent structural issues/],
   // Placeholder license number and social links presented as real
   ['license number', /PEC-\d+/],
   ['placeholder social links', /href="https:\/\/(www\.)?(linkedin|facebook)\.com\/?"/],
