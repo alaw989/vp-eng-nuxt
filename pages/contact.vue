@@ -294,6 +294,7 @@
 </template>
 
 <script setup lang="ts">
+import { submitContactForm } from '~/utils/contactForm'
 // Route meta for screen reader announcements
 definePageMeta({
   title: 'Contact'
@@ -385,6 +386,8 @@ const { errors, touched, validateField, validateForm, clearErrors } = useFormVal
   }
 })
 
+const { formspreeEndpoint } = useRuntimeConfig().public
+
 const handleSubmit = async () => {
   submitMessage.value = ''
 
@@ -396,64 +399,23 @@ const handleSubmit = async () => {
 
   isSubmitting.value = true
 
-  try {
-    const response = await $fetch<{
-      success: boolean
-      message: string
-      submissionId?: string
-    }>('/api/contact', {
-      method: 'POST',
-      body: {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        email: form.email,
-        phone: form.phone || undefined,
-        service: form.service || undefined,
-        message: form.message,
-        website: form.website // Honeypot field
-      }
-    })
+  const result = await submitContactForm(formspreeEndpoint, form)
+  isSubmitting.value = false
+  submitSuccess.value = result.ok
+  submitMessage.value = result.message
 
-    isSubmitting.value = false
+  if (result.ok) {
+    // Reset form on success
+    form.firstName = ''
+    form.lastName = ''
+    form.email = ''
+    form.phone = ''
+    form.service = ''
+    form.message = ''
+    form.website = ''
 
-    if (response.success) {
-      submitSuccess.value = true
-      submitMessage.value = response.message
-
-      // Reset form on success
-      form.firstName = ''
-      form.lastName = ''
-      form.email = ''
-      form.phone = ''
-      form.service = ''
-      form.message = ''
-      form.website = ''
-
-      // Clear errors on success
-      clearErrors()
-
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        submitMessage.value = ''
-      }, 5000)
-    } else {
-      submitSuccess.value = false
-      submitMessage.value = response.message || 'An error occurred. Please try again.'
-    }
-  } catch (error: any) {
-    isSubmitting.value = false
-    submitSuccess.value = false
-
-    // Handle different error types
-    if (error?.statusCode === 429) {
-      submitMessage.value = 'Too many submissions. Please try again later.'
-    } else if (error?.statusCode === 400) {
-      submitMessage.value = error.statusMessage || 'Please check your input and try again.'
-    } else {
-      submitMessage.value = 'An error occurred while sending your message. Please try again or call us directly.'
-    }
-
-    console.error('Contact form submission error:', error)
+    // Clear errors on success
+    clearErrors()
   }
 }
 

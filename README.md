@@ -7,7 +7,7 @@ Corporate website for [VP Associates](https://vp-associates.com), a Tampa Bay-ba
 - **Showcases services** — steel design, concrete design, masonry, foundations, seawalls, and steel detailing
 - **Project portfolio** — filterable gallery of past engineering projects (Marine, Commercial, Residential, Industrial, Institutional)
 - **Team profiles** — licensed engineers and staff directory
-- **Contact forms** — Resend API integration for client inquiries
+- **Contact forms** — Formspree (the site is static; the form posts straight to Formspree)
 - **PWA support** — offline access, install prompts, and service worker caching
 - **SEO** — server-rendered pages, auto-generated sitemap, schema markup, 301 redirects from legacy WordPress URLs
 
@@ -19,7 +19,7 @@ Corporate website for [VP Associates](https://vp-associates.com), a Tampa Bay-ba
 | Styling | Tailwind CSS (v6), @tailwindcss/typography |
 | State | Pinia, VueUse composables |
 | CMS | WordPress (headless, REST API) with 30-min server-side cache |
-| Forms | Resend API |
+| Forms | Formspree |
 | Testing | Vitest (unit), Playwright (E2E), Lighthouse CI |
 | Deploy | DigitalOcean App Platform, PM2 |
 
@@ -50,9 +50,7 @@ npm run dev              # http://localhost:3000
 | `NUXT_PUBLIC_SITE_URL` | Public site URL |
 | `NUXT_PUBLIC_WP_API_URL` | WordPress REST API URL (public) |
 | `WP_API_URL` | WordPress REST API URL (server-side) |
-| `RESEND_API_KEY` | Resend API key for contact forms |
-| `CONTACT_FORM_EMAIL` | Email to receive form submissions |
-| `FROM_EMAIL` | Sender email (must be verified in Resend) |
+| `NUXT_PUBLIC_FORMSPREE_ENDPOINT` | Formspree form endpoint (optional; defaults to the production form) |
 | `NUXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics ID (optional) |
 
 ## Scripts
