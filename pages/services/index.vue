@@ -12,17 +12,17 @@
 
     <!-- Category Filter Section -->
     <AppSection bg-color="neutral-100" padding="md">
-      <div class="container">
-        <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
+      <div>
+        <div class="flex items-stretch overflow-x-auto scrollbar-hide snap-x snap-mandatory border border-neutral-300 bg-white w-fit max-w-full divide-x divide-neutral-300">
           <button
             v-for="category in serviceCategories"
             :key="category.id"
             @click="setCategory(category.id)"
             :class="[
-              'px-6 py-2.5 rounded-full font-semibold transition-all duration-300 whitespace-nowrap snap-start',
+              'px-5 py-2.5 font-semibold transition-colors duration-200 whitespace-nowrap snap-start focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
               activeCategory === category.id
-                ? 'bg-primary text-white shadow-lg scale-105'
-                : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
+                ? 'bg-primary text-white'
+                : 'bg-white text-neutral-700 hover:bg-neutral-100'
             ]"
             :aria-pressed="activeCategory === category.id"
             :aria-label="`Filter by ${category.name}`"
@@ -30,7 +30,7 @@
             {{ category.name }}
           </button>
         </div>
-        <div class="text-center text-neutral-600 mt-4">
+        <div class="text-neutral-600 mt-4">
           <span aria-live="polite">{{ filteredServices.length }} service{{ filteredServices.length !== 1 ? 's' : '' }}</span>
         </div>
       </div>
@@ -38,11 +38,11 @@
 
     <!-- Services Overview -->
     <AppSection bg-color="white" animate-on-scroll>
-      <div class="text-center mb-16">
+      <div class="mb-16 max-w-3xl">
         <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-6">
           Complete Structural Engineering Services
         </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+        <p class="text-xl text-neutral-600">
           From initial design to construction support, we provide end-to-end structural engineering expertise. Our services encompass all major construction materials and project types.
         </p>
       </div>
@@ -57,21 +57,18 @@
         <div
           v-for="service in filteredServices"
           :key="service.slug"
-          class="group relative bg-white rounded-2xl p-8 border-2 border-neutral-100 hover:border-primary/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+          class="group relative bg-white rounded-sm p-8 border border-neutral-300 hover:border-primary transition-colors duration-300"
         >
-          <!-- Hover glow effect -->
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-          <div class="relative z-10">
+          <div>
             <div class="flex items-start gap-4 mb-4">
-              <div class="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
-                <Icon :name="service.icon" class="w-8 h-8 text-primary" />
+              <div class="w-14 h-14 bg-primary/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                <Icon :name="service.icon" class="w-8 h-8 text-primary" aria-hidden="true" />
               </div>
               <div>
                 <h3 class="text-2xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">
                   {{ service.title }}
                 </h3>
-                <div v-if="service.standard" class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/10 rounded-full">
+                <div v-if="service.standard" class="inline-block px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-primary border border-primary/40 rounded-sm">
                   {{ service.standard }}
                 </div>
               </div>
@@ -81,7 +78,7 @@
             </p>
             <ul v-if="service.capabilities" class="space-y-2 mb-4">
               <li v-for="cap in service.capabilities" :key="cap" class="flex items-start gap-2 text-neutral-700">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
+                <Icon name="mdi:check" class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" aria-hidden="true" />
                 <span class="text-sm">{{ cap }}</span>
               </li>
             </ul>
@@ -105,161 +102,62 @@
     </AppSection>
 
     <!-- Why Choose Us -->
-    <AppSection bg-color="neutral-50" animate-on-scroll elevation>
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-4xl font-display font-bold text-neutral-900 mb-4">
-          Why Choose VP Associates?
-        </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-          The VP Associates advantage for your structural engineering needs
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center group">
-          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-            <Icon name="mdi:clock-fast" class="w-10 h-10 text-primary" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Fast Turnaround</h3>
-          <p class="text-neutral-600">
-            We understand project timelines. Our team delivers quality engineering designs on schedule, every time.
+    <AppSection bg-color="neutral-50" animate-on-scroll>
+      <div class="grid lg:grid-cols-3 gap-12">
+        <div>
+          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+            Why Choose VP Associates?
+          </h2>
+          <p class="text-lg text-neutral-600">
+            The VP Associates advantage for your structural engineering needs
           </p>
         </div>
 
-        <div class="text-center group">
-          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-            <Icon name="mdi:file-document-check" class="w-10 h-10 text-primary" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Code Compliance</h3>
-          <p class="text-neutral-600">
-            Every design meets or exceeds Florida Building Code requirements. No red flags, no delays.
-          </p>
-        </div>
-
-        <div class="text-center group">
-          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-            <Icon name="mdi:account-group" class="w-10 h-10 text-primary" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Experienced Team</h3>
-          <p class="text-neutral-600">
-            Licensed engineers with decades of combined experience across all project types and materials.
-          </p>
-        </div>
-
-        <div class="text-center group">
-          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-            <Icon name="mdi:tools" class="w-10 h-10 text-primary" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Buildable Designs</h3>
-          <p class="text-neutral-600">
-            Practical, constructible solutions that work in the field. We design with contractors in mind.
-          </p>
-        </div>
-
-        <div class="text-center group">
-          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-            <Icon name="mdi:calculator" class="w-10 h-10 text-primary" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Cost Effective</h3>
-          <p class="text-neutral-600">
-            Optimized designs that minimize material while maintaining safety. Value engineering built in.
-          </p>
-        </div>
-
-        <div class="text-center group">
-          <div class="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-            <Icon name="mdi:phone-in-talk" class="w-10 h-10 text-primary" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Responsive Service</h3>
-          <p class="text-neutral-600">
-            Real people answer the phone. We're available when you need us, from RFIs to site visits.
-          </p>
-        </div>
+        <ul class="lg:col-span-2 grid sm:grid-cols-2 gap-px bg-neutral-300 border border-neutral-300">
+          <li v-for="reason in reasons" :key="reason.title" class="bg-neutral-50 p-6 md:p-8">
+            <h3 class="text-lg font-bold text-neutral-900 mb-2">{{ reason.title }}</h3>
+            <p class="text-neutral-600">{{ reason.text }}</p>
+          </li>
+        </ul>
       </div>
     </AppSection>
 
     <!-- Process Section -->
-    <AppSection bg-color="secondary/5" animate-on-scroll elevation>
-      <div class="text-center mb-16">
+    <AppSection bg-color="secondary/5" animate-on-scroll>
+      <div class="mb-12 max-w-3xl">
         <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
           Our Process
         </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+        <p class="text-xl text-neutral-600">
           How we work with you from concept to completion
         </p>
       </div>
 
-      <div class="grid md:grid-cols-4 gap-8 relative">
-        <!-- Progress line background -->
-        <div class="hidden md:block absolute top-6 left-[12%] right-[12%] h-1 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20 rounded-full" />
-
-        <div class="relative group">
-          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
-            1
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Consultation</h3>
-          <p class="text-neutral-600 text-sm">Initial project review and scope discussion</p>
-        </div>
-
-        <div class="relative group">
-          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
-            2
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Design</h3>
-          <p class="text-neutral-600 text-sm">Structural analysis and calculation preparation</p>
-        </div>
-
-        <div class="relative group">
-          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
-            3
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Review</h3>
-          <p class="text-neutral-600 text-sm">Plan preparation and permitting support</p>
-        </div>
-
-        <div class="relative group">
-          <div class="bg-gradient-to-br from-primary to-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
-            4
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">Support</h3>
-          <p class="text-neutral-600 text-sm">Construction administration and field services</p>
-        </div>
-      </div>
+      <ProcessSteps :steps="processSteps" />
     </AppSection>
 
     <!-- CTA Section -->
-    <AppSection bg-color="primary" padding="xl">
-      <div class="container text-center text-white">
-        <h2 class="text-4xl font-display font-bold mb-6">
-          Ready to Start Your Project?
-        </h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-          Contact us to discuss your structural engineering needs
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <NuxtLink
-            to="/contact"
-            class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          >
-            Get a Quote
-            <Icon name="mdi:arrow-right" class="w-5 h-5" />
-          </NuxtLink>
-          <a
-            href="tel:+18134862079"
-            class="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          >
-            <Icon name="mdi:phone" class="w-5 h-5" />
-            (813) 486-2079
-          </a>
-        </div>
-      </div>
-    </AppSection>
+    <CtaBlock
+      headline="Ready to Start Your Project?"
+      subheadline="Contact us to discuss your structural engineering needs"
+      primary-label="Get a Quote"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useFilterTransition } from '~/composables/useFilterTransition'
 import { decodeHtmlEntities } from '~/utils/html'
+import { processSteps } from '~/utils/process'
+
+const reasons = [
+  { title: 'Fast Turnaround', text: 'We understand project timelines and deliver engineering designs on the schedule we agree at the start.' },
+  { title: 'Code Compliance', text: 'Every design meets or exceeds Florida Building Code requirements. No red flags, no delays.' },
+  { title: 'Experienced Team', text: 'Engineers and detailers with over 30 years of combined experience across steel, concrete, masonry and wood.' },
+  { title: 'Buildable Designs', text: 'Practical, constructible solutions that work in the field. We design with contractors in mind.' },
+  { title: 'Cost Effective', text: 'Optimized designs that minimize material while maintaining safety. Value engineering built in.' },
+  { title: 'Responsive Service', text: "Real people answer the phone. We're available when you need us, from RFIs to site visits." },
+]
 
 // Route meta for screen reader announcements
 definePageMeta({

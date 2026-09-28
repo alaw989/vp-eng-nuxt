@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="relative">
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl relative">
+          <div class="aspect-[4/3] rounded-sm overflow-hidden relative">
             <img
               src="/images/hero/construction-steel-beams-1920w.jpg"
               alt="Steel construction project showcasing VP Associates engineering work"
@@ -93,11 +93,11 @@
 
     <!-- Leadership Team -->
     <AppSection bg-color="neutral-100" animate-on-scroll elevation>
-      <div class="text-center mb-16">
+      <div class="mb-16 max-w-3xl">
         <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
           Our Leadership Team
         </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+        <p class="text-xl text-neutral-600">
           Experienced engineers dedicated to your project's success
         </p>
       </div>
@@ -192,23 +192,11 @@
     </AppSection>
 
     <!-- CTA Section -->
-    <AppSection bg-color="primary" padding="xl">
-      <div class="container text-center text-white">
-        <h2 class="text-4xl font-display font-bold mb-6">
-          Ready to Work Together?
-        </h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-          Let's discuss how VP Associates can bring expertise to your next project
-        </p>
-        <NuxtLink
-          to="/contact"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          Contact Us Today
-          <Icon name="mdi:arrow-right" class="w-5 h-5" />
-        </NuxtLink>
-      </div>
-    </AppSection>
+    <CtaBlock
+      headline="Ready to Work Together?"
+      subheadline="Let's discuss how VP Associates can bring expertise to your next project"
+      primary-label="Contact Us Today"
+    />
   </div>
 </template>
 

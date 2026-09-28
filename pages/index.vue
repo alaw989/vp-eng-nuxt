@@ -18,14 +18,14 @@
           </p>
           <NuxtLink
             to="/about"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             About the firm
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
           </NuxtLink>
         </div>
         <div class="relative">
-          <picture class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl block">
+          <picture class="aspect-[4/3] rounded-sm overflow-hidden block">
             <source srcset="/images/hero/tampa-bay-sundown-640w.webp 640w, /images/hero/tampa-bay-sundown-1280w.webp 1280w, /images/hero/tampa-bay-sundown-1920w.webp 1920w" type="image/webp" sizes="(max-width: 768px) 640px, (max-width: 1024px) 1280px, 1920px">
             <img
               src="/images/hero/tampa-bay-sundown-1920w.jpg"
@@ -38,13 +38,11 @@
               height="1080"
             >
           </picture>
-          <!-- Floating Stats Card -->
-          <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-6 max-w-xs">
-            <div class="flex items-center gap-3 mb-2">
-              <Icon name="mdi:check-circle" class="w-6 h-6 text-secondary" />
-              <span class="font-semibold text-neutral-900">Licensed Florida PE</span>
-            </div>
-            <p class="text-sm text-neutral-600">Signed and sealed structural drawings and calculations</p>
+          <!-- Registration stamp -->
+          <div class="absolute -bottom-6 left-4 md:-left-6 bg-white border-2 border-primary px-5 py-3 max-w-xs">
+            <div class="text-xs uppercase tracking-[0.2em] text-neutral-600">Licensed</div>
+            <div class="font-display text-xl font-bold text-primary">Florida PE</div>
+            <p class="mt-1 text-sm text-neutral-600">Signed and sealed drawings and calculations</p>
           </div>
         </div>
       </div>
@@ -52,26 +50,16 @@
 
     <!-- Statistics Section -->
     <AppSection bg-color="primary" padding="md">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
-        <StatCounter
-          :value="30"
-          label="Years of Combined Experience"
-          suffix="+"
-        />
-        <div>
-          <div class="text-5xl md:text-6xl font-display font-bold text-white mb-2">2007</div>
-          <div class="text-lg md:text-xl text-neutral-300">Detailing Steel Since</div>
-        </div>
-      </div>
+      <StatsTitleBlock :stats="firmStats" />
     </AppSection>
 
     <!-- Services Section -->
-    <AppSection bg-color="neutral-50-pattern" animate-on-scroll elevation corner-accent="secondary">
-      <div class="text-center mb-16">
+    <AppSection bg-color="neutral-50-pattern" animate-on-scroll elevation>
+      <div class="mb-16 max-w-3xl">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
           Our Services
         </h2>
-        <p class="text-xl text-neutral-600 max-w-2xl mx-auto">
+        <p class="text-xl text-neutral-600">
           Comprehensive structural engineering solutions for projects of all sizes
         </p>
       </div>
@@ -87,10 +75,10 @@
         />
       </div>
 
-      <div class="text-center mt-12">
+      <div class="mt-12">
         <NuxtLink
           to="/services"
-          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           View All Services
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -100,11 +88,11 @@
 
     <!-- Featured Projects Grid -->
     <AppSection bg-color="neutral" animate-on-scroll elevation stagger-children>
-      <div class="text-center mb-12">
+      <div class="mb-12 max-w-3xl">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">
           Featured Projects
         </h2>
-        <p class="text-xl text-neutral-300 max-w-2xl mx-auto">
+        <p class="text-xl text-neutral-300">
           Explore our portfolio of successful engineering projects across Tampa Bay
         </p>
       </div>
@@ -127,24 +115,24 @@
         />
       </div>
 
-      <div class="text-center">
+      <div>
         <NuxtLink
           to="/projects"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg font-semibold hover:from-primary-light hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
+          class="group inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-sm font-semibold hover:bg-neutral-100 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
         >
           View All Projects
-          <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" />
+          <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
         </NuxtLink>
       </div>
     </AppSection>
 
     <!-- Testimonials Section -->
-    <AppSection bg-color="neutral-100-pattern" animate-on-scroll elevation corner-accent="primary">
-      <div class="text-center mb-16">
+    <AppSection bg-color="neutral-100-pattern" animate-on-scroll elevation>
+      <div class="mb-16 max-w-3xl">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
           What Our Clients Say
         </h2>
-        <p class="text-xl text-neutral-600 max-w-2xl mx-auto">
+        <p class="text-xl text-neutral-600">
           Trusted by architects, contractors, and developers throughout Florida
         </p>
       </div>
@@ -177,31 +165,10 @@
     </AppSection>
 
     <!-- CTA Section -->
-    <AppSection bg-color="primary-dark" padding="xl">
-      <div class="container text-center text-white">
-        <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">
-          Ready to Start Your Project?
-        </h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-          Contact us today to discuss your structural engineering needs
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <NuxtLink
-            to="/contact"
-            class="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          >
-            Contact Us
-          </NuxtLink>
-          <NuxtLink
-            to="tel:+18134862079"
-            class="px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          >
-            <Icon name="mdi:phone" class="w-5 h-5" />
-            (813) 486-2079
-          </NuxtLink>
-        </div>
-      </div>
-    </AppSection>
+    <CtaBlock
+      headline="Ready to Start Your Project?"
+      subheadline="Contact us today to discuss your structural engineering needs"
+    />
   </div>
 </template>
 
@@ -245,6 +212,14 @@ useJsonld({
   areaServed: 'Tampa Bay Area',
   priceRange: '$$',
 })
+
+// Every figure here traces to EVIDENCE.md
+const firmStats = [
+  { value: 30, suffix: '+', count: true, label: 'Years of combined experience', detail: 'Engineers and detailers' },
+  { value: 2007, label: 'Detailing steel since', detail: 'Tampa, Florida' },
+  { value: 7, count: true, label: 'States with PE registration', detail: 'FL · KY · MD · MI · PA · TN · VA' },
+  { value: 4, count: true, label: 'Materials designed in', detail: 'Steel · Concrete · Masonry · Wood' },
+]
 
 // Fetch services from API
 const { data: servicesResponse } = await useFetch('/api/services')

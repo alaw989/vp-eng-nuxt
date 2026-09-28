@@ -210,21 +210,23 @@ describe('AppSection Component', () => {
     expect(wrapper.html()).toContain('bg-gradient-to-t')
   })
 
-  it('renders primary corner accent when cornerAccent is "primary"', () => {
-    const wrapper = mount(AppSection, {
-      props: { cornerAccent: 'primary' },
-      slots: { default: '<div>Content</div>' }
-    })
-    expect(wrapper.html()).toContain('bg-gradient-to-bl')
-    expect(wrapper.html()).toContain('from-primary/5')
+  it('renders no decorative corner accents or blobs', () => {
+    for (const cornerAccent of ['primary', 'secondary'] as const) {
+      const wrapper = mount(AppSection, {
+        props: { cornerAccent, bgColor: 'secondary/5' },
+        slots: { default: '<div>Content</div>' }
+      })
+      expect(wrapper.html()).not.toContain('bg-gradient-to-bl')
+      expect(wrapper.html()).not.toContain('rounded-full')
+    }
   })
 
-  it('renders secondary corner accent when cornerAccent is "secondary"', () => {
+  it('gives dark sections the blueprint grid', () => {
     const wrapper = mount(AppSection, {
-      props: { cornerAccent: 'secondary' },
+      props: { bgColor: 'neutral' },
       slots: { default: '<div>Content</div>' }
     })
-    expect(wrapper.html()).toContain('from-secondary/10')
+    expect(wrapper.classes()).toContain('bg-blueprint')
   })
 
   it('has z-10 class on inner container', () => {

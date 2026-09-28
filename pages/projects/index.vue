@@ -1,31 +1,27 @@
 <template>
   <div>
     <!-- Page Header -->
-    <AppSection bg-color="primary-dark" padding="lg">
-      <div class="container text-center text-white">
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
-          Our Projects
-        </h1>
-        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-          A portfolio of successful structural engineering projects across Tampa Bay
-        </p>
-      </div>
-    </AppSection>
+    <PageBanner
+      eyebrow="Industrial · Commercial · Bridges"
+      headline="Our Projects"
+      subheadline="A portfolio of successful structural engineering projects across Tampa Bay"
+      aria-label="Projects page banner"
+    />
 
     <!-- Filter Section -->
     <AppSection bg-color="neutral-50" padding="md">
-      <div class="container">
+      <div>
         <!-- Category Filters -->
-        <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+        <div class="flex overflow-x-auto scrollbar-hide border border-neutral-300 bg-white w-fit max-w-full divide-x divide-neutral-300 mb-6">
           <button
             v-for="category in categories"
             :key="category.id"
             @click="setCategory(category.id)"
             :class="[
-              'px-6 py-2.5 rounded-full font-semibold transition-all duration-300',
+              'px-5 py-2.5 font-semibold whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
               filters.category === category.id
-                ? 'bg-primary text-white shadow-lg scale-105'
-                : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
+                ? 'bg-primary text-white'
+                : 'bg-white text-neutral-700 hover:bg-neutral-100'
             ]"
             :aria-pressed="filters.category === category.id"
           >
@@ -34,13 +30,13 @@
         </div>
 
         <!-- Additional Filters and Sort -->
-        <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+        <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
           <!-- Location Filter -->
           <div class="relative w-full md:w-auto">
             <select
               v-model="filters.location"
               @change="setLocation"
-              class="w-full md:w-48 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+              class="w-full md:w-48 px-4 py-2.5 rounded-sm border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
               aria-label="Filter by location"
             >
               <option value="">All Locations</option>
@@ -56,7 +52,7 @@
             <select
               v-model="filters.year"
               @change="setYear"
-              class="w-full md:w-40 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+              class="w-full md:w-40 px-4 py-2.5 rounded-sm border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
               aria-label="Filter by year"
             >
               <option value="">All Years</option>
@@ -72,7 +68,7 @@
             <select
               v-model="filters.sort"
               @change="setSort"
-              class="w-full md:w-48 px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+              class="w-full md:w-48 px-4 py-2.5 rounded-sm border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
               aria-label="Sort projects"
             >
               <option value="newest">Newest First</option>
@@ -87,7 +83,7 @@
           <button
             v-if="hasActiveFilters"
             @click="clearFilters"
-            class="w-full md:w-auto px-4 py-2.5 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors font-semibold flex items-center justify-center gap-2"
+            class="w-full md:w-auto px-4 py-2.5 rounded-sm border border-primary text-primary hover:bg-primary hover:text-white transition-colors font-semibold flex items-center justify-center gap-2"
           >
             <Icon name="mdi:close-circle" class="w-5 h-5" />
             Clear Filters
@@ -95,20 +91,20 @@
         </div>
 
         <!-- Active Filters Display -->
-        <div v-if="hasActiveFilters" class="flex flex-wrap items-center justify-center gap-2 mb-4">
-          <span v-if="filters.category !== 'all'" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
+        <div v-if="hasActiveFilters" class="flex flex-wrap items-center gap-2 mb-4">
+          <span v-if="filters.category !== 'all'" class="px-3 py-1 rounded-sm bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
             Category: {{ getCategoryName(filters.category) }}
             <button @click="setCategory('all')" class="hover:text-primary-dark" aria-label="Remove category filter">
               <Icon name="mdi:close" class="w-4 h-4" />
             </button>
           </span>
-          <span v-if="filters.location" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
+          <span v-if="filters.location" class="px-3 py-1 rounded-sm bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
             Location: {{ filters.location }}
             <button @click="clearLocation" class="hover:text-primary-dark" aria-label="Remove location filter">
               <Icon name="mdi:close" class="w-4 h-4" />
             </button>
           </span>
-          <span v-if="filters.year" class="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
+          <span v-if="filters.year" class="px-3 py-1 rounded-sm bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
             Year: {{ filters.year }}
             <button @click="clearYear" class="hover:text-primary-dark" aria-label="Remove year filter">
               <Icon name="mdi:close" class="w-4 h-4" />
@@ -117,7 +113,7 @@
         </div>
 
         <!-- Results Count and View Toggle -->
-        <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="flex items-center gap-4 mb-4">
           <div class="text-neutral-600">
             <span aria-live="polite">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
             <span v-if="totalPages > 1" class="text-neutral-500 ml-2">
@@ -125,11 +121,11 @@
             </span>
           </div>
           <!-- View Toggle -->
-          <div class="flex items-center gap-1 border border-neutral-200 rounded-lg p-1 bg-white">
+          <div class="flex items-center gap-1 border border-neutral-300 rounded-sm p-1 bg-white">
             <button
               @click="setViewMode('grid')"
               :class="[
-                'p-2 rounded-md transition-all duration-300',
+                'p-2 rounded-sm transition-colors duration-200',
                 viewMode === 'grid' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
               ]"
               aria-label="Grid view"
@@ -140,7 +136,7 @@
             <button
               @click="setViewMode('list')"
               :class="[
-                'p-2 rounded-md transition-all duration-300',
+                'p-2 rounded-sm transition-colors duration-200',
                 viewMode === 'list' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
               ]"
               aria-label="List view"
@@ -152,13 +148,13 @@
         </div>
 
         <!-- Pagination Controls -->
-        <div v-if="totalPages > 1" class="flex items-center justify-center gap-2 mb-6">
+        <div v-if="totalPages > 1" class="flex flex-wrap items-center gap-2 mb-6">
           <!-- Previous Button -->
           <button
             @click="goToPage(currentPage - 1)"
             :disabled="currentPage === 1"
             :class="[
-              'px-4 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-1',
+              'px-4 py-2 rounded-sm font-semibold transition-colors duration-200 flex items-center gap-1',
               currentPage === 1
                 ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
                 : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
@@ -177,7 +173,7 @@
                 v-else
                 @click="goToPage(page as number)"
                 :class="[
-                  'w-10 h-10 rounded-lg font-semibold transition-all duration-300',
+                  'w-10 h-10 rounded-sm font-semibold transition-colors duration-200',
                   currentPage === page
                     ? 'bg-primary text-white'
                     : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
@@ -195,7 +191,7 @@
             @click="goToPage(currentPage + 1)"
             :disabled="currentPage === totalPages"
             :class="[
-              'px-4 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-1',
+              'px-4 py-2 rounded-sm font-semibold transition-colors duration-200 flex items-center gap-1',
               currentPage === totalPages
                 ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
                 : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
@@ -248,23 +244,10 @@
 
 
     <!-- CTA Section -->
-    <AppSection bg-color="primary-dark" padding="xl">
-      <div class="container text-center text-white">
-        <h2 class="text-4xl font-display font-bold mb-6">
-          Start Your Project Today
-        </h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-          Let's add your project to our portfolio of successful engineering solutions
-        </p>
-        <NuxtLink
-          to="/contact"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          Contact Us
-          <Icon name="mdi:arrow-right" class="w-5 h-5" />
-        </NuxtLink>
-      </div>
-    </AppSection>
+    <CtaBlock
+      headline="Start Your Project Today"
+      subheadline="Let's add your project to our portfolio of successful engineering solutions"
+    />
   </div>
 </template>
 
