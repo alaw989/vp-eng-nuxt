@@ -2,6 +2,7 @@
 
 import { execSync } from 'child_process';
 import { spawn } from 'child_process';
+import { createServer } from 'net';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs';
@@ -10,8 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Configuration
-const PREVIEW_URL = 'http://localhost:3000';
-const PREVIEW_STARTUP_MS = 5000;
+const PREVIEW_STARTUP_TIMEOUT_MS = 60000;
 const ENABLED_ENV_VAR = 'PRE_COMMIT_CHECKS_ENABLED';
 
 // Allow disabling via environment variable
@@ -24,25 +24,71 @@ console.log('Running pre-commit validation...\n');
 
 let previewProcess = null;
 let previewPid = null;
+let previewExited = false;
 
-// Cleanup function to kill the preview server
-const cleanupPreview = async () => {
-  if (previewPid) {
-    try {
-      if (process.platform === 'win32') {
-        execSync(`taskkill /F /T /PID ${previewPid}`, { stdio: 'ignore' });
-      } else {
-        // Kill the process and its child processes
-        execSync(`pkill -P ${previewPid}`, { stdio: 'ignore' });
-        process.kill(previewPid, 'SIGTERM');
-      }
-      // Wait a bit for graceful shutdown
-      await new Promise(resolve => setTimeout(resolve, 500));
-    } catch (killError) {
-      // Process may have already exited
+// Ask the OS for a free port, so the preview never collides with a dev
+// server (or anything else) already on :3000
+const findFreePort = () => new Promise((resolve, reject) => {
+  const server = createServer();
+  server.unref();
+  server.on('error', reject);
+  server.listen(0, '127.0.0.1', () => {
+    const { port } = server.address();
+    server.close(() => resolve(port));
+  });
+});
+
+// Poll until the preview answers, so Lighthouse only ever audits the server
+// this hook started
+const waitForPreview = async (url, timeoutMs) => {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (previewExited) {
+      throw new Error('Preview server exited before it started listening.');
     }
+    try {
+      const response = await fetch(url);
+      if (response.ok) return;
+    } catch {
+      // Not listening yet
+    }
+    await new Promise(resolve => setTimeout(resolve, 250));
+  }
+  throw new Error(`Preview server did not respond at ${url} within ${timeoutMs / 1000}s.`);
+};
+
+// Kill the preview's whole process group. `nuxt preview` runs the Nitro server
+// as a grandchild (npx -> nuxt -> node server/index.mjs); killing only the
+// top process used to leave the server running on its port.
+const cleanupPreview = async () => {
+  if (!previewPid || previewExited) return;
+  const pid = previewPid;
+  previewPid = null;
+  try {
+    if (process.platform === 'win32') {
+      execSync(`taskkill /F /T /PID ${pid}`, { stdio: 'ignore' });
+      return;
+    }
+    process.kill(-pid, 'SIGTERM');
+  } catch {
+    return; // Already gone
+  }
+  // Give it a moment to shut down, then make sure
+  for (let i = 0; i < 20 && !previewExited; i++) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  if (!previewExited) {
+    try { process.kill(-pid, 'SIGKILL'); } catch { /* already gone */ }
   }
 };
+
+// Clean up if the commit is interrupted (Ctrl+C) mid-audit
+for (const signal of ['SIGINT', 'SIGTERM']) {
+  process.on(signal, async () => {
+    await cleanupPreview();
+    process.exit(130);
+  });
+}
 
 try {
   // Step 1: Build
@@ -66,22 +112,23 @@ try {
   // Step 2: Start preview server in background
   console.log('\nStep 2/5: Starting preview server...');
 
-  previewProcess = spawn('npm', ['run', 'preview'], {
-    stdio: 'pipe',
-    detached: true
+  const port = await findFreePort();
+  const PREVIEW_URL = `http://localhost:${port}`;
+
+  // detached puts the preview in its own process group so cleanup can kill
+  // the whole tree; stdio is ignored so a full pipe can never stall it
+  previewProcess = spawn('npx', ['nuxt', 'preview', '--port', String(port)], {
+    stdio: 'ignore',
+    detached: true,
+    env: { ...process.env, PORT: String(port), NITRO_PORT: String(port) }
   });
-
-  // Store the PID for later cleanup
   previewPid = previewProcess.pid;
-
-  // Unref the process so it doesn't keep parent alive
+  previewProcess.on('exit', () => { previewExited = true; });
   previewProcess.unref();
 
-  // Wait for server to start
-  console.log(`Waiting ${PREVIEW_STARTUP_MS}ms for server startup...`);
-  await new Promise(resolve => setTimeout(resolve, PREVIEW_STARTUP_MS));
+  await waitForPreview(`${PREVIEW_URL}/`, PREVIEW_STARTUP_TIMEOUT_MS);
 
-  console.log('Preview server started.');
+  console.log(`Preview server started on ${PREVIEW_URL}.`);
 
   // Step 3: Check for hydration errors by making a request
   console.log('\nStep 3/5: Checking for hydration issues...');
