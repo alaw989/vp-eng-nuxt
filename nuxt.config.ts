@@ -1,3 +1,4 @@
+import { wordpressRoutes } from './utils/prerenderRoutes'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -158,22 +159,16 @@ export default defineNuxtConfig({
     densities: [1, 2],
   },
 
-  // Static site generation: pre-render dynamic routes from WordPress
+  // Static site generation: prerender every WordPress detail page, plus pages
+  // the crawler cannot reach from prerendered links. Production is static
+  // nginx, so a route that is not prerendered does not exist there.
   hooks: {
     async 'nitro:config'(nitroConfig) {
+      if (nitroConfig.dev) return
       const wpApiUrl = process.env.WP_API_URL || process.env.NUXT_PUBLIC_WP_API_URL || 'https://cms.vp-associates.com/wp-json/wp/v2'
-      const routes: string[] = []
-
-      try {
-        const [projects, services] = await Promise.all([
-          $fetch<{slug: string}[]>(`${wpApiUrl}/projects?per_page=100&_fields=slug`),
-          $fetch<{slug: string}[]>(`${wpApiUrl}/services?per_page=100&_fields=slug`),
-        ])
-        for (const p of projects) routes.push(`/projects/${p.slug}`)
-        for (const s of services) routes.push(`/services/${s.slug}`)
-      } catch {
-        // WordPress API unavailable during build — skip dynamic routes
-      }
+      // Throws if WordPress is unreachable: failing the build keeps the live site intact
+      const routes = ['/contact', ...await wordpressRoutes(wpApiUrl)]
+      console.info(`[prerender] ${routes.length} routes from WordPress and static pages`)
 
       nitroConfig.prerender = nitroConfig.prerender || {}
       nitroConfig.prerender.routes = [...(nitroConfig.prerender.routes || []), ...routes]
@@ -191,7 +186,6 @@ export default defineNuxtConfig({
       '/services': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
       '/projects': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
       '/careers': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } },
-      // '/contact': { prerender: true, headers: { 'Cache-Control': 'public, max-age=3600' } }, // DISABLED - conflicts with page route in Nuxt 4 compat
       '/search': { prerender: true, headers: { 'Cache-Control': 'public, max-age=1800' } },
       '/sitemap': { prerender: true, headers: { 'Cache-Control': 'public, max-age=86400' } },
       '/sitemap.xml': { prerender: true, headers: { 'Cache-Control': 'public, max-age=86400' } },

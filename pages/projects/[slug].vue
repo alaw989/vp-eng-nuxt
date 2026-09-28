@@ -335,7 +335,7 @@ const allProjectsData = [
     category: 'Marine',
     location: 'Tampa, FL',
     year: 2024,
-    image: '/images/projects/steel-connect-1920w.webp'
+    image: '/images/hero/construction-steel-beams-1920w.jpg'
   },
   {
     title: 'Downtown Office Tower',
@@ -344,7 +344,7 @@ const allProjectsData = [
     category: 'Commercial',
     location: 'Tampa, FL',
     year: 2023,
-    image: '/images/projects/lowrise-1920w.webp'
+    image: '/images/hero/construction-building-frame-1920w.jpg'
   },
   {
     title: 'Coastal Seawall System',
@@ -353,7 +353,7 @@ const allProjectsData = [
     category: 'Marine',
     location: 'Clearwater, FL',
     year: 2024,
-    image: '/images/projects/shallowdeepfoundationdesign10-1920w.webp'
+    image: '/images/hero/construction-concrete-1920w.jpg'
   },
   {
     title: 'Luxury Residential Estate',
@@ -362,7 +362,7 @@ const allProjectsData = [
     category: 'Residential',
     location: 'St. Petersburg, FL',
     year: 2024,
-    image: '/images/projects/lowrise-1920w.webp'
+    image: '/images/hero/construction-building-frame-1920w.jpg'
   },
   {
     title: 'Industrial Warehouse Complex',
@@ -371,7 +371,7 @@ const allProjectsData = [
     category: 'Industrial',
     location: 'Brandon, FL',
     year: 2023,
-    image: '/images/projects/steel-connect-1920w.webp'
+    image: '/images/hero/construction-steel-beams-1920w.jpg'
   },
   {
     title: 'School Classroom Wing',
@@ -380,7 +380,7 @@ const allProjectsData = [
     category: 'Institutional',
     location: 'Lakeland, FL',
     year: 2023,
-    image: '/images/projects/cad-drawing-1920w.webp'
+    image: '/images/hero/construction-structural-1920w.jpg'
   }
 ]
 
