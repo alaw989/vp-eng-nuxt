@@ -3,15 +3,17 @@
     <div class="absolute inset-0 bg-blueprint bg-grid" aria-hidden="true" />
 
     <!-- One of VP's own shop drawings (RMS ISO, the braced frames), drawn in on
-         scroll and shown whole in the right half of the band -->
+         scroll. From xl it is larger than the band: it starts just right of the
+         text and the band crops what runs off the bottom and right, keeping the
+         girder and bracing in view. -->
     <div class="container absolute inset-0 hidden lg:block pointer-events-none">
-      <figure class="absolute inset-y-0 right-8 w-1/2 flex items-center justify-end" aria-hidden="true">
+      <figure class="absolute inset-y-0 left-[calc(50%-2.5rem)] right-0 xl:right-auto" aria-hidden="true">
         <BannerDrawing
           src="/images/drawings/rms-iso.svg"
           aspect-ratio="1600 / 1252"
           lazy
           :play="isVisible"
-          class="h-[78%] max-w-full opacity-90"
+          class="absolute top-1/2 -translate-y-1/2 right-0 h-[82%] max-w-full xl:max-w-none xl:right-auto xl:left-0 xl:translate-y-0 xl:-top-[3%] xl:h-[108%] opacity-90"
         />
       </figure>
     </div>
