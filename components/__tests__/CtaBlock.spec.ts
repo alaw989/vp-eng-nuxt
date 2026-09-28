@@ -48,6 +48,22 @@ describe('CtaBlock Component', () => {
     expect(wrapper.find('figure').attributes('aria-hidden')).toBe('true')
   })
 
+  it('draws the RMS shop drawing, lazily, when scrolled into view', () => {
+    const wrapper = mount(CtaBlock, {
+      props: { headline: 'Next' },
+      global: {
+        stubs: {
+          ...globalStubs,
+          BannerDrawing: { props: { src: String, lazy: Boolean, play: Boolean }, template: '<div data-testid="cta-drawing" :data-src="src" :data-lazy="String(lazy)" :data-play="String(play)" />' }
+        }
+      }
+    })
+    const drawing = wrapper.find('[data-testid="cta-drawing"]')
+    expect(drawing.attributes('data-src')).toBe('/images/drawings/rms-iso.svg')
+    expect(drawing.attributes('data-lazy')).toBe('true')
+    expect(['true', 'false']).toContain(drawing.attributes('data-play'))
+  })
+
   it('keeps the navy background', () => {
     const wrapper = mount(CtaBlock, {
       props: { headline: 'Test' },

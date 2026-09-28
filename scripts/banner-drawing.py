@@ -16,7 +16,8 @@ fainter layer that fades in last. The rest is bucketed into bands by height so
 the frame "goes up" from its base as it draws.
 
 --crop and --skip take fractions of the sheet (0-1), measured from the top left of
-the page as it displays. The defaults keep the area inside a standard sheet border.
+the page as it displays. --rotate (clockwise) is applied after cropping, for
+drawings laid out sideways on the sheet. The defaults keep the area inside a standard sheet border.
 Needs pdftocairo (poppler). Only straight-line (M/L) PDFs are supported, which is
 what the SDS2 and ACAD exports on the site produce.
 """
@@ -34,6 +35,14 @@ ap.add_argument('--skip', action='append', default=[], help='drop box (e.g. a la
 ap.add_argument('--width', type=int, default=1600, help='output viewBox width')
 ap.add_argument('--bands', type=int, default=14, help='how many ground-up stages the draw-in has')
 ap.add_argument('--min-length', type=float, default=1.2, help='drop segments shorter than this')
+ap.add_argument('--rotate', type=int, default=0, choices=(0, 90, 180, 270),
+                help='rotate clockwise after cropping, for drawings laid out sideways on the sheet')
+ap.add_argument('--pens', default='',
+                help='only keep strokes of these widths (comma-separated, as in the PDF), e.g. to drop a text/dimension pen')
+ap.add_argument('--min-feature', type=float, default=0,
+                help='drop connected line groups smaller than this (output units); removes stroked CAD lettering')
+ap.add_argument('--stroke', type=float, default=0,
+                help='line width in viewBox units (default scales with --width to ~1px at banner size)')
 ap.add_argument('--lite', action='store_true', help='phone version: 800 wide, min length 5, no grating layer')
 args = ap.parse_args()
 if args.lite:
@@ -49,11 +58,17 @@ with tempfile.TemporaryDirectory() as tmp:
 
 vb = [float(v) for v in re.search(r'viewBox="([^"]*)"', svg).group(1).split()]
 PAGE_W, PAGE_H = vb[2], vb[3]
-path_re = re.compile(r'<path fill="none"[^>]*? d="([^"]*)"(?: transform="matrix\(([^)]*)\)")?')
+path_re = re.compile(r'<path fill="none"([^>]*?) d="([^"]*)"(?: transform="matrix\(([^)]*)\)")?')
+width_re = re.compile(r'stroke-width="([^"]*)"')
 tok = re.compile(r'[A-Za-z]|-?[\d.]+(?:e-?\d+)?')
+pens = [float(v) for v in args.pens.split(',') if v]
 
 segs, unsupported = [], set()
-for d, m in path_re.findall(svg):
+for attrs, d, m in path_re.findall(svg):
+    if pens:
+        w = width_re.search(attrs)
+        if not w or not any(abs(float(w.group(1)) - pen) < 0.01 for pen in pens):
+            continue
     a, b, c, dd, e, f = (map(float, m.split(',')) if m else (1, 0, 0, 1, 0, 0))
     toks = tok.findall(d)
     i, prev, start = 0, None, None
@@ -67,6 +82,16 @@ for d, m in path_re.findall(svg):
             elif prev is not None:
                 segs.append((prev, p))
             prev = p
+        elif t == 'C' and prev is not None:
+            # Cubic Bezier (e.g. handrail bends), flattened to 8 segments
+            (x1, y1, x2, y2, x3, y3) = map(float, toks[i + 1:i + 7]); i += 7
+            pts = [(a * x + c * y + e, b * x + dd * y + f) for x, y in ((x1, y1), (x2, y2), (x3, y3))]
+            p0 = prev
+            for k in range(1, 9):
+                u = k / 8
+                q = tuple((1 - u) ** 3 * p0[j] + 3 * (1 - u) ** 2 * u * pts[0][j]
+                          + 3 * (1 - u) * u ** 2 * pts[1][j] + u ** 3 * pts[2][j] for j in (0, 1))
+                segs.append((prev, q)); prev = q
         elif t == 'Z':
             if prev and start:
                 segs.append((prev, start))
@@ -87,6 +112,11 @@ def keep(p):
 segs = [s for s in segs if keep(s[0]) and keep(s[1])]
 if not segs:
     sys.exit('no line work left after cropping; check --crop')
+
+# Rotate clockwise (screen coordinates, y down); the bounds are recomputed below
+turn = {0: lambda x, y: (x, y), 90: lambda x, y: (-y, x),
+        180: lambda x, y: (-x, -y), 270: lambda x, y: (y, -x)}[args.rotate]
+segs = [(turn(*a), turn(*b)) for a, b in segs]
 xs = [p[0] for s in segs for p in s]; ys = [p[1] for s in segs for p in s]
 minx, maxx, miny, maxy = min(xs), max(xs), min(ys), max(ys)
 W = args.width
@@ -152,8 +182,36 @@ def to_d(pts):
 lowest = lambda pts: max(p[1] for p in pts)
 leftmost = lambda pts: min(p[0] for p in pts)
 
+def extent(pts):
+    xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+    return math.hypot(max(xs) - min(xs), max(ys) - min(ys))
+
+polys = chain(lines)
+if args.min_feature:
+    # Group touching polylines, then drop small groups (stroked CAD lettering)
+    parent = list(range(len(polys)))
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]; i = parent[i]
+        return i
+    owner = {}
+    for i, pts in enumerate(polys):
+        for p in pts:
+            if p in owner:
+                parent[find(i)] = find(owner[p])
+            else:
+                owner[p] = i
+    groups = defaultdict(list)
+    for i in range(len(polys)):
+        groups[find(i)].append(i)
+    keep_ids = set()
+    for ids in groups.values():
+        if extent([p for i in ids for p in polys[i]]) >= args.min_feature:
+            keep_ids.update(ids)
+    polys = [polys[i] for i in sorted(keep_ids)]
+
 bands = [[] for _ in range(args.bands)]
-for pts in chain(lines):
+for pts in polys:
     bands[min(args.bands - 1, int((H - lowest(pts)) / H * args.bands))].append(pts)
 band_ds = [''.join(to_d(p) for p in sorted(b, key=leftmost)) for b in bands]
 band_ds = [d for d in band_ds if d]
@@ -161,7 +219,7 @@ hatch_d = ''.join(to_d(p) for p in sorted(chain(hatch), key=lambda p: (-lowest(p
 
 def write(name):
     # Stroke widths scale with the viewBox so both sizes render at ~1px
-    sw = round(2 * W / 1600, 2)
+    sw = args.stroke or round(2 * W / 1600, 2)
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" fill="none" stroke="#fff" '
            f'stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">']
     # --i orders the ground-up draw-in; pathLength lets one dash cover each band

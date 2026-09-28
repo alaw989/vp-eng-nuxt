@@ -1,6 +1,8 @@
 <template>
   <div
+    ref="root"
     class="banner-drawing"
+    :class="{ 'is-paused': !play }"
     :style="{ aspectRatio }"
     aria-hidden="true"
     v-html="markup"
@@ -30,12 +32,20 @@ const props = withDefaults(defineProps<{
   liteSrc?: string
   /** viewBox width / height, reserved before the SVG arrives */
   aspectRatio?: string
+  /** Fetch only once scrolled near, for drawings below the fold */
+  lazy?: boolean
+  /** Hold the draw-in until this turns true (e.g. when scrolled into view) */
+  play?: boolean
 }>(), {
   liteSrc: '',
-  aspectRatio: '1600 / 1154'
+  aspectRatio: '1600 / 1154',
+  lazy: false,
+  play: true
 })
 
 const markup = ref('')
+const root = ref<HTMLElement>()
+let observer: IntersectionObserver | undefined
 
 onMounted(() => {
   const phone = !window.matchMedia('(min-width: 768px)').matches
@@ -46,12 +56,29 @@ onMounted(() => {
     // Only our own static assets reach here; require an <svg> root anyway
     if (svg.trimStart().startsWith('<svg')) markup.value = svg
   })
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(start, { timeout: 1200 })
-  } else {
-    setTimeout(start, 200)
+  const whenIdle = () => {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(start, { timeout: 1200 })
+    } else {
+      setTimeout(start, 200)
+    }
   }
+
+  if (!props.lazy || !('IntersectionObserver' in window) || !root.value) {
+    whenIdle()
+    return
+  }
+  // A hidden (display: none) host never intersects, so it never downloads
+  observer = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) {
+      observer?.disconnect()
+      whenIdle()
+    }
+  }, { rootMargin: '600px 0px' })
+  observer.observe(root.value)
 })
+
+onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <style scoped>
@@ -82,6 +109,11 @@ onMounted(() => {
     stroke-dashoffset: 0;
     opacity: 0;
     animation: banner-fill 0.9s ease-out 2.6s forwards;
+  }
+
+  /* Waiting to play: lines stay undrawn at the start of their animation */
+  .banner-drawing.is-paused :deep(path) {
+    animation-play-state: paused;
   }
 }
 

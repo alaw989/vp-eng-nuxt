@@ -2,7 +2,23 @@
   <section ref="target" class="relative overflow-hidden bg-primary text-white">
     <div class="absolute inset-0 bg-blueprint bg-grid" aria-hidden="true" />
 
-    <div class="container relative z-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+    <!-- One of VP's own shop drawings (RMS ISO, the braced frames), drawn in on
+         scroll. From xl it is larger than the band: it starts just right of the
+         text and the band crops what runs off the bottom and right, keeping the
+         girder and bracing in view. -->
+    <div class="container absolute inset-0 hidden lg:block pointer-events-none">
+      <figure class="absolute inset-y-0 left-[calc(50%-2.5rem)] xl:left-[56%] right-0 xl:right-auto" aria-hidden="true">
+        <BannerDrawing
+          src="/images/drawings/rms-iso.svg"
+          aspect-ratio="1600 / 1252"
+          lazy
+          :play="isVisible"
+          class="absolute top-1/2 -translate-y-1/2 right-0 h-[82%] max-w-full xl:max-w-none xl:right-auto xl:left-0 xl:translate-y-0 xl:top-[2%] xl:h-[100%] opacity-90"
+        />
+      </figure>
+    </div>
+
+    <div class="container relative z-10 py-20 md:py-28 xl:min-h-[41.375rem] grid lg:grid-cols-2 gap-12 items-center">
       <div>
         <p class="eyebrow mb-4 text-white/80">
           Next step
@@ -45,22 +61,6 @@
         </p>
       </div>
 
-      <!-- Braced steel frame, drawn in on scroll -->
-      <figure class="hidden md:block" aria-hidden="true">
-        <svg viewBox="0 0 400 300" class="w-full h-auto" fill="none" stroke="currentColor" stroke-linecap="square">
-          <g class="text-white" stroke-width="2">
-            <path
-              v-for="(d, i) in framePaths"
-              :key="i"
-              :d="d"
-              pathLength="1"
-              class="[stroke-dasharray:1] transition-[stroke-dashoffset] duration-[1400ms] ease-out motion-reduce:transition-none motion-reduce:[stroke-dashoffset:0]"
-              :class="isVisible ? '[stroke-dashoffset:0]' : '[stroke-dashoffset:1]'"
-              :style="{ transitionDelay: `${i * 120}ms` }"
-            />
-          </g>
-        </svg>
-      </figure>
     </div>
   </section>
 </template>
@@ -87,15 +87,6 @@ const phone = '(813) 486-2079'
 const phoneHref = '+18134862079'
 const email = 'info@vp-associates.com'
 
-// Columns, beam, knee braces, base plates and grade line, in drawing order
-const framePaths = [
-  'M74 246V70M86 246V82',
-  'M314 82V246M326 70V246',
-  'M74 70H326M86 82H314',
-  'M86 126L130 82M314 126L270 82',
-  'M62 246H98M302 246H338',
-  'M40 252H360'
-]
 
 const { target, isVisible } = useScrollReveal({ threshold: 0.25 })
 </script>

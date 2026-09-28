@@ -83,6 +83,33 @@ describe('BannerDrawing', () => {
     expect(wrapper.find('svg').exists()).toBe(false)
   })
 
+  it('waits to download a lazy drawing until it is scrolled near', async () => {
+    let fire: IntersectionObserverCallback = () => {}
+    const observe = vi.fn()
+    window.IntersectionObserver = class {
+      constructor(cb: IntersectionObserverCallback) { fire = cb }
+      observe = observe
+      disconnect = vi.fn()
+    } as unknown as typeof IntersectionObserver
+
+    const wrapper = await mountDrawing({ lazy: true } as unknown as Record<string, string>)
+    expect(observe).toHaveBeenCalled()
+    expect(fetch).not.toHaveBeenCalled()
+
+    fire([{ isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver)
+    await vi.runAllTimersAsync()
+    await flushPromises()
+    expect(fetch).toHaveBeenCalledWith('/full.svg')
+    expect(wrapper.find('svg').exists()).toBe(true)
+  })
+
+  it('holds the draw-in until play turns on', async () => {
+    const wrapper = await mountDrawing({ play: false } as unknown as Record<string, string>)
+    expect(wrapper.classes()).toContain('is-paused')
+    await wrapper.setProps({ play: true })
+    expect(wrapper.classes()).not.toContain('is-paused')
+  })
+
   it('is hidden from assistive technology and reserves its shape', async () => {
     const wrapper = await mountDrawing()
     expect(wrapper.attributes('aria-hidden')).toBe('true')
