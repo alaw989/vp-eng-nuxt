@@ -165,24 +165,32 @@ describe('HeroStatic Component', () => {
     expect(wrapper.html()).toContain('hero-animate-cta')
   })
 
-  it('has gradient overlay classes', () => {
+  it('has a flat overlay and no shimmer or gradient text', () => {
     const wrapper = mount(HeroStatic, {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('from-primary/80')
-    expect(wrapper.html()).toContain('from-black/60')
-    expect(wrapper.html()).toContain('via-white/10')
+    expect(wrapper.html()).toContain('bg-primary-dark/80')
+    expect(wrapper.html()).not.toContain('animate-shimmer')
+    expect(wrapper.html()).not.toContain('bg-clip-text')
   })
 
-  it('has correct CTA button gradient classes', () => {
+  it('has a solid CTA button', () => {
     const wrapper = mount(HeroStatic, {
       props: { showCta: true },
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('from-secondary')
-    expect(wrapper.html()).toContain('to-secondary-dark')
+    expect(wrapper.html()).toContain('bg-secondary')
+    expect(wrapper.html()).not.toContain('from-secondary')
+  })
+
+  it('renders the title block', () => {
+    const wrapper = mount(HeroStatic, {
+      global: { stubs: globalStubs }
+    })
+
+    expect(wrapper.find('dl').text()).toContain('Tampa, FL')
   })
 
   it('has arrow icon in CTA button', () => {

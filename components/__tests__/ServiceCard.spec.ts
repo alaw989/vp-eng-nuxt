@@ -80,16 +80,16 @@ describe('ServiceCard Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('aria-label="Learn more about Structural Engineering services"')
+    expect(wrapper.html()).toContain('aria-label="Structural Engineering services"')
   })
 
-  it('renders "Learn more" text', () => {
+  it('does not render a generic "Learn more" label', () => {
     const wrapper = mount(ServiceCard, {
       props: defaultProps,
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('Learn more')
+    expect(wrapper.text()).not.toContain('Learn more')
   })
 
   it('has arrow icon', () => {
@@ -98,7 +98,7 @@ describe('ServiceCard Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('mdi:arrow-right')
+    expect(wrapper.html()).toContain('mdi:arrow-top-right')
   })
 
   it('has group classes for hover effects', () => {
@@ -167,15 +167,6 @@ describe('ServiceCard Component', () => {
     })
 
     expect(wrapper.html()).toContain('group-hover:bg-primary')
-  })
-
-  it('has gap increase on hover for "Learn more" section', () => {
-    const wrapper = mount(ServiceCard, {
-      props: defaultProps,
-      global: { stubs: globalStubs }
-    })
-
-    expect(wrapper.html()).toContain('group-hover:gap-2')
   })
 
   it('has proper card styling', () => {

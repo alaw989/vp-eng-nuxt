@@ -28,41 +28,56 @@
         :modifiers="{ quality: 85 }"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
       />
-      <!-- Subtle gradient overlay on image for warmth -->
-      <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 mix-blend-multiply" />
     </div>
 
-    <!-- Overlay with enhanced gradient -->
-    <div class="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary-dark/70 to-black/80" />
-    <!-- Additional gradient for depth -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-    <!-- Animated gradient shimmer -->
-    <div class="absolute inset-0 opacity-30 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+    <!-- Flat navy overlay, plus a bottom scrim so the title block stays legible -->
+    <div class="absolute inset-0 bg-primary-dark/80" />
+    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/50 to-transparent" />
 
     <!-- Hero Content -->
-    <div class="relative z-10 h-full flex items-center justify-center">
-      <div class="container text-center text-white">
-        <h1 class="hero-animate-headline text-5xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
-          {{ headline }}
-        </h1>
-        <p
-          v-if="subheadline"
-          class="hero-animate-subheadline text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90 drop-shadow-lg"
-        >
-          {{ subheadline }}
-        </p>
-        <div
-          v-if="showCta && ctaText"
-          class="hero-animate-cta flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <NuxtLink
-            :to="ctaLink"
-            class="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-secondary to-secondary-dark text-white rounded-lg font-semibold hover:from-secondary-dark hover:to-secondary transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 focus-visible:ring-2 focus-visible:ring-white/50"
+    <div class="relative z-10 h-full flex flex-col">
+      <div class="container flex-1 flex items-center text-white">
+        <div class="max-w-3xl">
+          <h1 class="hero-animate-headline text-5xl md:text-7xl font-display font-bold mb-6 text-white">
+            {{ headline }}
+          </h1>
+          <p
+            v-if="subheadline"
+            class="hero-animate-subheadline text-xl md:text-2xl mb-8 text-white/90"
           >
-            {{ ctaText }}
-            <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </NuxtLink>
+            {{ subheadline }}
+          </p>
+          <div
+            v-if="showCta && ctaText"
+            class="hero-animate-cta flex flex-col sm:flex-row gap-4"
+          >
+            <NuxtLink
+              :to="ctaLink"
+              class="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-white rounded-sm font-semibold hover:bg-secondary-dark transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            >
+              {{ ctaText }}
+              <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </NuxtLink>
+          </div>
         </div>
+      </div>
+
+      <!-- Title block, as on a drawing sheet -->
+      <div class="container pb-6">
+        <dl class="hero-animate-cta grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] border-t border-white/40 text-xs uppercase tracking-[0.2em] text-white/80">
+          <div class="hidden sm:block py-3 pr-6 border-r border-white/40">
+            <dt class="sr-only">Sheet</dt>
+            <dd class="font-display font-bold text-white">S-001</dd>
+          </div>
+          <div class="py-3 sm:px-6">
+            <dt class="sr-only">Services</dt>
+            <dd>Design · Steel Detailing · Inspection</dd>
+          </div>
+          <div class="py-3 sm:pl-6 sm:border-l border-t sm:border-t-0 border-white/40">
+            <dt class="sr-only">Location</dt>
+            <dd>Tampa, FL</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
@@ -168,26 +183,6 @@ onMounted(() => {
 a:focus-visible {
   outline: 2px solid white;
   outline-offset: 2px;
-}
-
-/* Shimmer animation for gradient overlay */
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-shimmer {
-  animation: shimmer 8s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-shimmer {
-    animation: none;
-  }
 }
 
 /* Entrance animations for hero content */
