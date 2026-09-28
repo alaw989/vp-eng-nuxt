@@ -428,16 +428,16 @@ const staticServices: Record<string, any> = {
 
 // Hero image mapping for service detail pages
 const serviceHeroImages: Record<string, string> = {
-  'structural-steel-design': '/images/projects/steel-connect-1920w.webp',
-  'concrete-design': '/images/projects/lowrise-1920w.webp',
-  'masonry-design': '/images/projects/lowrise-1920w.webp',
-  'wood-design': '/images/projects/lowrise-1920w.webp',
-  'foundation-design': '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
-  'seawall-design': '/images/projects/shallowdeepfoundationdesign10-1920w.webp',
-  'steel-connection-design': '/images/projects/steel-connect-1920w.webp',
-  'cad-3d-modeling': '/images/projects/cad-drawing-1920w.webp',
-  'inspection-services': '/images/projects/inspection-services-1920w.webp',
-  'steel-detailing': '/images/projects/shopdrawing-1920w.webp'
+  'structural-steel-design': '/images/hero/construction-steel-beams-1920w.jpg',
+  'concrete-design': '/images/hero/construction-building-frame-1920w.jpg',
+  'masonry-design': '/images/hero/construction-building-frame-1920w.jpg',
+  'wood-design': '/images/hero/construction-building-frame-1920w.jpg',
+  'foundation-design': '/images/hero/construction-concrete-1920w.jpg',
+  'seawall-design': '/images/hero/construction-concrete-1920w.jpg',
+  'steel-connection-design': '/images/hero/construction-steel-beams-1920w.jpg',
+  'cad-3d-modeling': '/images/hero/construction-structural-1920w.jpg',
+  'inspection-services': '/images/hero/construction-site-1920w.jpg',
+  'steel-detailing': '/images/hero/construction-steel-structure-1920w.jpg'
 }
 
 const heroFallback = '/images/hero/home-header-1920w.webp'
