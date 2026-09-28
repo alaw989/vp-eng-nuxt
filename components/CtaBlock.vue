@@ -45,21 +45,15 @@
         </p>
       </div>
 
-      <!-- Braced steel frame, drawn in on scroll -->
-      <figure class="hidden md:block" aria-hidden="true">
-        <svg viewBox="0 0 400 300" class="w-full h-auto" fill="none" stroke="currentColor" stroke-linecap="square">
-          <g class="text-white" stroke-width="2">
-            <path
-              v-for="(d, i) in framePaths"
-              :key="i"
-              :d="d"
-              pathLength="1"
-              class="[stroke-dasharray:1] transition-[stroke-dashoffset] duration-[1400ms] ease-out motion-reduce:transition-none motion-reduce:[stroke-dashoffset:0]"
-              :class="isVisible ? '[stroke-dashoffset:0]' : '[stroke-dashoffset:1]'"
-              :style="{ transitionDelay: `${i * 120}ms` }"
-            />
-          </g>
-        </svg>
+      <!-- One of VP's own shop drawings (two stair towers), drawn in on scroll -->
+      <figure class="hidden md:flex justify-end" aria-hidden="true">
+        <BannerDrawing
+          src="/images/drawings/stair-towers.svg"
+          aspect-ratio="1000 / 1250"
+          lazy
+          :play="isVisible"
+          class="h-[26rem] lg:h-[32rem] opacity-90"
+        />
       </figure>
     </div>
   </section>
@@ -87,15 +81,6 @@ const phone = '(813) 486-2079'
 const phoneHref = '+18134862079'
 const email = 'info@vp-associates.com'
 
-// Columns, beam, knee braces, base plates and grade line, in drawing order
-const framePaths = [
-  'M74 246V70M86 246V82',
-  'M314 82V246M326 70V246',
-  'M74 70H326M86 82H314',
-  'M86 126L130 82M314 126L270 82',
-  'M62 246H98M302 246H338',
-  'M40 252H360'
-]
 
 const { target, isVisible } = useScrollReveal({ threshold: 0.25 })
 </script>
