@@ -1,0 +1,2 @@
+# Nightly CMS backup (see deploy/backup/backup-cms.sh). Installed as /etc/cron.d/backup-cms.
+15 3 * * * root /usr/local/sbin/backup-cms.sh >> /var/log/backup-cms.log 2>&1
