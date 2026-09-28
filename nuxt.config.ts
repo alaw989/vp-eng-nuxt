@@ -222,6 +222,8 @@ export default defineNuxtConfig({
       // Set NUXT_PUBLIC_GA_MEASUREMENT_ID in .env to enable
       // Example: NUXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
       gaMeasurementId: process.env.NUXT_PUBLIC_GA_MEASUREMENT_ID || '',
+      // Contact form submissions go to Formspree (the production site has no server runtime)
+      formspreeEndpoint: process.env.NUXT_PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xzezkwvd',
     },
   },
 
