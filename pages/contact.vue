@@ -6,6 +6,7 @@
       headline="Contact Us"
       subheadline="Get in touch with our team of experienced structural engineers"
       aria-label="Contact page banner"
+      drawing="rms-iso"
     />
 
     <!-- Contact Form & Info -->

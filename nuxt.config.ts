@@ -290,6 +290,9 @@ export default defineNuxtConfig({
       navigateFallback: '/offline',
       // Glob patterns for precaching app shell resources
       globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,woff2}'],
+      // Banner drawings (full ~105KB, lite ~20KB gzipped) are fetched by
+      // BannerDrawing when a banner needs one; only that device's size is used
+      globIgnores: ['images/drawings/**'],
       // Runtime caching strategies
       runtimeCaching: [
         // Cache WordPress API responses with network-first strategy
