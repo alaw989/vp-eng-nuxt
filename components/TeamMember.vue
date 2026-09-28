@@ -1,5 +1,5 @@
 <template>
-  <div class="group bg-white rounded-xl overflow-hidden border border-neutral-200 hover:border-primary hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+  <div class="card group overflow-hidden hover:border-primary">
     <!-- Photo -->
     <div class="aspect-[4/5] overflow-hidden bg-neutral-100">
       <NuxtImg
@@ -37,7 +37,7 @@
         <a
           v-if="email"
           :href="`mailto:${email}`"
-          class="text-neutral-500 hover:text-primary transition-colors rounded-lg p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="text-neutral-500 hover:text-primary transition-colors rounded-sm p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="`Email ${name}`"
         >
           <Icon name="mdi:email" class="w-5 h-5" />
@@ -45,7 +45,7 @@
         <a
           v-if="telHref"
           :href="telHref"
-          class="text-neutral-500 hover:text-primary transition-colors rounded-lg p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="text-neutral-500 hover:text-primary transition-colors rounded-sm p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="`Call ${name}`"
         >
           <Icon name="mdi:phone" class="w-5 h-5" />
@@ -55,7 +55,7 @@
           :href="linkedin"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-neutral-500 hover:text-primary transition-colors rounded-lg p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="text-neutral-500 hover:text-primary transition-colors rounded-sm p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="`${name}'s LinkedIn`"
         >
           <Icon name="mdi:linkedin" class="w-5 h-5" />

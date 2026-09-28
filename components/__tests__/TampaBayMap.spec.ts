@@ -209,8 +209,8 @@ describe('TampaBayMap Component', () => {
 
   describe('Custom marker pin styling', () => {
     it('has correct background color', () => {
-      const backgroundColor = '#f97316'
-      expect(backgroundColor).toBe('#f97316')
+      const backgroundColor = '#033379'
+      expect(backgroundColor).toBe('#033379')
     })
 
     it('has correct marker size', () => {

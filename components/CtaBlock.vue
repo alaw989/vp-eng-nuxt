@@ -1,10 +1,10 @@
 <template>
   <section ref="target" class="relative overflow-hidden bg-primary text-white">
-    <div class="absolute inset-0 bg-blueprint bg-grid opacity-60" aria-hidden="true" />
+    <div class="absolute inset-0 bg-blueprint bg-grid" aria-hidden="true" />
 
     <div class="container relative z-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
       <div>
-        <p class="mb-4 text-xs uppercase tracking-[0.2em] text-white/80">
+        <p class="eyebrow mb-4 text-white/80">
           Next step
         </p>
         <h2 class="text-4xl md:text-6xl font-display font-bold mb-6">
@@ -48,15 +48,6 @@
       <!-- Braced steel frame, drawn in on scroll -->
       <figure class="hidden md:block" aria-hidden="true">
         <svg viewBox="0 0 400 300" class="w-full h-auto" fill="none" stroke="currentColor" stroke-linecap="square">
-          <g class="text-white/40" stroke-width="1" stroke-dasharray="10 4 2 4">
-            <line x1="80" y1="34" x2="80" y2="258" />
-            <line x1="320" y1="34" x2="320" y2="258" />
-          </g>
-          <g class="text-white/60" stroke-width="1">
-            <circle cx="80" cy="20" r="12" />
-            <circle cx="320" cy="20" r="12" />
-          </g>
-
           <g class="text-white" stroke-width="2">
             <path
               v-for="(d, i) in framePaths"
@@ -68,39 +59,7 @@
               :style="{ transitionDelay: `${i * 120}ms` }"
             />
           </g>
-
-          <!-- Dimension strings -->
-          <g
-            class="text-white/70 transition-opacity duration-700 delay-[1400ms] motion-reduce:transition-none motion-reduce:opacity-100"
-            :class="isVisible ? 'opacity-100' : 'opacity-0'"
-            stroke-width="1"
-          >
-            <line x1="80" y1="280" x2="320" y2="280" />
-            <line x1="76" y1="284" x2="84" y2="276" />
-            <line x1="316" y1="284" x2="324" y2="276" />
-            <line x1="362" y1="70" x2="362" y2="246" />
-            <line x1="358" y1="74" x2="366" y2="66" />
-            <line x1="358" y1="250" x2="366" y2="242" />
-          </g>
-          <g
-            class="fill-white/80 font-display transition-opacity duration-700 delay-[1400ms] motion-reduce:transition-none motion-reduce:opacity-100"
-            :class="isVisible ? 'opacity-100' : 'opacity-0'"
-            stroke="none"
-            font-size="13"
-            text-anchor="middle"
-          >
-            <text x="80" y="24.5">A</text>
-            <text x="320" y="24.5">B</text>
-            <text x="200" y="274">24'-0"</text>
-            <text x="378" y="162" transform="rotate(90 378 162)">14'-0"</text>
-          </g>
         </svg>
-
-        <figcaption class="mt-4 grid grid-cols-[auto_1fr_auto] border-t border-white/40 text-xs uppercase tracking-[0.2em] text-white/80">
-          <span class="py-2 pr-4 border-r border-white/40 font-display font-bold text-white">S-900</span>
-          <span class="py-2 px-4">VP &amp; Associates · Tampa, FL</span>
-          <span class="py-2 pl-4 border-l border-white/40">{{ phone }}</span>
-        </figcaption>
       </figure>
     </div>
   </section>

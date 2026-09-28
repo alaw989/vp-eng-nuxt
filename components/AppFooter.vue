@@ -18,22 +18,22 @@
           <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
           <ul class="space-y-2">
             <li>
-              <NuxtLink to="/about" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/about" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 About Us
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/services" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/services" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Services
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/projects" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/projects" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Projects Portfolio
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/contact" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/contact" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Contact Us
               </NuxtLink>
             </li>
@@ -45,32 +45,32 @@
           <h4 class="text-lg font-semibold mb-4">Our Services</h4>
           <ul class="space-y-2">
             <li>
-              <NuxtLink to="/services/structural-steel-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/services/structural-steel-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Structural Steel Design
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/services/concrete-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/services/concrete-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Concrete Design
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/services/foundation-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/services/foundation-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Foundation Design
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/services/seawall-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/services/seawall-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Seawall Design
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/services/steel-detailing" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/services/steel-detailing" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Steel Detailing
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/services" class="text-primary hover:text-primary-light transition-colors text-sm font-semibold focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <NuxtLink to="/services" class="text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors text-sm font-semibold focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 View All Services →
               </NuxtLink>
             </li>
@@ -87,13 +87,13 @@
             </p>
             <p class="flex items-center gap-3">
               <Icon name="mdi:phone" class="w-5 h-5 flex-shrink-0" />
-              <a href="tel:+18134862079" class="hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <a href="tel:+18134862079" class="hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 (813) 486-2079
               </a>
             </p>
             <p class="flex items-center gap-3">
               <Icon name="mdi:email" class="w-5 h-5 flex-shrink-0" />
-              <a href="mailto:info@vp-associates.com" class="hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1">
+              <a href="mailto:info@vp-associates.com" class="hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 info@vp-associates.com
               </a>
             </p>
@@ -108,10 +108,10 @@
             &copy; {{ currentYear }} VP Associates. All rights reserved.
           </p>
           <div class="flex items-center gap-4 text-sm">
-            <NuxtLink to="/sitemap" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1" aria-label="Site Map">
+            <NuxtLink to="/sitemap" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1" aria-label="Site Map">
               Site Map
             </NuxtLink>
-            <a href="https://www.linkedin.com/company/vp-&-associates-inc" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg px-2 py-1" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/vp-&-associates-inc" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1" aria-label="LinkedIn">
               <Icon name="mdi:linkedin" class="w-5 h-5" />
               <span class="hidden sm:inline">LinkedIn</span>
             </a>

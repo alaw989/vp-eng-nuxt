@@ -19,7 +19,7 @@
         <div
           v-for="(pdf, index) in pdfs"
           :key="index"
-          class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-200 hover:border-primary/50"
+          class="card group overflow-hidden hover:border-primary"
         >
           <!-- PDF Preview/Thumbnail Area -->
           <div class="aspect-[4/3] bg-neutral-100 relative overflow-hidden">
@@ -51,7 +51,7 @@
             <!-- Overlay with view button -->
             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
               <button
-                class="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 bg-white text-neutral-900 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-primary hover:text-white flex items-center gap-2"
+                class="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 bg-white text-neutral-900 px-6 py-3 rounded-sm font-semibold shadow-lg hover:bg-primary hover:text-white flex items-center gap-2"
                 @click="openPdf(pdf, index)"
                 :aria-label="`View ${pdf.title || 'PDF'}`"
               >
@@ -62,7 +62,7 @@
 
             <!-- PDF type badge -->
             <div v-if="pdf.type" class="absolute top-3 left-3">
-              <span class="px-3 py-1 bg-white/95 backdrop-blur-sm rounded-full text-xs font-semibold text-neutral-700 shadow-sm">
+              <span class="px-3 py-1 bg-white/95 backdrop-blur-sm rounded-sm text-xs font-semibold text-neutral-700">
                 {{ pdf.type }}
               </span>
             </div>
@@ -92,7 +92,7 @@
             <!-- Action buttons -->
             <div class="flex gap-2">
               <button
-                class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary-dark transition-colors"
+                class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-sm font-medium text-sm hover:bg-primary-dark transition-colors"
                 @click="openPdf(pdf, index)"
               >
                 <Icon name="mdi:magnify" class="w-4 h-4" />
@@ -101,7 +101,7 @@
               <a
                 :href="pdf.url"
                 :download="pdf.filename || `document-${index + 1}.pdf`"
-                class="flex items-center justify-center gap-2 px-4 py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors"
+                class="flex items-center justify-center gap-2 px-4 py-2.5 bg-neutral-100 text-neutral-700 rounded-sm font-medium text-sm hover:bg-neutral-200 transition-colors"
                 :aria-label="`Download ${pdf.title || 'PDF'}`"
               >
                 <Icon name="mdi:download" class="w-4 h-4" />
@@ -113,7 +113,7 @@
     </div>
 
     <!-- Empty State -->
-    <div v-else class="text-center py-12 bg-neutral-50 rounded-xl">
+    <div v-else class="text-center py-12 bg-neutral-50 rounded-sm">
       <Icon name="mdi:file-pdf-box-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
       <p class="text-neutral-500">No documents available for this project</p>
     </div>
@@ -153,7 +153,7 @@
                 :href="currentPdf.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="hidden md:flex items-center gap-2 px-4 py-2 text-neutral-300 hover:text-white hover:bg-neutral-700 rounded-lg font-medium text-sm transition-colors"
+                class="hidden md:flex items-center gap-2 px-4 py-2 text-neutral-300 hover:text-white hover:bg-neutral-700 rounded-sm font-medium text-sm transition-colors"
               >
                 <Icon name="mdi:open-in-new" class="w-4 h-4" />
                 <span>Open in new tab</span>
@@ -164,7 +164,7 @@
                 v-if="currentPdf"
                 :href="currentPdf.url"
                 :download="currentPdf.filename || 'document.pdf'"
-                class="hidden md:flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary-dark transition-colors"
+                class="hidden md:flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-sm font-medium text-sm hover:bg-primary-dark transition-colors"
                 aria-label="Download PDF"
               >
                 <Icon name="mdi:download" class="w-4 h-4" />
@@ -174,7 +174,7 @@
               <!-- Close button -->
               <button
                 ref="closeButtonRef"
-                class="p-2 text-neutral-300 hover:text-white hover:bg-neutral-700 rounded-lg transition-colors"
+                class="p-2 text-neutral-300 hover:text-white hover:bg-neutral-700 rounded-sm transition-colors"
                 @click="closeViewer"
                 aria-label="Close PDF viewer"
               >
@@ -188,7 +188,7 @@
             <iframe
               v-if="currentPdf"
               :src="viewerSrc(currentPdf.url)"
-              class="block w-full h-full bg-white rounded-lg shadow-2xl"
+              class="block w-full h-full bg-white rounded-sm shadow-2xl"
               :title="`PDF: ${currentPdf.title || 'Document'}`"
             />
           </div>

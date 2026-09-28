@@ -181,16 +181,17 @@ describe('HeroStatic Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('bg-secondary')
+    expect(wrapper.html()).toContain('btn-inverse')
     expect(wrapper.html()).not.toContain('from-secondary')
   })
 
-  it('renders the title block', () => {
+  it('renders the services and location eyebrow instead of a title block', () => {
     const wrapper = mount(HeroStatic, {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.find('dl').text()).toContain('Tampa, FL')
+    expect(wrapper.find('.eyebrow').text()).toContain('Tampa, FL')
+    expect(wrapper.find('dl').exists()).toBe(false)
   })
 
   it('has arrow icon in CTA button', () => {

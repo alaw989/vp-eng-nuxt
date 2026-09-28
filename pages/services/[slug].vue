@@ -11,7 +11,7 @@
         <p class="text-neutral-600 mb-6">The service you're looking for doesn't exist or has been removed.</p>
         <NuxtLink
           to="/services"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+          class="btn-primary"
         >
           <Icon name="mdi:arrow-left" class="w-5 h-5" />
           Back to Services
@@ -47,11 +47,9 @@
       <AppSection bg-color="white" animate-on-scroll>
         <div class="grid md:grid-cols-2 gap-12">
           <div>
-            <div class="flex items-start justify-between mb-6">
-              <h2 class="text-3xl font-display font-bold text-neutral-900">
-                About This Service
-              </h2>
-            </div>
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6">
+              About This Service
+            </h2>
             <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="service.content.rendered"></div>
             <div class="mt-6 pt-6 border-t border-neutral-200 social-share">
               <LazySocialShare
@@ -71,12 +69,12 @@
               </li>
             </ul>
 
-            <div class="mt-8 border-l-2 border-primary bg-primary/5 p-6">
+            <div class="mt-8 border-l-2 border-primary bg-neutral-50 p-6">
               <h4 class="font-bold text-neutral-900 mb-2">Need This Service?</h4>
               <p class="text-neutral-600 mb-4">Contact us to discuss your project requirements.</p>
               <NuxtLink
                 to="/contact"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors"
+                class="btn-primary"
               >
                 Get a Quote
                 <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -88,20 +86,16 @@
 
       <!-- Capabilities -->
       <AppSection v-if="hasCapabilities" bg-color="neutral-50" animate-on-scroll>
-        <div class="mb-12 max-w-3xl">
-          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-            Our Capabilities
-          </h2>
-          <p class="text-xl text-neutral-600">
-            Comprehensive solutions for all your {{ service.title.rendered.toLowerCase() }} needs
-          </p>
-        </div>
+        <SectionHeading
+          title="Our Capabilities"
+          :lede="`Comprehensive solutions for all your ${service.title.rendered.toLowerCase()} needs`"
+        />
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
             v-for="capability in serviceCapabilities"
             :key="capability"
-            class="bg-white rounded-sm p-6 border border-neutral-300 flex items-start gap-3"
+            class="card p-6 flex items-start gap-3"
           >
             <Icon name="mdi:check" class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" aria-hidden="true" />
             <span class="text-neutral-800 font-medium">{{ capability }}</span>
@@ -110,29 +104,21 @@
       </AppSection>
 
       <!-- How This Service Works -->
-      <AppSection bg-color="neutral-50" animate-on-scroll>
-        <div class="mb-12 max-w-3xl">
-          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-            How This Service Works
-          </h2>
-          <p class="text-xl text-neutral-600">
-            Our proven process from consultation to support
-          </p>
-        </div>
+      <AppSection :bg-color="sectionTones.process" animate-on-scroll>
+        <SectionHeading
+          title="How This Service Works"
+          lede="Our proven process from consultation to support"
+        />
 
         <ProcessSteps :steps="processSteps" />
       </AppSection>
 
       <!-- Related Projects -->
-      <AppSection v-if="hasRelatedProjects" bg-color="white" animate-on-scroll>
-        <div class="mb-12 max-w-3xl">
-          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-            Related Projects
-          </h2>
-          <p class="text-xl text-neutral-600">
-            See how we've applied this service on real projects
-          </p>
-        </div>
+      <AppSection v-if="hasRelatedProjects" :bg-color="sectionTones.projects" animate-on-scroll>
+        <SectionHeading
+          title="Related Projects"
+          lede="See how we've applied this service on real projects"
+        />
 
         <div class="grid md:grid-cols-3 gap-8">
           <ProjectCard
@@ -149,15 +135,11 @@
       </AppSection>
 
       <!-- Related Services -->
-      <AppSection v-if="relatedServices.length > 0" bg-color="neutral-100" animate-on-scroll>
-        <div class="mb-12 max-w-3xl">
-          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-            Related Services
-          </h2>
-          <p class="text-xl text-neutral-600">
-            Explore other services that may fit your project needs
-          </p>
-        </div>
+      <AppSection v-if="relatedServices.length > 0" :bg-color="sectionTones.services" animate-on-scroll>
+        <SectionHeading
+          title="Related Services"
+          lede="Explore other services that may fit your project needs"
+        />
 
         <div class="grid md:grid-cols-3 gap-6">
           <ServiceCard
@@ -173,7 +155,7 @@
         <div class="mt-12">
           <NuxtLink
             to="/services"
-            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-sm font-semibold hover:bg-primary hover:text-white transition-colors"
+            class="btn-outline"
           >
             View All Services
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -433,6 +415,19 @@ const serviceBenefits = computed(() => [
 
 const hasCapabilities = computed(() => serviceCapabilities.value.length > 0)
 const hasRelatedProjects = computed(() => relatedProjects.value.length > 0)
+
+// Sections below the white overview alternate neutral-50 / white. Capabilities
+// and related projects are optional, so work out each tone from what renders.
+type Tone = 'white' | 'neutral-50'
+const sectionTones = computed<Record<'process' | 'projects' | 'services', Tone>>(() => {
+  const next = (tone: Tone): Tone => (tone === 'white' ? 'neutral-50' : 'white')
+  let tone: Tone = hasCapabilities.value ? 'neutral-50' : 'white'
+  const process = next(tone)
+  tone = process
+  const projects = next(tone)
+  if (hasRelatedProjects.value) tone = projects
+  return { process, projects, services: next(tone) }
+})
 
 // Breadcrumbs for SEO and navigation
 const serviceBreadcrumbs = computed(() => [

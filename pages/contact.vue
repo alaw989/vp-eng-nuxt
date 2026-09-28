@@ -6,6 +6,7 @@
       headline="Contact Us"
       subheadline="Get in touch with our team of experienced structural engineers"
       aria-label="Contact page banner"
+      drawing="rms-iso"
     />
 
     <!-- Contact Form & Info -->
@@ -13,7 +14,7 @@
       <div class="grid lg:grid-cols-5 gap-12">
         <!-- Contact Form -->
         <div class="lg:col-span-3">
-          <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6">
+          <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
             Send Us a Message
           </h2>
           <p class="text-lg text-neutral-600 mb-8">
@@ -36,7 +37,7 @@
                   @input="touched.firstName && validateField('firstName', form.firstName)"
                   :aria-invalid="errors.firstName ? 'true' : 'false'"
                   :aria-describedby="errors.firstName ? 'firstName-error' : undefined"
-                  class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
+                  class="field"
                   :class="errors.firstName ? 'border-red-500' : 'border-neutral-300'"
                   placeholder="John"
                 />
@@ -58,7 +59,7 @@
                   @input="touched.lastName && validateField('lastName', form.lastName)"
                   :aria-invalid="errors.lastName ? 'true' : 'false'"
                   :aria-describedby="errors.lastName ? 'lastName-error' : undefined"
-                  class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
+                  class="field"
                   :class="errors.lastName ? 'border-red-500' : 'border-neutral-300'"
                   placeholder="Smith"
                 />
@@ -82,7 +83,7 @@
                 @input="touched.email && validateField('email', form.email)"
                 :aria-invalid="errors.email ? 'true' : 'false'"
                 :aria-describedby="errors.email ? 'email-error' : undefined"
-                class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
+                class="field"
                 :class="errors.email ? 'border-red-500' : 'border-neutral-300'"
                 placeholder="john@example.com"
               />
@@ -103,7 +104,7 @@
                 @input="touched.phone && validateField('phone', form.phone)"
                 :aria-invalid="errors.phone ? 'true' : 'false'"
                 :aria-describedby="errors.phone ? 'phone-error' : undefined"
-                class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50"
+                class="field"
                 :class="errors.phone ? 'border-red-500' : 'border-neutral-300'"
                 placeholder="(813) 555-1234"
               />
@@ -123,7 +124,7 @@
                 type="text"
                 tabindex="-1"
                 autocomplete="off"
-                class="w-full px-4 py-3 border border-neutral-300 rounded-lg"
+                class="w-full px-4 py-3 border border-neutral-300 rounded-sm"
               />
             </div>
 
@@ -134,7 +135,7 @@
               <select
                 id="service"
                 v-model="form.service"
-                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50 bg-white"
+                class="field cursor-pointer"
               >
                 <option value="">Select a service...</option>
                 <option>Structural Steel Design</option>
@@ -165,7 +166,7 @@
                 :aria-invalid="errors.message ? 'true' : 'false'"
                 :aria-describedby="errors.message ? 'message-error' : undefined"
                 rows="5"
-                class="w-full px-4 py-3 border rounded-lg focus:ring-4 focus:ring-offset-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 hover:border-primary/50 resize-none"
+                class="field h-auto py-3 resize-none"
                 :class="errors.message ? 'border-red-500' : 'border-neutral-300'"
                 placeholder="Tell us about your project..."
               ></textarea>
@@ -177,7 +178,7 @@
             <button
               type="submit"
               :disabled="isSubmitting"
-              class="w-full px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+              class="btn-primary w-full h-12"
             >
               <Icon v-if="isSubmitting" name="mdi:loading" class="w-5 h-5 animate-spin" />
               <span>{{ isSubmitting ? 'Sending...' : 'Send Message' }}</span>
@@ -186,7 +187,7 @@
             <div
               v-if="submitMessage"
               :class="[
-                'p-4 rounded-lg shadow-sm animate-fade-in',
+                'p-4 rounded-sm animate-fade-in',
                 submitSuccess ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'
               ]"
               role="alert"
@@ -211,8 +212,8 @@
             </h2>
 
             <div class="space-y-6">
-              <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center flex-shrink-0">
                   <Icon name="mdi:map-marker" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -223,25 +224,25 @@
                 </div>
               </div>
 
-              <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center flex-shrink-0">
                   <Icon name="mdi:phone" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Phone</div>
-                  <a href="tel:+18134862079" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1">
+                  <a href="tel:+18134862079" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-1">
                     (813) 486-2079
                   </a>
                 </div>
               </div>
 
-              <div class="flex items-start gap-4 group">
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-all duration-300 group-hover:bg-primary/20 group-hover:translate-x-1">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center flex-shrink-0">
                   <Icon name="mdi:email" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Email</div>
-                  <a href="mailto:info@vp-associates.com" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1">
+                  <a href="mailto:info@vp-associates.com" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-1">
                     info@vp-associates.com
                   </a>
                 </div>
@@ -252,39 +253,14 @@
       </div>
     </AppSection>
 
-    <!-- Service Area Map -->
+    <!-- Service Area: the list and the map are one control -->
     <AppSection bg-color="neutral-50" animate-on-scroll>
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-display font-bold text-neutral-900 mb-4">
-          Serving Tampa Bay
-        </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-          Interactive map showing our service area coverage across the Tampa Bay region
-        </p>
-      </div>
+      <SectionHeading
+        title="Serving Tampa Bay"
+        lede="Based in Tampa, working on projects all around the bay. Pick a community to see it on the map."
+      />
 
-      <div class="max-w-5xl mx-auto">
-        <LazyServiceAreaMap />
-      </div>
-    </AppSection>
-
-    <!-- Service Areas List -->
-    <AppSection bg-color="white" animate-on-scroll>
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-display font-bold text-neutral-900 mb-4">
-          Service Areas
-        </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-          Proudly serving the entire Tampa Bay region
-        </p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div v-for="area in serviceAreas" :key="area" class="bg-neutral-50 rounded-lg p-4 text-center shadow-sm border border-transparent hover:shadow-md hover:-translate-y-1 hover:border-primary transition-all duration-300">
-          <Icon name="mdi:map-marker" class="w-6 h-6 text-primary mx-auto mb-2" />
-          <div class="font-medium text-neutral-900 hover:text-primary transition-colors duration-300">{{ area }}</div>
-        </div>
-      </div>
+      <LazyServiceAreaMap />
     </AppSection>
 
     <!-- ARIA live region for screen reader announcements -->
@@ -418,16 +394,6 @@ const handleSubmit = async () => {
   }
 }
 
-const serviceAreas = [
-  'Tampa',
-  'St. Petersburg',
-  'Clearwater',
-  'Brandon',
-  'Lakeland',
-  'Sarasota',
-  'Bradenton',
-  'Pasco County'
-]
 </script>
 
 <style scoped>

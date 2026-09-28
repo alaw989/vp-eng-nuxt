@@ -67,13 +67,27 @@ describe('AppSection Component', () => {
     expect(section.classes()).toContain('bg-primary-dark')
   })
 
-  it('applies secondary background with white text', () => {
+  it('maps the legacy secondary background onto the navy band', () => {
     const wrapper = mount(AppSection, {
       props: { bgColor: 'secondary' },
       slots: { default: '<div>Content</div>' }
     })
     const section = wrapper.find('section')
-    expect(section.classes()).toContain('bg-secondary')
+    expect(section.classes()).toContain('bg-primary')
+    expect(section.classes()).toContain('text-white')
+  })
+
+  it('maps every legacy light tint onto neutral-50', () => {
+    const legacy = ['neutral-100', 'neutral-50-pattern', 'neutral-100-pattern', 'secondary/5', 'secondary/10'] as const
+    for (const bgColor of legacy) {
+      const wrapper = mount(AppSection, {
+        props: { bgColor },
+        slots: { default: '<div>Content</div>' }
+      })
+      const section = wrapper.find('section')
+      expect(section.classes()).toContain('bg-neutral-50')
+      expect(section.attributes('style')).toBeUndefined()
+    }
   })
 
   it('applies neutral-50 background', () => {
@@ -85,14 +99,6 @@ describe('AppSection Component', () => {
     expect(section.classes()).toContain('bg-neutral-50')
   })
 
-  it('applies neutral-100 background', () => {
-    const wrapper = mount(AppSection, {
-      props: { bgColor: 'neutral-100' },
-      slots: { default: '<div>Content</div>' }
-    })
-    const section = wrapper.find('section')
-    expect(section.classes()).toContain('bg-neutral-100')
-  })
 
   it('applies container class by default', () => {
     const wrapper = mount(AppSection, {
@@ -172,26 +178,16 @@ describe('AppSection Component', () => {
     expect(hasPyClass).toBe(false)
   })
 
-  it('adds border when border prop is true', () => {
+  it('draws no border or shadow for the deprecated border and elevation props', () => {
     const wrapper = mount(AppSection, {
-      props: { border: true },
+      props: { border: true, elevation: true },
       slots: { default: '<div>Content</div>' }
     })
     const section = wrapper.find('section')
-    expect(section.classes()).toContain('border-b')
-    expect(section.classes()).toContain('border-neutral-200')
+    expect(section.classes()).not.toContain('border-b')
+    expect(section.classes().some(c => c.includes('shadow'))).toBe(false)
   })
 
-  it('adds elevation shadow when elevation prop is true', () => {
-    const wrapper = mount(AppSection, {
-      props: { elevation: true },
-      slots: { default: '<div>Content</div>' }
-    })
-    const section = wrapper.find('section')
-    // Check for shadow class (with escaped regex for special chars)
-    const hasShadow = section.classes().some(c => c.includes('shadow'))
-    expect(hasShadow).toBe(true)
-  })
 
   it('renders top fade gradient when topFade is true', () => {
     const wrapper = mount(AppSection, {
@@ -237,45 +233,9 @@ describe('AppSection Component', () => {
     expect(innerDiv.exists()).toBe(true)
   })
 
-  it('applies neutral-50-pattern background', () => {
-    const wrapper = mount(AppSection, {
-      props: { bgColor: 'neutral-50-pattern' },
-      slots: { default: '<div>Content</div>' }
-    })
-    const section = wrapper.find('section')
-    expect(section.classes()).toContain('bg-neutral-50')
-    // Should have inline style for pattern
-    expect(section.attributes('style')).toContain('background-image')
-  })
 
-  it('applies neutral-100-pattern background', () => {
-    const wrapper = mount(AppSection, {
-      props: { bgColor: 'neutral-100-pattern' },
-      slots: { default: '<div>Content</div>' }
-    })
-    const section = wrapper.find('section')
-    expect(section.classes()).toContain('bg-neutral-100')
-    // Should have inline style for pattern
-    expect(section.attributes('style')).toContain('background-image')
-  })
 
-  it('applies secondary/5 light green tint', () => {
-    const wrapper = mount(AppSection, {
-      props: { bgColor: 'secondary/5' },
-      slots: { default: '<div>Content</div>' }
-    })
-    const section = wrapper.find('section')
-    expect(section.classes()).toContain('bg-secondary/5')
-  })
 
-  it('applies secondary/10 medium green tint', () => {
-    const wrapper = mount(AppSection, {
-      props: { bgColor: 'secondary/10' },
-      slots: { default: '<div>Content</div>' }
-    })
-    const section = wrapper.find('section')
-    expect(section.classes()).toContain('bg-secondary/10')
-  })
 
   it('sets up scroll reveal when animateOnScroll is true', () => {
     const wrapper = mount(AppSection, {

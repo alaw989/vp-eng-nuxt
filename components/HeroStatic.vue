@@ -37,7 +37,10 @@
     <!-- Hero Content -->
     <div class="relative z-10 h-full flex flex-col">
       <div class="container flex-1 flex items-center text-white">
-        <div class="max-w-3xl">
+        <div class="max-w-3xl border-l-2 border-secondary-light pl-6">
+          <p class="hero-animate-headline eyebrow mb-4 text-white/80">
+            Design · Steel Detailing · Inspection · Tampa, FL
+          </p>
           <h1 class="hero-animate-headline text-5xl md:text-7xl font-display font-bold mb-6 text-white">
             {{ headline }}
           </h1>
@@ -53,7 +56,7 @@
           >
             <NuxtLink
               :to="ctaLink"
-              class="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-white rounded-sm font-semibold hover:bg-secondary-dark transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+              class="btn-inverse group h-12 px-8"
             >
               {{ ctaText }}
               <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -62,23 +65,6 @@
         </div>
       </div>
 
-      <!-- Title block, as on a drawing sheet -->
-      <div class="container pb-6">
-        <dl class="hero-animate-cta grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] border-t border-white/40 text-xs uppercase tracking-[0.2em] text-white/80">
-          <div class="hidden sm:block py-3 pr-6 border-r border-white/40">
-            <dt class="sr-only">Sheet</dt>
-            <dd class="font-display font-bold text-white">S-001</dd>
-          </div>
-          <div class="py-3 sm:px-6">
-            <dt class="sr-only">Services</dt>
-            <dd>Design · Steel Detailing · Inspection</dd>
-          </div>
-          <div class="py-3 sm:pl-6 sm:border-l border-t sm:border-t-0 border-white/40">
-            <dt class="sr-only">Location</dt>
-            <dd>Tampa, FL</dd>
-          </div>
-        </dl>
-      </div>
     </div>
   </section>
 </template>

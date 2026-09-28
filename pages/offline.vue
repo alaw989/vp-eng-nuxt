@@ -46,7 +46,7 @@ function reloadPage() {
       </p>
 
       <!-- Tips -->
-      <div class="bg-blue-50 dark:bg-gray-800 rounded-lg p-6 mb-8 text-left">
+      <div class="bg-blue-50 dark:bg-gray-800 rounded-sm p-6 mb-8 text-left">
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
           What you can do:
         </h2>
@@ -79,14 +79,14 @@ function reloadPage() {
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button
           @click="reloadPage()"
-          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
         >
           <Icon name="mdi:refresh" class="mr-2" />
           Try Again
         </button>
         <NuxtLink
           to="/"
-          class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+          class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
         >
           <Icon name="mdi:home" class="mr-2" />
           Go to Home

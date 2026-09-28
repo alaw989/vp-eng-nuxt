@@ -101,10 +101,10 @@ describe('SearchResultSkeleton Component', () => {
     expect(wrapper.find('.gap-3').exists()).toBe(true)
   })
 
-  it('has rounded-lg for result items', () => {
+  it('has rounded-sm for result items', () => {
     const wrapper = mount(SearchResultSkeleton)
 
-    const roundedElements = wrapper.findAll('.rounded-lg')
+    const roundedElements = wrapper.findAll('.rounded-sm')
     expect(roundedElements.length).toBeGreaterThan(0)
   })
 

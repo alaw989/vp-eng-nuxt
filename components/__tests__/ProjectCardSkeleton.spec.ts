@@ -11,7 +11,7 @@ describe('ProjectCardSkeleton Component', () => {
     const wrapper = mount(ProjectCardSkeleton)
 
     expect(wrapper.find('.bg-white').exists()).toBe(true)
-    expect(wrapper.find('.rounded-xl').exists()).toBe(true)
+    expect(wrapper.find('.rounded-sm').exists()).toBe(true)
   })
 
   it('has correct image placeholder aspect ratio', () => {

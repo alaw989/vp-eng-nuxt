@@ -99,6 +99,38 @@ describe('PageBanner Component', () => {
     expect(wrapper.find('[data-testid="banner-grid"]').exists()).toBe(true)
   })
 
+  it('shows a real shop drawing behind a fade when no image is given', () => {
+    const wrapper = mount(PageBanner, {
+      props: { headline: 'Test' },
+      global: { stubs: { BannerDrawing: { props: ['src', 'liteSrc'], template: '<div :data-src="src" :data-lite="liteSrc" />' } } }
+    })
+    const drawing = wrapper.find('[data-testid="banner-drawing"]')
+    expect(drawing.attributes('data-src')).toBe('/images/drawings/metso-iso.svg')
+    expect(drawing.attributes('data-lite')).toBe('/images/drawings/metso-iso-lite.svg')
+    expect(wrapper.html()).toContain('bg-gradient-to-r')
+  })
+
+  it('uses the drawing a page asks for', () => {
+    const wrapper = mount(PageBanner, {
+      props: { headline: 'Test', drawing: 'rms-iso' },
+      global: { stubs: { BannerDrawing: { props: ['src', 'liteSrc', 'aspectRatio'], template: '<div :data-src="src" :data-lite="liteSrc" :data-ratio="aspectRatio" />' } } }
+    })
+    const drawing = wrapper.find('[data-testid="banner-drawing"]')
+    expect(drawing.attributes('data-src')).toBe('/images/drawings/rms-iso.svg')
+    expect(drawing.attributes('data-lite')).toBe('/images/drawings/rms-iso-lite.svg')
+    expect(drawing.attributes('data-ratio')).toBe('1600 / 1252')
+  })
+
+  it('leaves the drawing out when a photo is used', () => {
+    const wrapper = mount(PageBanner, {
+      props: { headline: 'Test', backgroundImage: '/photo.jpg' },
+      global: {
+        stubs: { NuxtImg: { template: '<img />' } }
+      }
+    })
+    expect(wrapper.find('[data-testid="banner-drawing"]').exists()).toBe(false)
+  })
+
   it('renders slot content under the subheadline', () => {
     const wrapper = mount(PageBanner, {
       props: { headline: 'Test' },

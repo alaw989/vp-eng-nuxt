@@ -8,125 +8,35 @@
       aria-label="Projects page banner"
     />
 
-    <!-- Filter Section -->
-    <AppSection bg-color="neutral-50" padding="md">
-      <div>
-        <!-- Category Filters -->
-        <div class="flex overflow-x-auto scrollbar-hide border border-neutral-300 bg-white w-fit max-w-full divide-x divide-neutral-300 mb-6">
-          <button
-            v-for="category in categories"
-            :key="category.id"
-            @click="setCategory(category.id)"
-            :class="[
-              'px-5 py-2.5 font-semibold whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
-              filters.category === category.id
-                ? 'bg-primary text-white'
-                : 'bg-white text-neutral-700 hover:bg-neutral-100'
-            ]"
-            :aria-pressed="filters.category === category.id"
-          >
-            {{ category.name }}
-          </button>
-        </div>
-
-        <!-- Additional Filters and Sort -->
-        <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
-          <!-- Location Filter -->
-          <div class="relative w-full md:w-auto">
-            <select
-              v-model="filters.location"
-              @change="setLocation"
-              class="w-full md:w-48 px-4 py-2.5 rounded-sm border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
-              aria-label="Filter by location"
+    <!-- Projects: toolbar, grid and pagination read as one section -->
+    <AppSection bg-color="white" animate-on-scroll>
+      <!-- Toolbar -->
+      <div class="border-b border-neutral-200 pb-6 mb-8 space-y-4">
+        <!-- Category tabs and view toggle -->
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex overflow-x-auto scrollbar-hide border border-neutral-300 rounded-sm bg-white w-fit max-w-full divide-x divide-neutral-300">
+            <button
+              v-for="category in categories"
+              :key="category.id"
+              @click="setCategory(category.id)"
+              :class="[
+                'h-11 px-5 font-semibold whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
+                filters.category === category.id
+                  ? 'bg-primary text-white'
+                  : 'bg-white text-neutral-700 hover:bg-neutral-50'
+              ]"
+              :aria-pressed="filters.category === category.id"
             >
-              <option value="">All Locations</option>
-              <option v-for="location in uniqueLocations" :key="location" :value="location">
-                {{ location }}
-              </option>
-            </select>
-            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
-          </div>
-
-          <!-- Year Filter -->
-          <div class="relative w-full md:w-auto">
-            <select
-              v-model="filters.year"
-              @change="setYear"
-              class="w-full md:w-40 px-4 py-2.5 rounded-sm border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
-              aria-label="Filter by year"
-            >
-              <option value="">All Years</option>
-              <option v-for="year in uniqueYears" :key="year" :value="year">
-                {{ year }}
-              </option>
-            </select>
-            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
-          </div>
-
-          <!-- Sort -->
-          <div class="relative w-full md:w-auto">
-            <select
-              v-model="filters.sort"
-              @change="setSort"
-              class="w-full md:w-48 px-4 py-2.5 rounded-sm border border-neutral-200 bg-white text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
-              aria-label="Sort projects"
-            >
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-              <option value="az">Name (A-Z)</option>
-              <option value="za">Name (Z-A)</option>
-            </select>
-            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
-          </div>
-
-          <!-- Clear Filters -->
-          <button
-            v-if="hasActiveFilters"
-            @click="clearFilters"
-            class="w-full md:w-auto px-4 py-2.5 rounded-sm border border-primary text-primary hover:bg-primary hover:text-white transition-colors font-semibold flex items-center justify-center gap-2"
-          >
-            <Icon name="mdi:close-circle" class="w-5 h-5" />
-            Clear Filters
-          </button>
-        </div>
-
-        <!-- Active Filters Display -->
-        <div v-if="hasActiveFilters" class="flex flex-wrap items-center gap-2 mb-4">
-          <span v-if="filters.category !== 'all'" class="px-3 py-1 rounded-sm bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
-            Category: {{ getCategoryName(filters.category) }}
-            <button @click="setCategory('all')" class="hover:text-primary-dark" aria-label="Remove category filter">
-              <Icon name="mdi:close" class="w-4 h-4" />
+              {{ category.name }}
             </button>
-          </span>
-          <span v-if="filters.location" class="px-3 py-1 rounded-sm bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
-            Location: {{ filters.location }}
-            <button @click="clearLocation" class="hover:text-primary-dark" aria-label="Remove location filter">
-              <Icon name="mdi:close" class="w-4 h-4" />
-            </button>
-          </span>
-          <span v-if="filters.year" class="px-3 py-1 rounded-sm bg-primary/10 text-primary text-sm font-medium flex items-center gap-1">
-            Year: {{ filters.year }}
-            <button @click="clearYear" class="hover:text-primary-dark" aria-label="Remove year filter">
-              <Icon name="mdi:close" class="w-4 h-4" />
-            </button>
-          </span>
-        </div>
-
-        <!-- Results Count and View Toggle -->
-        <div class="flex items-center gap-4 mb-4">
-          <div class="text-neutral-600">
-            <span aria-live="polite">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
-            <span v-if="totalPages > 1" class="text-neutral-500 ml-2">
-              (Page {{ currentPage }} of {{ totalPages }})
-            </span>
           </div>
-          <!-- View Toggle -->
-          <div class="flex items-center gap-1 border border-neutral-300 rounded-sm p-1 bg-white">
+
+          <div class="flex border border-neutral-300 rounded-sm bg-white divide-x divide-neutral-300">
             <button
               @click="setViewMode('grid')"
               :class="[
-                'p-2 rounded-sm transition-colors duration-200',
-                viewMode === 'grid' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
+                'w-11 h-11 flex items-center justify-center transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
+                viewMode === 'grid' ? 'bg-primary text-white' : 'text-neutral-600 hover:bg-neutral-50'
               ]"
               aria-label="Grid view"
               :aria-pressed="viewMode === 'grid'"
@@ -136,8 +46,8 @@
             <button
               @click="setViewMode('list')"
               :class="[
-                'p-2 rounded-sm transition-colors duration-200',
-                viewMode === 'list' ? 'bg-primary text-white' : 'text-neutral-500 hover:bg-neutral-100'
+                'w-11 h-11 flex items-center justify-center transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
+                viewMode === 'list' ? 'bg-primary text-white' : 'text-neutral-600 hover:bg-neutral-50'
               ]"
               aria-label="List view"
               :aria-pressed="viewMode === 'list'"
@@ -147,77 +57,103 @@
           </div>
         </div>
 
-        <!-- Pagination Controls -->
-        <div v-if="totalPages > 1" class="flex flex-wrap items-center gap-2 mb-6">
-          <!-- Previous Button -->
-          <button
-            @click="goToPage(currentPage - 1)"
-            :disabled="currentPage === 1"
-            :class="[
-              'px-4 py-2 rounded-sm font-semibold transition-colors duration-200 flex items-center gap-1',
-              currentPage === 1
-                ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
-                : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
-            ]"
-            aria-label="Previous page"
-          >
-            <Icon name="mdi:chevron-left" class="w-5 h-5" />
-            Previous
-          </button>
-
-          <!-- Page Numbers -->
-          <div class="flex items-center gap-1">
-            <template v-for="page in visiblePages" :key="page">
-              <span v-if="page === '...'" class="px-2 text-neutral-400">...</span>
-              <button
-                v-else
-                @click="goToPage(page as number)"
-                :class="[
-                  'w-10 h-10 rounded-sm font-semibold transition-colors duration-200',
-                  currentPage === page
-                    ? 'bg-primary text-white'
-                    : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
-                ]"
-                :aria-label="`Page ${page}`"
-                :aria-current="currentPage === page ? 'page' : undefined"
-              >
-                {{ page }}
-              </button>
-            </template>
+        <!-- Location, year and sort -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div class="relative sm:w-48">
+            <select
+              v-model="filters.location"
+              @change="setLocation"
+              class="field appearance-none cursor-pointer pr-10"
+              aria-label="Filter by location"
+            >
+              <option value="">All Locations</option>
+              <option v-for="location in uniqueLocations" :key="location" :value="location">
+                {{ location }}
+              </option>
+            </select>
+            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none" />
           </div>
 
-          <!-- Next Button -->
+          <div class="relative sm:w-40">
+            <select
+              v-model="filters.year"
+              @change="setYear"
+              class="field appearance-none cursor-pointer pr-10"
+              aria-label="Filter by year"
+            >
+              <option value="">All Years</option>
+              <option v-for="year in uniqueYears" :key="year" :value="year">
+                {{ year }}
+              </option>
+            </select>
+            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none" />
+          </div>
+
+          <div class="relative sm:w-48">
+            <select
+              v-model="filters.sort"
+              @change="setSort"
+              class="field appearance-none cursor-pointer pr-10"
+              aria-label="Sort projects"
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="az">Name (A-Z)</option>
+              <option value="za">Name (Z-A)</option>
+            </select>
+            <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none" />
+          </div>
+
           <button
-            @click="goToPage(currentPage + 1)"
-            :disabled="currentPage === totalPages"
-            :class="[
-              'px-4 py-2 rounded-sm font-semibold transition-colors duration-200 flex items-center gap-1',
-              currentPage === totalPages
-                ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
-                : 'bg-white text-neutral-700 border border-neutral-200 hover:border-primary hover:text-primary'
-            ]"
-            aria-label="Next page"
+            v-if="hasActiveFilters"
+            @click="clearFilters"
+            class="btn-outline px-4"
           >
-            Next
-            <Icon name="mdi:chevron-right" class="w-5 h-5" />
+            <Icon name="mdi:close" class="w-5 h-5" />
+            Clear Filters
           </button>
         </div>
-      </div>
-    </AppSection>
 
-    <!-- Projects Grid -->
-    <AppSection bg-color="white" animate-on-scroll>
+        <!-- Active filters -->
+        <div v-if="hasActiveFilters" class="flex flex-wrap items-center gap-2">
+          <span v-if="filters.category !== 'all'" class="pl-3 pr-1 h-8 rounded-sm border border-primary/30 bg-primary/5 text-primary text-sm font-medium flex items-center gap-1">
+            Category: {{ getCategoryName(filters.category) }}
+            <button @click="setCategory('all')" class="p-1 rounded-sm hover:bg-primary/10" aria-label="Remove category filter">
+              <Icon name="mdi:close" class="w-4 h-4" />
+            </button>
+          </span>
+          <span v-if="filters.location" class="pl-3 pr-1 h-8 rounded-sm border border-primary/30 bg-primary/5 text-primary text-sm font-medium flex items-center gap-1">
+            Location: {{ filters.location }}
+            <button @click="clearLocation" class="p-1 rounded-sm hover:bg-primary/10" aria-label="Remove location filter">
+              <Icon name="mdi:close" class="w-4 h-4" />
+            </button>
+          </span>
+          <span v-if="filters.year" class="pl-3 pr-1 h-8 rounded-sm border border-primary/30 bg-primary/5 text-primary text-sm font-medium flex items-center gap-1">
+            Year: {{ filters.year }}
+            <button @click="clearYear" class="p-1 rounded-sm hover:bg-primary/10" aria-label="Remove year filter">
+              <Icon name="mdi:close" class="w-4 h-4" />
+            </button>
+          </span>
+        </div>
+
+        <!-- Result count -->
+        <p class="eyebrow text-neutral-600">
+          <span aria-live="polite">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }}</span>
+          <span v-if="totalPages > 1"> · Page {{ currentPage }} of {{ totalPages }}</span>
+        </p>
+      </div>
+
       <!-- Loading State -->
       <div v-if="pending" :class="[
-        'grid gap-6',
+        'grid',
         viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]" aria-hidden="true">
         <ProjectCardSkeleton v-for="i in 6" :key="`skeleton-${i}`" />
       </div>
 
       <!-- Projects Grid -->
-      <div ref="projectsContainer" v-else-if="paginatedProjects.length > 0" :id="'projects-grid'" :class="[
-        'grid gap-6 transition-all duration-300',
+      <div ref="projectsContainer" v-else-if="paginatedProjects.length > 0" id="projects-grid" :class="[
+        'grid scroll-mt-24 transition-all duration-300',
         viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]">
         <ProjectCard
@@ -240,8 +176,43 @@
         <Icon name="mdi:folder-open-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
         <p class="text-xl text-neutral-500">No projects found in this category.</p>
       </div>
-    </AppSection>
 
+      <!-- Pagination -->
+      <nav v-if="totalPages > 1" class="mt-12 flex flex-wrap items-center justify-center gap-2" aria-label="Projects pagination">
+        <button
+          @click="goToPage(currentPage - 1)"
+          :disabled="currentPage === 1"
+          class="btn-outline px-4 disabled:border-neutral-300 disabled:text-neutral-500 disabled:hover:bg-white disabled:hover:text-neutral-500"
+          aria-label="Previous page"
+        >
+          <Icon name="mdi:chevron-left" class="w-5 h-5" />
+          Previous
+        </button>
+
+        <template v-for="page in visiblePages" :key="page">
+          <span v-if="page === '...'" class="px-2 text-neutral-500">...</span>
+          <button
+            v-else
+            @click="goToPage(page as number)"
+            :class="[currentPage === page ? 'btn-primary' : 'btn-outline', 'w-11 px-0']"
+            :aria-label="`Page ${page}`"
+            :aria-current="currentPage === page ? 'page' : undefined"
+          >
+            {{ page }}
+          </button>
+        </template>
+
+        <button
+          @click="goToPage(currentPage + 1)"
+          :disabled="currentPage === totalPages"
+          class="btn-outline px-4 disabled:border-neutral-300 disabled:text-neutral-500 disabled:hover:bg-white disabled:hover:text-neutral-500"
+          aria-label="Next page"
+        >
+          Next
+          <Icon name="mdi:chevron-right" class="w-5 h-5" />
+        </button>
+      </nav>
+    </AppSection>
 
     <!-- CTA Section -->
     <CtaBlock

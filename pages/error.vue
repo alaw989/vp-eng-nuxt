@@ -26,14 +26,14 @@
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <NuxtLink
           to="/"
-          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Icon name="mdi:home" class="w-5 h-5" />
           Go to Homepage
         </NuxtLink>
         <button
           @click="goBack"
-          class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-lg font-semibold hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-sm font-semibold hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Icon name="mdi:arrow-left" class="w-5 h-5" />
           Go Back
@@ -46,42 +46,42 @@
         <div class="flex flex-wrap gap-3 justify-center">
           <NuxtLink
             to="/about"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:information" class="w-4 h-4" />
             About Us
           </NuxtLink>
           <NuxtLink
             to="/services"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:cog" class="w-4 h-4" />
             Services
           </NuxtLink>
           <NuxtLink
             to="/projects"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:briefcase" class="w-4 h-4" />
             Projects
           </NuxtLink>
           <NuxtLink
             to="/contact"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:email" class="w-4 h-4" />
             Contact
           </NuxtLink>
           <NuxtLink
             to="/search"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:magnify" class="w-4 h-4" />
             Search
           </NuxtLink>
           <NuxtLink
             to="/sitemap"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:sitemap" class="w-4 h-4" />
             Site Map

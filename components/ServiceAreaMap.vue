@@ -1,24 +1,49 @@
 <template>
-  <div class="service-area-map">
-    <div
-      ref="mapContainer"
-      class="map-container"
-      role="application"
-      aria-label="Interactive map showing Tampa Bay service area"
-      tabindex="0"
-    ></div>
-    <div class="map-legend">
-      <h3 class="legend-title">Service Area Legend</h3>
-      <div class="legend-items">
-        <div class="legend-item">
-          <span class="legend-marker main-office"></span>
-          <span>Home base (Tampa)</span>
-        </div>
-        <div class="legend-item">
-          <span class="legend-marker service-area"></span>
-          <span>Service Area Cities</span>
-        </div>
-      </div>
+  <div class="service-area-map grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-6 lg:gap-8">
+    <!-- The list doubles as the map legend: each row's pin matches its marker -->
+    <ul class="card divide-y divide-neutral-200 self-start order-2 lg:order-1" aria-label="Service areas">
+      <li v-for="location in serviceLocations" :key="location.name">
+        <button
+          type="button"
+          class="w-full flex items-center gap-3 px-4 py-3 text-left border-l-2 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2"
+          :class="active === location.name
+            ? 'border-l-primary bg-primary/5'
+            : 'border-l-transparent hover:bg-neutral-50'"
+          :aria-pressed="active === location.name"
+          @click="focusLocation(location.name)"
+        >
+          <Icon
+            name="mdi:map-marker"
+            class="w-5 h-5 flex-shrink-0"
+            :class="location.isHomeBase ? 'text-primary' : 'text-secondary'"
+            aria-hidden="true"
+          />
+          <span class="flex-1 min-w-0">
+            <span class="block font-semibold text-neutral-900">{{ location.name }}</span>
+            <span class="block text-sm text-neutral-600">{{ location.description }}</span>
+          </span>
+          <span v-if="location.isHomeBase" class="eyebrow text-primary">Home base</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="relative order-1 lg:order-2 rounded-sm overflow-hidden border border-neutral-200">
+      <div
+        ref="mapContainer"
+        class="map-container"
+        role="application"
+        aria-label="Map of VP Associates service areas around Tampa Bay"
+        tabindex="0"
+      />
+      <button
+        v-if="active"
+        type="button"
+        class="btn-outline absolute top-3 right-3 z-[1000] h-9 px-3 text-sm"
+        @click="showAll"
+      >
+        <Icon name="mdi:arrow-expand-all" class="w-4 h-4" aria-hidden="true" />
+        Show all areas
+      </button>
     </div>
   </div>
 </template>
@@ -31,81 +56,68 @@ interface ServiceLocation {
   name: string
   position: [number, number]
   description: string
-  isMainOffice?: boolean
+  isHomeBase?: boolean
 }
 
 const serviceLocations: ServiceLocation[] = [
-  {
-    name: 'Tampa',
-    position: [27.9506, -82.4572],
-    description: 'VP Associates is based in Tampa',
-    isMainOffice: true
-  },
-  {
-    name: 'St. Petersburg',
-    position: [27.7676, -82.6403],
-    description: 'Serving the St. Petersburg area'
-  },
-  {
-    name: 'Clearwater',
-    position: [27.9659, -82.8001],
-    description: 'Serving the Clearwater area'
-  },
-  {
-    name: 'Brandon',
-    position: [27.9378, -82.2859],
-    description: 'Serving the Brandon area'
-  },
-  {
-    name: 'Lakeland',
-    position: [28.0395, -81.9498],
-    description: 'Serving the Lakeland area'
-  },
-  {
-    name: 'Sarasota',
-    position: [27.3364, -82.5307],
-    description: 'Serving the Sarasota area'
-  },
-  {
-    name: 'Bradenton',
-    position: [27.4989, -82.5748],
-    description: 'Serving the Bradenton area'
-  },
-  {
-    name: 'New Port Richey',
-    position: [28.2426, -82.7187],
-    description: 'Serving Pasco County'
-  }
+  { name: 'Tampa', position: [27.9506, -82.4572], description: 'Hillsborough County', isHomeBase: true },
+  { name: 'St. Petersburg', position: [27.7676, -82.6403], description: 'Pinellas County' },
+  { name: 'Clearwater', position: [27.9659, -82.8001], description: 'Pinellas County' },
+  { name: 'Brandon', position: [27.9378, -82.2859], description: 'Hillsborough County' },
+  { name: 'Pasco County', position: [28.2426, -82.7187], description: 'New Port Richey and north' },
+  { name: 'Lakeland', position: [28.0395, -81.9498], description: 'Polk County' },
+  { name: 'Bradenton', position: [27.4989, -82.5748], description: 'Manatee County' },
+  { name: 'Sarasota', position: [27.3364, -82.5307], description: 'Sarasota County' }
 ]
 
+// Brand colours, matching the list pins
+const NAVY = '#033379'
+const TEAL = '#2A6F5F'
+
 const mapContainer = ref<HTMLDivElement>()
+const active = ref<string | null>(null)
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let map: any = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const markers = new Map<string, any>()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let bounds: any = null
+
+function focusLocation(name: string) {
+  active.value = name
+  const location = serviceLocations.find(l => l.name === name)
+  const marker = markers.get(name)
+  if (!map || !location || !marker) return
+  map.flyTo(location.position, 11, { animate: !prefersReducedMotion(), duration: 0.8 })
+
+  // Below lg the list sits under the map, so bring the map back into view
+  if (!window.matchMedia('(min-width: 1024px)').matches) {
+    mapContainer.value?.scrollIntoView({ block: 'center', behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
+  }
+  marker.openPopup()
+}
+
+function showAll() {
+  active.value = null
+  if (!map || !bounds) return
+  map.closePopup()
+  map.flyToBounds(bounds, { animate: !prefersReducedMotion(), duration: 0.8 })
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function pinSvg(color: string) {
+  return `<svg viewBox="0 0 24 24" fill="${color}" stroke="white" stroke-width="1.5" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`
+}
 
 onMounted(async () => {
   if (!mapContainer.value) return
 
-  // Dynamically import Leaflet only on client-side
   const L = await import('leaflet')
 
-  // Fix for default marker icons in Leaflet with webpack/vite
-  const iconRetinaUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png'
-  const iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png'
-  const shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
-
-  const defaultIcon = L.icon({
-    iconRetinaUrl,
-    iconUrl,
-    shadowUrl,
-    iconSize: [25, 41] as [number, number],
-    iconAnchor: [12, 41] as [number, number],
-    popupAnchor: [1, -34] as [number, number],
-    shadowSize: [41, 41] as [number, number]
-  })
-
-  L.Marker.prototype.options.icon = defaultIcon
-
-  // Initialize the map centered on Tampa Bay
   map = L.map(mapContainer.value, {
     center: [27.85, -82.6] as [number, number],
     zoom: 9,
@@ -113,175 +125,70 @@ onMounted(async () => {
     keyboard: true
   })
 
-  // Set aria-label for accessibility
-  if (mapContainer.value) {
-    mapContainer.value.setAttribute('aria-label', 'Tampa Bay Service Area Map')
-  }
-
-  // Add OpenStreetMap tiles
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 18,
     minZoom: 8
   }).addTo(map)
 
-  // Custom icons for main office vs service areas
-  const mainOfficeIcon = L.divIcon({
-    className: 'custom-marker main-office-marker',
-    html: `<div class="marker-pin main-office-pin" aria-label="Home base in Tampa"></div>`,
-    iconSize: [30, 42] as [number, number],
-    iconAnchor: [15, 42] as [number, number]
+  const icon = (homeBase: boolean) => L.divIcon({
+    className: 'service-area-marker',
+    html: pinSvg(homeBase ? NAVY : TEAL),
+    iconSize: (homeBase ? [34, 34] : [28, 28]) as [number, number],
+    iconAnchor: (homeBase ? [17, 34] : [14, 28]) as [number, number],
+    popupAnchor: [0, homeBase ? -30 : -24] as [number, number]
   })
 
-  const serviceAreaIcon = L.divIcon({
-    className: 'custom-marker service-area-marker',
-    html: `<div class="marker-pin service-area-pin" aria-label="Service area location"></div>`,
-    iconSize: [24, 34] as [number, number],
-    iconAnchor: [12, 34] as [number, number]
-  })
-
-  // Collect markers for fitBounds
-  const markers: any[] = []
-
-  // Add markers for each location
   serviceLocations.forEach((location) => {
-    const marker = L.marker(location.position as [number, number], {
-      icon: location.isMainOffice ? mainOfficeIcon : serviceAreaIcon
-    })
-
-    if (map) {
-      marker.addTo(map)
-    }
-
-    // Add popup with location info
-    const popupContent = `
-      <div class="map-popup">
-        <strong>${location.name}</strong>
-        <p>${location.description}</p>
-      </div>
-    `
-    marker.bindPopup(popupContent)
-
-    markers.push(marker)
-
-    // Make keyboard accessible
-    const markerElement = marker.getElement()
-    if (markerElement) {
-      markerElement.setAttribute('tabindex', '0')
-      markerElement.setAttribute('role', 'button')
-      markerElement.setAttribute('aria-label', `View details for ${location.name}`)
-    }
-  })
-
-  // Add a circle showing approximate service area coverage
-  if (map) {
-    L.circle([27.85, -82.6] as [number, number], {
-      color: '#3b82f6',
-      fillColor: '#3b82f6',
-      fillOpacity: 0.1,
-      radius: 60000, // ~60km radius
-      weight: 2,
-      interactive: false
+    const marker = L.marker(location.position, {
+      icon: icon(!!location.isHomeBase),
+      title: location.name,
+      keyboard: true
     }).addTo(map)
 
-    // Fit bounds to show all markers
-    if (markers.length > 0) {
-      const group = L.featureGroup(markers)
-      map.fitBounds(group.getBounds().pad(0.1))
-    }
-  }
+    marker.bindPopup(`<strong>${location.name}</strong><br>${location.isHomeBase ? 'Home base' : location.description}`)
+    marker.on('click', () => { active.value = location.name })
+    markers.set(location.name, marker)
+  })
+
+  bounds = L.featureGroup([...markers.values()]).getBounds().pad(0.1)
+  map.fitBounds(bounds)
 })
 
-onBeforeUnmount(async () => {
+onBeforeUnmount(() => {
   if (map) {
     map.remove()
     map = null
   }
+  markers.clear()
 })
 </script>
 
 <style scoped>
-.service-area-map {
-  @apply rounded-xl overflow-hidden border border-neutral-200;
-}
-
 .map-container {
-  @apply w-full aspect-[16/10] md:aspect-[2/1] min-h-[400px];
+  @apply w-full aspect-[4/3] lg:aspect-auto lg:h-full min-h-[320px] lg:min-h-[520px];
 }
 
-.map-legend {
-  @apply bg-white p-4 border-t border-neutral-200;
+:deep(.service-area-marker) {
+  background: transparent;
+  border: none;
 }
 
-.legend-title {
-  @apply text-sm font-bold text-neutral-900 mb-3;
+:deep(.service-area-marker svg) {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.3));
 }
 
-.legend-items {
-  @apply flex flex-wrap gap-4;
+:deep(.leaflet-popup-content-wrapper) {
+  border-radius: 0.125rem;
 }
 
-.legend-item {
-  @apply flex items-center gap-2 text-sm text-neutral-700;
+:deep(.leaflet-popup-content) {
+  @apply font-sans text-sm text-neutral-700;
 }
 
-.legend-marker {
-  @apply w-4 h-4 rounded-full border-2 flex-shrink-0;
-}
-
-.legend-marker.main-office {
-  @apply bg-blue-600 border-blue-800;
-}
-
-.legend-marker.service-area {
-  @apply bg-blue-400 border-blue-600;
-}
-
-/* Deep selector for Leaflet popup styling */
-:deep(.map-popup) {
-  @apply font-sans;
-}
-
-:deep(.map-popup strong) {
+:deep(.leaflet-popup-content strong) {
   @apply text-neutral-900;
-}
-
-:deep(.map-popup p) {
-  @apply text-neutral-600 text-sm mt-1;
-}
-
-/* Custom marker pins */
-:deep(.custom-marker) {
-  @apply flex items-end justify-center;
-}
-
-:deep(.marker-pin) {
-  @apply relative cursor-pointer;
-  width: 30px;
-  height: 42px;
-}
-
-:deep(.main-office-pin) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e40af'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-:deep(.service-area-pin) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 24px;
-  height: 34px;
-}
-
-/* Leaflet container focus styles for keyboard navigation */
-:deep(.leaflet-container) {
-  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
-}
-
-/* Focus visible on interactive map elements */
-:deep(.leaflet-interactive:focus-visible) {
-  @apply outline-none ring-2 ring-primary ring-offset-2;
 }
 </style>

@@ -32,27 +32,18 @@
       <div class="absolute inset-0 bg-primary-dark/80" />
     </div>
 
-    <!-- No photo: a drawing sheet, with a fine grid and gridline bubbles -->
-    <div
-      v-else
-      data-testid="banner-grid"
-      class="absolute inset-0 bg-blueprint bg-grid"
-      aria-hidden="true"
-    >
-      <svg class="absolute inset-0 w-full h-full text-white/30" fill="none" stroke="currentColor" stroke-width="1">
-        <line x1="25%" y1="0" x2="25%" y2="100%" stroke-dasharray="12 4 2 4" />
-        <line x1="60%" y1="0" x2="60%" y2="100%" stroke-dasharray="12 4 2 4" />
-        <line x1="90%" y1="0" x2="90%" y2="100%" stroke-dasharray="12 4 2 4" />
-        <line x1="0" y1="72%" x2="100%" y2="72%" stroke-dasharray="12 4 2 4" />
-      </svg>
-      <span
-        v-for="(bubble, i) in gridBubbles"
-        :key="bubble.label"
-        class="absolute top-4 -translate-x-1/2 w-9 h-9 rounded-full border border-white/40 bg-primary-dark flex items-center justify-center font-display text-sm text-white/70"
-        :class="i === 0 ? 'left-[25%]' : i === 1 ? 'left-[60%]' : 'left-[90%]'"
-      >
-        {{ bubble.label }}
-      </span>
+    <!-- No photo: one of VP's own shop drawings as white line work,
+         faded out toward the headline under the navy bands' grid -->
+    <div v-else class="absolute inset-0" aria-hidden="true">
+      <BannerDrawing
+        data-testid="banner-drawing"
+        :src="`/images/drawings/${drawing}.svg`"
+        :lite-src="`/images/drawings/${drawing}-lite.svg`"
+        :aspect-ratio="drawings[drawing]"
+        class="absolute top-1/2 -translate-y-1/2 opacity-50 sm:opacity-70 h-[80%] -right-[30%] sm:h-[92%] sm:right-0 lg:h-[112%] lg:right-[2%]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-dark from-15% via-primary-dark/70 via-40% to-primary-dark/0 to-70%" />
+      <div data-testid="banner-grid" class="absolute inset-0 bg-blueprint bg-grid" />
     </div>
 
     <!-- Bottom scrim for legibility -->
@@ -64,7 +55,7 @@
         <div class="max-w-3xl border-l-2 border-secondary-light pl-6">
           <p
             v-if="eyebrow"
-            class="banner-animate-headline mb-3 text-xs uppercase tracking-[0.2em] text-white/80"
+            class="banner-animate-headline eyebrow mb-3 text-white/80"
           >
             {{ eyebrow }}
           </p>
@@ -87,6 +78,13 @@
 <script setup lang="ts">
 import { useWindowScroll } from '@vueuse/core'
 
+// viewBox width / height of each drawing in public/images/drawings
+const drawings = {
+  'metso-iso': '1600 / 1154',
+  'rms-iso': '1600 / 1252'
+} as const
+type BannerDrawingName = keyof typeof drawings
+
 interface PageBannerProps {
   headline: string
   subheadline?: string
@@ -94,15 +92,16 @@ interface PageBannerProps {
   backgroundImage?: string
   backgroundAlt?: string
   ariaLabel?: string
+  /** Shop drawing behind a photo-less banner (see scripts/banner-drawing.py) */
+  drawing?: BannerDrawingName
 }
 
 const props = withDefaults(defineProps<PageBannerProps>(), {
   backgroundImage: '',
   backgroundAlt: 'Professional structural engineering background',
-  ariaLabel: 'Page banner'
+  ariaLabel: 'Page banner',
+  drawing: 'metso-iso'
 })
-
-const gridBubbles = [{ label: 'A' }, { label: 'B' }, { label: 'C' }]
 
 // Parallax motion using VueUse (respect prefers-reduced-motion)
 const { y: scrollY } = useWindowScroll()

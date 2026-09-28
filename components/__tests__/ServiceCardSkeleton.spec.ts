@@ -11,7 +11,7 @@ describe('ServiceCardSkeleton Component', () => {
     const wrapper = mount(ServiceCardSkeleton)
 
     expect(wrapper.find('.bg-white').exists()).toBe(true)
-    expect(wrapper.find('.rounded-xl').exists()).toBe(true)
+    expect(wrapper.find('.rounded-sm').exists()).toBe(true)
   })
 
   it('has bg-white background', () => {
@@ -33,10 +33,10 @@ describe('ServiceCardSkeleton Component', () => {
     expect(wrapper.find('.bg-primary\\/10').exists()).toBe(true)
   })
 
-  it('has rounded-xl for icon placeholder', () => {
+  it('has rounded-sm for icon placeholder', () => {
     const wrapper = mount(ServiceCardSkeleton)
 
-    const roundedElements = wrapper.findAll('.rounded-xl')
+    const roundedElements = wrapper.findAll('.rounded-sm')
     expect(roundedElements.length).toBeGreaterThan(0)
   })
 

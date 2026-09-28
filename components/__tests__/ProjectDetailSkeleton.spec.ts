@@ -90,10 +90,10 @@ describe('ProjectDetailSkeleton Component', () => {
     expect(wrapper.find('.md\\:grid-cols-3').exists()).toBe(true)
   })
 
-  it('has rounded-lg for gallery placeholders', () => {
+  it('has rounded-sm for gallery placeholders', () => {
     const wrapper = mount(ProjectDetailSkeleton)
 
-    const roundedElements = wrapper.findAll('.rounded-lg')
+    const roundedElements = wrapper.findAll('.rounded-sm')
     expect(roundedElements.length).toBeGreaterThan(0)
   })
 
@@ -104,10 +104,10 @@ describe('ProjectDetailSkeleton Component', () => {
     expect(gap4Elements.length).toBeGreaterThan(0)
   })
 
-  it('has rounded-xl for sidebar', () => {
+  it('has rounded-sm for sidebar', () => {
     const wrapper = mount(ProjectDetailSkeleton)
 
-    const roundedXlElements = wrapper.findAll('.rounded-xl')
+    const roundedXlElements = wrapper.findAll('.rounded-sm')
     expect(roundedXlElements.length).toBeGreaterThan(0)
   })
 

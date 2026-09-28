@@ -8,12 +8,9 @@
       {
         'scroll-reveal': animateOnScroll,
         visible: isVisible,
-        'stagger-children': staggerChildren,
-        'border-b border-neutral-200': border,
-        'shadow-[0_8px_30px_rgb(0,0,0,0.03)]': elevation
+        'stagger-children': staggerChildren
       }
     ]"
-    :style="patternStyle"
   >
     <!-- Top gradient fade (optional divider) -->
     <div v-if="topFade" class="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white/80 to-transparent pointer-events-none"></div>
@@ -36,7 +33,9 @@ interface Props {
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl'
   animateOnScroll?: boolean
   staggerChildren?: boolean
+  /** @deprecated Sections no longer draw borders; kept so existing callers compile */
   border?: boolean
+  /** @deprecated Sections no longer cast shadows; kept so existing callers compile */
   elevation?: boolean
   topFade?: boolean
   bottomFade?: boolean
@@ -72,31 +71,23 @@ watchEffect(() => {
   }
 })
 
+// Four backgrounds only: white, one light tint, and the navy and dark bands.
+// Legacy tints map onto the light tint so every page keeps the same rhythm.
 const bgColorClass = computed(() => {
   const colors = {
     white: 'bg-white',
     neutral: 'bg-neutral-900 bg-blueprint bg-grid',
-    primary: 'bg-primary text-white',
-    'primary-dark': 'bg-primary-dark text-white',
-    secondary: 'bg-secondary text-white',
+    primary: 'bg-primary bg-blueprint bg-grid text-white',
+    'primary-dark': 'bg-primary-dark bg-blueprint bg-grid text-white',
+    secondary: 'bg-primary bg-blueprint bg-grid text-white',
     'neutral-50': 'bg-neutral-50',
-    'neutral-100': 'bg-neutral-100',
+    'neutral-100': 'bg-neutral-50',
     'neutral-50-pattern': 'bg-neutral-50',
-    'neutral-100-pattern': 'bg-neutral-100',
-    'secondary/5': 'bg-secondary/5',
-    'secondary/10': 'bg-secondary/10'
+    'neutral-100-pattern': 'bg-neutral-50',
+    'secondary/5': 'bg-neutral-50',
+    'secondary/10': 'bg-neutral-50'
   }
   return colors[props.bgColor]
-})
-
-const patternStyle = computed(() => {
-  if (props.bgColor === 'neutral-50-pattern') {
-    return { backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239CA3AF' fill-opacity='0.06'%3E%3Ccircle cx='2' cy='2' r='1'/%3E%3Ccircle cx='12' cy='12' r='1'/%3E%3C/g%3E%3C/svg%3E\")" }
-  }
-  if (props.bgColor === 'neutral-100-pattern') {
-    return { backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239CA3AF' fill-opacity='0.08'%3E%3Cpath d='M0 0h40v1H0z'/%3E%3Cpath d='M0 0h1v40H0z'/%3E%3C/g%3E%3C/svg%3E\")" }
-  }
-  return {}
 })
 
 const containerClass = computed(() => {

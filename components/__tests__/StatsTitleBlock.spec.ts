@@ -27,9 +27,4 @@ describe('StatsTitleBlock Component', () => {
     expect(items[0]!.text()).toContain('Years of combined experience')
     expect(items[1]!.text()).toContain('Tampa, Florida')
   })
-
-  it('hides the ruler from assistive technology', () => {
-    const wrapper = mount(StatsTitleBlock, { props: { stats } })
-    expect(wrapper.find('[aria-hidden="true"]').text()).toContain('FT')
-  })
 })

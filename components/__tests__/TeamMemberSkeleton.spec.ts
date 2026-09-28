@@ -11,7 +11,7 @@ describe('TeamMemberSkeleton Component', () => {
     const wrapper = mount(TeamMemberSkeleton)
 
     expect(wrapper.find('.bg-white').exists()).toBe(true)
-    expect(wrapper.find('.rounded-xl').exists()).toBe(true)
+    expect(wrapper.find('.rounded-sm').exists()).toBe(true)
   })
 
   it('has aspect ratio for photo placeholder', () => {
@@ -62,7 +62,7 @@ describe('TeamMemberSkeleton Component', () => {
   it('has proper border and rounded corners', () => {
     const wrapper = mount(TeamMemberSkeleton)
 
-    expect(wrapper.find('.rounded-xl').exists()).toBe(true)
+    expect(wrapper.find('.rounded-sm').exists()).toBe(true)
     expect(wrapper.find('.border').exists()).toBe(true)
   })
 

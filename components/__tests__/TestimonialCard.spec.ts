@@ -144,7 +144,7 @@ describe('TestimonialCard Component', () => {
     })
 
     expect(wrapper.html()).toContain('border-t-primary')
-    expect(wrapper.html()).toContain('border-t-4')
+    expect(wrapper.html()).toContain('border-t-2')
   })
 
   it('has proper card styling', () => {
@@ -153,26 +153,16 @@ describe('TestimonialCard Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('bg-white rounded-xl')
-    expect(wrapper.html()).toContain('border border-neutral-200')
+    expect(wrapper.classes()).toContain('card')
   })
 
-  it('has shadow classes', () => {
+  it('rests flat, with no shadow', () => {
     const wrapper = mount(TestimonialCard, {
       props: { quote: 'Test', author: 'Author' },
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('shadow-lg hover:shadow-xl')
-  })
-
-  it('has transition classes', () => {
-    const wrapper = mount(TestimonialCard, {
-      props: { quote: 'Test', author: 'Author' },
-      global: { stubs: globalStubs }
-    })
-
-    expect(wrapper.html()).toContain('transition-shadow duration-300')
+    expect(wrapper.html()).not.toContain('shadow-lg')
   })
 
   it('quote mark icon has aria-hidden="true"', () => {
