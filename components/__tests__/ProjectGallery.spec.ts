@@ -341,6 +341,18 @@ describe('ProjectGallery Component', () => {
       expect(wrapper.vm.currentImageIndex).toBe(0)
     })
 
+    it('stacks the lightbox above the sticky site header (z-50)', async () => {
+      const wrapper = mount(ProjectGallery, {
+        props: defaultProps,
+        global: { stubs: globalStubs }
+      })
+
+      wrapper.vm.openLightbox(0)
+      await nextTick()
+
+      expect(wrapper.find('[role="dialog"]').classes()).toContain('z-[60]')
+    })
+
     it('closes lightbox when closeLightbox is called', async () => {
       const wrapper = mount(ProjectGallery, {
         props: defaultProps,

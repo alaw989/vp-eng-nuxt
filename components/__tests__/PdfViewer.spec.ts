@@ -171,6 +171,70 @@ describe('PdfViewer Component', () => {
     expect(wrapper.html()).toContain('This is a test PDF')
   })
 
+  describe('Viewer layout (drawings are landscape sheets)', () => {
+    async function openViewer() {
+      const wrapper = mount(PdfViewer, {
+        props: { pdfs: defaultPdfs },
+        global: { stubs: globalStubs }
+      })
+      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
+      await nextTick()
+      return wrapper
+    }
+
+    it('fills the content area with the iframe instead of a fixed portrait size', async () => {
+      const wrapper = await openViewer()
+      const iframe = wrapper.find('iframe')
+
+      expect(iframe.classes()).toEqual(expect.arrayContaining(['w-full', 'h-full']))
+      expect(iframe.attributes('width')).toBeUndefined()
+      expect(iframe.attributes('height')).toBeUndefined()
+    })
+
+    it('does not vertically center or CSS-scale the document', async () => {
+      const wrapper = await openViewer()
+      const dialog = wrapper.find('[role="dialog"]')
+
+      expect(dialog.html()).not.toContain('scale(')
+      // Centering a box taller than its scroll container pushes its top out of reach
+      let el = wrapper.find('iframe').element.parentElement
+      while (el && el !== dialog.element) {
+        expect(el.className).not.toMatch(/\bitems-center\b/)
+        el = el.parentElement
+      }
+    })
+
+    it('stacks above the sticky site header (z-50) so its close button stays visible', async () => {
+      const wrapper = await openViewer()
+
+      expect(wrapper.find('[role="dialog"]').classes()).toContain('z-[60]')
+    })
+
+    it('asks the browser viewer to fit the whole sheet', async () => {
+      const wrapper = await openViewer()
+      const src = wrapper.find('iframe').attributes('src')
+
+      expect(src).toBe('/test.pdf#view=Fit&zoom=page-fit&navpanes=0')
+    })
+
+    it('leaves zooming to the native viewer', async () => {
+      const wrapper = await openViewer()
+
+      expect(wrapper.find('[aria-label^="Zoom"]').exists()).toBe(false)
+      expect(wrapper.text()).not.toContain('Zoom In')
+    })
+
+    it('offers opening the PDF in a new tab, for browsers that cannot show it inline', async () => {
+      const wrapper = await openViewer()
+      const links = wrapper.findAll('a[target="_blank"]').filter(a => a.attributes('href') === '/test.pdf')
+
+      expect(links.length).toBeGreaterThan(0)
+      for (const link of links) {
+        expect(link.attributes('rel')).toContain('noopener')
+      }
+    })
+  })
+
   describe('PDF Viewer functionality', () => {
     it('has openPdf method', () => {
       const wrapper = mount(PdfViewer, {
@@ -188,24 +252,6 @@ describe('PdfViewer Component', () => {
       })
 
       expect(typeof wrapper.vm.closeViewer).toBe('function')
-    })
-
-    it('has zoomIn method', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      expect(typeof wrapper.vm.zoomIn).toBe('function')
-    })
-
-    it('has zoomOut method', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      expect(typeof wrapper.vm.zoomOut).toBe('function')
     })
 
     it('opens PDF viewer when openPdf is called', async () => {
@@ -233,21 +279,6 @@ describe('PdfViewer Component', () => {
       wrapper.vm.openPdf(defaultPdfs[0]!, 0)
 
       expect(wrapper.vm.loading).toBe(true)
-    })
-
-    it('resets scale to 1 when opening PDF', async () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      // Change scale first
-      wrapper.vm.scale = 2
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-      await nextTick()
-
-      expect(wrapper.vm.scale).toBe(1)
     })
 
     it('closes viewer when closeViewer is called', async () => {
@@ -297,56 +328,6 @@ describe('PdfViewer Component', () => {
     })
   })
 
-  describe('Zoom functionality', () => {
-    it('zoomIn increases scale', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      const beforeScale = wrapper.vm.scale
-      wrapper.vm.zoomIn()
-
-      expect(wrapper.vm.scale).toBe(beforeScale + 0.25)
-    })
-
-    it('zoomIn caps at maximum scale of 3', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.scale = 3
-      wrapper.vm.zoomIn()
-
-      expect(wrapper.vm.scale).toBe(3)
-    })
-
-    it('zoomOut decreases scale', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.scale = 2
-      wrapper.vm.zoomOut()
-
-      expect(wrapper.vm.scale).toBe(1.75)
-    })
-
-    it('zoomOut caps at minimum scale of 0.5', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.scale = 0.5
-      wrapper.vm.zoomOut()
-
-      expect(wrapper.vm.scale).toBe(0.5)
-    })
-  })
-
   describe('Keyboard navigation', () => {
     it('Escape key closes viewer', () => {
       const wrapper = mount(PdfViewer, {
@@ -367,90 +348,6 @@ describe('PdfViewer Component', () => {
       }
     })
 
-    it('+ key zooms in when viewer is open', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-      const beforeScale = wrapper.vm.scale
-
-      const callback = keyStrokeCallbacks.get('+')
-      if (callback) {
-        const mockEvent = { preventDefault: vi.fn() }
-        callback(mockEvent)
-
-        expect(wrapper.vm.scale).toBeGreaterThan(beforeScale)
-      }
-    })
-
-    it('- key zooms out when viewer is open', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-      wrapper.vm.scale = 2
-
-      const callback = keyStrokeCallbacks.get('-')
-      if (callback) {
-        const mockEvent = { preventDefault: vi.fn() }
-        callback(mockEvent)
-
-        expect(wrapper.vm.scale).toBeLessThan(2)
-      }
-    })
-
-    it('= key zooms in (alternative to +)', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-
-      const callback = keyStrokeCallbacks.get('=')
-      expect(callback).toBeDefined()
-    })
-
-    it('_ key zooms out (alternative to -)', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-      wrapper.vm.scale = 2
-
-      const callback = keyStrokeCallbacks.get('_')
-      if (callback) {
-        const mockEvent = { preventDefault: vi.fn() }
-        callback(mockEvent)
-
-        expect(wrapper.vm.scale).toBeLessThan(2)
-      }
-    })
-
-    it('= key zooms in (alternative to +)', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-      const beforeScale = wrapper.vm.scale
-
-      const callback = keyStrokeCallbacks.get('=')
-      if (callback) {
-        const mockEvent = { preventDefault: vi.fn() }
-        callback(mockEvent)
-
-        expect(wrapper.vm.scale).toBeGreaterThan(beforeScale)
-      }
-    })
-
     it('keyboard shortcuts do nothing when viewer is closed', () => {
       const wrapper = mount(PdfViewer, {
         props: { pdfs: defaultPdfs },
@@ -468,74 +365,6 @@ describe('PdfViewer Component', () => {
         // Viewer should still be closed
         expect(wrapper.vm.viewerOpen).toBe(false)
       }
-    })
-  })
-
-  describe('Iframe sizing', () => {
-    it('has updateIframeSize method', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      expect(typeof wrapper.vm.updateIframeSize).toBe('function')
-    })
-
-    it('has default iframe dimensions', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      expect(wrapper.vm.iframeWidth).toBe(800)
-      expect(wrapper.vm.iframeHeight).toBe(1000)
-    })
-
-    it('updateIframeSize adjusts dimensions based on container', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      // Mock containerRef with clientWidth - function subtracts 32px padding
-      // So we need a larger clientWidth to get our target
-      wrapper.vm.containerRef = {
-        clientWidth: 632,  // 600 + 32 padding
-        clientHeight: 832
-      } as HTMLElement
-
-      wrapper.vm.updateIframeSize()
-
-      expect(wrapper.vm.iframeWidth).toBe(600)
-      // 600 / (8.5/11) = 600 / 0.7727 = 776.47
-      expect(wrapper.vm.iframeHeight).toBeCloseTo(776.47, 0)
-    })
-
-    it('updateIframeSize caps width at 1000', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.containerRef = {
-        clientWidth: 1500,
-        clientHeight: 2000
-      } as HTMLElement
-
-      wrapper.vm.updateIframeSize()
-
-      expect(wrapper.vm.iframeWidth).toBe(1000)
-    })
-
-    it('updateIframeSize handles null containerRef', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.containerRef = null
-
-      expect(() => wrapper.vm.updateIframeSize()).not.toThrow()
     })
   })
 
@@ -577,40 +406,7 @@ describe('PdfViewer Component', () => {
     })
   })
 
-  describe('Watch behavior', () => {
-    it('removes resize listener when viewer closes', async () => {
-      const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-      await nextTick()
-
-      wrapper.vm.closeViewer()
-      await nextTick()
-
-      // The watch should have called removeEventListener
-      expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
-      removeEventListenerSpy.mockRestore()
-    })
-  })
-
   describe('Cleanup', () => {
-    it('removes resize event listener on unmount', () => {
-      const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.unmount()
-
-      expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
-      removeEventListenerSpy.mockRestore()
-    })
-
     it('restores body overflow on unmount when viewer is open', () => {
       const originalStyle = document.body.style.overflow
       const wrapper = mount(PdfViewer, {
@@ -656,15 +452,6 @@ describe('PdfViewer Component', () => {
       })
 
       expect(wrapper.vm.currentIndex).toBeDefined()
-    })
-
-    it('has scale ref', () => {
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      expect(wrapper.vm.scale).toBeDefined()
     })
 
     it('has loading ref', () => {
@@ -740,27 +527,6 @@ describe('PdfViewer Component', () => {
       await nextTick()
 
       expect(wrapper.vm.loading).toBe(false)
-
-      vi.restoreAllMocks()
-    })
-
-    it('calls updateIframeSize after loading completes', async () => {
-      vi.useFakeTimers()
-      const wrapper = mount(PdfViewer, {
-        props: { pdfs: defaultPdfs },
-        global: { stubs: globalStubs }
-      })
-
-      wrapper.vm.openPdf(defaultPdfs[0]!, 0)
-      expect(wrapper.vm.loading).toBe(true)
-
-      // Fast-forward past the setTimeout (500ms)
-      vi.advanceTimersByTime(600)
-      await nextTick()
-
-      // With fake timers, the setTimeout callback runs but nextTick inside may not
-      // At minimum we verify the pattern exists in the component
-      expect(wrapper.vm.updateIframeSize).toBeDefined()
 
       vi.restoreAllMocks()
     })

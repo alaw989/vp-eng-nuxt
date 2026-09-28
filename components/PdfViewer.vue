@@ -131,7 +131,7 @@
         <div
           v-if="viewerOpen"
           ref="viewerRef"
-          class="fixed inset-0 z-50 bg-black/95 flex flex-col"
+          class="fixed inset-0 z-[60] bg-black/95 flex flex-col"
           role="dialog"
           aria-modal="true"
           :aria-label="`PDF Viewer - ${currentPdf?.title || 'Document'}`"
@@ -147,28 +147,17 @@
             </div>
 
             <div class="flex items-center gap-2">
-              <!-- Zoom controls -->
-              <div class="hidden md:flex items-center gap-1 bg-neutral-800 rounded-lg p-1">
-                <button
-                  class="p-2 text-neutral-300 hover:text-white hover:bg-neutral-700 rounded transition-colors"
-                  @click="zoomOut"
-                  :disabled="scale <= 0.5"
-                  :aria-label="`Zoom out (current: ${Math.round(scale * 100)}%)`"
-                >
-                  <Icon name="mdi:magnify-minus" class="w-5 h-5" />
-                </button>
-                <span class="px-3 text-neutral-300 text-sm min-w-[60px] text-center">
-                  {{ Math.round(scale * 100) }}%
-                </span>
-                <button
-                  class="p-2 text-neutral-300 hover:text-white hover:bg-neutral-700 rounded transition-colors"
-                  @click="zoomIn"
-                  :disabled="scale >= 3"
-                  :aria-label="`Zoom in (current: ${Math.round(scale * 100)}%)`"
-                >
-                  <Icon name="mdi:magnify-plus" class="w-5 h-5" />
-                </button>
-              </div>
+              <!-- Open in new tab (the browser's own viewer, full screen) -->
+              <a
+                v-if="currentPdf"
+                :href="currentPdf.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hidden md:flex items-center gap-2 px-4 py-2 text-neutral-300 hover:text-white hover:bg-neutral-700 rounded-lg font-medium text-sm transition-colors"
+              >
+                <Icon name="mdi:open-in-new" class="w-4 h-4" />
+                <span>Open in new tab</span>
+              </a>
 
               <!-- Download button -->
               <a
@@ -194,42 +183,28 @@
             </div>
           </div>
 
-          <!-- PDF Content Area -->
-          <div class="flex-1 overflow-auto flex items-center justify-center p-4" ref="containerRef">
-            <div
+          <!-- PDF Content Area: the iframe fills it and the browser's viewer fits the sheet -->
+          <div class="flex-1 min-h-0 p-2 md:p-4">
+            <iframe
               v-if="currentPdf"
-              class="relative transition-transform duration-200 ease-out"
-              :style="{ transform: `scale(${scale})` }"
-            >
-              <!-- Native PDF embed (works in most modern browsers) -->
-              <iframe
-                :src="`${currentPdf.url}#toolbar=0&navpanes=0&scrollbar=1`"
-                class="bg-white rounded-lg shadow-2xl"
-                :width="iframeWidth"
-                :height="iframeHeight"
-                :style="{ pointerEvents: scale === 1 ? 'auto' : 'none' }"
-                :aria-label="`PDF content for ${currentPdf.title}`"
-              />
-            </div>
+              :src="viewerSrc(currentPdf.url)"
+              class="block w-full h-full bg-white rounded-lg shadow-2xl"
+              :title="`PDF: ${currentPdf.title || 'Document'}`"
+            />
           </div>
 
           <!-- Mobile action bar (shown at bottom on small screens) -->
           <div class="md:hidden flex items-center justify-around px-4 py-3 bg-neutral-900 border-t border-neutral-700">
-            <button
+            <a
+              v-if="currentPdf"
+              :href="currentPdf.url"
+              target="_blank"
+              rel="noopener noreferrer"
               class="flex flex-col items-center gap-1 text-neutral-300 hover:text-white transition-colors"
-              @click="zoomOut"
             >
-              <Icon name="mdi:magnify-minus" class="w-6 h-6" />
-              <span class="text-xs">Zoom Out</span>
-            </button>
-            <span class="text-neutral-300 text-sm">{{ Math.round(scale * 100) }}%</span>
-            <button
-              class="flex flex-col items-center gap-1 text-neutral-300 hover:text-white transition-colors"
-              @click="zoomIn"
-            >
-              <Icon name="mdi:magnify-plus" class="w-6 h-6" />
-              <span class="text-xs">Zoom In</span>
-            </button>
+              <Icon name="mdi:open-in-new" class="w-6 h-6" />
+              <span class="text-xs">Open</span>
+            </a>
             <a
               v-if="currentPdf"
               :href="currentPdf.url"
@@ -279,36 +254,19 @@ const props = defineProps<Props>()
 const viewerOpen = ref(false)
 const currentPdf = ref<PdfDocument | null>(null)
 const currentIndex = ref(0)
-const scale = ref(1)
 const loading = ref(false)
 const viewerRef = ref<HTMLElement | null>(null)
 const closeButtonRef = ref<HTMLElement | null>(null)
 const previouslyFocused = ref<HTMLElement | null>(null)
-const containerRef = ref<HTMLElement | null>(null)
 
-// Standard PDF dimensions (will be adjusted by scale)
-const iframeWidth = ref(800)
-const iframeHeight = ref(1000)
-
-// Adjust iframe size based on viewport
-const updateIframeSize = () => {
-  if (containerRef.value) {
-    const containerWidth = containerRef.value.clientWidth - 32 // padding
-    const containerHeight = containerRef.value.clientHeight - 32
-
-    // Standard letter aspect ratio (8.5 x 11)
-    const aspectRatio = 8.5 / 11
-
-    iframeWidth.value = Math.min(containerWidth, 1000)
-    iframeHeight.value = iframeWidth.value / aspectRatio
-  }
-}
+// Fit the whole sheet (view=Fit for Chrome/Edge/Acrobat, zoom=page-fit for Firefox's pdf.js)
+// and hide the thumbnail sidebar; drawings are usually a single sheet
+const viewerSrc = (url: string) => `${url}#view=Fit&zoom=page-fit&navpanes=0`
 
 const openPdf = (pdf: PdfDocument, index: number) => {
   currentPdf.value = pdf
   currentIndex.value = index
   viewerOpen.value = true
-  scale.value = 1
   loading.value = true
 
   // Save currently focused element
@@ -319,9 +277,6 @@ const openPdf = (pdf: PdfDocument, index: number) => {
   // Reset loading after a delay
   setTimeout(() => {
     loading.value = false
-    nextTick(() => {
-      updateIframeSize()
-    })
   }, 500)
 
   // Focus close button after opening
@@ -333,25 +288,12 @@ const openPdf = (pdf: PdfDocument, index: number) => {
 const closeViewer = () => {
   viewerOpen.value = false
   currentPdf.value = null
-  scale.value = 1
   document.body.style.overflow = ''
 
   // Return focus to the element that opened the viewer
   nextTick(() => {
     previouslyFocused.value?.focus()
   })
-}
-
-const zoomIn = () => {
-  if (scale.value < 3) {
-    scale.value = Math.min(3, scale.value + 0.25)
-  }
-}
-
-const zoomOut = () => {
-  if (scale.value > 0.5) {
-    scale.value = Math.max(0.5, scale.value - 0.25)
-  }
 }
 
 // Keyboard navigation
@@ -362,69 +304,21 @@ onKeyStroke('Escape', (e) => {
   }
 })
 
-onKeyStroke('+', (e) => {
-  if (viewerOpen.value) {
-    e.preventDefault()
-    zoomIn()
-  }
-})
-
-onKeyStroke('-', (e) => {
-  if (viewerOpen.value) {
-    e.preventDefault()
-    zoomOut()
-  }
-})
-
-onKeyStroke('=', (e) => {
-  if (viewerOpen.value) {
-    e.preventDefault()
-    zoomIn()
-  }
-})
-
-onKeyStroke('_', (e) => {
-  if (viewerOpen.value) {
-    e.preventDefault()
-    zoomOut()
-  }
-})
-
-// Reset zoom on viewer open
-watch(viewerOpen, (isOpen) => {
-  if (isOpen) {
-    nextTick(() => {
-      updateIframeSize()
-      window.addEventListener('resize', updateIframeSize)
-    })
-  } else {
-    window.removeEventListener('resize', updateIframeSize)
-  }
-})
-
 // Cleanup on unmount
 onUnmounted(() => {
   if (viewerOpen.value) {
     document.body.style.overflow = ''
   }
-  window.removeEventListener('resize', updateIframeSize)
 })
 
 // Expose for testing
 defineExpose({
   openPdf,
   closeViewer,
-  zoomIn,
-  zoomOut,
-  scale,
   viewerOpen,
   currentPdf,
   currentIndex,
   loading,
-  updateIframeSize,
-  iframeWidth,
-  iframeHeight,
-  containerRef,
   previouslyFocused,
   closeButtonRef
 })
