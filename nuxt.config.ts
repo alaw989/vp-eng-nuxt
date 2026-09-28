@@ -8,6 +8,10 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    // Dev only: let the tailnet (tailscale serve) reach the dev server
+    server: {
+      allowedHosts: ['.ts.net'],
+    },
     build: {
       chunkSizeWarningLimit: 500,
       rollupOptions: {

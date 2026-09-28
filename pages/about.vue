@@ -145,13 +145,31 @@
       <p class="text-lg text-neutral-600 mb-6">
         Drawings and calculations signed and sealed in:
       </p>
-      <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-t border-l border-neutral-300">
+      <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-t border-l border-neutral-300 bg-white">
         <li
-          v-for="state in peRegistrations"
-          :key="state"
-          class="px-4 py-3 border-r border-b border-neutral-300 font-display text-lg font-bold text-primary"
+          v-for="state in peStates"
+          :key="state.abbr"
+          class="group flex flex-col border-r border-b border-neutral-300"
         >
-          {{ state }}
+          <div class="aspect-square p-5">
+            <svg
+              viewBox="-4 -4 108 108"
+              class="w-full h-full"
+              aria-hidden="true"
+            >
+              <path
+                :d="state.path"
+                class="fill-primary/10 stroke-primary transition-colors duration-300 group-hover:fill-primary/25"
+                stroke-width="1.25"
+                stroke-linejoin="round"
+                vector-effect="non-scaling-stroke"
+              />
+            </svg>
+          </div>
+          <div class="flex items-baseline justify-between gap-2 px-4 py-3 border-t border-neutral-300">
+            <span class="font-display text-lg font-bold text-primary">{{ state.name }}</span>
+            <span class="text-xs tracking-[0.2em] text-neutral-500" aria-hidden="true">{{ state.abbr }}</span>
+          </div>
         </li>
       </ul>
     </AppSection>
@@ -202,6 +220,7 @@
 
 <script setup lang="ts">
 import { decodeHtmlEntities, stripHtml } from '~/utils/html'
+import { peStates } from '~/utils/peStates'
 
 // Route meta for screen reader announcements
 definePageMeta({
@@ -284,17 +303,6 @@ const values = [
     title: 'Client Service',
     text: "We build lasting relationships through responsive communication, technical expertise, and a commitment to our clients' success.",
   },
-]
-
-// States listed on the firm's own pre-2026 site (see EVIDENCE.md)
-const peRegistrations = [
-  'Florida',
-  'Kentucky',
-  'Maryland',
-  'Michigan',
-  'Pennsylvania',
-  'Tennessee',
-  'Virginia'
 ]
 
 const serviceAreas = [
