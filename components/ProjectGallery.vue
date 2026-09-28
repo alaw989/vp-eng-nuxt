@@ -90,7 +90,7 @@
         <div
           v-if="lightboxOpen"
           ref="lightboxRef"
-          class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+          class="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center"
           role="dialog"
           aria-modal="true"
           :aria-label="`Project Gallery - ${projectName}`"
