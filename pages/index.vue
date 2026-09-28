@@ -18,7 +18,7 @@
           </p>
           <NuxtLink
             to="/about"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="btn-primary"
           >
             About the firm
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -40,7 +40,7 @@
           </picture>
           <!-- Registration stamp -->
           <div class="absolute -bottom-6 left-4 md:-left-6 bg-white border-2 border-primary px-5 py-3 max-w-xs">
-            <div class="text-xs uppercase tracking-[0.2em] text-neutral-600">Licensed</div>
+            <div class="eyebrow text-neutral-600">Licensed</div>
             <div class="font-display text-xl font-bold text-primary">Florida PE</div>
             <p class="mt-1 text-sm text-neutral-600">Signed and sealed drawings and calculations</p>
           </div>
@@ -54,15 +54,11 @@
     </AppSection>
 
     <!-- Services Section -->
-    <AppSection bg-color="neutral-50-pattern" animate-on-scroll elevation>
-      <div class="mb-16 max-w-3xl">
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
-          Our Services
-        </h2>
-        <p class="text-xl text-neutral-600">
-          Comprehensive structural engineering solutions for projects of all sizes
-        </p>
-      </div>
+    <AppSection bg-color="neutral-50" animate-on-scroll>
+      <SectionHeading
+        title="Our Services"
+        lede="Comprehensive structural engineering solutions for projects of all sizes"
+      />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <ServiceCard
@@ -78,7 +74,7 @@
       <div class="mt-12">
         <NuxtLink
           to="/services"
-          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="btn-outline"
         >
           View All Services
           <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -87,15 +83,12 @@
     </AppSection>
 
     <!-- Featured Projects Grid -->
-    <AppSection bg-color="neutral" animate-on-scroll elevation stagger-children>
-      <div class="mb-12 max-w-3xl">
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-          Featured Projects
-        </h2>
-        <p class="text-xl text-neutral-300">
-          Explore our portfolio of successful engineering projects across Tampa Bay
-        </p>
-      </div>
+    <AppSection bg-color="neutral" animate-on-scroll stagger-children>
+      <SectionHeading
+        title="Featured Projects"
+        lede="Explore our portfolio of successful engineering projects across Tampa Bay"
+        dark
+      />
 
       <!-- Projects Grid with staggered animation -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 stagger-children">
@@ -118,7 +111,7 @@
       <div>
         <NuxtLink
           to="/projects"
-          class="group inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-sm font-semibold hover:bg-neutral-100 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
+          class="btn-inverse group"
         >
           View All Projects
           <Icon name="mdi:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
@@ -127,15 +120,11 @@
     </AppSection>
 
     <!-- Testimonials Section -->
-    <AppSection bg-color="neutral-100-pattern" animate-on-scroll elevation>
-      <div class="mb-16 max-w-3xl">
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
-          What Our Clients Say
-        </h2>
-        <p class="text-xl text-neutral-600">
-          Trusted by architects, contractors, and developers throughout Florida
-        </p>
-      </div>
+    <AppSection bg-color="white" animate-on-scroll>
+      <SectionHeading
+        title="What Our Clients Say"
+        lede="Trusted by architects, contractors, and developers throughout Florida"
+      />
 
       <!-- Testimonials Slider - ClientOnly to prevent SSR/client responsive mismatch -->
       <div class="max-w-6xl mx-auto px-4">
@@ -153,10 +142,10 @@
           <template #fallback>
             <!-- SSR placeholder matching mobile layout to minimize CLS -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div v-for="i in 3" :key="i" class="bg-white rounded-xl p-8 border border-neutral-200 shadow-lg animate-pulse">
-                <div class="h-4 bg-neutral-200 rounded w-3/4 mb-4"></div>
-                <div class="h-4 bg-neutral-200 rounded w-full mb-4"></div>
-                <div class="h-4 bg-neutral-200 rounded w-1/2"></div>
+              <div v-for="i in 3" :key="i" class="card p-8 animate-pulse">
+                <div class="h-4 bg-neutral-200 rounded-sm w-3/4 mb-4"></div>
+                <div class="h-4 bg-neutral-200 rounded-sm w-full mb-4"></div>
+                <div class="h-4 bg-neutral-200 rounded-sm w-1/2"></div>
               </div>
             </div>
           </template>

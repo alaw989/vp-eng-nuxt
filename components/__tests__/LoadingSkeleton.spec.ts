@@ -44,12 +44,12 @@ describe('LoadingSkeleton Component', () => {
     expect(wrapper.find('.bg-neutral-200').exists()).toBe(true)
   })
 
-  it('has rounded-lg class', () => {
+  it('has rounded-sm class', () => {
     const wrapper = mount(LoadingSkeleton, {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.find('.rounded-lg').exists()).toBe(true)
+    expect(wrapper.find('.rounded-sm').exists()).toBe(true)
   })
 
   it('has aria-hidden="true" attribute', () => {

@@ -127,7 +127,7 @@
             </section>
 
             <!-- Contact Section -->
-            <div class="mt-12 p-6 bg-neutral-50 rounded-lg border border-neutral-200">
+            <div class="mt-12 p-6 bg-neutral-50 rounded-sm border border-neutral-200">
               <h3 class="text-xl font-bold text-neutral-900 mb-4">Contact Us</h3>
               <p class="text-neutral-700 mb-4">
                 If you have any questions about this Privacy Policy, please contact us:

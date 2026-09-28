@@ -11,10 +11,10 @@
     />
 
     <!-- Company Overview -->
-    <AppSection bg-color="white" animate-on-scroll border elevation>
+    <AppSection bg-color="white" animate-on-scroll>
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-6">
+          <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6">
             What We Do
           </h2>
           <p class="text-lg text-neutral-600 mb-4">
@@ -24,20 +24,20 @@
             We provide services to corporate industrial contractors, commercial architects, and steel fabricators utilizing the most current 3-D computer analysis systems available, ACAD drafting, SDS2 steel detailing, and coordinating available research materials. Our engineers and detailers have initiated, engineered, and completed countless multi-faceted design and construction projects which have met goals to reduce construction cost and time.
           </p>
           <div class="flex items-center gap-4">
-            <div class="text-center group cursor-default">
-              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">
+            <div class="text-center">
+              <div class="text-4xl font-display font-bold text-primary">
                 <span ref="yearsCounter">0</span>+
               </div>
               <div class="text-sm text-neutral-600">Years Combined Experience</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
-            <div class="text-center group cursor-default">
-              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">3-D</div>
+            <div class="text-center">
+              <div class="text-4xl font-display font-bold text-primary">3-D</div>
               <div class="text-sm text-neutral-600">Computer Analysis</div>
             </div>
             <div class="w-px h-12 bg-neutral-300"></div>
-            <div class="text-center group cursor-default">
-              <div class="text-4xl font-bold text-primary transition-all duration-300 group-hover:scale-105">SDS2</div>
+            <div class="text-center">
+              <div class="text-4xl font-display font-bold text-primary">SDS2</div>
               <div class="text-sm text-neutral-600">Steel Detailing</div>
             </div>
           </div>
@@ -54,7 +54,7 @@
           </div>
           <!-- Registration stamp -->
           <div class="absolute -bottom-6 right-4 md:-right-6 bg-white border-2 border-primary px-5 py-3">
-            <div class="text-xs uppercase tracking-[0.2em] text-neutral-600">Licensed</div>
+            <div class="eyebrow text-neutral-600">Licensed</div>
             <div class="font-display text-xl font-bold text-primary">Florida PE</div>
           </div>
         </div>
@@ -62,10 +62,10 @@
     </AppSection>
 
     <!-- Mission & Values -->
-    <AppSection bg-color="secondary/5" animate-on-scroll>
+    <AppSection bg-color="neutral-50" animate-on-scroll>
       <div class="grid md:grid-cols-3 gap-12">
         <div>
-          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+          <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
             Our Mission &amp; Values
           </h2>
           <p class="text-lg text-neutral-600">
@@ -92,15 +92,11 @@
     </AppSection>
 
     <!-- Leadership Team -->
-    <AppSection bg-color="neutral-100" animate-on-scroll elevation>
-      <div class="mb-16 max-w-3xl">
-        <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-          Our Leadership Team
-        </h2>
-        <p class="text-xl text-neutral-600">
-          Experienced engineers dedicated to your project's success
-        </p>
-      </div>
+    <AppSection bg-color="white" animate-on-scroll>
+      <SectionHeading
+        title="Our Leadership Team"
+        lede="Experienced engineers dedicated to your project's success"
+      />
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Loading skeleton -->
@@ -114,7 +110,7 @@
           <p class="text-neutral-600 mb-4">Unable to load team information. Please try again later.</p>
           <button
             @click="refreshTeam"
-            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="btn-primary"
           >
             Retry
           </button>
@@ -138,13 +134,11 @@
     </AppSection>
 
     <!-- PE Registrations -->
-    <AppSection bg-color="neutral-50" animate-on-scroll border>
-      <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-4">
-        Professional Engineer Registrations
-      </h2>
-      <p class="text-lg text-neutral-600 mb-6">
-        Drawings and calculations signed and sealed in:
-      </p>
+    <AppSection bg-color="neutral-50" animate-on-scroll>
+      <SectionHeading
+        title="Professional Engineer Registrations"
+        lede="Drawings and calculations signed and sealed in:"
+      />
       <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-t border-l border-neutral-300 bg-white">
         <li
           v-for="state in peStates"
@@ -168,21 +162,21 @@
           </div>
           <div class="flex items-baseline justify-between gap-2 px-4 py-3 border-t border-neutral-300">
             <span class="font-display text-lg font-bold text-primary">{{ state.name }}</span>
-            <span class="text-xs tracking-[0.2em] text-neutral-500" aria-hidden="true">{{ state.abbr }}</span>
+            <span class="eyebrow text-neutral-500" aria-hidden="true">{{ state.abbr }}</span>
           </div>
         </li>
       </ul>
     </AppSection>
 
     <!-- Service Area -->
-    <AppSection bg-color="secondary/10" animate-on-scroll elevation>
+    <AppSection bg-color="white" animate-on-scroll>
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <!-- Interactive Map -->
         <div class="order-2 md:order-1">
           <ClientOnly>
             <LazyTampaBayMap :service-areas="serviceAreas" />
             <template #fallback>
-              <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+              <div class="aspect-square rounded-sm overflow-hidden border border-neutral-200 bg-neutral-50 flex items-center justify-center">
                 <div class="text-center">
                   <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
                   <p class="text-neutral-600">Loading map...</p>
@@ -192,7 +186,7 @@
           </ClientOnly>
         </div>
         <div class="order-1 md:order-2">
-          <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-6">
+          <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6">
             Serving Tampa Bay
           </h2>
           <p class="text-lg text-neutral-600 mb-6">

@@ -25,7 +25,7 @@
       <!-- Development Details -->
       <p
         v-if="isDev && error?.message"
-        class="text-sm text-red-600 mb-8 p-4 bg-red-50 rounded-lg font-mono text-left overflow-auto max-h-40"
+        class="text-sm text-red-600 mb-8 p-4 bg-red-50 rounded-sm font-mono text-left overflow-auto max-h-40"
       >
         {{ error.message }}
       </p>
@@ -34,7 +34,7 @@
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <NuxtLink
           to="/"
-          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Icon name="mdi:home" class="w-5 h-5" />
           Go to Homepage
@@ -42,7 +42,7 @@
         <button
           v-if="error?.statusCode === 500"
           @click="refreshPage"
-          class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-lg font-semibold hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-sm font-semibold hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Icon name="mdi:refresh" class="w-5 h-5" />
           Try Again
@@ -55,28 +55,28 @@
         <div class="flex flex-wrap gap-3 justify-center">
           <NuxtLink
             to="/about"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:information" class="w-4 h-4" />
             About Us
           </NuxtLink>
           <NuxtLink
             to="/services"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:cog" class="w-4 h-4" />
             Services
           </NuxtLink>
           <NuxtLink
             to="/projects"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:briefcase" class="w-4 h-4" />
             Projects
           </NuxtLink>
           <NuxtLink
             to="/contact"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Icon name="mdi:email" class="w-4 h-4" />
             Contact

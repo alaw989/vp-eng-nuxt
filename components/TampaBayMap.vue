@@ -126,7 +126,8 @@ onUnmounted(() => {
 .map-container {
   width: 100%;
   height: 100%;
-  border-radius: 1rem;
+  border-radius: 0.125rem;
+  border: 1px solid #e5e7eb;
   min-height: 300px;
 }
 
@@ -137,7 +138,7 @@ onUnmounted(() => {
 }
 
 :deep(.marker-pin) {
-  background-color: #f97316;
+  background-color: #033379;
   width: 30px;
   height: 30px;
   border-radius: 50% 50% 50% 0;
@@ -161,11 +162,11 @@ onUnmounted(() => {
 
 /* Popup styling */
 :deep(.custom-popup) {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: inherit;
 }
 
 :deep(.custom-popup .leaflet-popup-content-wrapper) {
-  border-radius: 0.5rem;
+  border-radius: 0.125rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -178,7 +179,7 @@ onUnmounted(() => {
 }
 
 :deep(.popup-title) {
-  color: #1e3a8a;
+  color: #033379;
   display: block;
   font-size: 1rem;
 }
@@ -198,7 +199,7 @@ onUnmounted(() => {
 }
 
 :deep(.leaflet-control-attribution a) {
-  color: #1e3a8a;
+  color: #033379;
 }
 
 /* Focus styles for keyboard navigation */
@@ -208,7 +209,7 @@ onUnmounted(() => {
 
 :deep(.leaflet-marker-icon:focus),
 :deep(.leaflet-marker-icon:focus-visible) {
-  outline: 3px solid #f97316;
+  outline: 3px solid #033379;
   outline-offset: 3px;
   border-radius: 50%;
 }
@@ -221,7 +222,7 @@ onUnmounted(() => {
 
 :deep(.leaflet-control-zoom a) {
   background-color: white;
-  color: #1e3a8a;
+  color: #033379;
   border: none;
   line-height: 28px;
 }
@@ -231,7 +232,7 @@ onUnmounted(() => {
 }
 
 :deep(.leaflet-control-zoom a:focus) {
-  outline: 2px solid #f97316;
+  outline: 2px solid #033379;
   outline-offset: 1px;
 }
 

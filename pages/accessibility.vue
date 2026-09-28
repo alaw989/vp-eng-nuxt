@@ -82,21 +82,21 @@
               </p>
 
               <div class="space-y-4">
-                <div class="p-4 bg-neutral-50 rounded-lg">
+                <div class="p-4 bg-neutral-50 rounded-sm">
                   <h3 class="font-semibold text-neutral-900 mb-2">Third-Party Content</h3>
                   <p class="text-neutral-700 text-sm">
                     Some third-party content (such as embedded maps or documents) may not be fully accessible. We are working with vendors to improve accessibility of these components.
                   </p>
                 </div>
 
-                <div class="p-4 bg-neutral-50 rounded-lg">
+                <div class="p-4 bg-neutral-50 rounded-sm">
                   <h3 class="font-semibold text-neutral-900 mb-2">Historical Content</h3>
                   <p class="text-neutral-700 text-sm">
                     Some older content may not meet all current accessibility standards. We are reviewing and updating legacy content as part of our ongoing accessibility efforts.
                   </p>
                 </div>
 
-                <div class="p-4 bg-neutral-50 rounded-lg">
+                <div class="p-4 bg-neutral-50 rounded-sm">
                   <h3 class="font-semibold text-neutral-900 mb-2">Project Images</h3>
                   <p class="text-neutral-700 text-sm">
                     Some project photos may have limited alternative text descriptions. We are working to enhance descriptions for all visual content.
@@ -177,7 +177,7 @@
             </section>
 
             <!-- Accessibility Resources -->
-            <div class="mt-12 p-6 bg-neutral-50 rounded-lg border border-neutral-200">
+            <div class="mt-12 p-6 bg-neutral-50 rounded-sm border border-neutral-200">
               <h3 class="text-xl font-bold text-neutral-900 mb-4">Additional Accessibility Resources</h3>
               <ul class="space-y-2 text-neutral-700">
                 <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">WCAG 2.1 Guidelines (W3C)</a></li>

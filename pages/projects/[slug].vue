@@ -11,7 +11,7 @@
         <p class="text-neutral-600 mb-6">The project you're looking for doesn't exist or has been removed.</p>
         <NuxtLink
           to="/projects"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors"
         >
           <Icon name="mdi:arrow-left" class="w-5 h-5" />
           Back to Projects
@@ -57,31 +57,31 @@
       </PageBanner>
 
       <!-- Project Image Gallery & Documents -->
-      <AppSection bg-color="neutral-100" padding="md">
+      <AppSection bg-color="neutral-50" padding="md">
         <div>
           <!-- Tab Navigation (only show if both images and PDFs exist) -->
           <div v-if="projectImages.length > 0 && projectPdfs.length > 0" class="flex justify-center mb-8">
-            <div class="inline-flex bg-white rounded-sm p-1 border border-neutral-300">
+            <div class="inline-flex bg-white rounded-sm border border-neutral-300 divide-x divide-neutral-300">
               <button
-                class="px-6 py-2.5 rounded-sm font-medium transition-colors duration-200 flex items-center gap-2"
-                :class="activeTab === 'images' ? 'bg-primary text-white shadow-sm' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'"
+                class="h-11 px-6 font-semibold transition-colors duration-200 flex items-center gap-2"
+                :class="activeTab === 'images' ? 'bg-primary text-white' : 'text-neutral-700 hover:bg-neutral-50'"
                 @click="activeTab = 'images'"
               >
                 <Icon name="mdi:image-multiple" class="w-5 h-5" />
                 Photos
-                <span class="ml-1 px-2 py-0.5 rounded-full text-xs"
+                <span class="ml-1 px-2 py-0.5 rounded-sm text-xs"
                   :class="activeTab === 'images' ? 'bg-white/20' : 'bg-neutral-200 text-neutral-600'">
                   {{ projectImages.length }}
                 </span>
               </button>
               <button
-                class="px-6 py-2.5 rounded-sm font-medium transition-colors duration-200 flex items-center gap-2"
-                :class="activeTab === 'documents' ? 'bg-primary text-white shadow-sm' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'"
+                class="h-11 px-6 font-semibold transition-colors duration-200 flex items-center gap-2"
+                :class="activeTab === 'documents' ? 'bg-primary text-white' : 'text-neutral-700 hover:bg-neutral-50'"
                 @click="activeTab = 'documents'"
               >
                 <Icon name="mdi:file-pdf-box" class="w-5 h-5" />
                 Documents
-                <span class="ml-1 px-2 py-0.5 rounded-full text-xs"
+                <span class="ml-1 px-2 py-0.5 rounded-sm text-xs"
                   :class="activeTab === 'documents' ? 'bg-white/20' : 'bg-neutral-200 text-neutral-600'">
                   {{ projectPdfs.length }}
                 </span>
@@ -111,8 +111,7 @@
           <div class="lg:col-span-2 space-y-12">
             <!-- Project Overview Section -->
             <section>
-              <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6 flex items-center gap-3">
-                <span class="w-1 h-8 bg-primary rounded-full"></span>
+              <h2 class="text-3xl font-display font-bold text-neutral-900 mb-6 border-l-2 border-primary pl-4">
                 Project Overview
               </h2>
               <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="project.content.rendered"></div>
@@ -128,8 +127,7 @@
 
             <!-- Services Provided Section -->
             <section v-if="servicesProvided.length > 0">
-              <h3 class="text-2xl font-display font-bold text-neutral-900 mb-6 flex items-center gap-3">
-                <span class="w-1 h-6 bg-secondary rounded-full"></span>
+              <h3 class="text-2xl font-display font-bold text-neutral-900 mb-6 border-l-2 border-secondary pl-4">
                 Services Provided
               </h3>
               <div class="flex flex-wrap gap-3">
@@ -147,7 +145,7 @@
           <!-- Sidebar -->
           <div class="space-y-8">
             <!-- Quick Stats -->
-            <aside class="bg-neutral-50 rounded-sm p-6 border border-neutral-300">
+            <aside class="card bg-neutral-50 p-6">
               <h3 class="font-bold text-neutral-900 mb-6 flex items-center gap-2 text-lg">
                 <Icon name="mdi:information" class="w-5 h-5 text-primary" />
                 Project Details
@@ -177,12 +175,12 @@
             </aside>
 
             <!-- CTA -->
-            <aside class="border-l-2 border-primary bg-primary/5 p-6">
+            <aside class="border-l-2 border-primary bg-neutral-50 p-6">
               <h4 class="font-bold text-neutral-900 mb-2 text-lg">Start Your Project</h4>
               <p class="text-neutral-600 mb-5 text-sm">Need similar structural engineering services? Let's discuss your requirements.</p>
               <NuxtLink
                 to="/contact"
-                class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors"
+                class="btn-primary w-full"
               >
                 Contact Us
                 <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -194,14 +192,10 @@
 
       <!-- Related Projects -->
       <AppSection v-if="hasRelatedProjects" bg-color="neutral-50" animate-on-scroll>
-        <div class="mb-12 max-w-3xl">
-          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-            Related Projects
-          </h2>
-          <p class="text-xl text-neutral-600">
-            Explore similar projects we've completed
-          </p>
-        </div>
+        <SectionHeading
+          title="Related Projects"
+          lede="Explore similar projects we've completed"
+        />
 
         <div class="grid md:grid-cols-3 gap-8">
           <ProjectCard
@@ -217,10 +211,10 @@
           />
         </div>
 
-        <div class="text-center mt-12">
+        <div class="mt-12">
           <NuxtLink
             to="/projects"
-            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-sm font-semibold hover:bg-primary hover:text-white transition-colors"
+            class="btn-outline"
           >
             View All Projects
             <Icon name="mdi:arrow-right" class="w-5 h-5" />

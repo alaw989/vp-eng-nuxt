@@ -10,19 +10,25 @@
       aria-label="Services page banner"
     />
 
-    <!-- Category Filter Section -->
-    <AppSection bg-color="neutral-100" padding="md">
-      <div>
-        <div class="flex items-stretch overflow-x-auto scrollbar-hide snap-x snap-mandatory border border-neutral-300 bg-white w-fit max-w-full divide-x divide-neutral-300">
+    <!-- Services Overview -->
+    <AppSection bg-color="white" animate-on-scroll>
+      <SectionHeading
+        title="Complete Structural Engineering Services"
+        lede="From initial design to construction support, we provide end-to-end structural engineering expertise. Our services encompass all major construction materials and project types."
+      />
+
+      <!-- Toolbar -->
+      <div class="border-b border-neutral-200 pb-6 mb-8">
+        <div class="flex items-stretch overflow-x-auto scrollbar-hide snap-x snap-mandatory border border-neutral-300 rounded-sm bg-white w-fit max-w-full divide-x divide-neutral-300">
           <button
             v-for="category in serviceCategories"
             :key="category.id"
             @click="setCategory(category.id)"
             :class="[
-              'px-5 py-2.5 font-semibold transition-colors duration-200 whitespace-nowrap snap-start focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
+              'h-11 px-5 font-semibold transition-colors duration-200 whitespace-nowrap snap-start focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
               activeCategory === category.id
                 ? 'bg-primary text-white'
-                : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                : 'bg-white text-neutral-700 hover:bg-neutral-50'
             ]"
             :aria-pressed="activeCategory === category.id"
             :aria-label="`Filter by ${category.name}`"
@@ -30,20 +36,8 @@
             {{ category.name }}
           </button>
         </div>
-        <div class="text-neutral-600 mt-4">
+        <p class="eyebrow text-neutral-600 mt-4">
           <span aria-live="polite">{{ filteredServices.length }} service{{ filteredServices.length !== 1 ? 's' : '' }}</span>
-        </div>
-      </div>
-    </AppSection>
-
-    <!-- Services Overview -->
-    <AppSection bg-color="white" animate-on-scroll>
-      <div class="mb-16 max-w-3xl">
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-6">
-          Complete Structural Engineering Services
-        </h2>
-        <p class="text-xl text-neutral-600">
-          From initial design to construction support, we provide end-to-end structural engineering expertise. Our services encompass all major construction materials and project types.
         </p>
       </div>
 
@@ -57,7 +51,7 @@
         <div
           v-for="service in filteredServices"
           :key="service.slug"
-          class="group relative bg-white rounded-sm p-8 border border-neutral-300 hover:border-primary transition-colors duration-300"
+          class="card group relative p-8 hover:border-primary"
         >
           <div>
             <div class="flex items-start gap-4 mb-4">
@@ -68,7 +62,7 @@
                 <h3 class="text-2xl font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors">
                   {{ service.title }}
                 </h3>
-                <div v-if="service.standard" class="inline-block px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-primary border border-primary/40 rounded-sm">
+                <div v-if="service.standard" class="inline-block px-2 py-0.5 eyebrow font-semibold text-primary border border-primary/40 rounded-sm">
                   {{ service.standard }}
                 </div>
               </div>
@@ -105,7 +99,7 @@
     <AppSection bg-color="neutral-50" animate-on-scroll>
       <div class="grid lg:grid-cols-3 gap-12">
         <div>
-          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+          <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-4">
             Why Choose VP Associates?
           </h2>
           <p class="text-lg text-neutral-600">
@@ -114,7 +108,7 @@
         </div>
 
         <ul class="lg:col-span-2 grid sm:grid-cols-2 gap-px bg-neutral-300 border border-neutral-300">
-          <li v-for="reason in reasons" :key="reason.title" class="bg-neutral-50 p-6 md:p-8">
+          <li v-for="reason in reasons" :key="reason.title" class="bg-white p-6 md:p-8">
             <h3 class="text-lg font-bold text-neutral-900 mb-2">{{ reason.title }}</h3>
             <p class="text-neutral-600">{{ reason.text }}</p>
           </li>
@@ -123,15 +117,11 @@
     </AppSection>
 
     <!-- Process Section -->
-    <AppSection bg-color="secondary/5" animate-on-scroll>
-      <div class="mb-12 max-w-3xl">
-        <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-          Our Process
-        </h2>
-        <p class="text-xl text-neutral-600">
-          How we work with you from concept to completion
-        </p>
-      </div>
+    <AppSection bg-color="white" animate-on-scroll>
+      <SectionHeading
+        title="Our Process"
+        lede="How we work with you from concept to completion"
+      />
 
       <ProcessSteps :steps="processSteps" />
     </AppSection>

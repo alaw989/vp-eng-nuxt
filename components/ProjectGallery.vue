@@ -2,7 +2,7 @@
   <div class="project-gallery">
     <!-- Main featured image -->
     <div
-      class="aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl relative cursor-pointer group"
+      class="aspect-[16/9] rounded-sm overflow-hidden border border-neutral-200 relative cursor-pointer group"
       @click="openLightbox(0)"
       @keydown.enter="openLightbox(0)"
       role="button"
@@ -47,7 +47,7 @@
       <div
         v-for="(image, index) in images.slice(0, showAllThumbnails ? undefined : 5)"
         :key="index"
-        class="aspect-[16/9] rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+        class="aspect-[16/9] rounded-sm overflow-hidden cursor-pointer border border-neutral-200 hover:border-primary transition-colors duration-200 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
         :class="{ 'ring-2 ring-primary': index === 0 && !showAllThumbnails }"
         @click="openLightbox(index)"
         role="button"
@@ -69,7 +69,7 @@
       <!-- Show more button if there are more than 5 images -->
       <button
         v-if="!showAllThumbnails && images.length > 5"
-        class="aspect-[16/9] rounded-lg bg-neutral-100 hover:bg-neutral-200 transition-colors flex flex-col items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="aspect-[16/9] rounded-sm bg-neutral-100 hover:bg-neutral-200 transition-colors flex flex-col items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         @click="showAllThumbnails = true"
       >
         <Icon name="mdi:dots-horizontal" class="w-8 h-8 text-neutral-600" />
@@ -100,7 +100,7 @@
           <!-- Close button -->
           <button
             ref="closeButtonRef"
-            class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10 p-2 rounded-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            class="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10 p-2 rounded-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             @click="closeLightbox"
             aria-label="Close gallery"
           >
@@ -110,7 +110,7 @@
           <!-- Navigation arrows -->
           <button
             v-if="canGoPrevious"
-            class="absolute left-4 text-white/80 hover:text-white transition-colors z-10 p-2 rounded-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            class="absolute left-4 text-white/80 hover:text-white transition-colors z-10 p-2 rounded-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             @click.stop="goToPrevious"
             aria-label="Previous image"
           >
@@ -118,7 +118,7 @@
           </button>
           <button
             v-if="canGoNext"
-            class="absolute right-4 text-white/80 hover:text-white transition-colors z-10 p-2 rounded-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            class="absolute right-4 text-white/80 hover:text-white transition-colors z-10 p-2 rounded-sm focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             @click.stop="goToNext"
             aria-label="Next image"
           >
@@ -140,7 +140,7 @@
                 :key="currentImageIndex"
                 :src="images[currentImageIndex]"
                 :alt="`${projectName} - Project Image ${currentImageIndex + 1}`"
-                class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+                class="max-w-full max-h-[85vh] object-contain rounded-sm shadow-2xl"
                 format="webp"
                 :width="1920"
                 :height="1080"
@@ -164,7 +164,7 @@
             <button
               v-for="(image, index) in images"
               :key="index"
-              class="w-12 h-12 rounded-lg overflow-hidden border-2 transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              class="w-12 h-12 rounded-sm overflow-hidden border-2 transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               :class="index === currentImageIndex ? 'border-white scale-110' : 'border-white/30 opacity-60 hover:opacity-100'"
               :aria-label="`View image ${index + 1} of ${images.length}`"
               :aria-selected="index === currentImageIndex"

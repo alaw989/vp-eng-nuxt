@@ -109,8 +109,8 @@ describe('ServiceCard Component', () => {
 
     expect(wrapper.html()).toContain('group')
     expect(wrapper.html()).toContain('hover:border-primary')
-    expect(wrapper.html()).toContain('hover:shadow-xl')
-    expect(wrapper.html()).toContain('hover:-translate-y-1')
+    expect(wrapper.html()).not.toContain('hover:shadow-xl')
+    expect(wrapper.html()).not.toContain('hover:-translate-y-1')
   })
 
   it('has transition classes', () => {
@@ -119,7 +119,7 @@ describe('ServiceCard Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('transition-all duration-300')
+    expect(wrapper.html()).toContain('card')
   })
 
   it('has focus-visible ring for accessibility', () => {
@@ -175,7 +175,7 @@ describe('ServiceCard Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('bg-white rounded-xl border border-neutral-200')
+    expect(wrapper.find('a').classes()).toContain('card')
   })
 
   it('has proper padding', () => {

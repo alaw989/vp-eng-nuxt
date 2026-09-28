@@ -33,7 +33,7 @@
     <!-- Navigation Arrows -->
     <template v-if="showArrows && slides.length > 1">
       <button
-        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
+        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 p-3 rounded-sm bg-white transition-colors text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
         :aria-label="previousLabel"
         :disabled="currentSlide === 0 && !loop"
         @click="previousSlide"
@@ -41,7 +41,7 @@
         <Icon :name="previousIcon" class="w-6 h-6" />
       </button>
       <button
-        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
+        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 p-3 rounded-sm bg-white transition-colors text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
         :aria-label="nextLabel"
         :disabled="currentSlide === slides.length - 1 && !loop"
         @click="nextSlide"

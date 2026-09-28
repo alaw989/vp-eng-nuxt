@@ -24,7 +24,7 @@
             v-model="searchQuery"
             type="search"
             placeholder="Search for services, projects, or pages..."
-            class="w-full px-6 py-4 pl-14 text-lg rounded-xl border-2 border-neutral-200 focus:border-primary focus:ring-4 focus:ring-primary/20 outline-none transition-all"
+            class="w-full px-6 py-4 pl-14 text-lg rounded-sm border-2 border-neutral-200 focus:border-primary focus:ring-4 focus:ring-primary/20 outline-none transition-all"
             @input="onSearchInput"
             @keydown.down.prevent="navigateAutocomplete('down')"
             @keydown.up.prevent="navigateAutocomplete('up')"
@@ -41,7 +41,7 @@
           <button
             v-if="searchQuery"
             @click="clearSearch"
-            class="absolute right-5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors rounded-lg p-2 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            class="absolute right-5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors rounded-sm p-2 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             aria-label="Clear search"
           >
             <Icon name="mdi:close-circle" class="w-5 h-5" />
@@ -51,7 +51,7 @@
         <!-- Autocomplete Dropdown -->
         <div
           v-if="showAutocomplete && autocompleteSuggestions.length > 0"
-          class="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-neutral-200 overflow-hidden z-50"
+          class="absolute top-full left-0 right-0 mt-2 bg-white rounded-sm shadow-lg border border-neutral-200 overflow-hidden z-50"
           role="listbox"
           id="autocomplete-list"
         >
@@ -73,7 +73,7 @@
               <div class="font-medium text-neutral-900 truncate">{{ item.title }}</div>
               <div class="text-sm text-neutral-500 truncate">{{ getSubtitle(item) }}</div>
             </div>
-            <span class="text-xs px-2 py-1 rounded bg-neutral-100 text-neutral-600 capitalize">{{ item.type }}</span>
+            <span class="text-xs px-2 py-1 rounded-sm bg-neutral-100 text-neutral-600 capitalize">{{ item.type }}</span>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
             <select
               v-model="filterType"
               @change="performSearch"
-              class="appearance-none px-4 py-2 pr-10 bg-white border border-neutral-200 rounded-lg text-sm text-neutral-700 hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
+              class="appearance-none px-4 py-2 pr-10 bg-white border border-neutral-200 rounded-sm text-sm text-neutral-700 hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
               aria-label="Filter by content type"
             >
               <option value="">All Types</option>
@@ -104,7 +104,7 @@
             <select
               v-model="filterCategory"
               @change="performSearch"
-              class="appearance-none px-4 py-2 pr-10 bg-white border border-neutral-200 rounded-lg text-sm text-neutral-700 hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
+              class="appearance-none px-4 py-2 pr-10 bg-white border border-neutral-200 rounded-sm text-sm text-neutral-700 hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
               aria-label="Filter by project category"
             >
               <option value="">All Categories</option>
@@ -117,7 +117,7 @@
           <button
             v-if="filterType || filterCategory"
             @click="clearFilters"
-            class="px-3 py-2 text-sm text-primary hover:text-primary-dark hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-1"
+            class="px-3 py-2 text-sm text-primary hover:text-primary-dark hover:bg-primary/5 rounded-sm transition-colors flex items-center gap-1"
             aria-label="Clear all filters"
           >
             <Icon name="mdi:close" class="w-4 h-4" />
@@ -160,7 +160,7 @@
         <p class="text-neutral-600 mb-6">{{ searchError }}</p>
         <button
           @click="performSearch"
-          class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+          class="px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors"
         >
           Try Again
         </button>
@@ -176,10 +176,10 @@
             Try searching for different keywords or browse our sections below
           </p>
           <div class="flex flex-wrap justify-center gap-3">
-            <NuxtLink to="/services" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
+            <NuxtLink to="/services" class="px-4 py-2 bg-primary text-white rounded-sm hover:bg-primary-dark transition-colors">
               Browse Services
             </NuxtLink>
-            <NuxtLink to="/projects" class="px-4 py-2 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
+            <NuxtLink to="/projects" class="px-4 py-2 border-2 border-primary text-primary rounded-sm hover:bg-primary hover:text-white transition-colors">
               Browse Projects
             </NuxtLink>
           </div>
@@ -210,7 +210,7 @@
                   v-for="item in typeFilteredResults('page')"
                   :key="`${item.type}-${item.slug}`"
                   :to="item.url"
-                  class="block p-4 rounded-lg border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  class="block p-4 rounded-sm border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <div class="flex items-start gap-3">
                     <Icon :name="item.icon || 'mdi:file'" class="w-5 h-5 text-primary mt-0.5" />
@@ -235,7 +235,7 @@
                   v-for="item in typeFilteredResults('service')"
                   :key="`${item.type}-${item.slug}`"
                   :to="item.url"
-                  class="p-4 rounded-lg border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  class="p-4 rounded-sm border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <div class="flex items-start gap-3">
                     <Icon :name="item.icon || 'mdi:cog'" class="w-5 h-5 text-primary mt-0.5" />
@@ -260,7 +260,7 @@
                   v-for="item in typeFilteredResults('project')"
                   :key="`${item.type}-${item.slug}`"
                   :to="item.url"
-                  class="p-4 rounded-lg border border-neutral-200 hover:border-secondary hover:bg-secondary/5 transition-all group focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+                  class="p-4 rounded-sm border border-neutral-200 hover:border-secondary hover:bg-secondary/5 transition-all group focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
                 >
                   <div class="flex items-start gap-3">
                     <Icon name="mdi:office-building" class="w-5 h-5 text-secondary mt-0.5" />
@@ -303,7 +303,7 @@
               v-for="term in popularSearches"
               :key="term"
               @click="searchWithTerm(term)"
-              class="px-4 py-2 bg-white border border-neutral-200 rounded-lg text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              class="px-4 py-2 bg-white border border-neutral-200 rounded-sm text-neutral-700 hover:border-primary hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               {{ term }}
             </button>

@@ -1,14 +1,5 @@
 <template>
   <div ref="target">
-    <!-- Dimension string: the whole row reads concept to completion -->
-    <div class="hidden md:flex items-center gap-3 mb-6 text-xs uppercase tracking-[0.2em] text-neutral-600" aria-hidden="true">
-      <span class="h-3 border-l border-neutral-400" />
-      <span>Concept</span>
-      <span class="flex-1 h-px bg-neutral-400" />
-      <span>Completion</span>
-      <span class="h-3 border-l border-neutral-400" />
-    </div>
-
     <ol class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <li
         v-for="(step, index) in steps"

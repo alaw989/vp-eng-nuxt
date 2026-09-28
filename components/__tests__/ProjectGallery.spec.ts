@@ -152,16 +152,17 @@ describe('ProjectGallery Component', () => {
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('rounded-2xl')
+    expect(wrapper.html()).toContain('rounded-sm')
   })
 
-  it('has proper shadow classes', () => {
+  it('keeps the gallery flat, with a border instead of a shadow', () => {
     const wrapper = mount(ProjectGallery, {
       props: defaultProps,
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('shadow-2xl')
+    expect(wrapper.html()).toContain('border border-neutral-200')
+    expect(wrapper.html()).not.toContain('shadow-2xl')
   })
 
   it('has transition classes', () => {
@@ -201,13 +202,13 @@ describe('ProjectGallery Component', () => {
     expect(wrapper.html()).toContain('tabindex="0"')
   })
 
-  it('has hover shadow effect on thumbnails', () => {
+  it('highlights thumbnails with a border on hover', () => {
     const wrapper = mount(ProjectGallery, {
       props: defaultProps,
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('hover:shadow-xl')
+    expect(wrapper.html()).toContain('hover:border-primary')
   })
 
   it('has scale effect on hover', () => {

@@ -40,7 +40,7 @@ function closePrompt() {
       role="alert"
       aria-live="polite"
     >
-      <div class="bg-white dark:bg-gray-800 rounded-t-lg sm:rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mx-0 sm:mx-0">
+      <div class="bg-white dark:bg-gray-800 rounded-t-lg sm:rounded-sm shadow-lg border border-gray-200 dark:border-gray-700 mx-0 sm:mx-0">
         <div class="p-4">
           <div class="flex items-start">
             <!-- Icon -->
@@ -77,14 +77,14 @@ function closePrompt() {
           <div class="mt-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
             <button
               type="button"
-              class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+              class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
               @click="closePrompt"
             >
               Later
             </button>
             <button
               type="button"
-              class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+              class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
               @click="updateApp"
             >
               <Icon name="mdi:refresh" class="mr-2 -ml-1 h-4 w-4" />
@@ -111,7 +111,7 @@ function closePrompt() {
       role="status"
       aria-live="polite"
     >
-      <div class="bg-white dark:bg-gray-800 rounded-t-lg sm:rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mx-0 sm:mx-0">
+      <div class="bg-white dark:bg-gray-800 rounded-t-lg sm:rounded-sm shadow-lg border border-gray-200 dark:border-gray-700 mx-0 sm:mx-0">
         <div class="p-4">
           <div class="flex items-start">
             <!-- Icon -->
@@ -148,7 +148,7 @@ function closePrompt() {
           <div class="mt-4">
             <button
               type="button"
-              class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
+              class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
               @click="closePrompt"
             >
               Got it

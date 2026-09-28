@@ -29,7 +29,7 @@
                 <li v-for="page in mainPages" :key="page.href">
                   <NuxtLink
                     :to="page.href"
-                    class="flex items-center gap-3 p-4 rounded-lg border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group"
+                    class="flex items-center gap-3 p-4 rounded-sm border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group"
                   >
                     <Icon :name="page.icon" class="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                     <div>
@@ -70,7 +70,7 @@
               <li v-for="service in services" :key="service.slug">
                 <NuxtLink
                   :to="`/services/${service.slug}`"
-                  class="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group"
+                  class="flex items-center gap-3 p-3 rounded-sm border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group"
                 >
                   <Icon
                     :name="service.services_meta?.icon || 'mdi:cog'"
@@ -112,7 +112,7 @@
               <li v-for="project in projects" :key="project.slug">
                 <NuxtLink
                   :to="`/projects/${project.slug}`"
-                  class="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-secondary hover:bg-secondary/5 transition-all group"
+                  class="flex items-center gap-3 p-3 rounded-sm border border-neutral-200 hover:border-secondary hover:bg-secondary/5 transition-all group"
                 >
                   <Icon name="mdi:office-building" class="w-5 h-5 text-secondary group-hover:scale-110 transition-transform" />
                   <div class="flex-1 min-w-0">
@@ -143,7 +143,7 @@
               <li v-for="resource in resources" :key="resource.href">
                 <NuxtLink
                   :to="resource.href"
-                  class="flex items-center gap-3 p-4 rounded-lg border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group"
+                  class="flex items-center gap-3 p-4 rounded-sm border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all group"
                 >
                   <Icon :name="resource.icon" class="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                   <div>

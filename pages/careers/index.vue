@@ -11,7 +11,7 @@
 
     <!-- The Work -->
     <AppSection bg-color="white" animate-on-scroll>
-      <div class="max-w-3xl mx-auto">
+      <div class="max-w-3xl">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6">
           The work
         </h2>
@@ -29,15 +29,15 @@
 
     <!-- Open Positions -->
     <AppSection bg-color="neutral-50" animate-on-scroll>
-      <div class="text-center py-16 bg-white rounded-xl max-w-3xl mx-auto">
-        <Icon name="mdi:inbox-outline" class="w-16 h-16 text-neutral-300 mx-auto mb-4" />
-        <h2 class="text-2xl font-bold text-neutral-900 mb-4">No open positions at this time</h2>
-        <p class="text-neutral-600 mb-6 px-6">
+      <div class="card p-8 md:p-12 max-w-3xl">
+        <p class="eyebrow text-secondary mb-3">Open positions</p>
+        <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-4">No open positions at this time</h2>
+        <p class="text-lg text-neutral-600 mb-8">
           If you're a structural engineer or steel detailer interested in future openings, send us your resume.
         </p>
         <NuxtLink
           to="/contact"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="btn-primary"
         >
           Submit Your Resume
           <Icon name="mdi:arrow-right" class="w-5 h-5" />

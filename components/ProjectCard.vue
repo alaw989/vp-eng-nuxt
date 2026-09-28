@@ -2,10 +2,10 @@
   <NuxtLink
     :to="`/projects/${slug}`"
     :class="[
-      'group overflow-hidden rounded-xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+      'group overflow-hidden rounded-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
       darkMode
-        ? 'bg-neutral-800/80 border border-neutral-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-1 backdrop-blur-sm'
-        : 'bg-white border border-neutral-200 hover:border-primary hover:shadow-2xl hover:-translate-y-1',
+        ? 'bg-neutral-800 border border-neutral-700 hover:border-neutral-400'
+        : 'bg-white border border-neutral-200 hover:border-primary',
       viewMode === 'list' ? 'flex flex-col md:flex-row' : 'block'
     ]"
     :aria-label="`View project: ${title}${category ? ` - ${category}` : ''}${location ? ` in ${location}` : ''}`"
@@ -19,7 +19,7 @@
         v-if="image"
         :src="image"
         :alt="`${title}${category ? ` - ${category} project` : ' project'}${location ? ` in ${location}` : ''}`"
-        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none"
         format="webp"
         :loading="priority ? 'eager' : 'lazy'"
         :fetchpriority="priority ? 'high' : 'auto'"
@@ -38,9 +38,9 @@
       viewMode === 'list' ? 'p-6 md:w-2/3' : 'p-6'
     ]">
       <div v-if="category" :class="[
-        'inline-block px-3 py-1 text-xs font-semibold rounded-full mb-3 self-start',
+        'inline-block px-2 py-0.5 text-xs font-semibold uppercase tracking-[0.2em] rounded-sm mb-3 self-start',
         darkMode
-          ? 'text-primary-light bg-primary/20'
+          ? 'text-neutral-200 bg-white/10'
           : 'text-primary bg-primary/10'
       ]">
         {{ category }}

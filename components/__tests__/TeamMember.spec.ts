@@ -212,24 +212,15 @@ describe('TeamMember Component', () => {
 
     expect(wrapper.html()).toContain('group')
     expect(wrapper.html()).toContain('hover:border-primary')
-    expect(wrapper.html()).toContain('hover:shadow-xl')
+    expect(wrapper.html()).not.toContain('hover:shadow-xl')
   })
 
-  it('has rounded-xl class', () => {
+  it('uses the shared card style', () => {
     const wrapper = mount(TeamMember, {
       props: { name: 'Jane', title: 'Engineer' },
       global: { stubs: globalStubs }
     })
 
-    expect(wrapper.html()).toContain('rounded-xl')
-  })
-
-  it('has border classes', () => {
-    const wrapper = mount(TeamMember, {
-      props: { name: 'Jane', title: 'Engineer' },
-      global: { stubs: globalStubs }
-    })
-
-    expect(wrapper.html()).toContain('border border-neutral-200')
+    expect(wrapper.classes()).toContain('card')
   })
 })
