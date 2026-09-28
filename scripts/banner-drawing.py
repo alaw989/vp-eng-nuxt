@@ -16,7 +16,8 @@ fainter layer that fades in last. The rest is bucketed into bands by height so
 the frame "goes up" from its base as it draws.
 
 --crop and --skip take fractions of the sheet (0-1), measured from the top left of
-the page as it displays. The defaults keep the area inside a standard sheet border.
+the page as it displays. --rotate (clockwise) is applied after cropping, for
+drawings laid out sideways on the sheet. The defaults keep the area inside a standard sheet border.
 Needs pdftocairo (poppler). Only straight-line (M/L) PDFs are supported, which is
 what the SDS2 and ACAD exports on the site produce.
 """
@@ -34,6 +35,8 @@ ap.add_argument('--skip', action='append', default=[], help='drop box (e.g. a la
 ap.add_argument('--width', type=int, default=1600, help='output viewBox width')
 ap.add_argument('--bands', type=int, default=14, help='how many ground-up stages the draw-in has')
 ap.add_argument('--min-length', type=float, default=1.2, help='drop segments shorter than this')
+ap.add_argument('--rotate', type=int, default=0, choices=(0, 90, 180, 270),
+                help='rotate clockwise after cropping, for drawings laid out sideways on the sheet')
 ap.add_argument('--lite', action='store_true', help='phone version: 800 wide, min length 5, no grating layer')
 args = ap.parse_args()
 if args.lite:
@@ -87,6 +90,11 @@ def keep(p):
 segs = [s for s in segs if keep(s[0]) and keep(s[1])]
 if not segs:
     sys.exit('no line work left after cropping; check --crop')
+
+# Rotate clockwise (screen coordinates, y down); the bounds are recomputed below
+turn = {0: lambda x, y: (x, y), 90: lambda x, y: (-y, x),
+        180: lambda x, y: (-x, -y), 270: lambda x, y: (y, -x)}[args.rotate]
+segs = [(turn(*a), turn(*b)) for a, b in segs]
 xs = [p[0] for s in segs for p in s]; ys = [p[1] for s in segs for p in s]
 minx, maxx, miny, maxy = min(xs), max(xs), min(ys), max(ys)
 W = args.width

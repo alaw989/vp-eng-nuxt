@@ -2,13 +2,14 @@
   <section ref="target" class="relative overflow-hidden bg-primary text-white">
     <div class="absolute inset-0 bg-blueprint bg-grid" aria-hidden="true" />
 
-    <!-- One of VP's own shop drawings (two stair towers), drawn in on scroll.
+    <!-- One of VP's own shop drawings (Morten Salt conveyor tower, rotated
+         upright from its sideways sheet layout), drawn in on scroll.
          Anchored to the band itself so the towers stand on its bottom edge
          and use its full height, not just the grid column's. -->
     <figure class="hidden lg:block absolute inset-y-0 right-0 w-1/2 pointer-events-none" aria-hidden="true">
       <BannerDrawing
-        src="/images/drawings/stair-towers.svg"
-        aspect-ratio="1000 / 1250"
+        src="/images/drawings/morten-salt-iso.svg"
+        aspect-ratio="1000 / 1884"
         lazy
         :play="isVisible"
         class="absolute bottom-6 right-[4%] h-[94%] opacity-90"

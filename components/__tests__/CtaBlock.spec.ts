@@ -48,7 +48,7 @@ describe('CtaBlock Component', () => {
     expect(wrapper.find('figure').attributes('aria-hidden')).toBe('true')
   })
 
-  it('draws the stair-tower shop drawing, lazily, when scrolled into view', () => {
+  it('draws the Morten Salt tower shop drawing, lazily, when scrolled into view', () => {
     const wrapper = mount(CtaBlock, {
       props: { headline: 'Next' },
       global: {
@@ -59,7 +59,7 @@ describe('CtaBlock Component', () => {
       }
     })
     const drawing = wrapper.find('[data-testid="cta-drawing"]')
-    expect(drawing.attributes('data-src')).toBe('/images/drawings/stair-towers.svg')
+    expect(drawing.attributes('data-src')).toBe('/images/drawings/morten-salt-iso.svg')
     expect(drawing.attributes('data-lazy')).toBe('true')
     expect(['true', 'false']).toContain(drawing.attributes('data-play'))
   })
