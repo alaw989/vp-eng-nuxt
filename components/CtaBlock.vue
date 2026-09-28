@@ -3,20 +3,22 @@
     <div class="absolute inset-0 bg-blueprint bg-grid" aria-hidden="true" />
 
     <!-- One of VP's own shop drawings (Morten Salt conveyor tower, rotated
-         upright from its sideways sheet layout), drawn in on scroll.
-         Anchored to the band itself so the towers stand on its bottom edge
-         and use its full height, not just the grid column's. -->
-    <figure class="hidden lg:block absolute inset-y-0 right-0 w-1/2 pointer-events-none" aria-hidden="true">
-      <BannerDrawing
-        src="/images/drawings/morten-salt-iso.svg"
-        aspect-ratio="1000 / 1884"
-        lazy
-        :play="isVisible"
-        class="absolute bottom-6 right-[4%] h-[94%] opacity-90"
-      />
-    </figure>
+         upright from its sideways sheet layout), drawn in on scroll. It sits
+         in the content container (not against the browser edge) and is taller
+         than the band, which crops it top and bottom. -->
+    <div class="container absolute inset-0 hidden lg:block pointer-events-none">
+      <figure class="absolute inset-y-0 right-16 xl:right-24 w-1/2 flex items-center justify-end" aria-hidden="true">
+        <BannerDrawing
+          src="/images/drawings/morten-salt-iso.svg"
+          aspect-ratio="1000 / 1884"
+          lazy
+          :play="isVisible"
+          class="shrink-0 h-[48rem] xl:h-[60rem] opacity-90"
+        />
+      </figure>
+    </div>
 
-    <div class="container relative z-10 py-20 md:py-28 lg:py-40 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="container relative z-10 py-20 md:py-28 xl:min-h-[41.375rem] grid lg:grid-cols-2 gap-12 items-center">
       <div>
         <p class="eyebrow mb-4 text-white/80">
           Next step
