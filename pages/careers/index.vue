@@ -4,6 +4,8 @@
     <PageBanner
       headline="Careers"
       subheadline="Structural engineering and steel detailing in Tampa"
+      background-image="/images/hero/uploads-2018-06-1920w.jpg"
+      background-alt="Steel frame shown half as a rendered model and half as a blueprint wireframe"
       aria-label="Careers page banner"
     />
 
