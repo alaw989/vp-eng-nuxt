@@ -36,11 +36,14 @@ export default {
           700: '#374151',
           800: '#1f2937',
           900: '#111827'
-        },
-        pattern: {
-          dots: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.08\'%3E%3Ccircle cx=\'2\' cy=\'2\' r=\'1\'/%3E%3Ccircle cx=\'12\' cy=\'12\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E")',
-          grid: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M0 0h40v1H0z\'/%3E%3Cpath d=\'M0 0h1v40H0z\'/%3E%3C/g%3E%3C/svg%3E")'
         }
+      },
+      // Drawing-sheet grid: 1px white hairlines every 40px
+      backgroundImage: {
+        blueprint: 'linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px)'
+      },
+      backgroundSize: {
+        grid: '40px 40px'
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

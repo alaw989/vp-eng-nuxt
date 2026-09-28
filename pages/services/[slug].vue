@@ -71,12 +71,12 @@
               </li>
             </ul>
 
-            <div class="mt-8 bg-primary/10 rounded-xl p-6">
+            <div class="mt-8 border-l-2 border-primary bg-primary/5 p-6">
               <h4 class="font-bold text-neutral-900 mb-2">Need This Service?</h4>
               <p class="text-neutral-600 mb-4">Contact us to discuss your project requirements.</p>
               <NuxtLink
                 to="/contact"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors"
               >
                 Get a Quote
                 <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -88,11 +88,11 @@
 
       <!-- Capabilities -->
       <AppSection v-if="hasCapabilities" bg-color="neutral-50" animate-on-scroll>
-        <div class="text-center mb-12">
+        <div class="mb-12 max-w-3xl">
           <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
             Our Capabilities
           </h2>
-          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          <p class="text-xl text-neutral-600">
             Comprehensive solutions for all your {{ service.title.rendered.toLowerCase() }} needs
           </p>
         </div>
@@ -101,9 +101,9 @@
           <div
             v-for="capability in serviceCapabilities"
             :key="capability"
-            class="bg-white rounded-xl p-6 border border-neutral-200 hover:border-primary hover:shadow-lg transition-all"
+            class="bg-white rounded-sm p-6 border border-neutral-300 flex items-start gap-3"
           >
-            <Icon name="mdi:check-decagram" class="w-8 h-8 text-primary mb-3" />
+            <Icon name="mdi:check" class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" aria-hidden="true" />
             <span class="text-neutral-800 font-medium">{{ capability }}</span>
           </div>
         </div>
@@ -111,52 +111,25 @@
 
       <!-- How This Service Works -->
       <AppSection bg-color="neutral-50" animate-on-scroll>
-        <div class="text-center mb-12">
+        <div class="mb-12 max-w-3xl">
           <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
             How This Service Works
           </h2>
-          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          <p class="text-xl text-neutral-600">
             Our proven process from consultation to support
           </p>
         </div>
 
-        <div class="grid md:grid-cols-4 gap-8">
-          <div class="relative text-center">
-            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">1</div>
-            <h3 class="text-xl font-bold text-neutral-900 mb-2">Consultation</h3>
-            <p class="text-neutral-600 text-sm">Initial project review and scope discussion</p>
-            <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
-          </div>
-
-          <div class="relative text-center">
-            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">2</div>
-            <h3 class="text-xl font-bold text-neutral-900 mb-2">Design</h3>
-            <p class="text-neutral-600 text-sm">Structural analysis and calculation preparation</p>
-            <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
-          </div>
-
-          <div class="relative text-center">
-            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">3</div>
-            <h3 class="text-xl font-bold text-neutral-900 mb-2">Review</h3>
-            <p class="text-neutral-600 text-sm">Plan preparation and permitting support</p>
-            <div class="hidden md:block absolute top-6 left-full w-full h-0.5 bg-primary/20 -translate-x-6"></div>
-          </div>
-
-          <div class="text-center">
-            <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">4</div>
-            <h3 class="text-xl font-bold text-neutral-900 mb-2">Support</h3>
-            <p class="text-neutral-600 text-sm">Construction administration and field services</p>
-          </div>
-        </div>
+        <ProcessSteps :steps="processSteps" />
       </AppSection>
 
       <!-- Related Projects -->
       <AppSection v-if="hasRelatedProjects" bg-color="white" animate-on-scroll>
-        <div class="text-center mb-12">
+        <div class="mb-12 max-w-3xl">
           <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
             Related Projects
           </h2>
-          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          <p class="text-xl text-neutral-600">
             See how we've applied this service on real projects
           </p>
         </div>
@@ -177,11 +150,11 @@
 
       <!-- Related Services -->
       <AppSection v-if="relatedServices.length > 0" bg-color="neutral-100" animate-on-scroll>
-        <div class="text-center mb-12">
+        <div class="mb-12 max-w-3xl">
           <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
             Related Services
           </h2>
-          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          <p class="text-xl text-neutral-600">
             Explore other services that may fit your project needs
           </p>
         </div>
@@ -197,10 +170,10 @@
           />
         </div>
 
-        <div class="text-center mt-12">
+        <div class="mt-12">
           <NuxtLink
             to="/services"
-            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors"
+            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-sm font-semibold hover:bg-primary hover:text-white transition-colors"
           >
             View All Services
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -209,38 +182,17 @@
       </AppSection>
 
       <!-- CTA -->
-      <AppSection bg-color="primary" padding="xl">
-        <div class="container text-center text-white">
-          <h2 class="text-4xl font-display font-bold mb-6">
-            Ready to Discuss Your Project?
-          </h2>
-          <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Our team is ready to provide expert {{ service.title.rendered.toLowerCase() }} services
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <NuxtLink
-              to="/contact"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
-            >
-              Contact Us
-              <Icon name="mdi:arrow-right" class="w-5 h-5" />
-            </NuxtLink>
-            <a
-              href="tel:+18134862079"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark transition-colors"
-            >
-              <Icon name="mdi:phone" class="w-5 h-5" />
-              (813) 486-2079
-            </a>
-          </div>
-        </div>
-      </AppSection>
+      <CtaBlock
+        headline="Ready to Discuss Your Project?"
+        :subheadline="`Our team is ready to provide expert ${service.title.rendered.toLowerCase()} services`"
+      />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
 import { decodeHtmlEntities } from '~/utils/html'
+import { processSteps } from '~/utils/process'
 
 const route = useRoute()
 const slug = String((route.params as any).slug || '')
@@ -436,7 +388,7 @@ const serviceHeroImages: Record<string, string> = {
   'foundation-design': '',
   'seawall-design': '',
   'steel-connection-design': '/images/hero/construction-steel-beams-1920w.jpg',
-  'cad-3d-modeling': '/images/hero/construction-structural-1920w.jpg',
+  'cad-3d-modeling': '',
   'inspection-services': '/images/hero/construction-site-1920w.jpg',
   'steel-detailing': '/images/hero/construction-steel-structure-1920w.jpg'
 }

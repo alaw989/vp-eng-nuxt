@@ -36,7 +36,7 @@
     <div
       v-else
       data-testid="banner-grid"
-      class="absolute inset-0 bg-[linear-gradient(to_right,rgb(255_255_255/0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.07)_1px,transparent_1px)] bg-[size:40px_40px]"
+      class="absolute inset-0 bg-blueprint bg-grid"
       aria-hidden="true"
     >
       <svg class="absolute inset-0 w-full h-full text-white/30" fill="none" stroke="currentColor" stroke-width="1">
@@ -77,6 +77,7 @@
           >
             {{ subheadline }}
           </p>
+          <slot />
         </div>
       </div>
     </div>

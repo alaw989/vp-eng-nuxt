@@ -29,45 +29,41 @@
       </div>
 
       <!-- Page Header -->
-      <AppSection bg-color="primary-dark" padding="lg">
-        <div class="container text-white">
+      <PageBanner
+        :headline="project.title.rendered"
+        :subheadline="projectDescription"
+        aria-label="Project page banner"
+      >
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-6 text-sm text-white/80">
           <NuxtLink
             to="/projects"
-            class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
+            class="inline-flex items-center gap-1 text-white hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
-            <Icon name="mdi:arrow-left" class="w-5 h-5" />
+            <Icon name="mdi:arrow-left" class="w-4 h-4" aria-hidden="true" />
             Back to Projects
           </NuxtLink>
-          <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="px-4 py-1.5 bg-secondary rounded-full font-semibold text-sm">
-              {{ projectCategory }}
-            </span>
-            <span class="flex items-center gap-1 text-white/80">
-              <Icon name="mdi:map-marker" class="w-4 h-4" />
-              {{ projectLocation }}
-            </span>
-            <span class="flex items-center gap-1 text-white/80">
-              <Icon name="mdi:calendar" class="w-4 h-4" />
-              {{ projectYear }}
-            </span>
-          </div>
-          <h1 class="text-4xl md:text-5xl font-display font-bold mb-6">
-            {{ project.title.rendered }}
-          </h1>
-          <p class="text-xl opacity-90 max-w-3xl">
-            {{ projectDescription }}
-          </p>
+          <span class="px-2 py-0.5 border border-white/60 uppercase tracking-[0.15em] text-xs text-white">
+            {{ projectCategory }}
+          </span>
+          <span v-if="projectLocation" class="flex items-center gap-1">
+            <Icon name="mdi:map-marker" class="w-4 h-4" aria-hidden="true" />
+            {{ projectLocation }}
+          </span>
+          <span v-if="projectYear" class="flex items-center gap-1">
+            <Icon name="mdi:calendar" class="w-4 h-4" aria-hidden="true" />
+            {{ projectYear }}
+          </span>
         </div>
-      </AppSection>
+      </PageBanner>
 
       <!-- Project Image Gallery & Documents -->
       <AppSection bg-color="neutral-100" padding="md">
-        <div class="container">
+        <div>
           <!-- Tab Navigation (only show if both images and PDFs exist) -->
           <div v-if="projectImages.length > 0 && projectPdfs.length > 0" class="flex justify-center mb-8">
-            <div class="inline-flex bg-white rounded-lg p-1 shadow-sm">
+            <div class="inline-flex bg-white rounded-sm p-1 border border-neutral-300">
               <button
-                class="px-6 py-2.5 rounded-md font-medium transition-all duration-200 flex items-center gap-2"
+                class="px-6 py-2.5 rounded-sm font-medium transition-colors duration-200 flex items-center gap-2"
                 :class="activeTab === 'images' ? 'bg-primary text-white shadow-sm' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'"
                 @click="activeTab = 'images'"
               >
@@ -79,7 +75,7 @@
                 </span>
               </button>
               <button
-                class="px-6 py-2.5 rounded-md font-medium transition-all duration-200 flex items-center gap-2"
+                class="px-6 py-2.5 rounded-sm font-medium transition-colors duration-200 flex items-center gap-2"
                 :class="activeTab === 'documents' ? 'bg-primary text-white shadow-sm' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'"
                 @click="activeTab = 'documents'"
               >
@@ -140,7 +136,7 @@
                 <span
                   v-for="service in servicesProvided"
                   :key="service"
-                  class="px-5 py-2.5 bg-primary/10 text-primary rounded-lg font-medium hover:bg-primary/20 transition-colors"
+                  class="px-4 py-2 border border-primary/40 text-primary rounded-sm font-medium"
                 >
                   {{ service }}
                 </span>
@@ -151,7 +147,7 @@
           <!-- Sidebar -->
           <div class="space-y-8">
             <!-- Quick Stats -->
-            <aside class="bg-neutral-50 rounded-xl p-6 shadow-sm">
+            <aside class="bg-neutral-50 rounded-sm p-6 border border-neutral-300">
               <h3 class="font-bold text-neutral-900 mb-6 flex items-center gap-2 text-lg">
                 <Icon name="mdi:information" class="w-5 h-5 text-primary" />
                 Project Details
@@ -169,7 +165,7 @@
                   <span class="text-neutral-600 text-sm">Capacity</span>
                   <span class="font-semibold text-neutral-900">{{ projectStats.capacity }}</span>
                 </div>
-                <div class="flex justify-between items-center pb-3 border-b border-neutral-200">
+                <div v-if="projectLocation" class="flex justify-between items-center pb-3 border-b border-neutral-200">
                   <span class="text-neutral-600 text-sm">Location</span>
                   <span class="font-semibold text-neutral-900">{{ projectLocation }}</span>
                 </div>
@@ -181,12 +177,12 @@
             </aside>
 
             <!-- CTA -->
-            <aside class="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-6 border border-primary/20">
+            <aside class="border-l-2 border-primary bg-primary/5 p-6">
               <h4 class="font-bold text-neutral-900 mb-2 text-lg">Start Your Project</h4>
               <p class="text-neutral-600 mb-5 text-sm">Need similar structural engineering services? Let's discuss your requirements.</p>
               <NuxtLink
                 to="/contact"
-                class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors shadow-md hover:shadow-lg"
+                class="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-white rounded-sm font-semibold hover:bg-primary-dark transition-colors"
               >
                 Contact Us
                 <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -198,11 +194,11 @@
 
       <!-- Related Projects -->
       <AppSection v-if="hasRelatedProjects" bg-color="neutral-50" animate-on-scroll>
-        <div class="text-center mb-12">
+        <div class="mb-12 max-w-3xl">
           <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
             Related Projects
           </h2>
-          <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          <p class="text-xl text-neutral-600">
             Explore similar projects we've completed
           </p>
         </div>
@@ -224,7 +220,7 @@
         <div class="text-center mt-12">
           <NuxtLink
             to="/projects"
-            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors"
+            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-sm font-semibold hover:bg-primary hover:text-white transition-colors"
           >
             View All Projects
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -233,37 +229,20 @@
       </AppSection>
 
       <!-- Services CTA -->
-      <AppSection bg-color="primary" padding="xl">
-        <div class="container text-center text-white">
-          <h2 class="text-4xl font-display font-bold mb-6">
-            Engineering Excellence for Every Project
-          </h2>
-          <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            From concept to completion, VP Associates delivers superior structural engineering services
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <NuxtLink
-              to="/services"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-neutral-100 transition-colors"
-            >
-              Our Services
-              <Icon name="mdi:arrow-right" class="w-5 h-5" />
-            </NuxtLink>
-            <NuxtLink
-              to="/contact"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-lg font-semibold hover:bg-secondary-dark transition-colors"
-            >
-              Get a Quote
-              <Icon name="mdi:arrow-right" class="w-5 h-5" />
-            </NuxtLink>
-          </div>
-        </div>
-      </AppSection>
+      <CtaBlock
+        headline="Engineering Excellence for Every Project"
+        subheadline="From concept to completion, VP Associates delivers superior structural engineering services"
+        primary-label="Get a Quote"
+        secondary-label="Our Services"
+        secondary-to="/services"
+      />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import { decodeHtmlEntities } from '~/utils/html'
+
 const route = useRoute()
 const slug = String((route.params as any).slug || '')
 
@@ -283,9 +262,13 @@ const { data: wpProjects, pending, error } = await useFetch(
 const project = computed(() => wpProjects.value)
 
 // Project metadata
-const projectCategory = computed(() => project.value?.custom_fields?.category?.[0] || 'Project')
-const projectLocation = computed(() => project.value?.custom_fields?.location?.[0] || 'Tampa Bay')
-const projectYear = computed(() => project.value?.custom_fields?.year?.[0] || '2024')
+// Empty location and year stay hidden rather than showing placeholder values
+const projectCategory = computed(() => decodeHtmlEntities(project.value?.custom_fields?.project_category) || 'Project')
+const projectLocation = computed(() => decodeHtmlEntities(project.value?.custom_fields?.project_location) || '')
+const projectYear = computed(() => {
+  const year = String(project.value?.custom_fields?.project_year || '').trim()
+  return year && year !== '0' ? year : ''
+})
 const projectDescription = computed(() => {
   const excerpt = project.value?.excerpt?.rendered || ''
   return excerpt.replace(/<[^>]*>/g, '').trim() ||

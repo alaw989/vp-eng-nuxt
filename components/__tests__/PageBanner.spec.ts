@@ -99,6 +99,18 @@ describe('PageBanner Component', () => {
     expect(wrapper.find('[data-testid="banner-grid"]').exists()).toBe(true)
   })
 
+  it('renders slot content under the subheadline', () => {
+    const wrapper = mount(PageBanner, {
+      props: { headline: 'Test' },
+      slots: { default: '<a href="/projects">Back to Projects</a>' },
+      global: {
+        stubs: { NuxtImg: { template: '<img />' } }
+      }
+    })
+    expect(wrapper.find('a[href="/projects"]').text()).toBe('Back to Projects')
+    expect(wrapper.find('[data-testid="banner-grid"]').classes()).toContain('bg-blueprint')
+  })
+
   it('renders the eyebrow when provided', () => {
     const wrapper = mount(PageBanner, {
       props: { headline: 'Test', eyebrow: 'Tampa, FL' },
