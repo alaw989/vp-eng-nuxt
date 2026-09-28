@@ -237,6 +237,8 @@ export default defineNuxtConfig({
 
   // PWA configuration for offline support and install prompts
   pwa: {
+    // New deploys take over on the next visit instead of waiting for every tab to close
+    registerType: 'autoUpdate',
     // Register web manifest in route rules
     registerWebManifestInRouteRules: true,
     // Enable install prompt interception
@@ -281,6 +283,9 @@ export default defineNuxtConfig({
     },
     // Workbox configuration for service worker
     workbox: {
+      skipWaiting: true,
+      clientsClaim: true,
+      cleanupOutdatedCaches: true,
       // Navigate to fallback page for offline navigation
       navigateFallback: '/offline',
       // Glob patterns for precaching app shell resources
