@@ -1,11 +1,12 @@
 <template>
   <section
     ref="bannerRef"
-    class="relative h-[50vh] min-h-[400px] overflow-hidden bg-neutral-900"
+    class="relative h-[50vh] min-h-[400px] overflow-hidden bg-primary-dark"
     :aria-label="ariaLabel"
   >
     <!-- Background Image with parallax wrapper -->
     <div
+      v-if="backgroundImage"
       class="absolute inset-0 w-full h-full overflow-hidden"
       :style="!prefersReducedMotion ? {
         transform: `translateY(${parallaxOffset}px)`
@@ -27,29 +28,56 @@
         :width="1920"
         :height="800"
       />
-      <!-- Subtle gradient overlay on image -->
-      <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 mix-blend-multiply" />
+      <!-- Flat navy overlay -->
+      <div class="absolute inset-0 bg-primary-dark/80" />
     </div>
 
-    <!-- Overlay with enhanced gradient -->
-    <div class="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary-dark/75 to-black/85" />
-    <!-- Additional gradient for depth -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-    <!-- Animated gradient shimmer -->
-    <div class="absolute inset-0 opacity-30 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+    <!-- No photo: a drawing sheet, with a fine grid and gridline bubbles -->
+    <div
+      v-else
+      data-testid="banner-grid"
+      class="absolute inset-0 bg-[linear-gradient(to_right,rgb(255_255_255/0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.07)_1px,transparent_1px)] bg-[size:40px_40px]"
+      aria-hidden="true"
+    >
+      <svg class="absolute inset-0 w-full h-full text-white/30" fill="none" stroke="currentColor" stroke-width="1">
+        <line x1="25%" y1="0" x2="25%" y2="100%" stroke-dasharray="12 4 2 4" />
+        <line x1="60%" y1="0" x2="60%" y2="100%" stroke-dasharray="12 4 2 4" />
+        <line x1="90%" y1="0" x2="90%" y2="100%" stroke-dasharray="12 4 2 4" />
+        <line x1="0" y1="72%" x2="100%" y2="72%" stroke-dasharray="12 4 2 4" />
+      </svg>
+      <span
+        v-for="(bubble, i) in gridBubbles"
+        :key="bubble.label"
+        class="absolute top-4 -translate-x-1/2 w-9 h-9 rounded-full border border-white/40 bg-primary-dark flex items-center justify-center font-display text-sm text-white/70"
+        :class="i === 0 ? 'left-[25%]' : i === 1 ? 'left-[60%]' : 'left-[90%]'"
+      >
+        {{ bubble.label }}
+      </span>
+    </div>
+
+    <!-- Bottom scrim for legibility -->
+    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
 
     <!-- Banner Content -->
-    <div class="relative z-10 h-full flex items-center justify-center">
-      <div class="container text-center text-white">
-        <h1 class="banner-animate-headline text-4xl md:text-6xl font-display font-bold mb-4">
-          {{ headline }}
-        </h1>
-        <p
-          v-if="subheadline"
-          class="banner-animate-subheadline text-lg md:text-xl max-w-3xl mx-auto text-white/90 drop-shadow-lg"
-        >
-          {{ subheadline }}
-        </p>
+    <div class="relative z-10 h-full flex items-end pb-12 md:pb-16">
+      <div class="container text-white">
+        <div class="max-w-3xl border-l-2 border-secondary-light pl-6">
+          <p
+            v-if="eyebrow"
+            class="banner-animate-headline mb-3 text-xs uppercase tracking-[0.2em] text-white/80"
+          >
+            {{ eyebrow }}
+          </p>
+          <h1 class="banner-animate-headline text-4xl md:text-6xl font-display font-bold mb-4">
+            {{ headline }}
+          </h1>
+          <p
+            v-if="subheadline"
+            class="banner-animate-subheadline text-lg md:text-xl text-white/90"
+          >
+            {{ subheadline }}
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -61,16 +89,19 @@ import { useWindowScroll } from '@vueuse/core'
 interface PageBannerProps {
   headline: string
   subheadline?: string
+  eyebrow?: string
   backgroundImage?: string
   backgroundAlt?: string
   ariaLabel?: string
 }
 
 const props = withDefaults(defineProps<PageBannerProps>(), {
-  backgroundImage: '/images/hero/crane-building-1920w.jpg',
+  backgroundImage: '',
   backgroundAlt: 'Professional structural engineering background',
   ariaLabel: 'Page banner'
 })
+
+const gridBubbles = [{ label: 'A' }, { label: 'B' }, { label: 'C' }]
 
 // Parallax motion using VueUse (respect prefers-reduced-motion)
 const { y: scrollY } = useWindowScroll()
@@ -104,26 +135,6 @@ onMounted(() => {
 @media (prefers-reduced-motion: reduce) {
   * {
     will-change: auto !important;
-  }
-}
-
-/* Shimmer animation for gradient overlay */
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-shimmer {
-  animation: shimmer 8s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-shimmer {
-    animation: none;
   }
 }
 

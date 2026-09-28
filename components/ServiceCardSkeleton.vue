@@ -13,7 +13,7 @@
       <div class="h-4 bg-neutral-200 rounded w-3/4 animate-pulse"></div>
     </div>
 
-    <!-- Learn more link placeholder -->
+    <!-- Details link placeholder -->
     <div class="mt-6 h-5 w-28 bg-neutral-200 rounded animate-pulse"></div>
   </div>
 </template>

@@ -2,6 +2,7 @@
   <div>
     <!-- Page Banner -->
     <PageBanner
+      eyebrow="Design · Detailing · Inspection"
       headline="Our Services"
       subheadline="Comprehensive structural engineering solutions for projects of all sizes"
       background-image="/images/hero/construction-steel-beams-1920w.jpg"
@@ -89,8 +90,8 @@
               :to="`/services/${service.slug}`"
               class="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-dark transition-colors group-hover:gap-3"
             >
-              Learn More
-              <Icon name="mdi:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              {{ service.title }} details
+              <Icon name="mdi:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </NuxtLink>
           </div>
         </div>

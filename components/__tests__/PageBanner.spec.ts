@@ -63,19 +63,18 @@ describe('PageBanner Component', () => {
       }
     })
     const section = wrapper.find('section')
-    expect(section.classes()).toContain('bg-neutral-900')
+    expect(section.classes()).toContain('bg-primary-dark')
   })
 
-  it('has overlay gradient classes', () => {
+  it('has overlay classes when a photo is used', () => {
     const wrapper = mount(PageBanner, {
-      props: { headline: 'Test' },
+      props: { headline: 'Test', backgroundImage: '/images/banner.jpg' },
       global: {
         stubs: { NuxtImg: { template: '<img />' } }
       }
     })
-    expect(wrapper.html()).toContain('from-primary/85')
-    expect(wrapper.html()).toContain('from-black/60')
-    expect(wrapper.html()).toContain('via-white/10')
+    expect(wrapper.html()).toContain('bg-primary-dark/80')
+    expect(wrapper.html()).toContain('from-black/40')
   })
 
   it('has animation classes', () => {
@@ -85,8 +84,29 @@ describe('PageBanner Component', () => {
         stubs: { NuxtImg: { template: '<img />' } }
       }
     })
-    expect(wrapper.html()).toContain('animate-shimmer')
+    expect(wrapper.html()).not.toContain('animate-shimmer')
     expect(wrapper.html()).toContain('banner-animate-headline')
+  })
+
+  it('renders the drawing-sheet grid instead of a photo when no image is given', () => {
+    const wrapper = mount(PageBanner, {
+      props: { headline: 'Test' },
+      global: {
+        stubs: { NuxtImg: { template: '<img />' } }
+      }
+    })
+    expect(wrapper.find('img').exists()).toBe(false)
+    expect(wrapper.find('[data-testid="banner-grid"]').exists()).toBe(true)
+  })
+
+  it('renders the eyebrow when provided', () => {
+    const wrapper = mount(PageBanner, {
+      props: { headline: 'Test', eyebrow: 'Tampa, FL' },
+      global: {
+        stubs: { NuxtImg: { template: '<img />' } }
+      }
+    })
+    expect(wrapper.text()).toContain('Tampa, FL')
     // banner-animate-subheadline only renders when subheadline is provided
   })
 

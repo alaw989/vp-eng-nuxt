@@ -2,10 +2,9 @@
   <div>
     <!-- Page Banner -->
     <PageBanner
+      eyebrow="Tampa, FL · (813) 486-2079"
       headline="Contact Us"
       subheadline="Get in touch with our team of experienced structural engineers"
-      background-image="/images/hero/construction-concrete-1920w.jpg"
-      background-alt="Concrete construction site showing professional engineering work"
       aria-label="Contact page banner"
     />
 

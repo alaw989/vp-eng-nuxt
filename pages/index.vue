@@ -20,7 +20,7 @@
             to="/about"
             class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark hover:-translate-y-0.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            Learn More About Us
+            About the firm
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
           </NuxtLink>
         </div>

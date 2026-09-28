@@ -432,8 +432,9 @@ const serviceHeroImages: Record<string, string> = {
   'concrete-design': '/images/hero/construction-building-frame-1920w.jpg',
   'masonry-design': '/images/hero/construction-building-frame-1920w.jpg',
   'wood-design': '/images/hero/construction-building-frame-1920w.jpg',
-  'foundation-design': '/images/hero/construction-concrete-1920w.jpg',
-  'seawall-design': '/images/hero/construction-concrete-1920w.jpg',
+  // No photo: PageBanner renders its drawing-sheet grid
+  'foundation-design': '',
+  'seawall-design': '',
   'steel-connection-design': '/images/hero/construction-steel-beams-1920w.jpg',
   'cad-3d-modeling': '/images/hero/construction-structural-1920w.jpg',
   'inspection-services': '/images/hero/construction-site-1920w.jpg',
@@ -453,7 +454,7 @@ const serviceHeroImage = computed(() => {
            featuredMedia.source_url
   }
   // Fallback to hardcoded mapping
-  return serviceHeroImages[slug] || heroFallback
+  return serviceHeroImages[slug] ?? heroFallback
 })
 
 // Computed service data (API or static fallback)

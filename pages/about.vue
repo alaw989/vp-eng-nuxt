@@ -2,6 +2,7 @@
   <div>
     <!-- Page Banner -->
     <PageBanner
+      eyebrow="Tampa, FL · Since 2007"
       headline="About VP Associates"
       subheadline="Structural engineering and steel detailing in Tampa since 2007"
       background-image="/images/hero/construction-steel-structure-1920w.jpg"
@@ -51,61 +52,42 @@
             />
             <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-secondary/20 mix-blend-multiply" />
           </div>
-          <!-- Floating badge -->
-          <div class="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-4 flex items-center gap-3 animate-bounce-slow">
-            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-              <Icon name="mdi:file-certificate-outline" class="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <div class="font-bold text-neutral-900">Licensed</div>
-              <div class="text-sm text-neutral-600">Florida PE</div>
-            </div>
+          <!-- Registration stamp -->
+          <div class="absolute -bottom-6 right-4 md:-right-6 bg-white border-2 border-primary px-5 py-3">
+            <div class="text-xs uppercase tracking-[0.2em] text-neutral-600">Licensed</div>
+            <div class="font-display text-xl font-bold text-primary">Florida PE</div>
           </div>
         </div>
       </div>
     </AppSection>
 
     <!-- Mission & Values -->
-    <AppSection bg-color="secondary/5" animate-on-scroll elevation>
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
-          Our Mission & Values
-        </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-          The principles that guide every project we undertake
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-            <Icon name="mdi:shield-check" class="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Safety First</h3>
-          <p class="text-neutral-600">
-            Every design we create prioritizes structural integrity and public safety. We never compromise on engineering standards or code requirements.
+    <AppSection bg-color="secondary/5" animate-on-scroll>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <h2 class="text-4xl font-display font-bold text-neutral-900 mb-4">
+            Our Mission &amp; Values
+          </h2>
+          <p class="text-lg text-neutral-600">
+            The principles that guide every project we undertake
           </p>
         </div>
 
-        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-            <Icon name="mdi:lightbulb" class="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Innovation</h3>
-          <p class="text-neutral-600">
-            We embrace new technologies and methods, from BIM modeling to advanced analysis software, to deliver efficient and economical solutions.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl p-8 shadow-lg border border-neutral-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-            <Icon name="mdi:handshake" class="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-3">Client Service</h3>
-          <p class="text-neutral-600">
-            We build lasting relationships through responsive communication, technical expertise, and a commitment to our clients' success.
-          </p>
-        </div>
+        <ol class="md:col-span-2 border-b border-neutral-300">
+          <li
+            v-for="(value, index) in values"
+            :key="value.title"
+            class="grid sm:grid-cols-[4rem_1fr] gap-2 sm:gap-6 py-8 border-t border-neutral-300"
+          >
+            <span class="font-display text-3xl font-bold text-secondary" aria-hidden="true">
+              {{ String(index + 1).padStart(2, '0') }}
+            </span>
+            <div>
+              <h3 class="text-xl font-bold text-neutral-900 mb-2">{{ value.title }}</h3>
+              <p class="text-neutral-600 max-w-prose">{{ value.text }}</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </AppSection>
 
@@ -157,23 +139,21 @@
 
     <!-- PE Registrations -->
     <AppSection bg-color="neutral-50" animate-on-scroll border>
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-4">
-          Professional Engineer Registrations
-        </h2>
-        <p class="text-xl text-neutral-600">
-          Structural drawings and calculations signed and sealed in these states
-        </p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div v-for="state in peRegistrations" :key="state" class="bg-white rounded-lg p-6 flex items-center justify-center shadow-md hover:shadow-lg hover:border-primary border border-transparent transition-all duration-300">
-          <div class="text-center">
-            <Icon name="mdi:certificate" class="w-12 h-12 text-primary mx-auto mb-2" />
-            <div class="font-semibold text-neutral-900 text-sm">{{ state }}</div>
-          </div>
-        </div>
-      </div>
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 mb-4">
+        Professional Engineer Registrations
+      </h2>
+      <p class="text-lg text-neutral-600 mb-6">
+        Drawings and calculations signed and sealed in:
+      </p>
+      <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-t border-l border-neutral-300">
+        <li
+          v-for="state in peRegistrations"
+          :key="state"
+          class="px-4 py-3 border-r border-b border-neutral-300 font-display text-lg font-bold text-primary"
+        >
+          {{ state }}
+        </li>
+      </ul>
     </AppSection>
 
     <!-- Service Area -->
@@ -303,6 +283,21 @@ const leadership = computed(() => {
   })
 })
 
+const values = [
+  {
+    title: 'Safety First',
+    text: 'Every design we create prioritizes structural integrity and public safety. We never compromise on engineering standards or code requirements.',
+  },
+  {
+    title: 'Innovation',
+    text: 'We use current tools, from 3-D analysis and ACAD drafting to SDS2 steel detailing, to deliver efficient and economical solutions.',
+  },
+  {
+    title: 'Client Service',
+    text: "We build lasting relationships through responsive communication, technical expertise, and a commitment to our clients' success.",
+  },
+]
+
 // States listed on the firm's own pre-2026 site (see EVIDENCE.md)
 const peRegistrations = [
   'Florida',
@@ -379,24 +374,3 @@ async function refreshTeam() {
   await navigateTo({ path: '/about', query: { refresh: Date.now().toString() } })
 }
 </script>
-
-<style scoped>
-@keyframes bounce-slow {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-bounce-slow {
-  animation: bounce-slow 3s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-bounce-slow {
-    animation: none;
-  }
-}
-</style>
