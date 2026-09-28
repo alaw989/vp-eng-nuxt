@@ -1,19 +1,20 @@
 <template>
   <section ref="target" class="relative overflow-hidden bg-primary text-white">
-    <!-- One of VP's own shop drawings (the stair flights from elevation E3-01),
-         drawn in on scroll. Like the page banners it runs large behind the
-         content and fades out under the headline; the band crops the overflow. -->
-    <figure class="absolute inset-0 hidden lg:block pointer-events-none" aria-hidden="true">
-      <BannerDrawing
-        src="/images/drawings/stair-flights.svg"
-        aspect-ratio="1600 / 392"
-        lazy
-        :play="isVisible"
-        class="absolute top-1/2 -translate-y-1/2 -right-[8%] h-[62%] opacity-80"
-      />
-      <div class="absolute inset-0 bg-gradient-to-r from-primary from-25% via-primary/70 via-50% to-primary/0 to-80%" />
-    </figure>
     <div class="absolute inset-0 bg-blueprint bg-grid" aria-hidden="true" />
+
+    <!-- One of VP's own shop drawings (RMS ISO, the braced frames), drawn in on
+         scroll and shown whole in the right half of the band -->
+    <div class="container absolute inset-0 hidden lg:block pointer-events-none">
+      <figure class="absolute inset-y-0 right-8 w-1/2 flex items-center justify-end" aria-hidden="true">
+        <BannerDrawing
+          src="/images/drawings/rms-iso.svg"
+          aspect-ratio="1600 / 1252"
+          lazy
+          :play="isVisible"
+          class="h-[78%] max-w-full opacity-90"
+        />
+      </figure>
+    </div>
 
     <div class="container relative z-10 py-20 md:py-28 xl:min-h-[41.375rem] grid lg:grid-cols-2 gap-12 items-center">
       <div>
