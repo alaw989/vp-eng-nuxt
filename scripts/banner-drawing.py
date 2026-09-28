@@ -37,6 +37,8 @@ ap.add_argument('--bands', type=int, default=14, help='how many ground-up stages
 ap.add_argument('--min-length', type=float, default=1.2, help='drop segments shorter than this')
 ap.add_argument('--rotate', type=int, default=0, choices=(0, 90, 180, 270),
                 help='rotate clockwise after cropping, for drawings laid out sideways on the sheet')
+ap.add_argument('--stroke', type=float, default=0,
+                help='line width in viewBox units (default scales with --width to ~1px at banner size)')
 ap.add_argument('--lite', action='store_true', help='phone version: 800 wide, min length 5, no grating layer')
 args = ap.parse_args()
 if args.lite:
@@ -169,7 +171,7 @@ hatch_d = ''.join(to_d(p) for p in sorted(chain(hatch), key=lambda p: (-lowest(p
 
 def write(name):
     # Stroke widths scale with the viewBox so both sizes render at ~1px
-    sw = round(2 * W / 1600, 2)
+    sw = args.stroke or round(2 * W / 1600, 2)
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" fill="none" stroke="#fff" '
            f'stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">']
     # --i orders the ground-up draw-in; pathLength lets one dash cover each band

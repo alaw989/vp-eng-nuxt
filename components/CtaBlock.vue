@@ -2,18 +2,18 @@
   <section ref="target" class="relative overflow-hidden bg-primary text-white">
     <div class="absolute inset-0 bg-blueprint bg-grid" aria-hidden="true" />
 
-    <!-- One of VP's own shop drawings (Morten Salt conveyor tower, rotated
-         upright from its sideways sheet layout), drawn in on scroll. It sits
+    <!-- One of VP's own shop drawings (the tall stair tower from "ISO - Copy"),
+         drawn in on scroll. It sits
          in the content container (not against the browser edge) and is taller
          than the band, which crops it top and bottom. -->
     <div class="container absolute inset-0 hidden lg:block pointer-events-none">
       <figure class="absolute inset-y-0 right-16 xl:right-24 w-1/2 flex items-center justify-end" aria-hidden="true">
         <BannerDrawing
-          src="/images/drawings/morten-salt-iso.svg"
-          aspect-ratio="1000 / 1884"
+          src="/images/drawings/stair-tower.svg"
+          aspect-ratio="420 / 1612"
           lazy
           :play="isVisible"
-          class="shrink-0 h-[48rem] xl:h-[60rem] opacity-90"
+          class="shrink-0 h-[64rem] xl:h-[80rem] opacity-90"
         />
       </figure>
     </div>
