@@ -95,13 +95,13 @@
     <AppSection bg-color="white" animate-on-scroll>
       <SectionHeading
         title="Our Leadership Team"
-        lede="Experienced engineers dedicated to your project's success"
+        lede="Contact the principal directly."
       />
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid gap-8" :class="{ 'lg:grid-cols-2': leadership.length > 1 }">
         <!-- Loading skeleton -->
         <template v-if="teamPending">
-          <TeamMemberSkeleton v-for="i in 4" :key="`skeleton-${i}`" />
+          <TeamMemberSkeleton />
         </template>
 
         <!-- Error state -->
@@ -119,15 +119,14 @@
         <!-- Team members -->
         <template v-else>
           <TeamMember
-            v-for="(member, index) in leadership"
+            v-for="member in leadership"
             :key="member.name"
             :name="member.name"
             :title="member.title"
             :bio="member.bio"
-            :photo="member.photo"
             :email="member.email"
             :phone="member.phone"
-            :priority="index === 0"
+            :linkedin="member.linkedin"
           />
         </template>
       </div>
@@ -265,20 +264,16 @@ const teamData = computed(() => (teamResponse.value as any)?.data || [])
 const leadership = computed(() => {
   if (!teamData.value || !Array.isArray(teamData.value)) return []
   return teamData.value.slice(0, 4).map((member: any) => {
-    // Featured image from _embedded
-    const featuredImageUrl = member._embedded?.['wp:featuredmedia']?.[0]?.source_url
-    const photo = featuredImageUrl || '/images/team/team-1-800w.webp'
-
-    // Custom fields (returned as strings, not arrays)
+    // Custom fields (returned as strings, not arrays). No photos: the CMS
+    // featured image is a stock picture, not the person.
     const customFields = member.custom_fields || {}
 
     return {
       name: decodeHtmlEntities(member.title?.rendered) || 'Team Member',
       title: customFields.team_job_title || 'Team',
-      bio: decodeHtmlEntities(stripHtml(member.excerpt?.rendered)) || 'Professional structural engineer',
+      bio: decodeHtmlEntities(stripHtml(member.excerpt?.rendered)),
       email: customFields.team_email || 'info@vp-associates.com',
       phone: customFields.team_phone || '',
-      photo,
       linkedin: customFields.team_linkedin || '',
     }
   })

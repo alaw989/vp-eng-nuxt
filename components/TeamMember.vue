@@ -1,68 +1,49 @@
 <template>
-  <div class="card group overflow-hidden hover:border-primary">
-    <!-- Photo -->
-    <div class="aspect-[4/5] overflow-hidden bg-neutral-100">
-      <NuxtImg
-        v-if="photo"
-        :src="photo"
-        :alt="`${name}, ${title}${bio ? ' - VP Associates team member' : ''}`"
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        format="webp"
-        quality="85"
-        :loading="priority ? 'eager' : 'lazy'"
-        :fetchpriority="priority ? 'high' : 'auto'"
-        :width="400"
-        :height="500"
-        :placeholder="!priority"
-      />
-      <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary-dark/20" aria-hidden="true">
-        <Icon name="mdi:account-tie" class="w-20 h-20 text-primary/40" aria-hidden="true" />
-      </div>
-    </div>
-
-    <!-- Member Info -->
-    <div class="p-6">
-      <h3 class="text-xl font-bold text-neutral-900 mb-1">
+  <article class="border border-neutral-300 bg-white">
+    <!-- Name -->
+    <div class="px-6 py-8 md:px-10 md:py-10">
+      <p class="eyebrow text-neutral-500 mb-3">{{ title }}</p>
+      <h3 class="font-display text-4xl md:text-6xl font-bold text-primary leading-tight">
         {{ name }}
       </h3>
-      <div class="text-primary font-semibold mb-3">
-        {{ title }}
-      </div>
-      <p v-if="bio" class="text-neutral-600 text-sm mb-4 line-clamp-3">
+      <p v-if="bio" class="mt-4 text-lg text-neutral-600 max-w-prose">
         {{ bio }}
       </p>
-
-      <!-- Contact Links -->
-      <div v-if="email || telHref || linkedin" class="flex items-center gap-3 pt-3 border-t border-neutral-200">
-        <a
-          v-if="email"
-          :href="`mailto:${email}`"
-          class="text-neutral-500 hover:text-primary transition-colors rounded-sm p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          :aria-label="`Email ${name}`"
-        >
-          <Icon name="mdi:email" class="w-5 h-5" />
-        </a>
-        <a
-          v-if="telHref"
-          :href="telHref"
-          class="text-neutral-500 hover:text-primary transition-colors rounded-sm p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          :aria-label="`Call ${name}`"
-        >
-          <Icon name="mdi:phone" class="w-5 h-5" />
-        </a>
-        <a
-          v-if="linkedin"
-          :href="linkedin"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-neutral-500 hover:text-primary transition-colors rounded-sm p-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          :aria-label="`${name}'s LinkedIn`"
-        >
-          <Icon name="mdi:linkedin" class="w-5 h-5" />
-        </a>
-      </div>
     </div>
-  </div>
+
+    <!-- Title-block cells -->
+    <dl class="grid sm:grid-cols-2 border-t border-neutral-300">
+      <div class="px-6 py-4 md:px-10 sm:border-r border-neutral-300">
+        <dt class="eyebrow text-neutral-500 mb-1">Firm</dt>
+        <dd class="font-semibold text-neutral-900">VP &amp; Associates, Inc. · Tampa, FL</dd>
+      </div>
+      <div class="px-6 py-4 md:px-10 border-t sm:border-t-0 border-neutral-300">
+        <dt class="eyebrow text-neutral-500 mb-1">Contact</dt>
+        <dd class="flex flex-wrap items-center gap-x-5 gap-y-1 font-semibold">
+          <a
+            v-if="email"
+            :href="`mailto:${email}`"
+            class="text-primary hover:underline rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            :aria-label="`Email ${name}`"
+          >{{ email }}</a>
+          <a
+            v-if="telHref"
+            :href="telHref"
+            class="text-primary hover:underline rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            :aria-label="`Call ${name}`"
+          >{{ phone }}</a>
+          <a
+            v-if="linkedin"
+            :href="linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary hover:underline rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            :aria-label="`${name}'s LinkedIn`"
+          >LinkedIn</a>
+        </dd>
+      </div>
+    </dl>
+  </article>
 </template>
 
 <script setup lang="ts">
@@ -70,11 +51,9 @@ interface Props {
   name: string
   title: string
   bio?: string
-  photo?: string
   email?: string
   phone?: string
   linkedin?: string
-  priority?: boolean
 }
 
 const props = defineProps<Props>()
@@ -85,12 +64,3 @@ const telHref = computed(() => {
   return digits.length === 10 ? `tel:+1${digits}` : ''
 })
 </script>
-
-<style scoped>
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-</style>
