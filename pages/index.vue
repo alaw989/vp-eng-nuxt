@@ -122,7 +122,7 @@
     <!-- Testimonials Section -->
     <AppSection bg-color="white" animate-on-scroll>
       <SectionHeading
-        title="What Our Clients Say"
+        title="What People Say"
         lede="Trusted by architects, contractors, and developers throughout Florida"
       />
 
