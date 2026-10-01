@@ -1,26 +1,20 @@
 <template>
-  <div class="bg-white rounded-sm overflow-hidden border border-neutral-200" aria-hidden="true">
-    <!-- Photo placeholder -->
-    <div class="aspect-[4/5] bg-neutral-200 animate-pulse"></div>
+  <div class="bg-white border border-neutral-300" aria-hidden="true">
+    <!-- Name -->
+    <div class="px-6 py-8 md:px-10 md:py-10 space-y-4">
+      <div class="h-3 bg-neutral-200 rounded-sm animate-pulse w-32"></div>
+      <div class="h-12 bg-neutral-200 rounded-sm animate-pulse w-2/3"></div>
+    </div>
 
-    <!-- Content -->
-    <div class="p-6 space-y-3">
-      <!-- Name -->
-      <div class="h-6 bg-neutral-200 rounded-sm animate-pulse w-3/4"></div>
-
-      <!-- Title -->
-      <div class="h-4 bg-neutral-200 rounded-sm animate-pulse w-1/2"></div>
-
-      <!-- Bio lines -->
-      <div class="space-y-2 pt-2">
-        <div class="h-3 bg-neutral-200 rounded-sm animate-pulse"></div>
-        <div class="h-3 bg-neutral-200 rounded-sm animate-pulse w-5/6"></div>
+    <!-- Title-block cells -->
+    <div class="grid sm:grid-cols-2 border-t border-neutral-300">
+      <div class="px-6 py-4 md:px-10 space-y-2 sm:border-r border-neutral-300">
+        <div class="h-3 bg-neutral-200 rounded-sm animate-pulse w-12"></div>
+        <div class="h-5 bg-neutral-200 rounded-sm animate-pulse w-3/4"></div>
       </div>
-
-      <!-- Contact info placeholder -->
-      <div class="flex items-center gap-2 pt-3 border-t border-neutral-200">
-        <div class="h-4 w-4 bg-neutral-200 rounded-sm animate-pulse"></div>
-        <div class="h-4 bg-neutral-200 rounded-sm animate-pulse w-1/2"></div>
+      <div class="px-6 py-4 md:px-10 space-y-2 border-t sm:border-t-0 border-neutral-300">
+        <div class="h-3 bg-neutral-200 rounded-sm animate-pulse w-16"></div>
+        <div class="h-5 bg-neutral-200 rounded-sm animate-pulse w-1/2"></div>
       </div>
     </div>
   </div>
