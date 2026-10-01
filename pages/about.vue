@@ -95,7 +95,7 @@
     <AppSection bg-color="white" animate-on-scroll>
       <SectionHeading
         title="Our Leadership Team"
-        lede="Contact the principal directly."
+        lede="Questions about a project? Email Vuong directly."
       />
 
       <div class="grid gap-8" :class="{ 'lg:grid-cols-2': leadership.length > 1 }">
