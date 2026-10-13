@@ -273,6 +273,49 @@ describe('PdfViewer Component', () => {
       }
     })
 
+    it.each([
+      ['Safari', 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1'],
+      ['Chrome', 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/130.0.6723.90 Mobile/15E148 Safari/604.1']
+    ])('opens the file directly on iPhones (%s), which have a full-screen PDF viewer', (_browser, userAgent) => {
+      const wrapper = mount(PdfViewer, {
+        props: { pdfs: defaultPdfs },
+        global: { stubs: globalStubs }
+      })
+      const open = vi.spyOn(window, 'open').mockReturnValue(null)
+      Object.defineProperty(navigator, 'userAgent', { value: userAgent, configurable: true })
+
+      try {
+        wrapper.vm.openPdf(defaultPdfs[0]!, 0)
+
+        expect(open).toHaveBeenCalledWith('/test.pdf', '_blank', 'noopener')
+        expect(wrapper.vm.viewerOpen).toBe(false)
+      } finally {
+        delete (navigator as { userAgent?: string }).userAgent
+        open.mockRestore()
+      }
+    })
+
+    it('keeps the in-page viewer on iPads', () => {
+      const wrapper = mount(PdfViewer, {
+        props: { pdfs: defaultPdfs },
+        global: { stubs: globalStubs }
+      })
+      const open = vi.spyOn(window, 'open').mockReturnValue(null)
+      // iPadOS Safari reports itself as a Mac
+      Object.defineProperty(navigator, 'userAgent', { value: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15', configurable: true })
+
+      try {
+        wrapper.vm.openPdf(defaultPdfs[0]!, 0)
+
+        expect(open).not.toHaveBeenCalled()
+        expect(wrapper.vm.viewerOpen).toBe(true)
+      } finally {
+        delete (navigator as { userAgent?: string }).userAgent
+        open.mockRestore()
+        wrapper.vm.closeViewer()
+      }
+    })
+
     it('opens PDF viewer when openPdf is called', async () => {
       const wrapper = mount(PdfViewer, {
         props: { pdfs: defaultPdfs },
