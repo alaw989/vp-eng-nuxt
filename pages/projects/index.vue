@@ -300,10 +300,9 @@ const projects = computed<Project[]>(() => {
 
     // Get featured image from WordPress media
     const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
-    const featuredUrl = featuredMedia?.source_url ||
-                        featuredMedia?.media_details?.sizes?.large?.source_url ||
-                        featuredMedia?.media_details?.sizes?.medium?.source_url ||
-                        featuredMedia?.media_details?.sizes?.full?.source_url ||
+    const featuredUrl = featuredMedia?.media_details?.sizes?.large?.source_url ||
+                        featuredMedia?.media_details?.sizes?.medium_large?.source_url ||
+                        featuredMedia?.source_url ||
                         ''
     const featuredIsImage = featuredUrl && !featuredUrl.toLowerCase().endsWith('.pdf')
 

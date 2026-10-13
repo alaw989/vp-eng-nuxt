@@ -26,11 +26,11 @@
         </div>
         <div class="relative">
           <picture class="aspect-[4/3] rounded-sm overflow-hidden block">
-            <source srcset="/images/hero/tampa-bay-sundown-640w.webp 640w, /images/hero/tampa-bay-sundown-1280w.webp 1280w, /images/hero/tampa-bay-sundown-1920w.webp 1920w" type="image/webp" sizes="(max-width: 768px) 640px, (max-width: 1024px) 1280px, 1920px">
+            <source srcset="/images/hero/tampa-bay-sundown-640w.webp 640w, /images/hero/tampa-bay-sundown-1280w.webp 1280w, /images/hero/tampa-bay-sundown-1920w.webp 1920w" type="image/webp" sizes="(min-width: 768px) 50vw, 100vw">
             <img
               src="/images/hero/tampa-bay-sundown-1920w.jpg"
               srcset="/images/hero/tampa-bay-sundown-640w.jpg 640w, /images/hero/tampa-bay-sundown-1280w.jpg 1280w, /images/hero/tampa-bay-sundown-1920w.jpg 1920w"
-              sizes="(max-width: 768px) 640px, (max-width: 1024px) 1280px, 1920px"
+              sizes="(min-width: 768px) 50vw, 100vw"
               alt="Tampa Bay skyline at sunset - VP Associates serves the Tampa Bay area with over 30 years of combined structural engineering experience"
               class="w-full h-full object-cover"
               loading="lazy"
@@ -298,10 +298,9 @@ const getProjectImage = (project: any): string => {
 
   // Third try: featured media from _embedded (only when it's a real image)
   const featuredMedia = project._embedded?.['wp:featuredmedia']?.[0]
-  const featuredUrl = featuredMedia?.source_url ||
-         featuredMedia?.media_details?.sizes?.large?.source_url ||
-         featuredMedia?.media_details?.sizes?.full?.source_url ||
-         featuredMedia?.media_details?.sizes?.medium?.source_url ||
+  const featuredUrl = featuredMedia?.media_details?.sizes?.large?.source_url ||
+         featuredMedia?.media_details?.sizes?.medium_large?.source_url ||
+         featuredMedia?.source_url ||
          ''
   if (featuredUrl && !featuredUrl.toLowerCase().endsWith('.pdf')) {
     return featuredUrl

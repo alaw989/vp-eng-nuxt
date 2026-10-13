@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import 'leaflet/dist/leaflet.css' // Ships only with the map, not on every page
 // Leaflet is imported dynamically in onMounted to avoid SSR issues
 
 interface Props {

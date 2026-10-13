@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VP Headless API
  * Description: REST fields the vp-associates.com static site reads at build time. Must-use so it cannot be switched off from the admin.
- * Version: 1.0.0
+ * Version: 1.1.0
  *
  * Deployed to wp-content/mu-plugins/ on the CMS. Source of truth: vp-eng-nuxt/wordpress/mu-plugins/.
  * Moved here from the old `vp` theme's functions.php during the 2026-09-28 security cleanup.
@@ -54,10 +54,14 @@ add_action('rest_api_init', function () {
                     }
                 }
 
-                // An explicit preview image wins
+                // An explicit preview image wins. Use its 1024px "large" size:
+                // the original can be a 2560px upload, sent to phones for a card.
                 if (!empty($pdf['preview_id'])) {
+                    $preview_large = wp_get_attachment_image_src($pdf['preview_id'], 'large');
                     $preview_attached = get_post_meta($pdf['preview_id'], '_wp_attached_file', true);
-                    if ($preview_attached) {
+                    if ($preview_large) {
+                        $preview_url = $preview_large[0];
+                    } elseif ($preview_attached) {
                         $preview_url = $upload_base . '/' . $preview_attached;
                     } else {
                         $post_obj = get_post($pdf['preview_id']);

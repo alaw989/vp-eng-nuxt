@@ -24,9 +24,7 @@
         loading="eager"
         fetchpriority="high"
         :modifiers="{ quality: 85 }"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1920px"
-        :width="1920"
-        :height="800"
+        sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw xxl:100vw"
       />
       <!-- Flat navy overlay -->
       <div class="absolute inset-0 bg-primary-dark/80" />

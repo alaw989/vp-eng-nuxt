@@ -50,7 +50,9 @@
 
 <script setup lang="ts">
 // Leaflet is imported dynamically in onMounted to avoid SSR issues
-// (Leaflet requires window which doesn't exist on the server)
+// (Leaflet requires window which doesn't exist on the server).
+// Its stylesheet is safe to import here, so it ships only with the map.
+import 'leaflet/dist/leaflet.css'
 
 interface ServiceLocation {
   name: string
