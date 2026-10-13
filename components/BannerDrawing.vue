@@ -26,9 +26,9 @@ function load(url: string) {
 
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
-  /** Full drawing: tablet and up, animated */
+  /** Full drawing: tablet and up */
   src: string
-  /** Lighter drawing for phones, shown static */
+  /** Lighter drawing for phones: fewer lines to fetch and to repaint while it draws */
   liteSrc?: string
   /** viewBox width / height, reserved before the SVG arrives */
   aspectRatio?: string
@@ -94,9 +94,9 @@ onBeforeUnmount(() => observer?.disconnect())
   from { opacity: 0; }
 }
 
-/* Draw from the ground up, only where it's worth the paint: tablet and up,
-   motion allowed. Phones and reduced motion get the finished drawing. */
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+/* Draw from the ground up unless reduced motion is requested (that gets the
+   finished drawing). Phones draw the lite version, so the repaint stays light. */
+@media (prefers-reduced-motion: no-preference) {
   .banner-drawing :deep(path) {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;

@@ -263,10 +263,14 @@ const previouslyFocused = ref<HTMLElement | null>(null)
 // and hide the thumbnail sidebar; drawings are usually a single sheet
 const viewerSrc = (url: string) => `${url}#view=Fit&zoom=page-fit&navpanes=0`
 
+// Phones open the file itself instead of the in-page viewer: Chrome on Android
+// has no built-in PDF viewer (the iframe stays blank), and on iPhones Safari's
+// own full-screen viewer is the better place to zoom into a drawing
+const opensDirectly = () =>
+  navigator.pdfViewerEnabled === false || /iPhone|iPod/.test(navigator.userAgent)
+
 const openPdf = (pdf: PdfDocument, index: number) => {
-  // Browsers without a built-in PDF viewer (Chrome on Android) leave the
-  // iframe blank, so hand the file to the system viewer instead
-  if (navigator.pdfViewerEnabled === false) {
+  if (opensDirectly()) {
     window.open(pdf.url, '_blank', 'noopener')
     return
   }
