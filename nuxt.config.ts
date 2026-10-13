@@ -71,10 +71,13 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      htmlAttrs: { lang: 'en' },
       title: 'VP Associates - Structural Engineering Services',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // Phone browser chrome in the brand navy (matches the manifest)
+        { name: 'theme-color', content: '#033379' },
         { name: 'description', content: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.' },
       ],
       link: [
@@ -262,31 +265,18 @@ export default defineNuxtConfig({
       name: 'VP Associates - Structural Engineering Services',
       short_name: 'VP Associates',
       description: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.',
-      theme_color: '#1e40af',
+      theme_color: '#033379',
       background_color: '#ffffff',
       display: 'standalone',
       orientation: 'portrait-primary',
       scope: '/',
       start_url: '/',
+      // PNGs of the logo's VP mark on navy; the maskable one keeps the mark inside the 80% safe zone
       icons: [
-        {
-          src: '/favicon.svg',
-          sizes: '192x192 512x512',
-          type: 'image/svg+xml',
-          purpose: 'any maskable'
-        },
-        {
-          src: '/images/og-default.jpg',
-          sizes: '192x192',
-          type: 'image/jpeg',
-          purpose: 'any'
-        },
-        {
-          src: '/images/og-default.jpg',
-          sizes: '512x512',
-          type: 'image/jpeg',
-          purpose: 'any maskable'
-        }
+        { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+        { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
       ]
     },
     // Workbox configuration for service worker

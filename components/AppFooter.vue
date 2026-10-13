@@ -104,7 +104,7 @@
       <!-- Bottom Bar -->
       <div class="border-t border-neutral-800 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-neutral-500 text-sm text-center md:text-left">
+          <p class="text-neutral-400 text-sm text-center md:text-left">
             &copy; {{ currentYear }} VP Associates. All rights reserved.
           </p>
           <div class="flex items-center gap-4 text-sm">

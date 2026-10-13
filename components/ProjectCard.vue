@@ -8,8 +8,9 @@
         : 'bg-white border border-neutral-200 hover:border-primary',
       viewMode === 'list' ? 'flex flex-col md:flex-row' : 'block'
     ]"
-    :aria-label="`View project: ${title}${category ? ` - ${category}` : ''}${location ? ` in ${location}` : ''}`"
   >
+    <!-- No aria-label: the link's name is its visible text (category, title, place),
+         so voice-control users can say what they see (WCAG 2.5.3) -->
     <!-- Project Image -->
     <div :class="[
       'overflow-hidden bg-neutral-100',
