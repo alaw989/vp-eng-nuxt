@@ -57,10 +57,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const sectionRef = ref<HTMLElement>()
+// Reveal once the section's top edge is 10% above the bottom of the screen.
+// A ratio threshold can never be met by a section taller than the screen
+// allows (a phone's one-column project grid), so it would stay hidden.
 const { target, isVisible, hasRevealed } = useScrollReveal({
-  threshold: 0.15,
+  threshold: 0,
   once: true,
-  rootMargin: '-50px',
+  rootMargin: '0px 0px -10% 0px',
   staggerChildren: props.staggerChildren
 })
 

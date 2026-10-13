@@ -12,7 +12,7 @@
           Accessibility Statement
         </h1>
         <p class="text-lg text-neutral-600">
-          Last Updated: {{ currentDate }}
+          Last Updated: August 15, 2026
         </p>
       </div>
 
@@ -199,14 +199,5 @@ usePageMeta({
   titleSuffix: false,
   description: 'VP Associates Accessibility Statement. Our commitment to digital accessibility and WCAG 2.1 AA compliance.',
   keywords: 'accessibility, WCAG, ADA, VP Associates, accessibility statement',
-})
-
-// Current date for last updated
-const currentDate = computed(() => {
-  return new Date().toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
 })
 </script>

@@ -254,6 +254,25 @@ describe('PdfViewer Component', () => {
       expect(typeof wrapper.vm.closeViewer).toBe('function')
     })
 
+    it('opens the file directly where the browser cannot show PDFs inline (Chrome on Android)', () => {
+      const wrapper = mount(PdfViewer, {
+        props: { pdfs: defaultPdfs },
+        global: { stubs: globalStubs }
+      })
+      const open = vi.spyOn(window, 'open').mockReturnValue(null)
+      Object.defineProperty(navigator, 'pdfViewerEnabled', { value: false, configurable: true })
+
+      try {
+        wrapper.vm.openPdf(defaultPdfs[0]!, 0)
+
+        expect(open).toHaveBeenCalledWith('/test.pdf', '_blank', 'noopener')
+        expect(wrapper.vm.viewerOpen).toBe(false)
+      } finally {
+        delete (navigator as { pdfViewerEnabled?: boolean }).pdfViewerEnabled
+        open.mockRestore()
+      }
+    })
+
     it('opens PDF viewer when openPdf is called', async () => {
       const wrapper = mount(PdfViewer, {
         props: { pdfs: defaultPdfs },

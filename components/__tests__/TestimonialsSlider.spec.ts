@@ -2,7 +2,7 @@
  * Tests for TestimonialsSlider component
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 import TestimonialsSlider from '../TestimonialsSlider.vue'
@@ -773,6 +773,41 @@ describe('TestimonialsSlider Component', () => {
 
       // Component should mount without errors even if sliderRef is not set
       expect(wrapper.exists()).toBe(true)
+    })
+  })
+
+  describe('touch swipe', () => {
+    // Phone width: one testimonial per slide
+    beforeEach(() => {
+      mockWindowWidth.value = 375
+    })
+    afterEach(() => {
+      mockWindowWidth.value = Infinity
+    })
+
+    const swipe = async (wrapper: VueWrapper, dx: number, dy = 0) => {
+      const track = wrapper.find('.overflow-hidden')
+      await track.trigger('touchstart', { changedTouches: [{ clientX: 200, clientY: 300 }] })
+      await track.trigger('touchend', { changedTouches: [{ clientX: 200 + dx, clientY: 300 + dy }] })
+    }
+
+    it('swiping left shows the next slide and swiping right goes back', async () => {
+      const wrapper = mount(TestimonialsSlider, { props: { testimonials }, global: { stubs: globalStubs } })
+      expect(getTestimonialsVM(wrapper).slides).toHaveLength(4)
+
+      await swipe(wrapper, -80)
+      expect(getTestimonialsVM(wrapper).currentIndex).toBe(1)
+
+      await swipe(wrapper, 80)
+      expect(getTestimonialsVM(wrapper).currentIndex).toBe(0)
+    })
+
+    it('ignores short or mostly vertical drags so the page can still scroll', async () => {
+      const wrapper = mount(TestimonialsSlider, { props: { testimonials }, global: { stubs: globalStubs } })
+
+      await swipe(wrapper, -30)
+      await swipe(wrapper, -60, 120)
+      expect(getTestimonialsVM(wrapper).currentIndex).toBe(0)
     })
   })
 })

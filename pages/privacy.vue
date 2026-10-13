@@ -12,7 +12,7 @@
           Privacy Policy
         </h1>
         <p class="text-lg text-neutral-600">
-          Last Updated: {{ currentDate }}
+          Last Updated: August 15, 2026
         </p>
       </div>
 
@@ -153,14 +153,5 @@ usePageMeta({
   description: 'VP Associates Privacy Policy. Learn how we collect, use, and protect your personal information.',
   keywords: 'privacy policy, data protection, personal information, VP Associates',
   robots: 'noindex', // Legal pages typically don't need to be indexed
-})
-
-// Current date for last updated
-const currentDate = computed(() => {
-  return new Date().toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
 })
 </script>

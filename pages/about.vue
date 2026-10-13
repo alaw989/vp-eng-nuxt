@@ -44,11 +44,12 @@
         </div>
         <div class="relative">
           <div class="aspect-[4/3] rounded-sm overflow-hidden relative">
-            <img
+            <NuxtImg
               src="/images/hero/construction-steel-beams-1920w.jpg"
               alt="Steel construction project showcasing VP Associates engineering work"
               class="w-full h-full object-cover"
-              loading="eager"
+              format="webp"
+              sizes="xs:100vw sm:100vw md:50vw lg:50vw xl:50vw xxl:50vw"
             />
             <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-secondary/20 mix-blend-multiply" />
           </div>

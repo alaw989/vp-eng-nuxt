@@ -10,10 +10,11 @@
           {{ stat.count ? displayed[i] : stat.value }}{{ stat.suffix }}
         </span>
         <span class="block text-base md:text-lg font-semibold text-white">{{ stat.label }}</span>
-        <!-- Keep each separator with the word before it so a line never starts with one -->
+        <!-- Keep each separator with the word before it so a line never starts with one.
+             A detail with no separators wraps freely so it can't spill out of a phone-width cell. -->
         <span class="block mt-2 eyebrow text-white/70">
-          <template v-for="(part, j) in stat.detail.split(' · ')" :key="part">
-            <span class="whitespace-nowrap">{{ part }}{{ j < stat.detail.split(' · ').length - 1 ? ' ·' : '' }}</span>{{ ' ' }}
+          <template v-for="(part, j) in details[i]" :key="part">
+            <span :class="{ 'whitespace-nowrap': details[i]!.length > 1 }">{{ part }}{{ j < details[i]!.length - 1 ? ' ·' : '' }}</span>{{ ' ' }}
           </template>
         </span>
       </li>
@@ -34,6 +35,8 @@ interface Stat {
 }
 
 const props = defineProps<{ stats: Stat[] }>()
+
+const details = computed(() => props.stats.map(s => s.detail.split(' · ')))
 
 const { target, isVisible } = useScrollReveal({ threshold: 0.3 })
 

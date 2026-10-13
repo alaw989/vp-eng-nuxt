@@ -1,4 +1,9 @@
 import { wordpressRoutes } from './utils/prerenderRoutes'
+
+// Self-hosted Google Fonts in /public/fonts: latin subset, one variable-weight file per family
+const fontFace = (family: string, file: string) =>
+  `@font-face{font-family:'${family}';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/${file}) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}`
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -56,14 +61,24 @@ export default defineNuxtConfig({
     typeCheck: true,  // Enabled for production builds
   },
 
+  // Critical CSS (beasties): leave inline <style> tags whole. Pruning them drops
+  // the @font-face rules in app.head, since font faces never match a selector
+  // (inlineFonts: true does not keep them either). Pruning saved ~150 bytes a page.
+  critters: {
+    config: { reduceInlineStyles: false },
+  },
+
   css: ['~/assets/css/main.css'],
 
   app: {
     head: {
+      htmlAttrs: { lang: 'en' },
       title: 'VP Associates - Structural Engineering Services',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // Phone browser chrome in the brand navy (matches the manifest)
+        { name: 'theme-color', content: '#033379' },
         { name: 'description', content: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.' },
       ],
       link: [
@@ -72,29 +87,14 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://vp-associates.com' },
         { rel: 'alternate', type: 'application/rss+xml', title: 'VP Associates RSS Feed', href: 'https://vp-associates.com/rss.xml' },
 
-        // Font optimization: Preconnect to Google Fonts domains
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-
-        // Preload critical fonts with font-display: swap
-        {
-          rel: 'preload',
-          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;700&display=swap',
-          as: 'style'
-        },
-
-        // Load Google Fonts
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;700&display=swap'
-        },
-
-        // Iconify preconnect
-        { rel: 'preconnect', href: 'https://api.iconify.design' },
-        { rel: 'dns-prefetch', href: 'https://api.iconify.design' },
-
-        // Leaflet CSS for map component
-        { rel: 'stylesheet', href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=', crossorigin: '' },
+        // Self-hosted fonts (@font-face below): fetch them alongside the CSS
+        { rel: 'preload', href: '/fonts/inter-latin-v20.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
+        { rel: 'preload', href: '/fonts/roboto-condensed-latin-v31.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
+      ],
+      // Declared in the head, not main.css: the critical-CSS step defers main.css,
+      // so the first paint would otherwise use fallback fonts and then shift
+      style: [
+        { textContent: fontFace('Inter', 'inter-latin-v20.woff2') + fontFace('Roboto Condensed', 'roboto-condensed-latin-v31.woff2') },
       ],
     },
     pageTransition: {
@@ -161,6 +161,24 @@ export default defineNuxtConfig({
     // Ensure proper provider and densities configuration
     provider: 'ipx',
     densities: [1, 2],
+  },
+
+  // Production is static, so there is no icon endpoint and missing icons are
+  // fetched from api.iconify.design after hydration. Bundle every icon name
+  // the source mentions, plus the service icons chosen in WordPress
+  // (custom_fields.service_icon); an icon picked there later still loads,
+  // just from the API, until it is added here.
+  icon: {
+    clientBundle: {
+      icons: [
+        'mdi:pencil-ruler', 'mdi:magnify', 'mdi:cube-outline', 'mdi:vector-triangle', 'mdi:waves',
+        'mdi:home-floor-0', 'mdi:tree', 'mdi:wall', 'mdi:beam',
+      ],
+      scan: {
+        globInclude: ['app.vue', '{components,layouts,pages}/**/*.vue', '{composables,utils,server}/**/*.ts'],
+        globExclude: ['**/__tests__/**', '**/*.spec.ts'],
+      },
+    },
   },
 
   // Static site generation: prerender every WordPress detail page, plus pages
@@ -254,31 +272,18 @@ export default defineNuxtConfig({
       name: 'VP Associates - Structural Engineering Services',
       short_name: 'VP Associates',
       description: 'VP Associates provides structural engineering services in Tampa Bay including steel, concrete, masonry, wood, foundations, seawalls, and steel detailing.',
-      theme_color: '#1e40af',
+      theme_color: '#033379',
       background_color: '#ffffff',
       display: 'standalone',
       orientation: 'portrait-primary',
       scope: '/',
       start_url: '/',
+      // PNGs of the logo's VP mark on navy; the maskable one keeps the mark inside the 80% safe zone
       icons: [
-        {
-          src: '/favicon.svg',
-          sizes: '192x192 512x512',
-          type: 'image/svg+xml',
-          purpose: 'any maskable'
-        },
-        {
-          src: '/images/og-default.jpg',
-          sizes: '192x192',
-          type: 'image/jpeg',
-          purpose: 'any'
-        },
-        {
-          src: '/images/og-default.jpg',
-          sizes: '512x512',
-          type: 'image/jpeg',
-          purpose: 'any maskable'
-        }
+        { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+        { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
       ]
     },
     // Workbox configuration for service worker
@@ -319,18 +324,6 @@ export default defineNuxtConfig({
             expiration: {
               maxEntries: 100,
               maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-            }
-          }
-        },
-        // Cache Google Fonts
-        {
-          urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-          handler: 'CacheFirst',
-          options: {
-            cacheName: 'google-fonts-cache',
-            expiration: {
-              maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
             }
           }
         },

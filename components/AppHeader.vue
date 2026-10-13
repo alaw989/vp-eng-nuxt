@@ -1,5 +1,6 @@
 <template>
   <header
+    ref="headerRef"
     class="sticky top-0 z-50 transition-shadow duration-300"
     :class="isScrolled ? 'bg-white shadow-md' : 'bg-white'"
   >
@@ -96,7 +97,7 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation -->
+    <!-- Mobile Navigation: capped at the screen below the 5rem bar so every link stays reachable on a landscape phone -->
     <Transition
       enter-active-class="transition-all duration-300 ease-out"
       enter-from-class="opacity-0 -translate-y-2"
@@ -105,7 +106,7 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-2"
     >
-      <div v-show="isOpen" id="mobile-menu" class="md:hidden bg-white border-t border-neutral-200">
+      <div v-show="isOpen" id="mobile-menu" class="md:hidden bg-white border-t border-neutral-200 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain">
         <!-- Screen reader announcement for menu state -->
         <div class="sr-only" aria-live="polite">
           {{ isOpen ? 'Menu opened' : 'Menu closed' }}
@@ -185,13 +186,20 @@
 </template>
 
 <script setup lang="ts">
+import { onClickOutside } from '@vueuse/core'
 import { useEscapeKey } from '~/composables/useKeyboardNavigation'
 
 const isOpen = ref(false)
 const isScrolled = ref(false)
+const headerRef = ref<HTMLElement>()
 
 // Close menu on Escape key
 useEscapeKey(isOpen)
+
+// Close menu on a tap anywhere below the header
+onClickOutside(headerRef, () => {
+  isOpen.value = false
+})
 
 // Track scroll position for shadow effect
 onMounted(() => {

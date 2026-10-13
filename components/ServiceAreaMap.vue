@@ -50,7 +50,9 @@
 
 <script setup lang="ts">
 // Leaflet is imported dynamically in onMounted to avoid SSR issues
-// (Leaflet requires window which doesn't exist on the server)
+// (Leaflet requires window which doesn't exist on the server).
+// Its stylesheet is safe to import here, so it ships only with the map.
+import 'leaflet/dist/leaflet.css'
 
 interface ServiceLocation {
   name: string
@@ -122,6 +124,9 @@ onMounted(async () => {
     center: [27.85, -82.6] as [number, number],
     zoom: 9,
     scrollWheelZoom: false,
+    // On touch screens (iPads included) one-finger drags scroll the page;
+    // pinch still zooms and the list pans the map
+    dragging: !window.matchMedia('(pointer: coarse)').matches,
     keyboard: true
   })
 

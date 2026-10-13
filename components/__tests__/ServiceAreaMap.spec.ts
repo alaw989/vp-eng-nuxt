@@ -68,6 +68,16 @@ describe('ServiceAreaMap', () => {
     expect(wrapper.findAll('ul button').filter(b => b.text().includes('Home base'))).toHaveLength(1)
   })
 
+  it('leaves one-finger drags to the page on touch screens so the map does not trap scrolling', async () => {
+    const L = await import('leaflet')
+    await mountMap()
+    expect(L.map).toHaveBeenLastCalledWith(expect.anything(), expect.objectContaining({ dragging: true }))
+
+    window.matchMedia = vi.fn((query: string) => ({ matches: query === '(pointer: coarse)' })) as unknown as typeof window.matchMedia
+    await mountMap()
+    expect(L.map).toHaveBeenLastCalledWith(expect.anything(), expect.objectContaining({ dragging: false }))
+  })
+
   it('adds one marker per service area and fits the map to them', async () => {
     await mountMap()
     expect(Object.keys(markerApis)).toHaveLength(8)

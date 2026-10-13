@@ -177,24 +177,26 @@
         <p class="text-xl text-neutral-500">No projects found in this category.</p>
       </div>
 
-      <!-- Pagination -->
+      <!-- Pagination: phones get icon arrows around "Page X of Y" so the row never wraps -->
       <nav v-if="totalPages > 1" class="mt-12 flex flex-wrap items-center justify-center gap-2" aria-label="Projects pagination">
         <button
           @click="goToPage(currentPage - 1)"
           :disabled="currentPage === 1"
-          class="btn-outline px-4 disabled:border-neutral-300 disabled:text-neutral-500 disabled:hover:bg-white disabled:hover:text-neutral-500"
+          class="btn-outline w-11 px-0 sm:w-auto sm:px-4 disabled:border-neutral-300 disabled:text-neutral-500 disabled:hover:bg-white disabled:hover:text-neutral-500"
           aria-label="Previous page"
         >
           <Icon name="mdi:chevron-left" class="w-5 h-5" />
-          Previous
+          <span class="hidden sm:inline">Previous</span>
         </button>
 
+        <span class="sm:hidden px-3 text-neutral-700">Page {{ currentPage }} of {{ totalPages }}</span>
+
         <template v-for="page in visiblePages" :key="page">
-          <span v-if="page === '...'" class="px-2 text-neutral-500">...</span>
+          <span v-if="page === '...'" class="hidden sm:inline px-2 text-neutral-500">...</span>
           <button
             v-else
             @click="goToPage(page as number)"
-            :class="[currentPage === page ? 'btn-primary' : 'btn-outline', 'w-11 px-0']"
+            :class="[currentPage === page ? 'btn-primary' : 'btn-outline', 'hidden sm:inline-flex w-11 px-0']"
             :aria-label="`Page ${page}`"
             :aria-current="currentPage === page ? 'page' : undefined"
           >
@@ -205,10 +207,10 @@
         <button
           @click="goToPage(currentPage + 1)"
           :disabled="currentPage === totalPages"
-          class="btn-outline px-4 disabled:border-neutral-300 disabled:text-neutral-500 disabled:hover:bg-white disabled:hover:text-neutral-500"
+          class="btn-outline w-11 px-0 sm:w-auto sm:px-4 disabled:border-neutral-300 disabled:text-neutral-500 disabled:hover:bg-white disabled:hover:text-neutral-500"
           aria-label="Next page"
         >
-          Next
+          <span class="hidden sm:inline">Next</span>
           <Icon name="mdi:chevron-right" class="w-5 h-5" />
         </button>
       </nav>
@@ -225,6 +227,7 @@
 <script setup lang="ts">
 import { useFilterTransition } from '~/composables/useFilterTransition'
 import { PROJECTS_PAGE_QUERY, projectCategories } from '~/utils/projects'
+import { wpImageUrl } from '~/utils/wpImage'
 
 // Route meta for screen reader announcements
 definePageMeta({
@@ -298,11 +301,7 @@ const projects = computed<Project[]>(() => {
 
     // Get featured image from WordPress media
     const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
-    const featuredUrl = featuredMedia?.source_url ||
-                        featuredMedia?.media_details?.sizes?.large?.source_url ||
-                        featuredMedia?.media_details?.sizes?.medium?.source_url ||
-                        featuredMedia?.media_details?.sizes?.full?.source_url ||
-                        ''
+    const featuredUrl = wpImageUrl(featuredMedia)
     const featuredIsImage = featuredUrl && !featuredUrl.toLowerCase().endsWith('.pdf')
 
     // PDF preview thumbnails come from project_pdfs_resolved (featured media is the PDF itself and _embed of it is forbidden)

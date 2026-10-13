@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import 'leaflet/dist/leaflet.css' // Ships only with the map, not on every page
 // Leaflet is imported dynamically in onMounted to avoid SSR issues
 
 interface Props {
@@ -38,7 +39,6 @@ onMounted(async () => {
 
   // Dynamically import Leaflet only on client-side
   const L = await import('leaflet')
-  await import('leaflet/dist/leaflet.css')
 
   // Custom icon using site colors
   const createCustomIcon = () => {
@@ -56,6 +56,8 @@ onMounted(async () => {
     center: [27.9506, -82.4572],
     zoom: 9,
     scrollWheelZoom: false, // Better UX
+    // On touch screens (iPads included) one-finger drags scroll the page; pinch still zooms
+    dragging: !window.matchMedia('(pointer: coarse)').matches,
     doubleClickZoom: true,
     touchZoom: true,
     keyboard: true

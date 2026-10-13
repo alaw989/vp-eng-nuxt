@@ -154,6 +154,19 @@ describe('PageBanner Component', () => {
     // banner-animate-subheadline only renders when subheadline is provided
   })
 
+  it('takes eyebrow markup from a slot, e.g. a tap-to-call link', () => {
+    const wrapper = mount(PageBanner, {
+      props: { headline: 'Test' },
+      slots: { eyebrow: 'Tampa, FL · <a href="tel:+18134862079">(813) 486-2079</a>' },
+      global: {
+        stubs: { NuxtImg: { template: '<img />' } }
+      }
+    })
+    const eyebrow = wrapper.find('p.eyebrow')
+    expect(eyebrow.text()).toContain('Tampa, FL')
+    expect(eyebrow.find('a[href="tel:+18134862079"]').exists()).toBe(true)
+  })
+
   it('has subheadline animation class when subheadline provided', () => {
     const wrapper = mount(PageBanner, {
       props: { headline: 'Test', subheadline: 'Test subheadline' },

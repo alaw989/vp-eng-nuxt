@@ -37,25 +37,16 @@ describe('ProjectCard Component', () => {
     expect(link.attributes('href')).toBe('/projects/test-project')
   })
 
-  it('generates correct aria-label for project card', () => {
+  it('names the link by its visible text so the label matches what is shown (WCAG 2.5.3)', () => {
     const wrapper = mount(ProjectCard, {
       props: defaultProps,
     })
 
     const link = wrapper.find('a')
-    expect(link.attributes('aria-label')).toBe('View project: Test Project - Commercial in Tampa, FL')
-  })
-
-  it('generates minimal aria-label without category and location', () => {
-    const wrapper = mount(ProjectCard, {
-      props: {
-        title: 'Minimal Project',
-        slug: 'minimal-project',
-      },
-    })
-
-    const link = wrapper.find('a')
-    expect(link.attributes('aria-label')).toBe('View project: Minimal Project')
+    expect(link.attributes('aria-label')).toBeUndefined()
+    expect(link.text()).toContain('Test Project')
+    expect(link.text()).toContain('Commercial')
+    expect(link.text()).toContain('Tampa, FL')
   })
 
   it('has correct viewMode options', () => {
@@ -70,14 +61,14 @@ describe('ProjectCard Component', () => {
     expect(wrapper.classes()).toContain('group')
   })
 
-  it('generates correct alt text for project image', () => {
+  it('marks the project image decorative so the link name is not read twice', () => {
     const wrapper = mount(ProjectCard, {
       props: defaultProps,
     })
 
     const img = wrapper.find('img')
     expect(img.exists()).toBe(true)
-    expect(img.attributes('alt')).toBe('Test Project - Commercial project in Tampa, FL')
+    expect(img.attributes('alt')).toBe('')
   })
 
   it('shows category badge when category is provided', () => {
