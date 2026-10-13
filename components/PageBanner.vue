@@ -54,10 +54,10 @@
       <div class="container text-white">
         <div class="max-w-3xl border-l-2 border-secondary-light pl-6">
           <p
-            v-if="eyebrow"
+            v-if="eyebrow || $slots.eyebrow"
             class="banner-animate-headline eyebrow mb-3 text-white/80"
           >
-            {{ eyebrow }}
+            <slot name="eyebrow">{{ eyebrow }}</slot>
           </p>
           <h1 class="banner-animate-headline text-4xl md:text-6xl font-display font-bold mb-4">
             {{ headline }}

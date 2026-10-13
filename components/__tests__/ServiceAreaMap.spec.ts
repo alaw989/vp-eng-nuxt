@@ -14,10 +14,12 @@ const mapApi = {
   remove: vi.fn()
 }
 const markerApis: Record<string, { openPopup: ReturnType<typeof vi.fn>, handlers: Record<string, () => void> }> = {}
+const leafletBrowser = { mobile: false }
 
 vi.mock('leaflet', () => {
   const chain = () => ({ addTo: () => chain() })
   return {
+    Browser: leafletBrowser,
     map: vi.fn(() => mapApi),
     tileLayer: vi.fn(() => chain()),
     divIcon: vi.fn(opts => opts),
@@ -66,6 +68,17 @@ describe('ServiceAreaMap', () => {
     const tampa = wrapper.findAll('ul button')[0]!
     expect(tampa.text()).toContain('Home base')
     expect(wrapper.findAll('ul button').filter(b => b.text().includes('Home base'))).toHaveLength(1)
+  })
+
+  it('leaves one-finger drags to the page on phones so the map does not trap scrolling', async () => {
+    const L = await import('leaflet')
+    await mountMap()
+    expect(L.map).toHaveBeenLastCalledWith(expect.anything(), expect.objectContaining({ dragging: true }))
+
+    leafletBrowser.mobile = true
+    await mountMap()
+    expect(L.map).toHaveBeenLastCalledWith(expect.anything(), expect.objectContaining({ dragging: false }))
+    leafletBrowser.mobile = false
   })
 
   it('adds one marker per service area and fits the map to them', async () => {

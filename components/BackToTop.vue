@@ -1,5 +1,6 @@
 <template>
   <!-- Only show progress indicator when visible -->
+  <!-- Hidden on phones, where it sits over the text -->
   <Transition
     enter-active-class="transition-all duration-300 ease-out"
     enter-from-class="opacity-0 scale-75"
@@ -10,7 +11,7 @@
   >
     <div
       v-if="isVisible && scrollProgress > 0"
-      class="fixed bottom-8 right-8 z-40 pointer-events-none"
+      class="hidden md:block fixed bottom-8 right-8 z-40 pointer-events-none"
       :aria-label="`Page scroll progress: ${Math.round(scrollProgress * 100)}%`"
     >
       <svg

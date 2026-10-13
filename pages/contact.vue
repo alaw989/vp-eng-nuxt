@@ -2,12 +2,20 @@
   <div>
     <!-- Page Banner -->
     <PageBanner
-      eyebrow="Tampa, FL · (813) 486-2079"
       headline="Contact Us"
       subheadline="Get in touch with our team of experienced structural engineers"
       aria-label="Contact page banner"
       drawing="rms-iso"
-    />
+    >
+      <!-- Tap to call from the first screen; the padding grows the target without moving the text -->
+      <template #eyebrow>
+        Tampa, FL ·
+        <a
+          href="tel:+18134862079"
+          class="inline-block py-3 -my-3 underline decoration-white/40 underline-offset-4 hover:text-white focus-visible:ring-2 focus-visible:ring-white rounded-sm"
+        >(813) 486-2079</a>
+      </template>
+    </PageBanner>
 
     <!-- Contact Form & Info -->
     <AppSection bg-color="white" animate-on-scroll>
@@ -31,6 +39,8 @@
                   id="firstName"
                   v-model="form.firstName"
                   type="text"
+                  name="firstName"
+                  autocomplete="given-name"
                   required
                   aria-required="true"
                   @blur="validateField('firstName', form.firstName)"
@@ -53,6 +63,8 @@
                   id="lastName"
                   v-model="form.lastName"
                   type="text"
+                  name="lastName"
+                  autocomplete="family-name"
                   required
                   aria-required="true"
                   @blur="validateField('lastName', form.lastName)"
@@ -77,6 +89,8 @@
                 id="email"
                 v-model="form.email"
                 type="email"
+                name="email"
+                autocomplete="email"
                 required
                 aria-required="true"
                 @blur="validateField('email', form.email)"
@@ -100,6 +114,8 @@
                 id="phone"
                 v-model="form.phone"
                 type="tel"
+                name="phone"
+                autocomplete="tel"
                 @blur="validateField('phone', form.phone)"
                 @input="touched.phone && validateField('phone', form.phone)"
                 :aria-invalid="errors.phone ? 'true' : 'false'"
@@ -135,6 +151,7 @@
               <select
                 id="service"
                 v-model="form.service"
+                name="service"
                 class="field cursor-pointer"
               >
                 <option value="">Select a service...</option>
@@ -159,6 +176,7 @@
               <textarea
                 id="message"
                 v-model="form.message"
+                name="message"
                 required
                 aria-required="true"
                 @blur="validateField('message', form.message)"
@@ -224,29 +242,30 @@
                 </div>
               </div>
 
-              <div class="flex items-start gap-4">
+              <!-- The whole row is the link so the tap target is the 48px row, not one line of text -->
+              <a href="tel:+18134862079" class="group flex items-start gap-4 rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                 <div class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center flex-shrink-0">
                   <Icon name="mdi:phone" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Phone</div>
-                  <a href="tel:+18134862079" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-1">
+                  <span class="text-primary group-hover:text-primary-dark group-hover:underline transition-colors duration-300">
                     (813) 486-2079
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </a>
 
-              <div class="flex items-start gap-4">
+              <a href="mailto:info@vp-associates.com" class="group flex items-start gap-4 rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                 <div class="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center flex-shrink-0">
                   <Icon name="mdi:email" class="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <div class="font-semibold text-neutral-900 mb-1">Email</div>
-                  <a href="mailto:info@vp-associates.com" class="text-primary hover:text-primary-dark hover:underline transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-1">
+                  <span class="text-primary group-hover:text-primary-dark group-hover:underline transition-colors duration-300">
                     info@vp-associates.com
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>

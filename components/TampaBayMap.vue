@@ -56,6 +56,7 @@ onMounted(async () => {
     center: [27.9506, -82.4572],
     zoom: 9,
     scrollWheelZoom: false, // Better UX
+    dragging: !L.Browser.mobile, // One-finger drags scroll the page on phones; pinch still zooms
     doubleClickZoom: true,
     touchZoom: true,
     keyboard: true

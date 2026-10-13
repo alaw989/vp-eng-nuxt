@@ -4,8 +4,12 @@
     class="relative"
     aria-label="Testimonials slider"
   >
-    <!-- Slider Container -->
-    <div class="overflow-hidden">
+    <!-- Slider Container: swipe left or right on touch screens -->
+    <div
+      class="overflow-hidden"
+      @touchstart.passive="handleTouchStart"
+      @touchend="handleTouchEnd"
+    >
       <div
         ref="trackRef"
         class="flex"
@@ -34,40 +38,46 @@
       </div>
     </div>
 
-    <!-- Navigation Arrows -->
-    <template v-if="slides.length > 1">
+    <!-- Controls: on phones the arrows flank the dots so they never cover a card;
+         from md up they move out to the slider's edges -->
+    <div v-if="slides.length > 1" class="flex items-center justify-center gap-4 mt-8">
       <button
-        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-sm bg-white transition-colors text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:-translate-x-1/2 z-20 w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-sm bg-white transition-colors text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         aria-label="Previous testimonials"
         :disabled="currentIndex === 0"
         @click="previousSlide"
       >
         <Icon name="mdi:chevron-left" class="w-6 h-6" />
       </button>
+
+      <!-- Dot Indicators: each dot sits in a 24px target -->
+      <div class="flex items-center">
+        <button
+          v-for="(_, index) in slides"
+          :key="index"
+          class="group h-6 min-w-6 flex items-center justify-center rounded-full focus-visible:ring-2 focus-visible:ring-primary"
+          :aria-label="`Go to testimonials slide ${index + 1}`"
+          @click="goToSlide(index)"
+        >
+          <span
+            :class="[
+              'h-2.5 rounded-full transition-all duration-300',
+              currentIndex === index
+                ? 'bg-primary w-8'
+                : 'w-2.5 bg-neutral-300 group-hover:bg-neutral-400'
+            ]"
+          />
+        </button>
+      </div>
+
       <button
-        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-sm bg-white transition-colors text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 md:translate-x-1/2 z-20 w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-sm bg-white transition-colors text-neutral-700 hover:text-primary border border-neutral-200 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         aria-label="Next testimonials"
         :disabled="currentIndex === slides.length - 1"
         @click="nextSlide"
       >
         <Icon name="mdi:chevron-right" class="w-6 h-6" />
       </button>
-    </template>
-
-    <!-- Dot Indicators -->
-    <div v-if="slides.length > 1" class="flex justify-center gap-2 mt-8">
-      <button
-        v-for="(_, index) in slides"
-        :key="index"
-        :aria-label="`Go to testimonials slide ${index + 1}`"
-        :class="[
-          'w-2.5 h-2.5 rounded-full transition-all duration-300',
-          currentIndex === index
-            ? 'bg-primary w-8'
-            : 'bg-neutral-300 hover:bg-neutral-400'
-        ]"
-        @click="goToSlide(index)"
-      />
     </div>
 
     <!-- Live region for screen reader announcements -->
@@ -151,6 +161,26 @@ const previousSlide = () => {
 
 const goToSlide = (index: number) => {
   currentIndex.value = index
+}
+
+// Touch swipe: a mostly horizontal drag of 50px or more changes slide
+const minSwipeDistance = 50
+let touchStart: { x: number, y: number } | null = null
+
+const handleTouchStart = (e: TouchEvent) => {
+  const touch = e.changedTouches[0]
+  touchStart = touch ? { x: touch.clientX, y: touch.clientY } : null
+}
+
+const handleTouchEnd = (e: TouchEvent) => {
+  const touch = e.changedTouches[0]
+  if (!touchStart || !touch) return
+  const dx = touch.clientX - touchStart.x
+  const dy = touch.clientY - touchStart.y
+  touchStart = null
+  if (Math.abs(dx) < minSwipeDistance || Math.abs(dx) < Math.abs(dy)) return
+  if (dx < 0) nextSlide()
+  else previousSlide()
 }
 
 // Keyboard navigation

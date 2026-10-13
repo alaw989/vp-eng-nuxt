@@ -264,6 +264,13 @@ const previouslyFocused = ref<HTMLElement | null>(null)
 const viewerSrc = (url: string) => `${url}#view=Fit&zoom=page-fit&navpanes=0`
 
 const openPdf = (pdf: PdfDocument, index: number) => {
+  // Browsers without a built-in PDF viewer (Chrome on Android) leave the
+  // iframe blank, so hand the file to the system viewer instead
+  if (navigator.pdfViewerEnabled === false) {
+    window.open(pdf.url, '_blank', 'noopener')
+    return
+  }
+
   currentPdf.value = pdf
   currentIndex.value = index
   viewerOpen.value = true
