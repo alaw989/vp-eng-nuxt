@@ -260,7 +260,9 @@ test.describe('Team and Testimonials Combined', () => {
     const teamData = await teamResponse.json()
     const testimonialsData = await testimonialsResponse.json()
 
-    // Both should have the same top-level structure
-    expect(Object.keys(teamData)).toEqual(Object.keys(testimonialsData))
+    // Both should have the same top-level structure. Underscore keys are cache
+    // metadata (team adds _source once it serves from its memory cache).
+    const shape = (body: object) => Object.keys(body).filter(k => !k.startsWith('_'))
+    expect(shape(teamData)).toEqual(shape(testimonialsData))
   })
 })

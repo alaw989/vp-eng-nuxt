@@ -12,7 +12,7 @@ test.describe('About Pages', () => {
     await page.goto('/about');
 
     // Should have some content about the company
-    const main = page.locator('main, article');
+    const main = page.locator('main');
     const textContent = await main.textContent();
 
     expect(textContent?.length).toBeGreaterThan(100);

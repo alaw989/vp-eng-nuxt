@@ -6,17 +6,17 @@ test.describe('Hero Section', () => {
   })
 
   test('should render hero with correct content', async ({ page }) => {
-    // Hero section exists with Tampa Bay reference
-    const hero = page.locator('section').filter({ hasText: /Trusted by Tampa Bay|Structures That Stand|Tampa Bay's Structural|Precision Structural/ })
-    await expect(hero.first()).toBeVisible()
+    // Hero section exists
+    const hero = page.locator('section[aria-label="Hero section"]')
+    await expect(hero).toBeVisible()
 
-    // Headline is h1
+    // Headline is h1 and names what the firm does
     const h1 = page.locator('h1')
     await expect(h1).toHaveCount(1)
-    await expect(h1).toContainText(/Trusted by Tampa Bay|Structures That Stand|Tampa Bay's Structural|Precision Structural/)
+    await expect(h1).toContainText('Structural Engineering')
 
-    // Subheadline exists
-    const subheadline = page.locator('section p').filter({ hasText: /structural engineering|excellence|Tampa Bay|since 1990/ }).first()
+    // Subheadline places the firm in Tampa
+    const subheadline = hero.locator('p').filter({ hasText: /Tampa/ }).first()
     await expect(subheadline).toBeVisible()
 
     // CTA button exists
