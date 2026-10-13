@@ -227,6 +227,7 @@
 <script setup lang="ts">
 import { useFilterTransition } from '~/composables/useFilterTransition'
 import { PROJECTS_PAGE_QUERY, projectCategories } from '~/utils/projects'
+import { wpImageUrl } from '~/utils/wpImage'
 
 // Route meta for screen reader announcements
 definePageMeta({
@@ -300,10 +301,7 @@ const projects = computed<Project[]>(() => {
 
     // Get featured image from WordPress media
     const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
-    const featuredUrl = featuredMedia?.media_details?.sizes?.large?.source_url ||
-                        featuredMedia?.media_details?.sizes?.medium_large?.source_url ||
-                        featuredMedia?.source_url ||
-                        ''
+    const featuredUrl = wpImageUrl(featuredMedia)
     const featuredIsImage = featuredUrl && !featuredUrl.toLowerCase().endsWith('.pdf')
 
     // PDF preview thumbnails come from project_pdfs_resolved (featured media is the PDF itself and _embed of it is forbidden)

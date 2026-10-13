@@ -175,6 +175,7 @@
 <script setup lang="ts">
 import { decodeHtmlEntities } from '~/utils/html'
 import { processSteps } from '~/utils/process'
+import { wpImageUrl } from '~/utils/wpImage'
 
 const route = useRoute()
 const slug = String((route.params as any).slug || '')
@@ -461,10 +462,7 @@ const allProjects = computed(() => {
       // Try featured media from _embedded
       const featuredMedia = p._embedded?.['wp:featuredmedia']?.[0]
       if (featuredMedia) {
-        return featuredMedia.source_url ||
-               featuredMedia.media_details?.sizes?.large?.source_url ||
-               featuredMedia.media_details?.sizes?.full?.source_url ||
-               '/images/hero/construction-steel-beams-1920w.jpg'
+        return wpImageUrl(featuredMedia) || '/images/hero/construction-steel-beams-1920w.jpg'
       }
       return '/images/hero/construction-steel-beams-1920w.jpg'
     })()

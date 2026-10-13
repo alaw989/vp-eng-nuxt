@@ -61,14 +61,14 @@ describe('ProjectCard Component', () => {
     expect(wrapper.classes()).toContain('group')
   })
 
-  it('generates correct alt text for project image', () => {
+  it('marks the project image decorative so the link name is not read twice', () => {
     const wrapper = mount(ProjectCard, {
       props: defaultProps,
     })
 
     const img = wrapper.find('img')
     expect(img.exists()).toBe(true)
-    expect(img.attributes('alt')).toBe('Test Project - Commercial project in Tampa, FL')
+    expect(img.attributes('alt')).toBe('')
   })
 
   it('shows category badge when category is provided', () => {

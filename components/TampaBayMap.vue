@@ -39,7 +39,6 @@ onMounted(async () => {
 
   // Dynamically import Leaflet only on client-side
   const L = await import('leaflet')
-  await import('leaflet/dist/leaflet.css')
 
   // Custom icon using site colors
   const createCustomIcon = () => {
@@ -57,7 +56,8 @@ onMounted(async () => {
     center: [27.9506, -82.4572],
     zoom: 9,
     scrollWheelZoom: false, // Better UX
-    dragging: !L.Browser.mobile, // One-finger drags scroll the page on phones; pinch still zooms
+    // On touch screens (iPads included) one-finger drags scroll the page; pinch still zooms
+    dragging: !window.matchMedia('(pointer: coarse)').matches,
     doubleClickZoom: true,
     touchZoom: true,
     keyboard: true

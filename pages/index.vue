@@ -25,19 +25,16 @@
           </NuxtLink>
         </div>
         <div class="relative">
-          <picture class="aspect-[4/3] rounded-sm overflow-hidden block">
-            <source srcset="/images/hero/tampa-bay-sundown-640w.webp 640w, /images/hero/tampa-bay-sundown-1280w.webp 1280w, /images/hero/tampa-bay-sundown-1920w.webp 1920w" type="image/webp" sizes="(min-width: 768px) 50vw, 100vw">
-            <img
+          <div class="aspect-[4/3] rounded-sm overflow-hidden">
+            <NuxtImg
               src="/images/hero/tampa-bay-sundown-1920w.jpg"
-              srcset="/images/hero/tampa-bay-sundown-640w.jpg 640w, /images/hero/tampa-bay-sundown-1280w.jpg 1280w, /images/hero/tampa-bay-sundown-1920w.jpg 1920w"
-              sizes="(min-width: 768px) 50vw, 100vw"
               alt="Tampa Bay skyline at sunset - VP Associates serves the Tampa Bay area with over 30 years of combined structural engineering experience"
               class="w-full h-full object-cover"
+              format="webp"
               loading="lazy"
-              width="1920"
-              height="1080"
-            >
-          </picture>
+              sizes="xs:100vw sm:100vw md:50vw lg:50vw xl:50vw xxl:50vw"
+            />
+          </div>
           <!-- Registration stamp -->
           <div class="absolute -bottom-6 left-4 md:-left-6 bg-white border-2 border-primary px-5 py-3 max-w-xs">
             <div class="eyebrow text-neutral-600">Licensed</div>
@@ -163,6 +160,7 @@
 
 <script setup lang="ts">
 import { decodeHtmlEntities } from '~/utils/html'
+import { wpImageUrl } from '~/utils/wpImage'
 
 // Route meta for screen reader announcements
 definePageMeta({
@@ -298,10 +296,7 @@ const getProjectImage = (project: any): string => {
 
   // Third try: featured media from _embedded (only when it's a real image)
   const featuredMedia = project._embedded?.['wp:featuredmedia']?.[0]
-  const featuredUrl = featuredMedia?.media_details?.sizes?.large?.source_url ||
-         featuredMedia?.media_details?.sizes?.medium_large?.source_url ||
-         featuredMedia?.source_url ||
-         ''
+  const featuredUrl = wpImageUrl(featuredMedia)
   if (featuredUrl && !featuredUrl.toLowerCase().endsWith('.pdf')) {
     return featuredUrl
   }

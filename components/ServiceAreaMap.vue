@@ -124,8 +124,9 @@ onMounted(async () => {
     center: [27.85, -82.6] as [number, number],
     zoom: 9,
     scrollWheelZoom: false,
-    // One-finger drags scroll the page on phones; pinch still zooms and the list pans the map
-    dragging: !L.Browser.mobile,
+    // On touch screens (iPads included) one-finger drags scroll the page;
+    // pinch still zooms and the list pans the map
+    dragging: !window.matchMedia('(pointer: coarse)').matches,
     keyboard: true
   })
 

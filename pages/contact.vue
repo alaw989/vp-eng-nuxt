@@ -29,7 +29,14 @@
             Tell us about your project and we'll be in touch.
           </p>
 
-          <form @submit.prevent="handleSubmit" class="space-y-6">
+          <!-- Without JavaScript the browser posts straight to Formspree, so the named
+               fields never land in a URL; with it, handleSubmit sends them instead -->
+          <form
+            method="post"
+            :action="formspreeEndpoint || undefined"
+            class="space-y-6"
+            @submit.prevent="handleSubmit"
+          >
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <label for="firstName" class="block text-sm font-semibold text-neutral-700 mb-2">

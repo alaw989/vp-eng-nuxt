@@ -62,7 +62,8 @@ export default defineNuxtConfig({
   },
 
   // Critical CSS (beasties): leave inline <style> tags whole. Pruning them drops
-  // the @font-face rules in app.head, since font faces never match a selector.
+  // the @font-face rules in app.head, since font faces never match a selector
+  // (inlineFonts: true does not keep them either). Pruning saved ~150 bytes a page.
   critters: {
     config: { reduceInlineStyles: false },
   },
@@ -164,9 +165,15 @@ export default defineNuxtConfig({
 
   // Production is static, so there is no icon endpoint and missing icons are
   // fetched from api.iconify.design after hydration. Bundle every icon name
-  // the source mentions instead.
+  // the source mentions, plus the service icons chosen in WordPress
+  // (custom_fields.service_icon); an icon picked there later still loads,
+  // just from the API, until it is added here.
   icon: {
     clientBundle: {
+      icons: [
+        'mdi:pencil-ruler', 'mdi:magnify', 'mdi:cube-outline', 'mdi:vector-triangle', 'mdi:waves',
+        'mdi:home-floor-0', 'mdi:tree', 'mdi:wall', 'mdi:beam',
+      ],
       scan: {
         globInclude: ['app.vue', '{components,layouts,pages}/**/*.vue', '{composables,utils,server}/**/*.ts'],
         globExclude: ['**/__tests__/**', '**/*.spec.ts'],

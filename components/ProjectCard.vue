@@ -10,7 +10,8 @@
     ]"
   >
     <!-- No aria-label: the link's name is its visible text (category, title, place),
-         so voice-control users can say what they see (WCAG 2.5.3) -->
+         so voice-control users can say what they see (WCAG 2.5.3). The image is
+         decorative (alt="") so that name isn't read twice. -->
     <!-- Project Image -->
     <div :class="[
       'overflow-hidden bg-neutral-100',
@@ -19,7 +20,7 @@
       <NuxtImg
         v-if="image"
         :src="image"
-        :alt="`${title}${category ? ` - ${category} project` : ' project'}${location ? ` in ${location}` : ''}`"
+        alt=""
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none"
         format="webp"
         :loading="priority ? 'eager' : 'lazy'"
