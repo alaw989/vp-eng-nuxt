@@ -101,6 +101,8 @@
           :location="project.location"
           :year="project.year"
           :image="project.image"
+          :image-srcset="project.imageSrcset"
+          image-sizes="(min-width: 1280px) 384px, (min-width: 1024px) calc(33.3vw - 43px), (min-width: 768px) calc(33.3vw - 37px), calc(100vw - 32px)"
           :dark-mode="true"
           class="stagger-item"
           :style="{ animationDelay: `${index * 100}ms` }"
@@ -307,6 +309,10 @@ const getProjectImage = (project: any): string => {
   return findProjectImage(project.title?.rendered || '', project.custom_fields?.project_category || '')
 }
 
+// Card sizes WordPress made for the PDF preview (480/768/1024px), when that's the image used
+const getProjectImageSrcset = (project: any): string =>
+  project.project_pdfs_resolved?.[0]?.thumbnail ? (project.project_pdfs_resolved[0].thumbnail_srcset || '') : ''
+
 // Transform projects data for carousel display
 const carouselSlides = computed(() => {
   if (!projectsData.value || !Array.isArray(projectsData.value)) return []
@@ -320,6 +326,7 @@ const carouselSlides = computed(() => {
     year: p.custom_fields?.project_year || '',
     icon: projectIcons[p.custom_fields?.project_category as string] || 'mdi:office-building',
     image: getProjectImage(p), // Use actual project image from API
+    imageSrcset: getProjectImageSrcset(p),
   }))
 })
 
@@ -342,6 +349,7 @@ const featuredProjects = computed(() => {
       location: p.custom_fields?.project_location || '',
       year: p.custom_fields?.project_year || '',
       image: getProjectImage(p),
+      imageSrcset: getProjectImageSrcset(p),
     }))
   }
 
@@ -354,6 +362,7 @@ const featuredProjects = computed(() => {
     location: slide.location,
     year: slide.year,
     image: slide.image || findProjectImage(slide.title, slide.category),
+    imageSrcset: slide.image ? slide.imageSrcset : '',
   }))
 })
 

@@ -17,8 +17,23 @@
       'overflow-hidden bg-neutral-100',
       viewMode === 'list' ? 'md:w-1/3 md:flex-shrink-0 aspect-video md:aspect-auto' : 'aspect-[4/3]'
     ]">
+      <!-- WordPress PDF previews come with card sizes (480/768/1024px) for the
+           browser to choose from; other images go through NuxtImg -->
+      <img
+        v-if="image && imageSrcset"
+        :src="image"
+        :srcset="imageSrcset"
+        :sizes="viewMode === 'list' ? '(min-width: 768px) 33vw, 100vw' : imageSizes"
+        alt=""
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none"
+        :loading="priority ? 'eager' : 'lazy'"
+        :fetchpriority="priority ? 'high' : 'auto'"
+        decoding="async"
+        width="800"
+        height="600"
+      />
       <NuxtImg
-        v-if="image"
+        v-else-if="image"
         :src="image"
         alt=""
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none"
@@ -86,6 +101,10 @@ interface Props {
   slug: string
   description?: string
   image?: string
+  /** srcset for image, when WordPress has card-sized versions of it */
+  imageSrcset?: string
+  /** The card's width in the grid it sits in, so the browser picks the right srcset file */
+  imageSizes?: string
   category?: string
   location?: string
   year?: number | string
@@ -95,6 +114,9 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
+  // The /projects grid: one column, two from 640px, three from 1024px, in a
+  // container with 16/24/32px padding, 32px gaps and a 1280px cap
+  imageSizes: '(min-width: 1280px) 384px, (min-width: 1024px) calc(33.3vw - 43px), (min-width: 640px) calc(50vw - 40px), calc(100vw - 32px)',
   viewMode: 'grid',
   priority: false,
   darkMode: false
