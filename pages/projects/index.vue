@@ -165,6 +165,7 @@
           :slug="project.slug"
           :description="project.description"
           :image="project.image"
+          :image-srcset="project.imageSrcset"
           :category="project.category"
           :location="project.location"
           :year="project.year"
@@ -275,6 +276,7 @@ interface Project {
   location: string
   year: number
   image?: string
+  imageSrcset?: string
 }
 
 interface Filters {
@@ -338,6 +340,8 @@ const projects = computed<Project[]>(() => {
       location: decodeHtmlEntities(customFields.project_location) || '',
       year: parseInt(customFields.project_year || '0'),
       image: imageUrl,
+      // Card sizes WordPress made for the PDF preview (480/768/1024px)
+      imageSrcset: pdfPreview ? (p.project_pdfs_resolved[0].thumbnail_srcset || '') : '',
     }
   })
 })

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VP Headless API
  * Description: REST fields the vp-associates.com static site reads at build time. Must-use so it cannot be switched off from the admin.
- * Version: 1.1.0
+ * Version: 1.2.0
  *
  * Deployed to wp-content/mu-plugins/ on the CMS. Source of truth: vp-eng-nuxt/wordpress/mu-plugins/.
  * Moved here from the old `vp` theme's functions.php during the 2026-09-28 security cleanup.
@@ -13,9 +13,36 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Card-sized previews. Project cards are about 380px wide on a desktop, so the
+ * 1024px "large" preview is roughly three times the bytes a card needs.
+ * "vp-card" (480px wide) is made for every new upload. PDF previews also get
+ * it, and medium_large (768px), where the server can render PDFs; that needs
+ * Imagick, and this droplet has GD, so the existing previews were resized
+ * from their full-size preview JPEGs on 2026-10-14.
+ */
+add_action('after_setup_theme', function () {
+    add_image_size('vp-card', 480, 0);
+});
+add_filter('fallback_intermediate_image_sizes', function ($sizes) {
+    return array_merge($sizes, array('medium_large', 'vp-card'));
+});
+
+/** srcset candidates ("url 480w") for the card-relevant sizes an attachment has */
+function vp_headless_card_srcset($meta, $dir_url) {
+    $candidates = array();
+    foreach (array('vp-card', 'medium_large', 'large') as $size) {
+        if (!empty($meta['sizes'][$size]['file']) && !empty($meta['sizes'][$size]['width'])) {
+            $candidates[] = $dir_url . '/' . $meta['sizes'][$size]['file'] . ' ' . $meta['sizes'][$size]['width'] . 'w';
+        }
+    }
+    return $candidates;
+}
+
+/**
  * project_pdfs_resolved: each entry of the `project_pdfs` meta with public URLs.
- * [{ title, url, thumbnail }] where thumbnail is the explicit preview image,
- * or WordPress's generated preview of the PDF.
+ * [{ title, url, thumbnail, thumbnail_srcset }] where thumbnail is the explicit
+ * preview image, or WordPress's generated preview of the PDF, and
+ * thumbnail_srcset lists its card-sized versions ('' when there are none).
  */
 add_action('rest_api_init', function () {
     register_rest_field('project', 'project_pdfs_resolved', array(
@@ -30,6 +57,7 @@ add_action('rest_api_init', function () {
             foreach ($pdfs as $pdf) {
                 $pdf_url = '';
                 $preview_url = '';
+                $srcset = array();
                 $attached = '';
 
                 if (!empty($pdf['pdf_id'])) {
@@ -47,6 +75,7 @@ add_action('rest_api_init', function () {
                 // Fallback: the preview image WordPress generates for the PDF
                 if ($attached) {
                     $meta = wp_get_attachment_metadata($pdf['pdf_id']);
+                    $srcset = vp_headless_card_srcset($meta, $upload_base . '/' . dirname($attached));
                     if (!empty($meta['sizes']['large']['file'])) {
                         $preview_url = $upload_base . '/' . dirname($attached) . '/' . $meta['sizes']['large']['file'];
                     } elseif (!empty($meta['sizes']['medium']['file'])) {
@@ -59,6 +88,9 @@ add_action('rest_api_init', function () {
                 if (!empty($pdf['preview_id'])) {
                     $preview_large = wp_get_attachment_image_src($pdf['preview_id'], 'large');
                     $preview_attached = get_post_meta($pdf['preview_id'], '_wp_attached_file', true);
+                    $srcset = $preview_attached
+                        ? vp_headless_card_srcset(wp_get_attachment_metadata($pdf['preview_id']), $upload_base . '/' . dirname($preview_attached))
+                        : array();
                     if ($preview_large) {
                         $preview_url = $preview_large[0];
                     } elseif ($preview_attached) {
@@ -75,6 +107,7 @@ add_action('rest_api_init', function () {
                     'title' => isset($pdf['title']) ? $pdf['title'] : '',
                     'url' => $pdf_url,
                     'thumbnail' => $preview_url,
+                    'thumbnail_srcset' => implode(', ', $srcset),
                 );
             }
             return $result;
