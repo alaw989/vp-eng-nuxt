@@ -9,8 +9,8 @@ Crawl-delay: 1
 # Disallow API routes (server-side only)
 Disallow: /api/
 
-# Disallow Nuxt internal paths
-Disallow: /_nuxt/
+# /_nuxt/ (the site's CSS and JavaScript) stays crawlable: search engines
+# need it to render pages
 
 # Disallow admin/private paths
 Disallow: /admin/

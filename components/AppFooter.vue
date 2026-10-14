@@ -45,7 +45,7 @@
           <h4 class="text-lg font-semibold mb-4">Our Services</h4>
           <ul class="space-y-2">
             <li>
-              <NuxtLink to="/services/structural-steel-design" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
+              <NuxtLink to="/services/structural-steel-design-2" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1">
                 Structural Steel Design
               </NuxtLink>
             </li>
@@ -107,7 +107,8 @@
           <p class="text-neutral-400 text-sm text-center md:text-left">
             &copy; {{ currentYear }} VP Associates. All rights reserved.
           </p>
-          <div class="flex items-center gap-4 text-sm">
+          <div class="flex flex-wrap items-center justify-center gap-4 text-sm">
+            <LazyPwaInstallPrompt />
             <NuxtLink to="/sitemap" class="text-neutral-400 hover:text-white transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-sm px-2 py-1" aria-label="Site Map">
               Site Map
             </NuxtLink>

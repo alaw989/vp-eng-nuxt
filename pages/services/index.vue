@@ -17,7 +17,7 @@
         lede="From initial design to construction support, we provide end-to-end structural engineering expertise. Our services encompass all major construction materials and project types."
       />
 
-      <!-- Toolbar -->
+      <!-- Toolbar: tighter tab padding below 1024px keeps all five tabs in view on a portrait iPad -->
       <div class="border-b border-neutral-200 pb-6 mb-8">
         <div class="flex items-stretch overflow-x-auto scrollbar-hide snap-x snap-mandatory border border-neutral-300 rounded-sm bg-white w-fit max-w-full divide-x divide-neutral-300">
           <button
@@ -25,7 +25,7 @@
             :key="category.id"
             @click="setCategory(category.id)"
             :class="[
-              'h-11 px-5 font-semibold transition-colors duration-200 whitespace-nowrap snap-start focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
+              'h-11 px-3 lg:px-5 font-semibold transition-colors duration-200 whitespace-nowrap snap-start focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2',
               activeCategory === category.id
                 ? 'bg-primary text-white'
                 : 'bg-white text-neutral-700 hover:bg-neutral-50'
@@ -206,7 +206,7 @@ const serviceCategories: ServiceCategory[] = [
 // Service-to-category mapping helper
 function getServiceCategory(slug: string): string | null {
   const categoryMap: Record<string, string> = {
-    'structural-steel-design': 'structural',
+    'structural-steel-design-2': 'structural',
     'concrete-design': 'structural',
     'masonry-design': 'structural',
     'wood-design': 'structural',

@@ -26,7 +26,7 @@ test.describe('Services Pages', () => {
   test('service detail page loads correctly', async ({ page }) => {
     // Navigate to a service detail page
     // Try a few common service slugs based on footer links
-    const serviceSlugs = ['structural-steel-design', 'concrete-design', 'foundation-design'];
+    const serviceSlugs = ['structural-steel-design-2', 'concrete-design', 'foundation-design'];
 
     for (const slug of serviceSlugs) {
       const response = await page.request.get(`http://localhost:3000/services/${slug}`);

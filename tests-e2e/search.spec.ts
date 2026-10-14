@@ -188,62 +188,40 @@ test.describe('Search Page', () => {
   })
 })
 
-test.describe('Search API', () => {
-  test('search API returns results for valid query', async ({ request }) => {
-    const response = await request.get('/api/search?q=structural')
+// Production is static: there is no search endpoint. The page searches an
+// index that is prerendered into its payload, so these run against the page.
+test.describe('Search (in the browser)', () => {
+  test('finds a service and keeps the query in the URL', async ({ page }) => {
+    await page.goto('/search')
+    await page.locator('input[type="search"]').fill('steel detailing')
+    await page.keyboard.press('Enter')
 
-    expect(response.status()).toBe(200)
-
-    const data = await response.json()
-    expect(data).toHaveProperty('results')
-    expect(data).toHaveProperty('total')
-    expect(data).toHaveProperty('query')
-    expect(Array.isArray(data.results)).toBe(true)
+    await expect(page.getByRole('status')).toContainText('for "steel detailing"')
+    await expect(page.locator('main a[href="/services/steel-detailing"]')).toBeVisible()
+    await expect(page).toHaveURL(/\?q=steel\+detailing/)
   })
 
-  test('search API returns empty for no query', async ({ request }) => {
-    const response = await request.get('/api/search')
+  test('runs the search in a ?q= link', async ({ page }) => {
+    await page.goto('/search?q=seawall')
 
-    expect(response.status()).toBe(200)
-
-    const data = await response.json()
-    expect(data.results).toEqual([])
-    expect(data.total).toBe(0)
+    await expect(page.locator('input[type="search"]')).toHaveValue('seawall')
+    await expect(page.locator('main a[href="/services/seawall-design"]')).toBeVisible()
   })
 
-  test('search API returns correct structure', async ({ request }) => {
-    const response = await request.get('/api/search?q=engineering')
+  test('a type filter shows only that type', async ({ page }) => {
+    await page.goto('/search?q=steel')
+    await page.selectOption('select[aria-label="Filter by content type"]', 'service')
 
-    expect(response.status()).toBe(200)
-
-    const data = await response.json()
-    if (data.results.length > 0) {
-      const result = data.results[0]
-      expect(result).toHaveProperty('type')
-      expect(result).toHaveProperty('title')
-      expect(result).toHaveProperty('slug')
-      expect(result).toHaveProperty('description')
-      expect(result).toHaveProperty('url')
-      expect(['page', 'service', 'project']).toContain(result.type)
-    }
+    await expect(page.locator('main h2', { hasText: /Services \(\d+\)/ })).toBeVisible()
+    await expect(page.locator('main h2', { hasText: /(Pages|Projects) \(\d+\)/ })).toHaveCount(0)
   })
 
-  test('search API handles special characters', async ({ request }) => {
-    const response = await request.get('/api/search?q=test%20%26%20more')
+  test('never calls a search endpoint', async ({ page }) => {
+    const apiCalls: string[] = []
+    page.on('request', request => { if (request.url().includes('/api/search')) apiCalls.push(request.url()) })
 
-    expect(response.status()).toBe(200)
-
-    const data = await response.json()
-    expect(data).toHaveProperty('results')
-  })
-
-  test('search API fuzzy matching works', async ({ request }) => {
-    const response = await request.get('/api/search?q=struct')
-
-    expect(response.status()).toBe(200)
-
-    const data = await response.json()
-    // Should find results with "structural" even for partial "struct"
-    expect(Array.isArray(data.results)).toBe(true)
+    await page.goto('/search?q=bridge')
+    await expect(page.getByRole('status')).toContainText('for "bridge"')
+    expect(apiCalls).toEqual([])
   })
 })

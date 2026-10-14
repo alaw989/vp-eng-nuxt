@@ -1,6 +1,8 @@
 <template>
   <!-- Only show progress indicator when visible -->
-  <!-- Hidden on phones, where it sits over the text -->
+  <!-- Hidden on phones, where it sits over the text, and at the very bottom,
+       where it would sit over the footer's links. Decorative, so hidden from
+       screen readers, which already announce their own position. -->
   <Transition
     enter-active-class="transition-all duration-300 ease-out"
     enter-from-class="opacity-0 scale-75"
@@ -12,12 +14,11 @@
     <div
       v-if="isVisible && scrollProgress > 0"
       class="hidden md:block fixed bottom-8 right-8 z-40 pointer-events-none"
-      :aria-label="`Page scroll progress: ${Math.round(scrollProgress * 100)}%`"
+      aria-hidden="true"
     >
       <svg
         class="w-12 h-12 -rotate-90"
         viewBox="0 0 24 24"
-        aria-hidden="true"
       >
         <!-- Background track circle -->
         <circle
@@ -50,6 +51,8 @@
 const isVisible = ref(false)
 const scrollProgress = ref(0)
 const circumference = 2 * Math.PI * 10 // radius of 10
+// Taller than the footer's bottom bar, which the ring would otherwise cover
+const FOOTER_BAR_CLEARANCE = 120
 
 const dashOffset = computed(() => {
   return circumference * (1 - scrollProgress.value)
@@ -60,7 +63,8 @@ onMounted(() => {
     const scrollTop = window.scrollY
     const docHeight = document.documentElement.scrollHeight - window.innerHeight
     scrollProgress.value = scrollTop > 0 ? Math.min(scrollTop / docHeight, 1) : 0
-    isVisible.value = scrollTop > 100 && scrollProgress.value > 0
+    const nearBottom = docHeight - scrollTop < FOOTER_BAR_CLEARANCE
+    isVisible.value = scrollTop > 100 && scrollProgress.value > 0 && !nearBottom
   }
 
   window.addEventListener('scroll', handleScroll, { passive: true })

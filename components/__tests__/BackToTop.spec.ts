@@ -166,6 +166,28 @@ describe('BackToTop Component', () => {
       Object.defineProperty(window, 'innerHeight', { value: 0, writable: true })
     })
 
+    it('hides near the bottom, where it would cover the footer links', async () => {
+      Object.defineProperty(window, 'scrollY', { value: 1150, writable: true })
+      Object.defineProperty(document.documentElement, 'scrollHeight', { value: 2000, writable: true })
+      Object.defineProperty(window, 'innerHeight', { value: 800, writable: true })
+
+      const wrapper = mount(BackToTop)
+
+      const scrollHandler = addEventListenerSpy.mock.calls.find(
+        (call: unknown[]) => (call as [string, () => void])[0] === 'scroll'
+      )?.[1] as () => void
+
+      scrollHandler()
+      await nextTick()
+
+      expect(wrapper.vm.isVisible).toBe(false)
+
+      // Cleanup
+      Object.defineProperty(window, 'scrollY', { value: 0, writable: true })
+      Object.defineProperty(document.documentElement, 'scrollHeight', { value: 0, writable: true })
+      Object.defineProperty(window, 'innerHeight', { value: 0, writable: true })
+    })
+
     it('sets visibility to false when not past threshold', async () => {
       Object.defineProperty(window, 'scrollY', { value: 50, writable: true })
       Object.defineProperty(document.documentElement, 'scrollHeight', { value: 2000, writable: true })

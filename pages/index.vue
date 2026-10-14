@@ -57,7 +57,8 @@
         lede="Comprehensive structural engineering solutions for projects of all sizes"
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Three services: three columns from tablet width, so none sits alone on a row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <ServiceCard
           v-for="service in services"
           :key="service.slug"
@@ -87,8 +88,9 @@
         dark
       />
 
-      <!-- Projects Grid with staggered animation -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 stagger-children">
+      <!-- Projects Grid with staggered animation. Three cards, so tablets
+           use three columns too rather than leaving one alone on a row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 stagger-children">
         <ProjectCard
           v-for="(project, index) in featuredProjects"
           :key="project.slug"

@@ -269,6 +269,14 @@ const viewerSrc = (url: string) => `${url}#view=Fit&zoom=page-fit&navpanes=0`
 const opensDirectly = () =>
   navigator.pdfViewerEnabled === false || /iPhone|iPod/.test(navigator.userAgent)
 
+// Keeps keyboard focus in the viewer. A keydown trap can't work here: Tab
+// pressed inside the PDF's iframe never reaches this page. Making the page
+// behind inert instead (the viewer is teleported outside it) means focus can
+// only leave the viewer for the browser's own toolbar, as with a native modal.
+const setBackgroundInert = (inert: boolean) => {
+  document.getElementById('__nuxt')?.toggleAttribute('inert', inert)
+}
+
 const openPdf = (pdf: PdfDocument, index: number) => {
   if (opensDirectly()) {
     window.open(pdf.url, '_blank', 'noopener')
@@ -284,6 +292,7 @@ const openPdf = (pdf: PdfDocument, index: number) => {
   previouslyFocused.value = document.activeElement as HTMLElement
 
   document.body.style.overflow = 'hidden'
+  setBackgroundInert(true)
 
   // Reset loading after a delay
   setTimeout(() => {
@@ -300,6 +309,7 @@ const closeViewer = () => {
   viewerOpen.value = false
   currentPdf.value = null
   document.body.style.overflow = ''
+  setBackgroundInert(false)
 
   // Return focus to the element that opened the viewer
   nextTick(() => {
@@ -319,6 +329,7 @@ onKeyStroke('Escape', (e) => {
 onUnmounted(() => {
   if (viewerOpen.value) {
     document.body.style.overflow = ''
+    setBackgroundInert(false)
   }
 })
 

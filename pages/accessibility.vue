@@ -19,7 +19,8 @@
       <!-- Content -->
       <AppSection bg-color="white">
         <template #default>
-          <div class="prose prose-lg max-w-none">
+          <!-- prose's 65ch measure: max-w-none ran desktop lines past 100 characters -->
+          <div class="prose prose-lg mx-auto">
             <section class="mb-8">
               <h2 class="text-2xl font-bold text-neutral-900 mb-4">Our Commitment</h2>
               <p class="text-neutral-700 mb-4">

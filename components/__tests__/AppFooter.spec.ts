@@ -63,7 +63,7 @@ describe('AppFooter Component', () => {
 
   it('renders structural steel design service link', () => {
     const wrapper = mount(AppFooter)
-    expect(wrapper.html()).toContain('/services/structural-steel-design')
+    expect(wrapper.html()).toContain('/services/structural-steel-design-2')
     expect(wrapper.html()).toContain('Structural Steel Design')
   })
 

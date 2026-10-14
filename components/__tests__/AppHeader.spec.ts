@@ -233,10 +233,10 @@ describe('AppHeader Component', () => {
         }
       }
     })
-    // Find the desktop nav which has both hidden and md:flex classes
+    // Find the desktop nav which has both hidden and lg:flex classes
     const desktopNav = wrapper.findAll('nav').find(nav => {
       const classes = nav.attributes('class') || ''
-      return classes.includes('hidden') && classes.includes('md:flex')
+      return classes.includes('hidden') && classes.includes('lg:flex')
     })
     expect(desktopNav).toBeDefined()
   })
