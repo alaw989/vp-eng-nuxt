@@ -6,6 +6,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Clears the 80px sticky header, so a field or link reached with
+       (Shift+)Tab or an anchor never lands underneath it (WCAG 2.4.11) */
+    scroll-padding-top: 6rem;
   }
 
   body {

@@ -6,8 +6,8 @@
   >
     <div class="container">
       <div class="flex items-center justify-between h-20">
-        <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center" aria-label="VP Associates Home">
+        <!-- Logo: never shrinks, so a crowded row can't squash it -->
+        <NuxtLink to="/" class="flex items-center shrink-0" aria-label="VP Associates Home">
           <img
             src="/images/vp-logo.png"
             alt="VP & Associates, Inc. Logo"
@@ -17,8 +17,9 @@
           />
         </NuxtLink>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
+        <!-- Desktop Navigation: from 1024px only; below that the row doesn't fit
+             (portrait iPads lost the logo and scrolled sideways), so tablets get the menu -->
+        <nav class="hidden lg:flex items-center space-x-4 xl:space-x-8 whitespace-nowrap" role="navigation" aria-label="Main navigation">
           <NuxtLink
             to="/"
             :aria-current="route.path === '/' ? 'page' : undefined"
@@ -71,7 +72,6 @@
           >
             <Icon name="mdi:magnify" class="w-5 h-5" />
           </NuxtLink>
-          <LazyPwaInstallPrompt />
           <NuxtLink
             to="/contact"
             :aria-current="route.path === '/contact' ? 'page' : undefined"
@@ -84,7 +84,7 @@
         <!-- Mobile Menu Button -->
         <button
           @click="isOpen = !isOpen"
-          class="md:hidden p-2 rounded-sm hover:bg-neutral-100 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="lg:hidden p-2 rounded-sm hover:bg-neutral-100 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           :aria-label="isOpen ? 'Close menu' : 'Open menu'"
           :aria-expanded="isOpen"
           aria-controls="mobile-menu"
@@ -97,7 +97,7 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation: capped at the screen below the 5rem bar so every link stays reachable on a landscape phone -->
+    <!-- Mobile and tablet navigation: capped at the screen below the 5rem bar so every link stays reachable on a landscape phone -->
     <Transition
       enter-active-class="transition-all duration-300 ease-out"
       enter-from-class="opacity-0 -translate-y-2"
@@ -106,7 +106,7 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-2"
     >
-      <div v-show="isOpen" id="mobile-menu" class="md:hidden bg-white border-t border-neutral-200 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain">
+      <div v-show="isOpen" id="mobile-menu" class="lg:hidden bg-white border-t border-neutral-200 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain">
         <!-- Screen reader announcement for menu state -->
         <div class="sr-only" aria-live="polite">
           {{ isOpen ? 'Menu opened' : 'Menu closed' }}

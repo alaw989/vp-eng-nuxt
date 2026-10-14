@@ -5,9 +5,10 @@
         <link itemprop="item" href="https://vp-associates.com/" />
         <meta itemprop="name" content="Home" />
         <meta itemprop="position" content="1" />
+        <!-- Padding grows the icon's target to 24px; the negative margin keeps the row in place -->
         <NuxtLink
           to="/"
-          class="text-neutral-600 hover:text-primary transition-colors"
+          class="inline-flex p-1 -m-1 text-neutral-600 hover:text-primary transition-colors"
           aria-label="Home"
         >
           <Icon name="mdi:home" class="w-4 h-4" />

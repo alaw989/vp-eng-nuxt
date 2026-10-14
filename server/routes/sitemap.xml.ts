@@ -18,12 +18,12 @@ export default defineEventHandler(async (event) => {
     { loc: '/projects', changefreq: 'weekly', priority: 0.9 },
     { loc: '/contact', changefreq: 'monthly', priority: 0.8 },
     { loc: '/careers', changefreq: 'monthly', priority: 0.7 },
-    { loc: '/search', changefreq: 'weekly', priority: 0.6 },
+    // /search is left out: it is noindex, and its results are these same pages
   ]
 
   // Static fallback services (mirrors server/api/services.get.ts)
   const staticServices = [
-    { slug: 'structural-steel-design' },
+    { slug: 'structural-steel-design-2' },
     { slug: 'concrete-design' },
     { slug: 'masonry-design' },
     { slug: 'foundation-design' },

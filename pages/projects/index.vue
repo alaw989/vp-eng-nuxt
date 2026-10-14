@@ -57,9 +57,10 @@
           </div>
         </div>
 
-        <!-- Location, year and sort -->
+        <!-- Location, year and sort. Location and year only appear once WordPress
+             has them; today no project does, and the menus offered a blank and "0". -->
         <div class="flex flex-col sm:flex-row sm:items-center gap-3">
-          <div class="relative sm:w-48">
+          <div v-if="uniqueLocations.length > 0" class="relative sm:w-48">
             <select
               v-model="filters.location"
               @change="setLocation"
@@ -74,7 +75,7 @@
             <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none" />
           </div>
 
-          <div class="relative sm:w-40">
+          <div v-if="uniqueYears.length > 0" class="relative sm:w-40">
             <select
               v-model="filters.year"
               @change="setYear"
@@ -96,10 +97,9 @@
               class="field appearance-none cursor-pointer pr-10"
               aria-label="Sort projects"
             >
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-              <option value="az">Name (A-Z)</option>
-              <option value="za">Name (Z-A)</option>
+              <option v-for="option in sortOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
             </select>
             <Icon name="mdi:chevron-down" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none" />
           </div>
@@ -143,18 +143,20 @@
         </p>
       </div>
 
+      <h2 class="sr-only">Project list</h2>
+
       <!-- Loading State -->
       <div v-if="pending" :class="[
         'grid',
-        viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
+        viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]" aria-hidden="true">
         <ProjectCardSkeleton v-for="i in 6" :key="`skeleton-${i}`" />
       </div>
 
       <!-- Projects Grid -->
       <div ref="projectsContainer" v-else-if="paginatedProjects.length > 0" id="projects-grid" :class="[
-        'grid scroll-mt-24 transition-all duration-300',
-        viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
+        'grid transition-all duration-300',
+        viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-6'
       ]">
         <ProjectCard
           v-for="(project, index) in paginatedProjects"
@@ -352,25 +354,35 @@ const filters = reactive<Filters>({
 type ViewMode = 'grid' | 'list'
 const viewMode = ref<ViewMode>((route.query.view as ViewMode) === 'list' ? 'list' : 'grid')
 
-// Pagination state
-const itemsPerPage = 9
+// Pagination state: 12 fills every row at one, two or three columns
+const itemsPerPage = 12
 const currentPage = ref(Number(route.query.page) || 1)
 
 // Category chips come from the projects themselves, so they always match the
 // WordPress taxonomy and never offer a category with nothing in it.
 const categories = computed<Category[]>(() => projectCategories(projects.value))
 
-// Get unique locations for filter dropdown
+// Get unique locations for filter dropdown (projects without one are left out)
 const uniqueLocations = computed(() => {
-  const locations = new Set<string>(projects.value.map(p => p.location))
+  const locations = new Set<string>(projects.value.map(p => p.location).filter(Boolean))
   return Array.from(locations).sort()
 })
 
-// Get unique years for filter dropdown (descending)
+// Get unique years for filter dropdown (descending; a missing year parses as 0)
 const uniqueYears = computed(() => {
-  const years = new Set<string>(projects.value.map(p => p.year.toString()))
+  const years = new Set<string>(projects.value.filter(p => p.year > 0).map(p => p.year.toString()))
   return Array.from(years).sort((a, b) => parseInt(b) - parseInt(a))
 })
+
+// Sorting by year needs years. Without them "newest" keeps WordPress's order,
+// so it is offered as the default order and "oldest" is dropped.
+const sortOptions = computed<{ value: Filters['sort'], label: string }[]>(() => [
+  ...(uniqueYears.value.length > 0
+    ? [{ value: 'newest' as const, label: 'Newest First' }, { value: 'oldest' as const, label: 'Oldest First' }]
+    : [{ value: 'newest' as const, label: 'Default Order' }]),
+  { value: 'az', label: 'Name (A-Z)' },
+  { value: 'za', label: 'Name (Z-A)' },
+])
 
 // Check if any filters are active
 const hasActiveFilters = computed(() => {

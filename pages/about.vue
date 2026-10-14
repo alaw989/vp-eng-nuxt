@@ -26,7 +26,7 @@
           <div class="flex items-center gap-4">
             <div class="text-center">
               <div class="text-4xl font-display font-bold text-primary">
-                <span ref="yearsCounter">0</span>+
+                <span ref="yearsCounter">{{ yearsShown }}</span>+
               </div>
               <div class="text-sm text-neutral-600">Years Combined Experience</div>
             </div>
@@ -308,51 +308,34 @@ const serviceAreas = [
   'Pinellas County'
 ]
 
-// Counter animation for "30+ Years"
+// Counter animation for "30+ Years". The page is prerendered with the real
+// number, so search engines and link previews read 30, not 0. It only counts
+// up when it starts off-screen; one already in view keeps its number rather
+// than flashing back to 0.
+const YEARS = 30
+const yearsShown = ref(YEARS)
 const yearsCounter = ref<HTMLElement | null>(null)
 
 onMounted(() => {
-  // Animate the years counter from 0 to 30
-  if (yearsCounter.value) {
-    const duration = 2000 // 2 seconds
-    const target = 30
-    const startTime = Date.now()
+  const counter = yearsCounter.value
+  if (!counter || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  const { top, bottom } = counter.getBoundingClientRect()
+  if (top < window.innerHeight && bottom > 0) return
 
-    const animate = () => {
-      const elapsed = Date.now() - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      // Easing function for smooth animation
-      const easeOut = 1 - Math.pow(1 - progress, 3)
-      const current = Math.floor(easeOut * target)
-
-      if (yearsCounter.value) {
-        yearsCounter.value.textContent = current.toString()
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animate)
-      } else {
-        if (yearsCounter.value) {
-          yearsCounter.value.textContent = target.toString()
-        }
-      }
+  yearsShown.value = 0
+  const observer = new IntersectionObserver(([entry]) => {
+    if (!entry?.isIntersecting) return
+    observer.disconnect()
+    const start = performance.now()
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / 2000, 1)
+      // Ease out: fast at first, settling on the number
+      yearsShown.value = Math.floor((1 - Math.pow(1 - progress, 3)) * YEARS)
+      if (progress < 1) requestAnimationFrame(step)
     }
-
-    // Start animation when section is visible
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animate()
-            observer.disconnect()
-          }
-        })
-      },
-      { threshold: 0.5 }
-    )
-
-    observer.observe(yearsCounter.value)
-  }
+    requestAnimationFrame(step)
+  }, { threshold: 0.5 })
+  observer.observe(counter)
 })
 
 // Refresh team data

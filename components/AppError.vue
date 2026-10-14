@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
-    <div class="max-w-2xl w-full text-center">
+  <div class="bg-neutral-50 px-4 py-20 md:py-28">
+    <div class="max-w-2xl mx-auto text-center">
       <!-- Error Icon -->
       <div class="mb-8">
         <div class="inline-flex items-center justify-center w-32 h-32 bg-alert/10 rounded-full">

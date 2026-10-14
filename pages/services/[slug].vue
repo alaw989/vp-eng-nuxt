@@ -23,10 +23,10 @@
     <template v-else>
       <!-- Page Header Banner -->
       <PageBanner
-        :headline="service?.title?.rendered || 'Service'"
+        :headline="serviceTitle"
         :subheadline="serviceDescription"
         :background-image="serviceHeroImage"
-        :background-alt="`${service?.title?.rendered || 'Service'} hero image`"
+        :background-alt="`${serviceTitle} hero image`"
         aria-label="Service page banner"
       />
 
@@ -50,10 +50,10 @@
             <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6">
               About This Service
             </h2>
-            <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="service.content.rendered"></div>
+            <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="serviceContent.html"></div>
             <div class="mt-6 pt-6 border-t border-neutral-200 social-share">
               <LazySocialShare
-                :title="service.title.rendered"
+                :title="serviceTitle"
                 :description="serviceDescription"
               />
             </div>
@@ -88,7 +88,7 @@
       <AppSection v-if="hasCapabilities" bg-color="neutral-50" animate-on-scroll>
         <SectionHeading
           title="Our Capabilities"
-          :lede="`Comprehensive solutions for all your ${service.title.rendered.toLowerCase()} needs`"
+          :lede="`Comprehensive solutions for all your ${serviceTitleInSentence} needs`"
         />
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -166,14 +166,14 @@
       <!-- CTA -->
       <CtaBlock
         headline="Ready to Discuss Your Project?"
-        :subheadline="`Our team is ready to provide expert ${service.title.rendered.toLowerCase()} services`"
+        :subheadline="`Our team is ready to provide expert ${serviceTitleInSentence} services`"
       />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { decodeHtmlEntities } from '~/utils/html'
+import { decodeHtmlEntities, stripHtml } from '~/utils/html'
 import { processSteps } from '~/utils/process'
 import { wpImageUrl } from '~/utils/wpImage'
 
@@ -195,7 +195,7 @@ const apiService = computed(() => (wpServices.value as any)?.data)
 
 // Static fallback data for when API is not available (redundant but kept as emergency fallback)
 const staticServices: Record<string, any> = {
-  'structural-steel-design': {
+  'structural-steel-design-2': {
     title: { rendered: 'Structural Steel Design' },
     excerpt: { rendered: '<p>Structural steel design to AISC 360 for commercial and industrial projects</p>' },
     content: { rendered: '<p>Our structural steel design services cover a comprehensive range of steel construction needs. From moment frames to braced frames, we deliver efficient, code-compliant steel solutions that optimize material usage while ensuring structural integrity.</p><p>We specialize in steel connection design, metal building systems, industrial platforms, and seismic load analysis. We design to the current AISC Specification for Structural Steel Buildings.</p>' },
@@ -363,7 +363,7 @@ const staticServices: Record<string, any> = {
 
 // Hero image mapping for service detail pages
 const serviceHeroImages: Record<string, string> = {
-  'structural-steel-design': '/images/hero/construction-steel-beams-1920w.jpg',
+  'structural-steel-design-2': '/images/hero/construction-steel-beams-1920w.jpg',
   'concrete-design': '/images/hero/construction-building-frame-1920w.jpg',
   'masonry-design': '/images/hero/construction-building-frame-1920w.jpg',
   'wood-design': '/images/hero/construction-building-frame-1920w.jpg',
@@ -371,25 +371,26 @@ const serviceHeroImages: Record<string, string> = {
   'foundation-design': '',
   'seawall-design': '',
   'steel-connection-design': '/images/hero/construction-steel-beams-1920w.jpg',
-  'cad-3d-modeling': '',
+  // Same photo as WordPress's 2018 featured image, at full width
+  'cad-3d-modeling': '/images/hero/home-header-1920w.webp',
   'inspection-services': '/images/hero/construction-site-1920w.jpg',
   'steel-detailing': '/images/hero/construction-steel-structure-1920w.jpg'
 }
 
 const heroFallback = '/images/hero/home-header-1920w.webp'
 
-// Featured image from WordPress API or fallback to hardcoded mapping
+// The banner spans the screen. Local photos come first because they are served
+// at every width; a WordPress featured image only fills in for a service with
+// no local entry, at full size, and only when it is wide enough not to blur
+// on a desktop (Steel Detailing's is 300px wide).
+const MIN_HERO_WIDTH = 1600
 const serviceHeroImage = computed(() => {
-  // Try to get featured image from WordPress API _embedded data
+  if (slug in serviceHeroImages) return serviceHeroImages[slug]
   const featuredMedia = service.value?._embedded?.['wp:featuredmedia']?.[0]
-  if (featuredMedia) {
-    // Try to get a large size, fallback to full or source URL
-    return featuredMedia.media_details?.sizes?.large?.source_url ||
-           featuredMedia.media_details?.sizes?.full?.source_url ||
-           featuredMedia.source_url
+  if (featuredMedia?.media_details?.width >= MIN_HERO_WIDTH) {
+    return featuredMedia.media_details.sizes?.full?.source_url || featuredMedia.source_url
   }
-  // Fallback to hardcoded mapping
-  return serviceHeroImages[slug] ?? heroFallback
+  return heroFallback
 })
 
 // Computed service data (API or static fallback)
@@ -397,15 +398,36 @@ const service = computed(() => {
   return wpServices.value
 })
 
+// WordPress titles arrive HTML-encoded ("CAD &#038; 3D Modeling")
+const serviceTitle = computed(() => decodeHtmlEntities(service.value?.title?.rendered) || 'Service')
+// Lowercased for use mid-sentence, keeping acronyms like CAD and 3D
+const serviceTitleInSentence = computed(() =>
+  serviceTitle.value.split(' ').map(word => (word === word.toUpperCase() ? word : word.toLowerCase())).join(' ')
+)
+
 // Service metadata
-const serviceIcon = computed(() => service.value?.custom_fields?.icon?.[0] || 'mdi:cog')
-const serviceStandard = computed(() => service.value?.custom_fields?.standard?.[0] || '')
+// WordPress names these service_icon and service_standard (plain strings)
+const serviceIcon = computed(() => service.value?.custom_fields?.service_icon || 'mdi:cog')
+const serviceStandard = computed(() => decodeHtmlEntities(service.value?.custom_fields?.service_standard))
 const serviceDescription = computed(() => {
   const excerpt = service.value?.excerpt?.rendered || ''
-  return excerpt.replace(/<[^>]*>/g, '').trim() ||
-    `${service.value?.title?.rendered || 'Service'} by VP Associates`
+  return decodeHtmlEntities(excerpt.replace(/<[^>]*>/g, '').trim()) ||
+    `${serviceTitle.value} by VP Associates`
 })
-const serviceCapabilities = computed(() => service.value?.custom_fields?.capabilities || [])
+// WordPress has no capabilities field: each service's text ends with an
+// "Our ... services include:" heading and list. That list becomes the
+// capability cards and leaves the About column, so it isn't shown twice.
+// Text without such a list stays whole, with no capabilities section.
+const serviceContent = computed(() => {
+  const html: string = service.value?.content?.rendered || ''
+  const list = html.match(/(?:<h3[^>]*>[^<]*<\/h3>\s*)?<ul[^>]*>([\s\S]*?)<\/ul>/)
+  const capabilities = [...(list?.[1] ?? '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/g)]
+    .map(([, item]) => decodeHtmlEntities(stripHtml(item)))
+    .filter(Boolean)
+  if (!list || capabilities.length === 0) return { html, capabilities: [] as string[] }
+  return { html: html.replace(list[0], ''), capabilities }
+})
+const serviceCapabilities = computed(() => serviceContent.value.capabilities)
 const serviceBenefits = computed(() => [
   'Licensed Florida engineers',
   'Code-compliant designs',
@@ -433,7 +455,7 @@ const sectionTones = computed<Record<'process' | 'projects' | 'services', Tone>>
 // Breadcrumbs for SEO and navigation
 const serviceBreadcrumbs = computed(() => [
   { title: 'Services', to: '/services' },
-  { title: service.value?.title?.rendered || 'Service' }
+  { title: serviceTitle.value }
 ])
 
 // Fetch projects from WordPress API for related projects section
@@ -472,7 +494,7 @@ const allProjects = computed(() => {
 // Service-to-category mapping function
 function getServiceCategory(serviceSlug: string): string | null {
   const categoryMap: Record<string, string> = {
-    'structural-steel-design': 'structural',
+    'structural-steel-design-2': 'structural',
     'concrete-design': 'structural',
     'masonry-design': 'structural',
     'wood-design': 'structural',
@@ -523,7 +545,7 @@ const relatedProjects = computed(() => {
 
 // All services list for related services lookup
 const allServicesList = [
-  { title: 'Structural Steel Design', slug: 'structural-steel-design', icon: 'mdi:beam', description: 'Steel design to AISC 360' },
+  { title: 'Structural Steel Design', slug: 'structural-steel-design-2', icon: 'mdi:beam', description: 'Steel design to AISC 360' },
   { title: 'Concrete Design', slug: 'concrete-design', icon: 'mdi:cube-outline', description: 'Concrete design to ACI 318' },
   { title: 'Masonry Design', slug: 'masonry-design', icon: 'mdi:wall', description: 'ACI 530 compliant masonry design' },
   { title: 'Wood Design', slug: 'wood-design', icon: 'mdi:tree', description: 'NDS standards for wood construction' },
@@ -552,7 +574,7 @@ const relatedServices = computed(() => {
 // SEO Meta Tags
 watchEffect(() => {
   if (service.value?.title?.rendered) {
-    const title = service.value.title.rendered
+    const title = serviceTitle.value
     const description = serviceDescription.value
     const canonicalUrl = `https://vp-associates.com/services/${slug}`
 
@@ -570,7 +592,7 @@ watchEffect(() => {
 useJsonld({
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: computed(() => service.value?.title?.rendered || 'Service'),
+  name: serviceTitle,
   description: serviceDescription,
   provider: {
     '@type': 'LocalBusiness',

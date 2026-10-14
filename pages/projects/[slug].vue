@@ -30,14 +30,14 @@
 
       <!-- Page Header -->
       <PageBanner
-        :headline="project.title.rendered"
+        :headline="projectTitle"
         :subheadline="projectDescription"
         aria-label="Project page banner"
       >
         <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-6 text-sm text-white/80">
           <NuxtLink
             to="/projects"
-            class="inline-flex items-center gap-1 text-white hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            class="inline-flex items-center gap-1 py-1 text-white hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
             <Icon name="mdi:arrow-left" class="w-4 h-4" aria-hidden="true" />
             Back to Projects
@@ -93,7 +93,7 @@
           <div v-show="activeTab === 'images'">
             <LazyProjectGallery
               :images="projectImages"
-              :project-name="project.title.rendered || 'Project'"
+              :project-name="projectTitle"
             />
           </div>
 
@@ -120,7 +120,7 @@
             <!-- Social Share Section -->
             <div class="pt-6 border-t border-neutral-200">
               <LazySocialShare
-                :title="project.title.rendered"
+                :title="projectTitle"
                 :description="projectDescription"
               />
             </div>
@@ -144,8 +144,8 @@
 
           <!-- Sidebar -->
           <div class="space-y-8">
-            <!-- Quick Stats -->
-            <aside class="card bg-neutral-50 p-6">
+            <!-- Quick Stats (divs, not asides: a complementary landmark can't sit inside main) -->
+            <div class="card bg-neutral-50 p-6">
               <h3 class="font-bold text-neutral-900 mb-6 flex items-center gap-2 text-lg">
                 <Icon name="mdi:information" class="w-5 h-5 text-primary" />
                 Project Details
@@ -172,10 +172,10 @@
                   <span class="font-semibold text-neutral-900">{{ projectCategory }}</span>
                 </div>
               </div>
-            </aside>
+            </div>
 
             <!-- CTA -->
-            <aside class="border-l-2 border-primary bg-neutral-50 p-6">
+            <div class="border-l-2 border-primary bg-neutral-50 p-6">
               <h4 class="font-bold text-neutral-900 mb-2 text-lg">Start Your Project</h4>
               <p class="text-neutral-600 mb-5 text-sm">Need similar structural engineering services? Let's discuss your requirements.</p>
               <NuxtLink
@@ -185,7 +185,7 @@
                 Contact Us
                 <Icon name="mdi:arrow-right" class="w-5 h-5" />
               </NuxtLink>
-            </aside>
+            </div>
           </div>
         </div>
       </AppSection>
@@ -256,6 +256,8 @@ const { data: wpProjects, pending, error } = await useFetch(
 const project = computed(() => wpProjects.value)
 
 // Project metadata
+// WordPress titles arrive HTML-encoded ("066 &#8211; hanrail")
+const projectTitle = computed(() => decodeHtmlEntities(project.value?.title?.rendered) || 'Project')
 // Empty location and year stay hidden rather than showing placeholder values
 const projectCategory = computed(() => decodeHtmlEntities(project.value?.custom_fields?.project_category) || 'Project')
 const projectLocation = computed(() => decodeHtmlEntities(project.value?.custom_fields?.project_location) || '')
@@ -265,8 +267,8 @@ const projectYear = computed(() => {
 })
 const projectDescription = computed(() => {
   const excerpt = project.value?.excerpt?.rendered || ''
-  return excerpt.replace(/<[^>]*>/g, '').trim() ||
-    `${project.value?.title?.rendered || 'Project'} by VP Associates`
+  return decodeHtmlEntities(excerpt.replace(/<[^>]*>/g, '').trim()) ||
+    `${projectTitle.value} by VP Associates`
 })
 const projectStats = computed(() => project.value?.custom_fields || {})
 const servicesProvided = computed(() => project.value?.custom_fields?.services_provided || [
@@ -289,10 +291,11 @@ const projectImages = computed(() => {
 })
 
 // Project PDFs - resolved URLs come from WordPress REST API via project_pdfs_resolved field
+// (titles are HTML-encoded like the project's own)
 const projectPdfs = computed(() => {
   const resolved = (project.value as any)?.project_pdfs_resolved
   if (Array.isArray(resolved) && resolved.length > 0) {
-    return resolved
+    return resolved.map((pdf: any) => ({ ...pdf, title: decodeHtmlEntities(pdf.title) }))
   }
   return []
 })
@@ -379,13 +382,13 @@ const hasRelatedProjects = computed(() => relatedProjects.value.length > 0)
 // Breadcrumbs for SEO and navigation
 const projectBreadcrumbs = computed(() => [
   { title: 'Projects', to: '/projects' },
-  { title: project.value?.title?.rendered || 'Project' }
+  { title: projectTitle.value }
 ])
 
 // SEO Meta Tags
 watchEffect(() => {
   if (project.value?.title?.rendered) {
-    const title = project.value.title.rendered
+    const title = projectTitle.value
     const description = projectDescription.value
     const canonicalUrl = `https://vp-associates.com/projects/${slug}`
 
@@ -403,7 +406,7 @@ watchEffect(() => {
 useJsonld({
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
-  name: computed(() => project.value?.title?.rendered || 'Project'),
+  name: projectTitle,
   description: projectDescription,
   creator: {
     '@type': 'LocalBusiness',
