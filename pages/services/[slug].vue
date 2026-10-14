@@ -50,7 +50,7 @@
             <h2 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6">
               About This Service
             </h2>
-            <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="service.content.rendered"></div>
+            <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-p:text-neutral-600 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:list-disc prose-ol:list-decimal max-w-none" v-html="serviceContent.html"></div>
             <div class="mt-6 pt-6 border-t border-neutral-200 social-share">
               <LazySocialShare
                 :title="serviceTitle"
@@ -173,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import { decodeHtmlEntities } from '~/utils/html'
+import { decodeHtmlEntities, stripHtml } from '~/utils/html'
 import { processSteps } from '~/utils/process'
 import { wpImageUrl } from '~/utils/wpImage'
 
@@ -406,14 +406,28 @@ const serviceTitleInSentence = computed(() =>
 )
 
 // Service metadata
-const serviceIcon = computed(() => service.value?.custom_fields?.icon?.[0] || 'mdi:cog')
-const serviceStandard = computed(() => service.value?.custom_fields?.standard?.[0] || '')
+// WordPress names these service_icon and service_standard (plain strings)
+const serviceIcon = computed(() => service.value?.custom_fields?.service_icon || 'mdi:cog')
+const serviceStandard = computed(() => decodeHtmlEntities(service.value?.custom_fields?.service_standard))
 const serviceDescription = computed(() => {
   const excerpt = service.value?.excerpt?.rendered || ''
   return decodeHtmlEntities(excerpt.replace(/<[^>]*>/g, '').trim()) ||
     `${serviceTitle.value} by VP Associates`
 })
-const serviceCapabilities = computed(() => service.value?.custom_fields?.capabilities || [])
+// WordPress has no capabilities field: each service's text ends with an
+// "Our ... services include:" heading and list. That list becomes the
+// capability cards and leaves the About column, so it isn't shown twice.
+// Text without such a list stays whole, with no capabilities section.
+const serviceContent = computed(() => {
+  const html: string = service.value?.content?.rendered || ''
+  const list = html.match(/(?:<h3[^>]*>[^<]*<\/h3>\s*)?<ul[^>]*>([\s\S]*?)<\/ul>/)
+  const capabilities = [...(list?.[1] ?? '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/g)]
+    .map(([, item]) => decodeHtmlEntities(stripHtml(item)))
+    .filter(Boolean)
+  if (!list || capabilities.length === 0) return { html, capabilities: [] as string[] }
+  return { html: html.replace(list[0], ''), capabilities }
+})
+const serviceCapabilities = computed(() => serviceContent.value.capabilities)
 const serviceBenefits = computed(() => [
   'Licensed Florida engineers',
   'Code-compliant designs',
