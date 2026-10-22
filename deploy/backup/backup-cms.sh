@@ -12,7 +12,7 @@ DEST="$DEST_ROOT/$(date +%F)"
 umask 077
 mkdir -p "$DEST"
 
-sudo -u www-data wp --path="$SITE" --skip-plugins --skip-themes db export - | gzip -9 > "$DEST/db.sql.gz.tmp"
+sudo -u wp-cms wp --path="$SITE" --skip-plugins --skip-themes db export - | gzip -9 > "$DEST/db.sql.gz.tmp"
 mv "$DEST/db.sql.gz.tmp" "$DEST/db.sql.gz"
 tar -C "$SITE/wp-content" -czf "$DEST/uploads.tgz.tmp" uploads
 mv "$DEST/uploads.tgz.tmp" "$DEST/uploads.tgz"
