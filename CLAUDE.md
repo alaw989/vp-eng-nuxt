@@ -5,7 +5,7 @@
 - **Styling**: Tailwind CSS (v6) with `@tailwindcss/typography`
 - **State**: Pinia, VueUse composables
 - **CMS**: WordPress headless via REST API (server-side 30-min cache, static fallbacks)
-- **Forms**: Formspree (`utils/contactForm.ts`); production is static, so there is no server-side form handler
+- **Forms**: `utils/contactForm.ts` posts to `/api/contact`; production is static, so nginx forwards that to the whiteboard's Laravel app, which saves and emails each enquiry (see that repo's `PRODUCTION-DEPLOY.md`)
 - **PWA**: `@vite-pwa/nuxt` with offline support and service worker
 - **Testing**: Vitest (unit), Playwright (E2E), Lighthouse CI
 - **Linting**: Husky pre-commit hooks, ESLint
@@ -31,7 +31,7 @@ npm run optimize:team      # Optimize team photos
 - 301 redirects from legacy WordPress URLs (portfolio → projects, trailing slash normalization)
 
 ## Environment
-Copy `.env.example` to `.env`. Required vars: `NUXT_PUBLIC_SITE_URL`, `NUXT_PUBLIC_WP_API_URL`, `WP_API_URL`. Optional: `NUXT_PUBLIC_FORMSPREE_ENDPOINT` (contact form; recipient is set in the Formspree dashboard), `NUXT_PUBLIC_GA_MEASUREMENT_ID` (analytics).
+Copy `.env.example` to `.env`. Required vars: `NUXT_PUBLIC_SITE_URL`, `NUXT_PUBLIC_WP_API_URL`, `WP_API_URL`. Optional: `NUXT_PUBLIC_CONTACT_ENDPOINT` (contact form; recipients are set in the whiteboard's `.env`), `NUXT_PUBLIC_GA_MEASUREMENT_ID` (analytics).
 
 ## Conventions
 - Vue 3 Composition API (`<script setup>`) — no Options API

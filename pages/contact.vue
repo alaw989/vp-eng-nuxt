@@ -29,11 +29,11 @@
             Tell us about your project and we'll be in touch.
           </p>
 
-          <!-- Without JavaScript the browser posts straight to Formspree, so the named
+          <!-- Without JavaScript the browser posts straight to the endpoint, so the named
                fields never land in a URL; with it, handleSubmit sends them instead -->
           <form
             method="post"
-            :action="formspreeEndpoint || undefined"
+            :action="contactEndpoint || undefined"
             class="space-y-6"
             @submit.prevent="handleSubmit"
           >
@@ -387,7 +387,7 @@ const { errors, touched, validateField, validateForm, clearErrors } = useFormVal
   }
 })
 
-const { formspreeEndpoint } = useRuntimeConfig().public
+const { contactEndpoint } = useRuntimeConfig().public
 
 const handleSubmit = async () => {
   submitMessage.value = ''
@@ -400,7 +400,7 @@ const handleSubmit = async () => {
 
   isSubmitting.value = true
 
-  const result = await submitContactForm(formspreeEndpoint, form)
+  const result = await submitContactForm(contactEndpoint, form)
   isSubmitting.value = false
   submitSuccess.value = result.ok
   submitMessage.value = result.message
