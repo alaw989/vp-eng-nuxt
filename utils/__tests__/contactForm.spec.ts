@@ -2,12 +2,12 @@ import { describe, it, expect, vi } from 'vitest'
 import {
   CONTACT_ERROR_MESSAGE,
   CONTACT_SUCCESS_MESSAGE,
-  formspreePayload,
+  contactPayload,
   submitContactForm,
   type ContactFormInput,
 } from '../contactForm'
 
-const ENDPOINT = 'https://formspree.io/f/test123'
+const ENDPOINT = '/api/contact'
 
 const input: ContactFormInput = {
   firstName: ' Jane ',
@@ -26,32 +26,32 @@ function jsonResponse(status: number, body: unknown) {
   })
 }
 
-describe('formspreePayload', () => {
-  it('maps the form to Formspree fields, using email as the reply-to', () => {
-    expect(formspreePayload(input)).toEqual({
-      name: 'Jane Doe',
+describe('contactPayload', () => {
+  it('sends the trimmed form fields', () => {
+    expect(contactPayload(input)).toEqual({
+      firstName: 'Jane',
+      lastName: 'Doe',
       email: 'jane@example.com',
       phone: '(813) 555-0123',
       service: 'Steel Detailing',
       message: 'We need connection design for a mezzanine.',
-      _subject: 'Website inquiry from Jane Doe',
     })
   })
 
   it('omits optional fields that were left blank', () => {
-    const payload = formspreePayload({ ...input, phone: '  ', service: '' })
+    const payload = contactPayload({ ...input, phone: '  ', service: '' })
     expect(payload).not.toHaveProperty('phone')
     expect(payload).not.toHaveProperty('service')
   })
 
-  it('never sends the honeypot field', () => {
-    expect(formspreePayload({ ...input, website: 'spam' })).not.toHaveProperty('website')
+  it('sends a filled honeypot so the server can flag it', () => {
+    expect(contactPayload({ ...input, website: 'spam' }).website).toBe('spam')
   })
 })
 
 describe('submitContactForm', () => {
   it('posts JSON to the endpoint and reports success', async () => {
-    const fetchImpl = vi.fn().mockResolvedValue(jsonResponse(200, { ok: true }))
+    const fetchImpl = vi.fn().mockResolvedValue(jsonResponse(200, { message: 'Thanks' }))
 
     const result = await submitContactForm(ENDPOINT, input, fetchImpl)
 
@@ -61,30 +61,18 @@ describe('submitContactForm', () => {
     expect(url).toBe(ENDPOINT)
     expect(init.method).toBe('POST')
     expect(init.headers).toMatchObject({ Accept: 'application/json', 'Content-Type': 'application/json' })
-    expect(JSON.parse(init.body)).toEqual(formspreePayload(input))
+    expect(JSON.parse(init.body)).toEqual(contactPayload(input))
   })
 
-  it('pretends to succeed for bots without sending anything', async () => {
-    const fetchImpl = vi.fn()
-
-    const result = await submitContactForm(ENDPOINT, { ...input, website: 'http://spam.example' }, fetchImpl)
-
-    expect(result).toEqual({ ok: true, message: CONTACT_SUCCESS_MESSAGE })
-    expect(fetchImpl).not.toHaveBeenCalled()
-  })
-
-  it('shows the messages Formspree returns for rejected submissions', async () => {
+  it('shows the message the server returns for rejected submissions', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(jsonResponse(422, {
-      errors: [
-        { field: 'email', message: 'should be an email', code: 'TYPE_EMAIL' },
-        { message: 'form is disabled', code: 'FORM_DISABLED' },
-      ],
+      message: 'The email field must be a valid email address.',
+      errors: { email: ['The email field must be a valid email address.'] },
     }))
 
     const result = await submitContactForm(ENDPOINT, input, fetchImpl)
 
-    expect(result.ok).toBe(false)
-    expect(result.message).toBe('email should be an email. form is disabled.')
+    expect(result).toEqual({ ok: false, message: 'The email field must be a valid email address.' })
   })
 
   it('asks the visitor to wait when rate limited', async () => {
@@ -97,6 +85,14 @@ describe('submitContactForm', () => {
 
   it('falls back to the phone number when the error body is unreadable', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(new Response('<html>Bad Gateway</html>', { status: 502 }))
+
+    const result = await submitContactForm(ENDPOINT, input, fetchImpl)
+
+    expect(result).toEqual({ ok: false, message: CONTACT_ERROR_MESSAGE })
+  })
+
+  it('does not show server error text to visitors', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(jsonResponse(500, { message: 'SQLSTATE[HY000] connection refused' }))
 
     const result = await submitContactForm(ENDPOINT, input, fetchImpl)
 
