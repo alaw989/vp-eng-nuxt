@@ -5,6 +5,23 @@ test.describe('Contact Page', () => {
     await page.goto('/contact');
   });
 
+  test('honeypot is rendered for bots but hidden from people', async ({ page }) => {
+    const honeypot = page.locator('form input#website');
+    await expect(honeypot).toHaveCount(1);
+    await expect(honeypot).toHaveAttribute('name', 'website');
+    await expect(honeypot).toHaveAttribute('tabindex', '-1');
+
+    // display:none lets browser-driven bots skip it, so it must be rendered but
+    // clipped to a 1px box instead. Measure the wrapper: the input inside keeps
+    // its own size and is only hidden by the wrapper's clip.
+    const wrapper = honeypot.locator('..');
+    expect(await wrapper.evaluate((el) => getComputedStyle(el).display)).not.toBe('none');
+    const box = await wrapper.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.width).toBeLessThanOrEqual(1);
+    expect(box!.height).toBeLessThanOrEqual(1);
+  });
+
   test('contact page loads', async ({ page }) => {
     // Check URL instead of title (title is globally set)
     await expect(page).toHaveURL(/\/contact/);

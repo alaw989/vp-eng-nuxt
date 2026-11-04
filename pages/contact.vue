@@ -136,18 +136,19 @@
               </p>
             </div>
 
-            <!-- Honeypot field for spam protection (hidden from users) -->
-            <div class="hidden" aria-hidden="true">
-              <label for="website" class="block text-sm font-semibold text-neutral-700 mb-2">
-                Website (leave blank)
-              </label>
+            <!-- Honeypot: off-screen, not display:none. Browser-driven bots skip
+                 fields that aren't rendered, but fill visually hidden ones, so
+                 this one catches them. The server saves a filled one and emails
+                 nobody. -->
+            <div class="sr-only" aria-hidden="true">
+              <label for="website">Website (leave blank)</label>
               <input
                 id="website"
                 v-model="form.website"
+                name="website"
                 type="text"
                 tabindex="-1"
                 autocomplete="off"
-                class="w-full px-4 py-3 border border-neutral-300 rounded-sm"
               />
             </div>
 
