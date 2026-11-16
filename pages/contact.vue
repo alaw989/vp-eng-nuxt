@@ -138,8 +138,11 @@
 
             <!-- Honeypot: off-screen, not display:none. Browser-driven bots skip
                  fields that aren't rendered, but fill visually hidden ones, so
-                 this one catches them. The server saves a filled one and emails
-                 nobody. -->
+                 this one catches them. The server saves a filled one; it emails
+                 nobody when the message has no words (the bot's bare number),
+                 otherwise it sends it to the copy address only, marked
+                 "[Possible spam]", so a real person caught by it still gets
+                 through. -->
             <div class="sr-only" aria-hidden="true">
               <label for="website">Website (leave blank)</label>
               <input
