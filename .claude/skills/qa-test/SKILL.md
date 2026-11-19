@@ -1,11 +1,11 @@
 ---
 name: qa-test
-description: Manually QA the current vp-eng-nuxt branch in a real browser (Playwright MCP) against the local dev server. Builds a test plan from the PR / branch diff / what the user describes, gets it approved, handles login, runs the ui-qa-engineer subagent, relays the report, and with --post publishes a reviewer-facing summary to the branch's GitHub PR. Usage /qa-test [PR# | "what to test"] [--retest TC-1,TC-4] [--post]
+description: Manually QA the current vp-eng-nuxt branch in a real browser (Playwright MCP) against the local dev server. Builds a test plan from the PR / branch diff / what the user describes, gets it approved, handles login, runs the ui-qa-engineer subagent, relays the report, and with --post publishes a reviewer-facing summary to the branch's GitHub PR. With --app it QAs the whole application instead: inventories every route, splits it into areas and runs smoke + user-journey cases area by area. Usage /qa-test [PR# | "what to test"] [--retest IDs] [--post] | /qa-test --app [area]
 ---
 
 # QA Test — vp-eng-nuxt (local branch)
 
-Orchestrates browser QA of the current branch. You (the parent agent) author the plan and talk to the user; the `ui-qa-engineer` subagent executes it in the browser and returns the report.
+Orchestrates browser QA of the current branch (branch mode, steps 1–8), or of the whole application (`--app`, see **Whole-app mode** at the end). You (the parent agent) author the plan and talk to the user; the `ui-qa-engineer` subagent executes it in the browser and returns the report.
 
 Adapted from the ybcolink.com `qa-test` skill. Stack: Nuxt 3 site (static in production).
 
@@ -45,7 +45,8 @@ These facts can go stale. When a line here contradicts the code, `.env` or devst
 - `PR#` — an open PR number in this repo. If missing, look for an open PR for the current branch (`gh pr list --head <branch> --state open`).
 - `"what to test"` — free text from the user describing the change or the ACs. Takes priority over anything derived.
 - `--post` — after this run, publish the reviewer summary to the PR (step 7). Use it on the final run. Without it nothing is posted.
-- `--retest TC-…` — rerun only the listed cases from the last plan (reuse it from this conversation or the evidence dir's `plan.md`).
+- `--retest <IDs>` — rerun only the listed cases from the last plan (reuse it from this conversation or the evidence dir's `plan.md`; in app mode, the run dir's `plan-<area>.md`).
+- `--app [area]` — whole-app mode: test the application as it is on the current checkout instead of a change. Optional `area` (a name from the inventory, e.g. `menu`) limits the run to that area. Ignores `PR#`/`--post`.
 
 ---
 
@@ -130,6 +131,8 @@ Spawn `ui-qa-engineer` (Agent tool, `subagent_type: "ui-qa-engineer"`, **`model:
 - The preflight side-effect line
 - Mode: `full`, or `retest` with case IDs
 
+If `ui-qa-engineer` isn't offered as an agent type (project agents load only when the session starts inside this repo), spawn a `general-purpose` agent with `model: "sonnet"` instead, and start its prompt with: read `.claude/agents/ui-qa-engineer.md` (absolute path) and follow it exactly.
+
 Do not run browser steps yourself while it works.
 
 If it returns `BLOCKED: login required`, return to step 4, then rerun.
@@ -179,3 +182,86 @@ The PR gets a short summary for the **reviewer**: what was verified, what's stil
 ### 8. Next steps
 
 Offer to fix the reported issues (do not start until the user says "go"). Follow the project's test-first rule if it has one (CLAUDE.md/AGENTS.md). After fixes, suggest `/qa-test --retest <failed IDs>`, and `--post` on the final run once the author is satisfied.
+
+---
+
+## Whole-app mode (`--app [area]`)
+
+Tests the application as it is on the current checkout, not a change: every route, every role that can reach it, and the main user journeys. Use it for a periodic exploratory pass (before a release, after a big refactor, after a dependency upgrade). It complements the Playwright e2e suite, which stays the repeatable regression check; this pass reports what the suite doesn't catch.
+
+- **Run dir:** `<your scratchpad dir>/qa/<repo>/app/<YYYY-MM-DD>-<short sha>/` (absolute path).
+- **Case IDs** are prefixed with the area code so they stay unique across areas: `MENU-S1` (smoke), `ORDER-J2` (journey), `ADMIN-A1` (access control).
+- Steps 3 (preflight), 4 (login) and the safety rules of step 2 apply unchanged.
+
+### A1. Inventory
+
+Build the inventory from the code on the current checkout (it differs between branches, so don't reuse one from another commit).
+
+**Testing a different branch than the one checked out** (e.g. `main` = production while the working copy is on a feature branch): don't switch the user's checkout or touch the devstack server. Instead `git worktree add <scratchpad>/wt/<repo>-<branch> origin/<branch>`. If `package.json`/`package-lock.json` are identical between the two (`git diff --stat <branch> HEAD -- package.json package-lock.json`), symlink the working copy's `node_modules` into it, otherwise ask before running `npm ci`. Start the project's dev command from it on a free port, in the background, logging to the scratchpad (Nuxt `npx nuxi dev --host 127.0.0.1 --port 3010`, Astro `npx astro dev --host 127.0.0.1 --port 4330`, Laravel `php artisan serve --port=8100` with `composer install` checked the same way as `node_modules`). Use that as the Base URL and its log file as the server log; stop it and remove the worktree at the end. A Laravel copy shares the working copy's `.env` and local database: copy `.env` into the worktree, and if the two branches' migrations differ, ask before running anything, since the schema may not match. Reuse `<run dir>/inventory.md` only if it exists for this same SHA and `git status` shows no changes under pages, routes or admin code.
+
+Sources, using **Page mapping** in Configuration:
+- Every page route (file-based pages, server routes that render HTML, `sitemap.xml`).
+- JSON endpoints, only through the page that calls them.
+- Admin screens (Filament resources/pages, admin route groups), each with the roles allowed in.
+- Gates/flags in Configuration: which routes they hide.
+- **Journeys:** multi-page flows a real user takes, e.g. home → menu → add to cart → checkout → order status; admin login → change a setting → see it on the storefront.
+
+Group routes into **areas** (up to 6; a small app may need only one or two), each small enough for one subagent run (about 15 cases or fewer). Write `<run dir>/inventory.md`:
+
+```
+# App inventory — <project> @ <short sha> (<branch>)
+
+## Area: <code> — <name>
+- Routes: /path (roles) …
+- Gates: … | none
+- Journeys: J1 <name>: step → step → step
+- Risky actions: <action> — never run | [safe] locally | Blocked (<why>)
+- Not browser-testable: … | none
+```
+
+Show the user the area list (one line per area: code, routes, journeys, anything gated off or blocked). If `area` was given, keep only that area.
+
+### A2. Plan per area
+
+For each selected area, write `<run dir>/plan-<code>.md` in the step 2 format, with these differences:
+- No acceptance criteria. The `## Acceptance criteria` section becomes `## Coverage`, listing the area's routes and journeys; every route and journey needs at least one case.
+- **Smoke cases (`S`)**, one per route per allowed role: the page loads (2xx/3xx, no Nuxt/Laravel error page), main content is present, no console errors, no failed requests, primary nav and in-page links/controls respond.
+- **Journey cases (`J`)**: each journey end to end. Add one negative or edge step wherever the flow validates input (empty, invalid, boundary), and a precision check wherever money or quantities are shown.
+- **Access cases (`A`)**: for each gated or role-restricted route, one case proving a guest or lower role is kept out.
+- The same side-effect rules as step 2: anything that emails a real address, submits a third-party form, charges a payment, spends paid quota or deletes pre-existing data is never run unless `[safe]` per **Side effects** in Configuration.
+
+Show all area plans in one message (compact: one line per case under each area heading; the full text is in the files). **Wait for approval.** The user may drop areas or cases.
+
+### A3. Preflight and login
+
+Run step 3 and step 4 once for the whole run, covering every gate and role across the selected areas. For an area whose gate is off locally, offer two options: test it as gate-off (a case proving it is properly hidden or 404s), or skip it. Don't flip flags yourself.
+
+### A4. Run area by area
+
+Spawn one `ui-qa-engineer` run per area, **one at a time** (there is a single Playwright browser, so no parallel runs). Use the step 5 prompt with: that area's plan verbatim, branch + short SHA instead of a ticket, and `Mode: app`. After each area, give the user a one-line progress note (area, ✅/❌/⛔ counts, worst issue). If an area returns `BLOCKED: login required` or `BLOCKED: browser unavailable`, stop and resolve it before the next area.
+
+### A5. Merge the reports
+
+Save each area report as `<run dir>/report-<code>.md`, then combine them into `<run dir>/report.md` and show it:
+
+```
+## App QA — <project> @ <short sha> (<branch>) · <date>
+
+### Summary by area
+| Area | Cases | ✅ | ❌ | ⛔ | Worst issue |
+|------|-------|----|----|----|-------------|
+
+### Issues (all areas, Blocker first)
+| # | Severity | Case | Issue | Repro | Suggested fix | Tradeoffs |
+
+### Blocked / not covered
+### Out-of-scope observations
+### Test data created
+### Evidence
+```
+
+Don't re-grade results. Nothing is posted anywhere; there is no PR in this mode. If the user wants Blocker/Major findings tracked, offer to open GitHub issues, and ask before creating any.
+
+### A6. Next steps
+
+Offer to fix the reported issues (do not start until the user says "go"), one branch per fix, test-first if the project requires it. Afterwards suggest `/qa-test --app <area> --retest <IDs>` for the failed cases, or a full `--app <area>` rerun.
