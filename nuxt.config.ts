@@ -215,6 +215,8 @@ export default defineNuxtConfig({
       '/privacy': { prerender: true, headers: { 'Cache-Control': 'public, max-age=86400' } },
       '/terms': { prerender: true, headers: { 'Cache-Control': 'public, max-age=86400' } },
       '/accessibility': { prerender: true, headers: { 'Cache-Control': 'public, max-age=86400' } },
+      // The service worker's offline fallback must exist as a precached URL
+      '/offline': { prerender: true, headers: { 'Cache-Control': 'no-cache' } },
       '/images/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
       '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
     },
@@ -291,8 +293,10 @@ export default defineNuxtConfig({
       skipWaiting: true,
       clientsClaim: true,
       cleanupOutdatedCaches: true,
-      // Navigate to fallback page for offline navigation
-      navigateFallback: '/offline',
+      // The Nuxt PWA module defaults this to "/" (SPA fallback), which would
+      // answer every unknown URL with the homepage before the navigation route
+      // below can run. Navigation fallback is handled by runtimeCaching instead.
+      navigateFallback: undefined,
       // Glob patterns for precaching app shell resources
       globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,woff2}'],
       // Banner drawings (full ~105KB, lite ~20KB gzipped) are fetched by
@@ -300,6 +304,28 @@ export default defineNuxtConfig({
       globIgnores: ['images/drawings/**'],
       // Runtime caching strategies
       runtimeCaching: [
+        // Navigations: try the network, then the cache, then the offline page
+        // only when the network actually fails. No networkTimeoutSeconds: a
+        // slow-but-online connection must not be told it is offline.
+        // Prerendered pages are served from the precache first, so this only
+        // runs for unknown URLs. A NetworkFirst navigation route is used
+        // instead of navigateFallback because navigateFallback responds with
+        // the offline page for unknown URLs even while online.
+        {
+          urlPattern: ({ request }) => request.mode === 'navigate',
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'pages-cache',
+            // Query-string variants of pages accumulate; bound the cache
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+            },
+            precacheFallback: {
+              fallbackURL: '/offline'
+            }
+          }
+        },
         // Cache WordPress API responses with network-first strategy
         {
           urlPattern: /^https:\/\/cms\.vp-associates\.com\/wp-json\/wp\/v2\/.*/i,
